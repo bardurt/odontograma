@@ -62,7 +62,15 @@ function Tooth5() {
 function drawTooth(tooth, context)
 {
     if(tooth.image !== undefined){
-        context.drawImage(tooth.image, tooth.x, tooth.y);
+        
+        // center of tooth
+        var cx = (tooth.x + tooth.width/2);
+        
+        // centerinng of the tooth in x axis
+        var dx = cx - tooth.image.naturalWidth/2;
+        
+        // draw tooth
+        context.drawImage(tooth.image, dx, tooth.y);
     }
     
     drawId(tooth, context);
@@ -457,9 +465,9 @@ function drawDienteExtruido(tooth, context)
     if (tooth.type === TYPE_UPPER) {
 
         // draw arrow head
-        context.moveTo(tooth.x + 5, tooth.y + tooth.height + 10);
+        context.moveTo(tooth.x + 10, tooth.y + tooth.height + 10);
         context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height + 15);
-        context.lineTo(tooth.x + tooth.width - 5, tooth.y + tooth.height + 10);
+        context.lineTo(tooth.x + tooth.width - 10, tooth.y + tooth.height + 10);
 
         // draw arrow line
         context.moveTo(tooth.x + tooth.width / 2 - 1, tooth.y + tooth.height + 10);
@@ -469,9 +477,9 @@ function drawDienteExtruido(tooth, context)
     } else {
 
         // draw arrow head
-        context.moveTo(tooth.x + 5, tooth.y - 10);
+        context.moveTo(tooth.x + 10, tooth.y - 10);
         context.lineTo(tooth.x + tooth.width / 2, tooth.y - 15);
-        context.lineTo(tooth.x + tooth.width - 5, tooth.y - 10);
+        context.lineTo(tooth.x + tooth.width - 10, tooth.y - 10);
 
         // draw arrow line
         context.moveTo(tooth.x + tooth.width / 2 - 1, tooth.y - 10);
@@ -505,9 +513,9 @@ function drawDienteIntruido(tooth, context)
     if (tooth.type === TYPE_UPPER) {
 
         // draw arrow head
-        context.moveTo(tooth.x + 5, tooth.y + tooth.height + 5);
+        context.moveTo(tooth.x + 10, tooth.y + tooth.height + 5);
         context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height);
-        context.lineTo(tooth.x + tooth.width - 5, tooth.y + tooth.height + 5);
+        context.lineTo(tooth.x + tooth.width - 10, tooth.y + tooth.height + 5);
 
         // draw arrow line
         context.moveTo(tooth.x + tooth.width / 2 - 1, tooth.y + tooth.height + 5);
@@ -517,9 +525,9 @@ function drawDienteIntruido(tooth, context)
     } else {
 
         // draw arrow head
-        context.moveTo(tooth.x + 5, tooth.y - 5);
+        context.moveTo(tooth.x + 10, tooth.y - 5);
         context.lineTo(tooth.x + tooth.width / 2, tooth.y);
-        context.lineTo(tooth.x + tooth.width - 5, tooth.y - 5);
+        context.lineTo(tooth.x + tooth.width - 10, tooth.y - 5);
 
         // draw arrow line
         context.moveTo(tooth.x + tooth.width / 2 - 1, tooth.y - 5);
@@ -657,7 +665,7 @@ function drawPernoMunon(tooth, context)
        
        // draw line
        context.moveTo(tooth.x + tooth.width / 2, tooth.y + tooth.height  - 8 - size);
-       context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height - 8 - 30);
+       context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height - 8 - 50);
 
     } 
     else
@@ -667,7 +675,7 @@ function drawPernoMunon(tooth, context)
        
        // draw line
        context.moveTo(tooth.x + tooth.width / 2, tooth.y + 8 + size);
-       context.lineTo(tooth.x + tooth.width / 2, tooth.y + 8 + 30);
+       context.lineTo(tooth.x + tooth.width / 2, tooth.y + 8 + 50);
     }
 
 

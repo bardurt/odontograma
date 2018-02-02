@@ -9,7 +9,6 @@
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
 
-
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/tooth.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/renderer.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/odontogramaGenerator.js'></script>");
@@ -57,10 +56,10 @@ function checkCollision(obj, event)
 
     var collision = false;
 
-    if (x >= obj.x) {
-        if (y >= obj.y) {
-            if (x <= width) {
-                if (y <= height) {
+    if (x > obj.x) {
+        if (y > obj.y) {
+            if (x < width) {
+                if (y < height) {
                     collision = true;
                     console.log("Tooth surfaces " + obj.surfaces);
                 }
@@ -201,8 +200,6 @@ function onButtonClick(event)
         draw();
     }
 }
-
-
 
 Callback = function(val){
     if(val){

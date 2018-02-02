@@ -11,9 +11,11 @@
 
 //TODO : create a pre loader of the images
 
+// variable for how many images have been loaded
 var currentLoad = 0;
 
-var ODONTTYPE; 
+// variable for how many teeths are in array
+var arrayCount = 0;
 
 var ADULT = 32;
 
@@ -35,10 +37,10 @@ function prepareOdontogramaAdult() {
     
     mouth = new Array();
 
-    var count = 0;
+    arrayCount = 0;
 
     // start of first tooth
-    var x = 6;
+    var x = 0;
 
     for (var i = 18; i > 10; i--) {
 
@@ -67,9 +69,9 @@ function prepareOdontogramaAdult() {
 
         console.log("Image loaded");
 
-        mouth[count] = tooth;
+        mouth[arrayCount] = tooth;
 
-        count++;
+        arrayCount++;
 
     }
 
@@ -98,8 +100,8 @@ function prepareOdontogramaAdult() {
 
         x += tooth.width + TOOTH_PADDING;
 
-        mouth[count] = tooth;
-        count++;
+        mouth[arrayCount] = tooth;
+        arrayCount++;
 
     }
 
@@ -133,9 +135,9 @@ function prepareOdontogramaAdult() {
 
         x += tooth.width + TOOTH_PADDING;
 
-        mouth[count] = tooth;
+        mouth[arrayCount] = tooth;
 
-        count++;
+        arrayCount++;
 
     }
 
@@ -164,9 +166,9 @@ function prepareOdontogramaAdult() {
 
         x += tooth.width + TOOTH_PADDING;
 
-        mouth[count] = tooth;
+        mouth[arrayCount] = tooth;
 
-        count++;
+        arrayCount++;
 
     }
 
@@ -180,12 +182,11 @@ function prepareOdontogramaAdult() {
  */
 function prepareOdontogramaAdult(array) {
 
-    var ODONTTYPE = ADULT;
 
-    var count = 0;
+    arrayCount = 0;
 
     // start of first tooth
-    var x = 6;
+    var x = 0;
 
     for (var i = 18; i > 10; i--) {
 
@@ -219,9 +220,9 @@ function prepareOdontogramaAdult(array) {
 
 
 
-        array[count] = tooth;
+        array[arrayCount] = tooth;
 
-        count++;
+        arrayCount++;
 
     }
 
@@ -255,8 +256,8 @@ function prepareOdontogramaAdult(array) {
 
         x += tooth.width + TOOTH_PADDING;
 
-        array[count] = tooth;
-        count++;
+        array[arrayCount] = tooth;
+        arrayCount++;
 
     }
 
@@ -295,9 +296,9 @@ function prepareOdontogramaAdult(array) {
 
         x += tooth.width + TOOTH_PADDING;
 
-        array[count] = tooth;
+        array[arrayCount] = tooth;
 
-        count++;
+        arrayCount++;
 
     }
 
@@ -330,11 +331,11 @@ function prepareOdontogramaAdult(array) {
         tooth.height = imgHeight;
         tooth.type = TYPE_LOWER;
 
-        array[count] = tooth;
+        array[arrayCount] = tooth;
         x += tooth.width + TOOTH_PADDING;
 
 
-        count++;
+        arrayCount++;
 
     }
 
@@ -347,7 +348,8 @@ function updateLoad() {
 
     console.log("Images " + currentLoad + " loaded");
     
-    if(currentLoad >= 32){
+    // notify when all images have been loaded
+    if(currentLoad >= arrayCount){
         Callback(true);
     }
 }
