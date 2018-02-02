@@ -125,52 +125,52 @@ function onButtonClick(event)
 {
     console.log("key " + event.key);
 
-    if (event.key === "f")
+    if (event.key === "1")
     {
         selectedHallazgo = "1";
     }
     
-    if (event.key === "a")
+    if (event.key === "2")
     {
         selectedHallazgo = "2";
     } 
     
-    if (event.key === "p")
+    if (event.key === "3")
     {
         selectedHallazgo = "3";
     } 
     
-    if (event.key === "m")
+    if (event.key === "4")
     {
         selectedHallazgo = "4";
     } 
     
-    if(event.key === "r")
+    if(event.key === "5")
     {
         selectedHallazgo = "5";
     }
     
-    if(event.key === "e")
+    if(event.key === "6")
     {
         selectedHallazgo = "6";
     }
     
-    if(event.key === "i")
+    if(event.key === "7")
     {
         selectedHallazgo = "7";
     }
     
-    if(event.key === "t")
+    if(event.key === "8")
     {
         selectedHallazgo = "8";
     }
     
-    if(event.key === "r")
+    if(event.key === "9")
     {
         selectedHallazgo = "9";
     }
     
-    if(event.key === "g")
+    if(event.key === "0")
     {
         selectedHallazgo = "10";
     }
@@ -178,6 +178,11 @@ function onButtonClick(event)
     if(event.key === "q")
     {
         selectedHallazgo = "11";
+    }
+    
+    if(event.key === "w")
+    {
+        selectedHallazgo = "12";
     }
     
     if (event.key === "h")

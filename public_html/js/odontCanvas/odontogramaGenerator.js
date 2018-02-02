@@ -20,7 +20,7 @@ var arrayCount = 0;
 var ADULT = 32;
 
 var base = 20;
-var seperator = 250;
+var seperator = 210;
 var imgWidth = 36;
 var imgHeight = 90;
 
@@ -340,7 +340,6 @@ function prepareOdontogramaAdult(array) {
     }
 
 }
-
 
 function updateLoad() {
 

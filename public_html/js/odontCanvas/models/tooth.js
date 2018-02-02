@@ -237,6 +237,10 @@ function renderDamage(tooth, context)
             drawPernoMunon(tooth, context);
         }
 
+        if(tooth.damages[i] === "12")
+        {
+            drawDienteEnErupcion(tooth, context);
+        }
     }
 }
 
@@ -351,7 +355,7 @@ function drawPulpar(tooth, context)
 
     }
 
-    context.lineWidth = 2;
+    context.lineWidth = 3;
 
     context.strokeStyle = COLOR_BLUE;
 
@@ -686,6 +690,36 @@ function drawPernoMunon(tooth, context)
     context.stroke();
     context.restore();
     
+}
+
+function drawDienteEnErupcion(tooth, context)
+{
+    context.beginPath();
+    
+    var pad = 2;
+    
+    if (tooth.type === TYPE_UPPER)
+    {
+       // draw arrow head
+       context.moveTo(tooth.x + pad , tooth.y + tooth.height - 6);
+       context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height);
+       context.lineTo(tooth.x + tooth.width - pad, tooth.y + tooth.height - 6);
+
+    } 
+    else
+    {
+        // draw arrow head
+       context.moveTo(tooth.x + pad, tooth.y + 6);
+       context.lineTo(tooth.x + tooth.width / 2, tooth.y );
+       context.lineTo(tooth.x + tooth.width - pad, tooth.y + 6);
+    }
+    
+    context.lineWidth = 3;
+
+    context.strokeStyle = COLOR_BLUE;
+
+    context.stroke();
+    context.restore();
 }
 
 /**
