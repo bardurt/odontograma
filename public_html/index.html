@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+            }
+        </style>
+        <script src="js/odontCanvas/engine.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="600" height="400"></canvas>
+        <script>
+            var canvas = document.getElementById('myCanvas');
+         
+            setCanvas(canvas);
+            
+            prepare();
+            
+            draw();
+            
+            canvas.addEventListener('mousedown', function(event) {
+               onMouseClick(event);
+            }, false);
+            
+            window.addEventListener('keydown', function(event){
+                onButtonClick(event);
+           }, false);
+            
+        </script>
+    </body>
+</html>      
