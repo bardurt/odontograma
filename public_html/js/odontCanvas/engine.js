@@ -19,17 +19,17 @@ document.writeln("<script type='text/javascript' src='js/odontCanvas/colors.js'>
 
 var selectedHallazgo = "0";
 
-var mouth;
-
-
+var mouth = new Array();
 
 function setCanvas(canvas) {
     init(canvas);
+    
+    load(canvas);
 }
 
 function prepare() {
 
-    mouth = prepareOdontogramaAdult();
+    prepareOdontogramaAdult(mouth);
 }
 
 /**
@@ -94,12 +94,27 @@ function onMouseClick(event)
     }
 
     if (shouldUpdate) {
-        redraw();
+        draw();
     }
 
     console.log("X " + event.clientX);
     console.log("Y " + event.clientX);
 
+}
+
+/*'
+ * Method to reset the odontograma
+ * @returns {undefined}
+ */
+function reset()
+{
+    
+    for(var i = 0; i < mouth.length; i++)
+    {
+        mouth[i].damages.length = 0;
+    }
+    
+    draw();
 }
 
 /**
@@ -171,6 +186,11 @@ function onButtonClick(event)
         selectedHallazgo = "0";
     } 
     
+    if (event.key === "z")
+    {
+        selectedHallazgo = "0";
+        reset();
+    } 
     
     if(event.key === "d"){
         
@@ -178,6 +198,16 @@ function onButtonClick(event)
         
         console.log("DEBUG: " + DEBUG);
         
-        redraw();
+        draw();
+    }
+}
+
+
+
+Callback = function(val){
+    if(val){
+        draw();
+        
+        console.log("Will draw mouoth");
     }
 }

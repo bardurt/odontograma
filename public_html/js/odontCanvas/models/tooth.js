@@ -61,7 +61,10 @@ function Tooth5() {
  */
 function drawTooth(tooth, context)
 {
-    context.drawImage(tooth.image, tooth.x, tooth.y);
+    if(tooth.image !== undefined){
+        context.drawImage(tooth.image, tooth.x, tooth.y);
+    }
+    
     drawId(tooth, context);
 
 

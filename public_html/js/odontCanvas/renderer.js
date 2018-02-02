@@ -25,6 +25,10 @@ function init(canvas) {
     height = canvas.height;
 }
 
+function load(canvas)
+{
+    context.fillText("Loading...", width/2, height/2);
+}
 
 /**
  * Method to draw a damage on a tooth
@@ -44,7 +48,9 @@ function drawDamage(tooth, context)
  */
 function render(mouth)
 {
-
+    // clear
+    context.clearRect(0, 0, width, height);
+    
     // draw the teeth
     for (var i = 0; i < mouth.length; i++) {
 
@@ -65,20 +71,4 @@ function render(mouth)
         }
     }
 
-}
-
-
-/**
- * Method to redraw / update the canvas
- * this method should be called when there are updates in 
- * the odontograma
- * @returns {undefined}
- */
-function redraw()
-{
-
-    console.log("Redrawing");
-
-    context.clearRect(0, 0, width, height);
-    draw();
 }

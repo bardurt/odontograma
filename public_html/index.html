@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <style>
             body {
                 margin: 0px;
@@ -16,18 +18,16 @@
          
             setCanvas(canvas);
             
-            prepare();
-            
-            draw();
-            
             canvas.addEventListener('mousedown', function(event) {
                onMouseClick(event);
             }, false);
             
             window.addEventListener('keydown', function(event){
                 onButtonClick(event);
-           }, false);
+            }, false);
             
+            prepare();
+          
         </script>
     </body>
 </html>      
