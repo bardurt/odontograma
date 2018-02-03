@@ -9,12 +9,14 @@
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
 
+document.writeln("<script type='text/javascript' src='js/odontCanvas/models/rect.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/tooth.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/renderer.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/odontogramaGenerator.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/const.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/collisionHandler.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/colors.js'></script>");
+
 
 var selectedHallazgo = "0";
 

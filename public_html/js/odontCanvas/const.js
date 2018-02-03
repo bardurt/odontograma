@@ -14,4 +14,4 @@ var DEBUG = false;
 
 var TOOTH_PADDING = 0;
 
-var COLOR_RED = "#"
+var RECT_DIMEN = 10;

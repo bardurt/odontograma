@@ -24,6 +24,7 @@ function Tooth()
     this.surfaces = 0;
     this.highlight = false;
     this.damages = Array();
+    this.checkBoxes = Array();
 }
 
 /**
@@ -53,6 +54,214 @@ function Tooth5() {
     return t;
 }
 
+function create4Surfaces(tooth)
+{
+    var width = RECT_DIMEN;
+
+    var startX = tooth.x + 10;
+    
+    if (tooth.type === TYPE_UPPER) {
+
+        var rect1 = new Rect();
+
+        rect1.width = width;
+        rect1.height = width;
+        rect1.x = startX;
+        rect1.y = tooth.y + tooth.height + width;
+
+        tooth.checkBoxes.push(rect1);
+
+        var rect2 = new Rect();
+
+        rect2.width = width;
+        rect2.height = width;
+        rect2.x = startX + width;
+        rect2.y = tooth.y + tooth.height + width;
+
+        tooth.checkBoxes.push(rect2);
+
+        var rect3 = new Rect();
+
+        rect3.width = width;
+        rect3.height = width;
+        rect3.x = startX + 5;
+        rect3.y = tooth.y + tooth.height;
+
+        tooth.checkBoxes.push(rect3);
+        
+        var rect4 = new Rect();
+
+        rect4.width = width;
+        rect4.height = width;
+        rect4.x = startX + 5;
+        rect4.y = tooth.y + tooth.height + width*2;
+
+        tooth.checkBoxes.push(rect4);
+
+    }
+    else
+    {
+         var rect1 = new Rect();
+
+        rect1.width = width;
+        rect1.height = width;
+        rect1.x = startX;
+        rect1.y = tooth.y - width*2;
+
+        tooth.checkBoxes.push(rect1);
+
+        var rect2 = new Rect();
+
+        rect2.width = width;
+        rect2.height = width;
+        rect2.x = startX + width;
+        rect2.y = tooth.y - width*2;
+
+        tooth.checkBoxes.push(rect2);
+
+        var rect3 = new Rect();
+
+        rect3.width = width;
+        rect3.height = width;
+        rect3.x = startX + 5;
+        rect3.y = tooth.y - width;
+
+        tooth.checkBoxes.push(rect3);
+        
+        var rect4 = new Rect();
+
+        rect4.width = width;
+        rect4.height = width;
+        rect4.x = startX + 5;
+        rect4.y = tooth.y - width*3;
+
+        tooth.checkBoxes.push(rect4);
+        
+    }
+
+
+}
+
+
+function create5Surfaces(tooth)
+{
+    var width = RECT_DIMEN;
+
+    var startX = tooth.x + 5;
+
+    console.log("Start X " + startX);
+
+    if (tooth.type === TYPE_UPPER) {
+
+        var rect1 = new Rect();
+
+        rect1.width = width;
+        rect1.height = width;
+        rect1.x = startX;
+        rect1.y = tooth.y + tooth.height + width;
+
+        tooth.checkBoxes.push(rect1);
+
+        var rect2 = new Rect();
+
+        rect2.width = width;
+        rect2.height = width;
+        rect2.x = startX + width;
+        rect2.y = tooth.y + tooth.height + width;
+
+        tooth.checkBoxes.push(rect2);
+
+        var rect3 = new Rect();
+
+        rect3.width = width;
+        rect3.height = width;
+        rect3.x = startX + width * 2;
+        rect3.y = tooth.y + tooth.height + width;
+
+        tooth.checkBoxes.push(rect3);
+
+        var rect4 = new Rect();
+
+        rect4.width = width;
+        rect4.height = width;
+        rect4.x = startX + width;
+        rect4.y = tooth.y + tooth.height;
+
+        tooth.checkBoxes.push(rect4);
+
+        var rect5 = new Rect();
+
+        rect5.width = width;
+        rect5.height = width;
+        rect5.x = startX + width;
+        rect5.y = tooth.y + tooth.height + width * 2;
+
+        tooth.checkBoxes.push(rect5);
+    }
+    else
+    {
+        var rect1 = new Rect();
+
+        rect1.width = width;
+        rect1.height = width;
+        rect1.x = startX;
+        rect1.y = tooth.y - width*2;
+
+        tooth.checkBoxes.push(rect1);
+
+        var rect2 = new Rect();
+
+        rect2.width = width;
+        rect2.height = width;
+        rect2.x = startX + width;
+        rect2.y = tooth.y - width*2;
+
+        tooth.checkBoxes.push(rect2);
+
+        var rect3 = new Rect();
+
+        rect3.width = width;
+        rect3.height = width;
+        rect3.x = startX + width * 2;
+        rect3.y = tooth.y - width*2;
+
+        tooth.checkBoxes.push(rect3);
+
+        var rect4 = new Rect();
+
+        rect4.width = width;
+        rect4.height = width;
+        rect4.x = startX + width;
+        rect4.y = tooth.y - width;
+
+        tooth.checkBoxes.push(rect4);
+
+        var rect5 = new Rect();
+
+        rect5.width = width;
+        rect5.height = width;
+        rect5.x = startX + width;
+        rect5.y = tooth.y - width * 3;
+
+        tooth.checkBoxes.push(rect5);
+        
+    }
+
+}
+
+function createSurfaces(tooth)
+{
+
+    if (tooth.surfaces === 4)
+    {
+        create4Surfaces(tooth);
+    } else
+    {
+        create5Surfaces(tooth);
+    }
+
+}
+
 /**
  * Method to draw a tooth on canvas
  * @param {type} tooth to draw
@@ -61,20 +270,21 @@ function Tooth5() {
  */
 function drawTooth(tooth, context)
 {
-    if(tooth.image !== undefined){
-        
+    if (tooth.image !== undefined) {
+
         // center of tooth
-        var cx = (tooth.x + tooth.width/2);
-        
+        var cx = (tooth.x + tooth.width / 2);
+
         // centerinng of the tooth in x axis
-        var dx = cx - tooth.image.naturalWidth/2;
-        
+        var dx = cx - tooth.image.naturalWidth / 2;
+
         // draw tooth
         context.drawImage(tooth.image, dx, tooth.y);
     }
-    
+
     drawId(tooth, context);
 
+    drawCheckBoxes(tooth, context);
 
     if (DEBUG) {
         context.beginPath();
@@ -129,6 +339,22 @@ function drawId(tooth, context)
     context.strokeStyle = '#000000';
     context.stroke();
     context.restore();
+
+}
+
+function drawCheckBoxes(tooth, context)
+{
+    for (var i = 0; i < tooth.checkBoxes.length; i++)
+    {
+        context.beginPath();
+
+        context.rect(tooth.checkBoxes[i].x,
+                tooth.checkBoxes[i].y,
+                tooth.checkBoxes[i].width,
+                tooth.checkBoxes[i].height);
+        context.stroke();
+
+    }
 
 }
 
@@ -227,17 +453,17 @@ function renderDamage(tooth, context)
             drawRemanenteRadicular(tooth, context);
         }
 
-        if (tooth.damages[i] === "10") 
+        if (tooth.damages[i] === "10")
         {
             drawGiroversion(tooth, context);
         }
-        
-        if(tooth.damages[i] === "11")
+
+        if (tooth.damages[i] === "11")
         {
             drawPernoMunon(tooth, context);
         }
 
-        if(tooth.damages[i] === "12")
+        if (tooth.damages[i] === "12")
         {
             drawDienteEnErupcion(tooth, context);
         }
@@ -614,7 +840,7 @@ function drawGiroversion(tooth, context)
 {
 
     context.beginPath();
-    
+
     var cx = tooth.x + tooth.width / 2;
     var cy = tooth.y + tooth.height;
     var radius = (tooth.width - 10) / 2;
@@ -624,24 +850,23 @@ function drawGiroversion(tooth, context)
 
         // draw lower line
         context.arc(cx, cy, radius, Math.PI, 2 * Math.PI, true);
-        
+
         context.moveTo(tooth.x + tooth.width - 3, tooth.y + tooth.height);
         context.lineTo(tooth.x + tooth.width - 11, tooth.y + tooth.height);
-        
+
         context.moveTo(tooth.x + tooth.width - 3, tooth.y + tooth.height);
         context.lineTo(tooth.x + tooth.width - 3, tooth.y + tooth.height + 8);
 
-    } 
-    else
+    } else
     {
         cy = tooth.y;
         // draw lower line
         context.arc(cx, cy, radius, Math.PI, 2 * Math.PI, false);
-        
-          
+
+
         context.moveTo(tooth.x + 3, tooth.y);
         context.lineTo(tooth.x + 11, tooth.y);
-        
+
         context.moveTo(tooth.x + 3, tooth.y);
         context.lineTo(tooth.x + 3, tooth.y - 8);
     }
@@ -659,27 +884,26 @@ function drawGiroversion(tooth, context)
 function drawPernoMunon(tooth, context)
 {
     context.beginPath();
-    
+
     var size = tooth.width - 16;
 
     if (tooth.type === TYPE_UPPER)
     {
-       // draw rectangle
-       context.rect(tooth.x + 8, tooth.y + tooth.height - 8 - size, size, size);
-       
-       // draw line
-       context.moveTo(tooth.x + tooth.width / 2, tooth.y + tooth.height  - 8 - size);
-       context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height - 8 - 50);
+        // draw rectangle
+        context.rect(tooth.x + 8, tooth.y + tooth.height - 8 - size, size, size);
 
-    } 
-    else
+        // draw line
+        context.moveTo(tooth.x + tooth.width / 2, tooth.y + tooth.height - 8 - size);
+        context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height - 8 - 50);
+
+    } else
     {
         // draw rectangle
-       context.rect(tooth.x + 8, tooth.y + 8, size, size);
-       
-       // draw line
-       context.moveTo(tooth.x + tooth.width / 2, tooth.y + 8 + size);
-       context.lineTo(tooth.x + tooth.width / 2, tooth.y + 8 + 50);
+        context.rect(tooth.x + 8, tooth.y + 8, size, size);
+
+        // draw line
+        context.moveTo(tooth.x + tooth.width / 2, tooth.y + 8 + size);
+        context.lineTo(tooth.x + tooth.width / 2, tooth.y + 8 + 50);
     }
 
 
@@ -689,31 +913,30 @@ function drawPernoMunon(tooth, context)
 
     context.stroke();
     context.restore();
-    
+
 }
 
 function drawDienteEnErupcion(tooth, context)
 {
     context.beginPath();
-    
+
     var pad = 2;
-    
+
     if (tooth.type === TYPE_UPPER)
     {
-       // draw arrow head
-       context.moveTo(tooth.x + pad , tooth.y + tooth.height - 6);
-       context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height);
-       context.lineTo(tooth.x + tooth.width - pad, tooth.y + tooth.height - 6);
+        // draw arrow head
+        context.moveTo(tooth.x + pad, tooth.y + tooth.height - 6);
+        context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height);
+        context.lineTo(tooth.x + tooth.width - pad, tooth.y + tooth.height - 6);
 
-    } 
-    else
+    } else
     {
         // draw arrow head
-       context.moveTo(tooth.x + pad, tooth.y + 6);
-       context.lineTo(tooth.x + tooth.width / 2, tooth.y );
-       context.lineTo(tooth.x + tooth.width - pad, tooth.y + 6);
+        context.moveTo(tooth.x + pad, tooth.y + 6);
+        context.lineTo(tooth.x + tooth.width / 2, tooth.y);
+        context.lineTo(tooth.x + tooth.width - pad, tooth.y + 6);
     }
-    
+
     context.lineWidth = 3;
 
     context.strokeStyle = COLOR_BLUE;

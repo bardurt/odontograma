@@ -21,159 +21,11 @@ var ADULT = 32;
 
 var base = 20;
 var seperator = 210;
-var imgWidth = 36;
+var imgWidth = 40;
 var imgHeight = 90;
 
 var Callback;
 
-/**
- * Method to prepare the layout for an odontograma
- * for adult person
- * @returns {Array|mouth} list of teeth for odontograma
- */
-function prepareOdontogramaAdult() {
-
-
-    
-    mouth = new Array();
-
-    arrayCount = 0;
-
-    // start of first tooth
-    var x = 0;
-
-    for (var i = 18; i > 10; i--) {
-
-        var tooth;
-
-        if (i > 13)
-        {
-            tooth = Tooth5();
-        } else
-        {
-            tooth = Tooth4();
-        }
-
-        var image = new Image();
-        image.src = "images/dentadura-sup-" + i + ".png";
-
-        tooth.id = i;
-        tooth.image = image;
-        tooth.x = x;
-        tooth.y = base;
-        tooth.width = imgWidth;
-        tooth.height = imgHeight;
-        tooth.type = TYPE_UPPER;
-
-        x += tooth.width + TOOTH_PADDING;
-
-        console.log("Image loaded");
-
-        mouth[arrayCount] = tooth;
-
-        arrayCount++;
-
-    }
-
-    for (var i = 21; i < 29; i++) {
-
-        var tooth;
-
-        if (i > 23)
-        {
-            tooth = Tooth4();
-        } else
-        {
-            tooth = Tooth5();
-        }
-
-        var image = new Image();
-        image.src = "images/dentadura-sup-" + i + ".png";
-
-        tooth.id = i;
-        tooth.image = image;
-        tooth.x = x;
-        tooth.y = base;
-        tooth.width = imgWidth;
-        tooth.height = imgHeight;
-        tooth.type = TYPE_UPPER;
-
-        x += tooth.width + TOOTH_PADDING;
-
-        mouth[arrayCount] = tooth;
-        arrayCount++;
-
-    }
-
-    // start position of first 
-    var x = 0;
-
-    for (var i = 48; i > 40; i--) {
-
-        var tooth;
-
-        if (i < 43)
-        {
-            tooth = Tooth4();
-
-        } else
-        {
-            tooth = Tooth5();
-        }
-
-
-        var image = new Image();
-        image.src = "images/dentadura-inf-" + i + ".png";
-
-        tooth.id = i;
-        tooth.image = image;
-        tooth.x = x;
-        tooth.y = base + seperator;
-        tooth.width = imgWidth;
-        tooth.height = imgHeight;
-        tooth.type = TYPE_LOWER;
-
-        x += tooth.width + TOOTH_PADDING;
-
-        mouth[arrayCount] = tooth;
-
-        arrayCount++;
-
-    }
-
-    for (var i = 31; i < 39; i++) {
-
-        var tooth;
-
-        if (i < 34)
-        {
-            tooth = Tooth4();
-        } else
-        {
-            tooth = Tooth5();
-        }
-
-        var image = new Image();
-        image.src = "images/dentadura-inf-" + i + ".png";
-
-        tooth.id = i;
-        tooth.image = image;
-        tooth.x = x;
-        tooth.y = base + seperator;
-        tooth.width = imgWidth;
-        tooth.height = imgHeight;
-        tooth.type = TYPE_LOWER;
-
-        x += tooth.width + TOOTH_PADDING;
-
-        mouth[arrayCount] = tooth;
-
-        arrayCount++;
-
-    }
-
-    return mouth;
-}
 
 /**
  * Method to prepare the layout for an odontograma
@@ -223,6 +75,8 @@ function prepareOdontogramaAdult(array) {
         array[arrayCount] = tooth;
 
         arrayCount++;
+        
+        createSurfaces(tooth);
 
     }
 
@@ -230,7 +84,7 @@ function prepareOdontogramaAdult(array) {
 
         var tooth;
 
-        if (i > 23)
+        if (i < 24)
         {
             tooth = Tooth4();
         } else
@@ -257,7 +111,10 @@ function prepareOdontogramaAdult(array) {
         x += tooth.width + TOOTH_PADDING;
 
         array[arrayCount] = tooth;
+        
         arrayCount++;
+        
+        createSurfaces(tooth);
 
     }
 
@@ -268,7 +125,7 @@ function prepareOdontogramaAdult(array) {
 
         var tooth;
 
-        if (i < 43)
+        if (i < 44)
         {
             tooth = Tooth4();
 
@@ -299,6 +156,8 @@ function prepareOdontogramaAdult(array) {
         array[arrayCount] = tooth;
 
         arrayCount++;
+        
+        createSurfaces(tooth);
 
     }
 
@@ -334,8 +193,9 @@ function prepareOdontogramaAdult(array) {
         array[arrayCount] = tooth;
         x += tooth.width + TOOTH_PADDING;
 
-
         arrayCount++;
+        
+        createSurfaces(tooth);
 
     }
 

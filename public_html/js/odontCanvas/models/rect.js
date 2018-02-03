@@ -1,8 +1,8 @@
 
-function Rect(x, y)
+function Rect()
 {
-    this.x = x;
-    this.y = y;
+    this.x = 0;
+    this.y = 0;
     this.width = 0;
     this.height = 0;
 }
