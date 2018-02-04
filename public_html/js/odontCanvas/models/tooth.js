@@ -9,8 +9,6 @@
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
 
-
-
 var TYPE_UPPER = 0;
 var TYPE_LOWER = 1;
 
@@ -893,6 +891,15 @@ Tooth.prototype.drawDienteEnErupcion = function(context)
         context.moveTo(this.x + pad, this.y + this.height - 6);
         context.lineTo(this.x + this.width / 2, this.y + this.height);
         context.lineTo(this.x + this.width - pad, this.y + this.height - 6);
+        
+        // draw zig zag
+        context.moveTo(this.x + this.width / 2, this.y + this.height);
+        context.lineTo(this.x + this.width / 2, this.y + this.height - 6);
+        context.lineTo(this.x + pad*3, this.y + this.height - 12);
+        context.lineTo(this.x + this.width - pad*3, this.y + this.height - 24);
+        context.lineTo(this.x + pad*3, this.y + this.height - 36);
+        context.lineTo(this.x + this.width - pad*3, this.y + this.height - 48);
+        context.lineTo(this.x + pad*3, this.y + this.height - 60);
 
     } else
     {
@@ -900,6 +907,15 @@ Tooth.prototype.drawDienteEnErupcion = function(context)
         context.moveTo(this.x + pad, this.y + 6);
         context.lineTo(this.x + this.width / 2, this.y);
         context.lineTo(this.x + this.width - pad, this.y + 6);
+        
+          // draw zig zag
+        context.moveTo(this.x + this.width / 2, this.y);
+        context.lineTo(this.x + this.width / 2, this.y +  6);
+        context.lineTo(this.x + this.width - pad*3, this.y + 12);
+        context.lineTo(this.x + pad*3, this.y + 24);
+        context.lineTo(this.x + this.width - pad*3, this.y + 36);
+        context.lineTo(this.x + pad*3, this.y + 48);
+        context.lineTo(this.x + this.width - pad*3, this.y + 60);
     }
 
     context.lineWidth = 3;

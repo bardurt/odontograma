@@ -9,10 +9,18 @@
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
 
+function CollisionHandler()
+{
+    
+}
 
-
-
-function handleCollision(tooth, argument)
+/**
+ * Method to handle a collision with a tooth
+ * @param {type} tooth
+ * @param {type} argument
+ * @returns {undefined}
+ */
+CollisionHandler.prototype.handleCollision = function(tooth, argument)
 {
 
     console.log("HandleCollision("+ tooth.id +"," + argument +")");
@@ -27,9 +35,15 @@ function handleCollision(tooth, argument)
         tooth.toggleDamage(argument);
     }
 
-}
+};
 
-function handleCollisionCheckBox(checkBox, argument)
+/**
+ * Method to handle a collision with a checkbox
+ * @param {type} checkBox
+ * @param {type} argument
+ * @returns {undefined}
+ */
+CollisionHandler.prototype.handleCollisionCheckBox = function(checkBox, argument)
 {
     console.log("handleCollisionCheckBox(" + checkBox +", " + argument+ ")");
 
@@ -57,4 +71,4 @@ function handleCollisionCheckBox(checkBox, argument)
         }
     }
 
-}
+};

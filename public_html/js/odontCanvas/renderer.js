@@ -9,52 +9,51 @@
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
 
+function Renderer()
+{
+    this.context;
+    this.width = 0;
+    this.height = 0;
+}
 
-var context;
-var width;
-var height;
+
+Renderer.prototype.load = function()
+{
+    this.context.fillText("Loading...", this.width/2, this.height/2);
+};
 
 /**
  * Method to initialize the renderer for drawing the odontograma
  * @param {type} canvas the canvas to draw on
  * @returns {undefined}
  */
-function init(canvas) {
-    context = canvas.getContext('2d');
-    width = canvas.width;
-    height = canvas.height;
-}
+Renderer.prototype.init = function(canvas) {
+    this.context = canvas.getContext('2d');
+    this.width = canvas.width;
+    this.height = canvas.height;
+    
+    console.log("Renderer init, context = " + this.context);
+    
+    this.load();
+};
 
-function load(canvas)
-{
-    context.fillText("Loading...", width/2, height/2);
-}
-
-/**
- * Method to draw a damage on a tooth
- * @param {type} tooth
- * @param {type} context
- * @returns {undefined}
- */
-function drawDamage(tooth, context)
-{
-    renderDamage(tooth, context);
-}
 
 /**
  * Method to render odontograma
  * @param {type} mouth
  * @returns {undefined}
  */
-function render(mouth)
+Renderer.prototype.render = function(mouth)
 {
+    console.log("Renderer render, context = " +  this.context);
+    
     // clear
-    context.clearRect(0, 0, width, height);
+    this.context.clearRect(0, 0, this.width, this.height);
     
     // draw the teeth
     for (var i = 0; i < mouth.length; i++) {
 
-        mouth[i].render(context);
+        mouth[i].render( this.context);
     }
 
-}
+};

@@ -16,18 +16,20 @@
         <script>
             var canvas = document.getElementById('canvas');
          
-            setCanvas(canvas);
+            var engine = new Engine();
+           
+            engine.setCanvas(canvas);
+            
+            engine.init();
             
             canvas.addEventListener('mousedown', function(event) {
-               onMouseClick(event);
+               engine.onMouseClick(event);
             }, false);
             
             window.addEventListener('keydown', function(event){
-                onButtonClick(event);
+                engine.onButtonClick(event);
             }, false);
             
-            prepare();
-          
         </script>
     </body>
 </html>      

@@ -11,31 +11,50 @@
 
 //TODO : create a pre loader of the images
 
-// variable for how many images have been loaded
-var currentLoad = 0;
 
-// variable for how many teeths are in array
-var arrayCount = 0;
 
-var ADULT = 32;
+function OdontogramaGenerator()
+{
+    // variable for how many images have been loaded
+    this.currentLoad = 0;
 
-var base = 20;
-var seperator = 250;
-var imgWidth = 40;
-var imgHeight = 90;
+    // variable for how many teeths are in array
+    this.arrayCount = 0;
 
-var Callback;
+    this.ADULT = 32;
 
+    this.base = 20;
+    this.seperator = 250;
+    this.imgWidth = 40;
+    this.imgHeight = 90;
+    this.engine = null;
+
+}
+
+OdontogramaGenerator.prototype.setEngine = function(engine)
+{
+    this.engine = engine;
+};
+
+OdontogramaGenerator.prototype.updateLoad = function() {
+
+    this.currentLoad++;
+
+    // notify when all images have been loaded
+    if (this.currentLoad >= this.arrayCount) {
+        this.engine.draw();
+    }
+};
 
 /**
  * Method to prepare the layout for an odontograma
  * for adult person
  * @returns {Array|mouth} list of teeth for odontograma
  */
-function prepareOdontogramaAdult(array) {
+OdontogramaGenerator.prototype.prepareOdontogramaAdult = function(array) {
 
-
-    arrayCount = 0;
+    var self = this;
+    this.arrayCount = 0;
 
     // start of first tooth
     var x = 0;
@@ -56,21 +75,21 @@ function prepareOdontogramaAdult(array) {
         var image = new Image();
 
         image.onload = function () {
-            updateLoad();
+             self.updateLoad();
         };
 
         image.src = "images/dentadura-sup-" + i + ".png";
 
         tooth.id = i;
         tooth.image = image;
-        tooth.setDimens(x, base, imgWidth, imgHeight);
+        tooth.setDimens(x, this.base, this.imgWidth, this.imgHeight);
         tooth.setType(TYPE_UPPER);
 
         x += tooth.width + TOOTH_PADDING;
 
-        array[arrayCount] = tooth;
+        array[this.arrayCount] = tooth;
 
-        arrayCount++;
+        this.arrayCount++;
 
         tooth.createSurfaces();
 
@@ -91,21 +110,21 @@ function prepareOdontogramaAdult(array) {
         var image = new Image;
 
         image.onload = function () {
-            updateLoad();
+             self.updateLoad();
         };
 
         image.src = "images/dentadura-sup-" + i + ".png";
 
         tooth.id = i;
         tooth.image = image;
-        tooth.setDimens(x, base, imgWidth, imgHeight);
+        tooth.setDimens(x, this.base, this.imgWidth, this.imgHeight);
         tooth.setType(TYPE_UPPER);
 
         x += tooth.width + TOOTH_PADDING;
 
-        array[arrayCount] = tooth;
+        array[this.arrayCount] = tooth;
 
-        arrayCount++;
+        this.arrayCount++;
 
         tooth.createSurfaces();
 
@@ -131,21 +150,21 @@ function prepareOdontogramaAdult(array) {
         var image = new Image();
 
         image.onload = function () {
-            updateLoad();
+              self.updateLoad();
         };
 
         image.src = "images/dentadura-inf-" + i + ".png";
 
         tooth.id = i;
         tooth.image = image;
-        tooth.setDimens(x, base + seperator, imgWidth, imgHeight);
+        tooth.setDimens(x, this.base + this.seperator, this.imgWidth, this.imgHeight);
         tooth.setType(TYPE_LOWER);
 
         x += tooth.width + TOOTH_PADDING;
 
-        array[arrayCount] = tooth;
+        array[this.arrayCount] = tooth;
 
-        arrayCount++;
+        this.arrayCount++;
 
         tooth.createSurfaces();
 
@@ -166,36 +185,26 @@ function prepareOdontogramaAdult(array) {
         var image = new Image();
 
         image.onload = function () {
-            updateLoad();
+            self.updateLoad();
         };
 
         image.src = "images/dentadura-inf-" + i + ".png";
 
         tooth.id = i;
         tooth.image = image;
-        tooth.setDimens(x, base + seperator, imgWidth, imgHeight);
+        tooth.setDimens(x, this.base + this.seperator, this.imgWidth, this.imgHeight);
 
         tooth.setType(TYPE_LOWER);
 
-        array[arrayCount] = tooth;
+        array[this.arrayCount] = tooth;
         x += tooth.width + TOOTH_PADDING;
 
-        arrayCount++;
+        this.arrayCount++;
 
         tooth.createSurfaces();
 
     }
 
-}
+};
 
-function updateLoad() {
 
-    currentLoad++;
-
-    console.log("Images " + currentLoad + " loaded");
-
-    // notify when all images have been loaded
-    if (currentLoad >= arrayCount) {
-        Callback(true);
-    }
-}
