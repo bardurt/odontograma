@@ -25,78 +25,85 @@ function Tooth()
     this.highlight = false;
     this.damages = Array();
     this.checkBoxes = Array();
+    this.rect = new Rect();
+    this.spacer = 20; // spacer to seperate tooth from surfaces
 }
 
-/**
- * Method to create a tooth with 4 surfaces
- * @returns {Tooth4.t|Tooth}
- */
-function Tooth4() {
 
-    var t = new Tooth();
-    t.surfaces = 4;
+Tooth.prototype.setDimens = function(x, y, width, height)
+{
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    
+    this.rect.x = x;
+    this.rect.y = y;
+    this.rect.width = width;
+    this.rect.height = height;
+    
+};
+
+Tooth.prototype.setType = function(type)
+{
+    this.type = type;
+};
+
+Tooth.prototype.checkCollision = function(cursX, cursY)
+{
+    
+    return this.rect.checkCollision(cursX, cursY);
+};
+
+Tooth.prototype.setSurfaces = function(surfaces)
+{
+    this.surfaces = surfaces;
+};
 
 
-    return t;
-
-}
-
-/**
- * Method to create a tooth with 5 surfaces
- * @returns {Tooth4.t|Tooth}
- */
-function Tooth5() {
-
-    var t = new Tooth();
-    t.surfaces = 5;
-
-
-    return t;
-}
-
-function create4Surfaces(tooth)
+Tooth.prototype.create4Surfaces = function()
 {
     var width = RECT_DIMEN;
 
-    var startX = tooth.x + 10;
+    var startX = this.x + 10;
 
-    if (tooth.type === TYPE_UPPER) {
+    if (this.type === TYPE_UPPER) {
 
         var rect1 = new Rect();
 
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = tooth.y + tooth.height + width;
+        rect1.y = this.y + this.height + this.spacer + width;
 
-        tooth.checkBoxes.push(rect1);
+        this.checkBoxes.push(rect1);
 
         var rect2 = new Rect();
 
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = tooth.y + tooth.height + width;
+        rect2.y = this.y + this.height + this.spacer + width;
 
-        tooth.checkBoxes.push(rect2);
+        this.checkBoxes.push(rect2);
 
         var rect3 = new Rect();
 
         rect3.width = width;
         rect3.height = width;
         rect3.x = startX + 5;
-        rect3.y = tooth.y + tooth.height;
+        rect3.y = this.y + this.height + this.spacer;
 
-        tooth.checkBoxes.push(rect3);
+        this.checkBoxes.push(rect3);
 
         var rect4 = new Rect();
 
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + 5;
-        rect4.y = tooth.y + tooth.height + width * 2;
+        rect4.y = this.y + this.height + this.spacer + width * 2;
 
-        tooth.checkBoxes.push(rect4);
+        this.checkBoxes.push(rect4);
 
     } else
     {
@@ -105,231 +112,192 @@ function create4Surfaces(tooth)
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = tooth.y - width * 2;
+        rect1.y = this.y - this.spacer - width * 2;
 
-        tooth.checkBoxes.push(rect1);
+        this.checkBoxes.push(rect1);
 
         var rect2 = new Rect();
 
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = tooth.y - width * 2;
+        rect2.y = this.y - this.spacer - width * 2;
 
-        tooth.checkBoxes.push(rect2);
+        this.checkBoxes.push(rect2);
 
         var rect3 = new Rect();
 
         rect3.width = width;
         rect3.height = width;
         rect3.x = startX + 5;
-        rect3.y = tooth.y - width;
+        rect3.y = this.y - this.spacer - width;
 
-        tooth.checkBoxes.push(rect3);
+        this.checkBoxes.push(rect3);
 
         var rect4 = new Rect();
 
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + 5;
-        rect4.y = tooth.y - width * 3;
+        rect4.y = this.y - this.spacer - width * 3;
 
-        tooth.checkBoxes.push(rect4);
+        this.checkBoxes.push(rect4);
 
     }
+    
+};
 
-
-}
-
-
-function create5Surfaces(tooth)
+Tooth.prototype.create5Surfaces = function()
 {
     var width = RECT_DIMEN;
 
-    var startX = tooth.x + 5;
+    var startX = this.x + 5;
 
     console.log("Start X " + startX);
 
-    if (tooth.type === TYPE_UPPER) {
+    if (this.type === TYPE_UPPER) {
 
         var rect1 = new Rect();
 
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = tooth.y + tooth.height + width;
+        rect1.y = this.y + this.height + this.spacer + width;
 
-        tooth.checkBoxes.push(rect1);
+        this.checkBoxes.push(rect1);
 
         var rect2 = new Rect();
 
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = tooth.y + tooth.height + width;
+        rect2.y = this.y + this.height + this.spacer + width;
 
-        tooth.checkBoxes.push(rect2);
+        this.checkBoxes.push(rect2);
 
         var rect3 = new Rect();
 
         rect3.width = width;
         rect3.height = width;
         rect3.x = startX + width * 2;
-        rect3.y = tooth.y + tooth.height + width;
+        rect3.y = this.y + this.height + this.spacer + width;
 
-        tooth.checkBoxes.push(rect3);
+        this.checkBoxes.push(rect3);
 
         var rect4 = new Rect();
 
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + width;
-        rect4.y = tooth.y + tooth.height;
+        rect4.y = this.y + this.height + this.spacer;
 
-        tooth.checkBoxes.push(rect4);
+        this.checkBoxes.push(rect4);
 
         var rect5 = new Rect();
 
         rect5.width = width;
         rect5.height = width;
         rect5.x = startX + width;
-        rect5.y = tooth.y + tooth.height + width * 2;
+        rect5.y = this.y + this.height + this.spacer + width * 2;
 
-        tooth.checkBoxes.push(rect5);
-    } else
+        this.checkBoxes.push(rect5);
+    }
+    else
     {
         var rect1 = new Rect();
 
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = tooth.y - width * 2;
+        rect1.y = this.y - this.spacer - width * 2;
 
-        tooth.checkBoxes.push(rect1);
+        this.checkBoxes.push(rect1);
 
         var rect2 = new Rect();
 
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = tooth.y - width * 2;
+        rect2.y = this.y - this.spacer - width * 2;
 
-        tooth.checkBoxes.push(rect2);
+        this.checkBoxes.push(rect2);
 
         var rect3 = new Rect();
 
         rect3.width = width;
         rect3.height = width;
         rect3.x = startX + width * 2;
-        rect3.y = tooth.y - width * 2;
+        rect3.y = this.y - this.spacer - width * 2;
 
-        tooth.checkBoxes.push(rect3);
+        this.checkBoxes.push(rect3);
 
         var rect4 = new Rect();
 
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + width;
-        rect4.y = tooth.y - width;
+        rect4.y = this.y - this.spacer - width;
 
-        tooth.checkBoxes.push(rect4);
+        this.checkBoxes.push(rect4);
 
         var rect5 = new Rect();
 
         rect5.width = width;
         rect5.height = width;
         rect5.x = startX + width;
-        rect5.y = tooth.y - width * 3;
+        rect5.y = this.y - this.spacer - width * 3;
 
-        tooth.checkBoxes.push(rect5);
+        this.checkBoxes.push(rect5);
 
     }
+    
+};
 
-}
 
-function createSurfaces(tooth)
+Tooth.prototype.createSurfaces = function()
 {
-
-    if (tooth.surfaces === 4)
+    if(this.surfaces === 4)
     {
-        create4Surfaces(tooth);
-    } else
+        this.create4Surfaces();
+    }
+    else
     {
-        create5Surfaces(tooth);
+        this.create5Surfaces();
     }
+};
 
-}
 
-/**
- * Method to draw a tooth on canvas
- * @param {type} tooth to draw
- * @param {type} context of canvas to draw on
- * @returns {undefined}
- */
-function drawTooth(tooth, context)
-{
-    if (tooth.image !== undefined) {
 
-        // center of tooth
-        var cx = (tooth.x + tooth.width / 2);
-
-        // centerinng of the tooth in x axis
-        var dx = cx - tooth.image.naturalWidth / 2;
-
-        // draw tooth
-        context.drawImage(tooth.image, dx, tooth.y);
-    }
-
-    drawId(tooth, context);
-
-    drawCheckBoxes(tooth, context);
-
-    if (DEBUG) {
-        context.beginPath();
-        context.strokeStyle = '#000000';
-        context.rect(tooth.x, tooth.y, tooth.width, tooth.height);
-        context.stroke();
-        context.restore();
-    }
-
-}
-
-/**
- * Method to draw id of a tooth
- * @param {type} tooth
- * @param {type} context
- * @returns {undefined}
- */
-function drawId(tooth, context)
+Tooth.prototype.drawId = function(context)
 {
     context.beginPath();
     context.fillStyle = "#000000";
     context.font = "15px Arial Bold";
 
-    var space = 40;
+    var space = 40 + this.spacer;
 
-    if (tooth.type === TYPE_UPPER)
+    if (this.type === TYPE_UPPER)
     {
         // draw id
-        context.fillText("" + tooth.id, tooth.x + 5, tooth.y + tooth.height + space + 10);
+        context.fillText("" + this.id, this.x + 5, this.y + this.height + space + 10);
 
         // draw id border
-        context.moveTo(tooth.x, tooth.y + tooth.height + space + 20);
-        context.lineTo(tooth.x + tooth.width, tooth.y + tooth.height + space + 20);
+        context.moveTo(this.x, this.y + this.height + space + 20);
+        context.lineTo(this.x + this.width, this.y + this.height + space + 20);
 
-        context.moveTo(tooth.x + tooth.width, tooth.y + tooth.height + space + 20);
-        context.lineTo(tooth.x + tooth.width, tooth.y + tooth.height + space);
+        context.moveTo(this.x + this.width, this.y + this.height + space + 20);
+        context.lineTo(this.x + this.width, this.y + this.height + space);
     } else
     {
         // draw id
-        context.fillText("" + tooth.id, tooth.x + 5, tooth.y - space - 5);
+        context.fillText("" + this.id, this.x + 5, this.y - space - 5);
 
         // draw id border
-        context.moveTo(tooth.x, tooth.y - space - 20);
-        context.lineTo(tooth.x + tooth.width, tooth.y - space - 20);
+        context.moveTo(this.x, this.y - space - 20);
+        context.lineTo(this.x + this.width, this.y - space - 20);
 
-        context.moveTo(tooth.x + tooth.width, tooth.y - space - 20);
-        context.lineTo(tooth.x + tooth.width, tooth.y - space);
+        context.moveTo(this.x + this.width, this.y - space - 20);
+        context.lineTo(this.x + this.width, this.y - space);
     }
 
     context.lineWidth = 1;
@@ -337,32 +305,13 @@ function drawId(tooth, context)
     context.strokeStyle = '#000000';
     context.stroke();
     context.restore();
+    
+    
+};
 
-}
-
-function drawCheckBoxes(tooth, context)
+Tooth.prototype.drawCheckBoxOutLine = function(checkBox, context)
 {
-    for (var i = 0; i < tooth.checkBoxes.length; i++)
-    {
-
-        if(tooth.checkBoxes[i].state === 1)
-        {
-            drawCheckBoxRed(tooth.checkBoxes[i], context); 
-        }
-        else if(tooth.checkBoxes[i].state === 2)
-        {
-            drawCheckBoxBlue(tooth.checkBoxes[i], context); 
-        }
-        else
-        {
-            drawCheckBoxOutLine(tooth.checkBoxes[i], context); 
-        }
-
-    }
-}
-
-function drawCheckBoxOutLine(checkBox, context) {
-    context.beginPath();
+   context.beginPath();
 
     context.rect(checkBox.x,
             checkBox.y,
@@ -374,10 +323,10 @@ function drawCheckBoxOutLine(checkBox, context) {
     context.strokeStyle = COLOR_BLACK;
     context.stroke();
     context.restore();
+};
 
-}
-
-function drawCheckBoxRed(checkBox, context) {
+Tooth.prototype.drawCheckBoxRed = function(checkBox, context) 
+{
     
     context.beginPath();
     context.fillStyle = COLOR_RED;
@@ -401,7 +350,7 @@ function drawCheckBoxRed(checkBox, context) {
     context.restore();
 }
 
-function drawCheckBoxBlue(checkBox, context) {
+Tooth.prototype.drawCheckBoxBlue = function(checkBox, context) {
     
     context.beginPath();
     context.fillStyle = COLOR_BLUE;
@@ -423,7 +372,30 @@ function drawCheckBoxBlue(checkBox, context) {
     context.strokeStyle = COLOR_BLACK;
     context.stroke();
     context.restore();
-}
+};
+
+Tooth.prototype.drawCheckBoxes = function(context)
+{
+    for (var i = 0; i < this.checkBoxes.length; i++)
+    {
+
+        if(this.checkBoxes[i].state === 1)
+        {
+            this.drawCheckBoxRed(this.checkBoxes[i], context); 
+        }
+        else if(this.checkBoxes[i].state === 2)
+        {
+            this.drawCheckBoxBlue(this.checkBoxes[i], context); 
+        }
+        else
+        {
+            this.drawCheckBoxOutLine(this.checkBoxes[i], context); 
+        }
+
+    }
+};
+
+
 
 /**
  * Method to toggle damage on a tooth on off
@@ -431,23 +403,23 @@ function drawCheckBoxBlue(checkBox, context) {
  * @param {type} damage to add or remove
  * @returns {undefined}
  */
-function toggleDamage(tooth, damage) {
+Tooth.prototype.toggleDamage = function(damage) {
 
-    console.log("Toggle damage for " + tooth.id + ", damage " + damage);
+    console.log("Toggle damage for " + this.id + ", damage " + damage);
 
-    if (tooth.damages.length < 1)
+    if (this.damages.length < 1)
     {
-        tooth.damages.push(damage);
+        this.damages.push(damage);
     } else
     {
         var exists = false;
         var splicer = -1;
 
-        for (var i = 0; i < tooth.damages.length; i++)
+        for (var i = 0; i < this.damages.length; i++)
         {
-            if (tooth.damages[i] === damage)
+            if (this.damages[i] === damage)
             {
-                console.log("Splicing array for tooth " + tooth.id);
+                console.log("Splicing array for tooth " + this.id);
 
                 splicer = i;
                 exists = true;
@@ -457,85 +429,14 @@ function toggleDamage(tooth, damage) {
 
         if (!exists)
         {
-            tooth.damages.push(damage);
+            this.damages.push(damage);
         } else
         {
-            tooth.damages.splice(splicer, 1);
+            this.damages.splice(splicer, 1);
         }
     }
-}
+};
 
-/**
- * Method to draw a damage on a tooth
- * @param {type} tooth the tooth to draw on
- * @param {type} context the canvas to draw
- * @returns {undefined}
- */
-function renderDamage(tooth, context)
-{
-
-    for (var i = 0; i < tooth.damages.length; i++)
-    {
-        if (tooth.damages[i] === "1") {
-            drawFractura(tooth, context);
-        }
-
-        if (tooth.damages[i] === "2")
-        {
-            drawDienteAusente(tooth, context);
-        }
-
-        if (tooth.damages[i] === "3")
-        {
-            drawPulpar(tooth, context);
-        }
-
-        if (tooth.damages[i] === "4")
-        {
-            drawMigracion(tooth, context);
-        }
-
-        if (tooth.damages[i] === "5")
-        {
-            drawOrtondicoRemovible(tooth, context);
-        }
-
-        if (tooth.damages[i] === "6")
-        {
-            drawDienteExtruido(tooth, context);
-        }
-
-        if (tooth.damages[i] === "7")
-        {
-            drawDienteIntruido(tooth, context);
-        }
-
-        if (tooth.damages[i] === "8")
-        {
-            drawProtesisRemovible(tooth, context);
-        }
-
-        if (tooth.damages[i] === "9")
-        {
-            drawRemanenteRadicular(tooth, context);
-        }
-
-        if (tooth.damages[i] === "10")
-        {
-            drawGiroversion(tooth, context);
-        }
-
-        if (tooth.damages[i] === "11")
-        {
-            drawPernoMunon(tooth, context);
-        }
-
-        if (tooth.damages[i] === "12")
-        {
-            drawDienteEnErupcion(tooth, context);
-        }
-    }
-}
 
 /**
  * Method to draw a fractura on a particular tooth
@@ -543,18 +444,18 @@ function renderDamage(tooth, context)
  * @param {type} context canvas
  * @returns {undefined}
  */
-function drawFractura(tooth, context)
+Tooth.prototype.drawFractura = function(context)
 {
     context.beginPath();
 
-    if (tooth.type === TYPE_UPPER) {
-        context.moveTo(tooth.x, tooth.y + tooth.height);
-        context.lineTo(tooth.x + tooth.width, tooth.y + tooth.height / 2);
+    if (this.type === TYPE_UPPER) {
+        context.moveTo(this.x, this.y + this.height);
+        context.lineTo(this.x + this.width, this.y + this.height / 2);
 
     } else {
 
-        context.moveTo(tooth.x, tooth.y);
-        context.lineTo(tooth.x + tooth.width, tooth.y + tooth.height / 2);
+        context.moveTo(this.x, this.y);
+        context.lineTo(this.x + this.width, this.y + this.height / 2);
     }
 
     context.lineWidth = 2;
@@ -571,17 +472,17 @@ function drawFractura(tooth, context)
  * @param {type} context canvas to draw on
  * @returns {undefined}
  */
-function drawDienteAusente(tooth, context)
+Tooth.prototype.drawDienteAusente = function(context)
 {
 
     context.beginPath();
 
     console.log("Drawing upper");
 
-    if (tooth.type === TYPE_UPPER) {
+    if (this.type === TYPE_UPPER) {
 
-        context.moveTo(tooth.x, tooth.y + tooth.height);
-        context.lineTo(tooth.x + tooth.width, tooth.y + tooth.height / 2);
+        context.moveTo(this.x, this.y + this.height);
+        context.lineTo(this.x + this.width, this.y + this.height / 2);
 
         context.lineWidth = 2;
 
@@ -590,8 +491,8 @@ function drawDienteAusente(tooth, context)
         context.stroke();
         context.restore();
 
-        context.moveTo(tooth.x + tooth.width, tooth.y + tooth.height);
-        context.lineTo(tooth.x, tooth.y + tooth.height / 2);
+        context.moveTo(this.x + this.width, this.y + this.height);
+        context.lineTo(this.x, this.y + this.height / 2);
 
         context.strokeStyle = COLOR_BLUE;
         context.stroke();
@@ -601,8 +502,8 @@ function drawDienteAusente(tooth, context)
 
         console.log("Drawing lower");
 
-        context.moveTo(tooth.x, tooth.y);
-        context.lineTo(tooth.x + tooth.width, tooth.y + tooth.height / 2);
+        context.moveTo(this.x, this.y);
+        context.lineTo(this.x + this.width, this.y + this.height / 2);
 
         context.lineWidth = 2;
 
@@ -611,8 +512,8 @@ function drawDienteAusente(tooth, context)
         context.stroke();
         context.restore();
 
-        context.moveTo(tooth.x + tooth.width, tooth.y);
-        context.lineTo(tooth.x, tooth.y + tooth.height / 2);
+        context.moveTo(this.x + this.width, this.y);
+        context.lineTo(this.x, this.y + this.height / 2);
 
         context.strokeStyle = COLOR_BLUE;
         context.stroke();
@@ -629,22 +530,22 @@ function drawDienteAusente(tooth, context)
  * @param {type} context
  * @returns {undefined}
  */
-function drawPulpar(tooth, context)
+Tooth.prototype.drawPulpar = function(context)
 {
     console.log("Drawing pulpar");
 
     context.beginPath();
 
-    if (tooth.type === TYPE_UPPER) {
+    if (this.type === TYPE_UPPER) {
 
 
-        context.moveTo(tooth.x + tooth.width / 2, tooth.y + tooth.height - 10);
-        context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height / 2);
+        context.moveTo(this.x + this.width / 2, this.y + this.height - 10);
+        context.lineTo(this.x + this.width / 2, this.y + this.height / 2);
 
     } else {
 
-        context.moveTo(tooth.x + tooth.width / 2, tooth.y + 10);
-        context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height / 2);
+        context.moveTo(this.x + this.width / 2, this.y + 10);
+        context.lineTo(this.x + this.width / 2, this.y + this.height / 2);
 
     }
 
@@ -663,7 +564,7 @@ function drawPulpar(tooth, context)
  * @param {type} context
  * @returns {undefined}
  */
-function drawMigracion(tooth, context)
+Tooth.prototype.drawMigracion = function( context)
 {
     console.log("Drawing Migracion");
 
@@ -671,36 +572,33 @@ function drawMigracion(tooth, context)
 
     var spacer = 5;
 
-    if (tooth.type === TYPE_UPPER) {
+    if (this.type === TYPE_UPPER) {
 
         // draw line
-        context.moveTo(tooth.x + spacer, tooth.y + tooth.height + 5);
-        context.lineTo(tooth.x + tooth.width - spacer, tooth.y + tooth.height + 5);
+        context.moveTo(this.x + spacer, this.y + this.height + 5);
+        context.lineTo(this.x + this.width - spacer, this.y + this.height + 5);
 
         // upper point
-        context.moveTo(tooth.x + spacer, tooth.y + tooth.height + 5);
-        context.lineTo(tooth.x + spacer + 4, tooth.y + tooth.height + 10);
+        context.moveTo(this.x + spacer, this.y + this.height + 5);
+        context.lineTo(this.x + spacer + 4, this.y + this.height + 10);
 
         // lower point
-        context.moveTo(tooth.x + spacer, tooth.y + tooth.height + 5);
-        context.lineTo(tooth.x + spacer + 4, tooth.y + tooth.height);
-
-
-
+        context.moveTo(this.x + spacer, this.y + this.height + 5);
+        context.lineTo(this.x + spacer + 4, this.y + this.height);
 
     } else {
 
         // draw line
-        context.moveTo(tooth.x + spacer, tooth.y - 5);
-        context.lineTo(tooth.x + tooth.width - spacer, tooth.y - 5);
+        context.moveTo(this.x + spacer, this.y - 5);
+        context.lineTo(this.x + this.width - spacer, this.y - 5);
 
         // upper point
-        context.moveTo(tooth.x + tooth.width - spacer, tooth.y - 5);
-        context.lineTo(tooth.x + tooth.width - spacer - 4, tooth.y - 10);
+        context.moveTo(this.x + this.width - spacer, this.y - 5);
+        context.lineTo(this.x + this.width - spacer - 4, this.y - 10);
 
         // upper point
-        context.moveTo(tooth.x + tooth.width - spacer, tooth.y - 5);
-        context.lineTo(tooth.x + tooth.width - spacer - 4, tooth.y);
+        context.moveTo(this.x + this.width - spacer, this.y - 5);
+        context.lineTo(this.x + this.width - spacer - 4, this.y);
 
     }
 
@@ -712,9 +610,9 @@ function drawMigracion(tooth, context)
     context.stroke();
     context.restore();
 
-}
+};
 
-function drawOrtondicoRemovible(tooth, context)
+Tooth.prototype.drawOrtondicoRemovible = function(context)
 {
     console.log("Drawing Ortondico Removible");
 
@@ -722,19 +620,19 @@ function drawOrtondicoRemovible(tooth, context)
 
     var spacer = 5;
 
-    if (tooth.type === TYPE_UPPER) {
+    if (this.type === TYPE_UPPER) {
 
         // draw ZigZag
-        context.moveTo(tooth.x, tooth.y);
-        context.lineTo(tooth.x + tooth.width / 2, tooth.y - 10);
-        context.lineTo(tooth.x + tooth.width, tooth.y);
+        context.moveTo(this.x, this.y);
+        context.lineTo(this.x + this.width / 2, this.y - 10);
+        context.lineTo(this.x + this.width, this.y);
 
     } else {
 
         // draw ZigZag
-        context.moveTo(tooth.x, tooth.y + tooth.height);
-        context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height + 10);
-        context.lineTo(tooth.x + tooth.width, tooth.y + tooth.height);
+        context.moveTo(this.x, this.y + this.height);
+        context.lineTo(this.x + this.width / 2, this.y + this.height + 10);
+        context.lineTo(this.x + this.width, this.y + this.height);
 
     }
 
@@ -753,34 +651,34 @@ function drawOrtondicoRemovible(tooth, context)
  * @param {type} context
  * @returns {undefined}
  */
-function drawDienteExtruido(tooth, context)
+Tooth.prototype.drawDienteExtruido = function(context)
 {
     console.log("Drawing Diente Extruido");
 
     context.beginPath();
 
-    if (tooth.type === TYPE_UPPER) {
+    if (this.type === TYPE_UPPER) {
 
         // draw arrow head
-        context.moveTo(tooth.x + 10, tooth.y + tooth.height + 10);
-        context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height + 15);
-        context.lineTo(tooth.x + tooth.width - 10, tooth.y + tooth.height + 10);
+        context.moveTo(this.x + 10, this.y + this.height + 10);
+        context.lineTo(this.x + this.width / 2, this.y + this.height + 15);
+        context.lineTo(this.x + this.width - 10, this.y + this.height + 10);
 
         // draw arrow line
-        context.moveTo(tooth.x + tooth.width / 2 - 1, tooth.y + tooth.height + 10);
-        context.lineTo(tooth.x + tooth.width / 2 - 1, tooth.y + tooth.height);
+        context.moveTo(this.x + this.width / 2 - 1, this.y + this.height + 10);
+        context.lineTo(this.x + this.width / 2 - 1, this.y + this.height);
 
 
     } else {
 
         // draw arrow head
-        context.moveTo(tooth.x + 10, tooth.y - 10);
-        context.lineTo(tooth.x + tooth.width / 2, tooth.y - 15);
-        context.lineTo(tooth.x + tooth.width - 10, tooth.y - 10);
+        context.moveTo(this.x + 10, this.y - 10);
+        context.lineTo(this.x + this.width / 2, this.y - 15);
+        context.lineTo(this.x + this.width - 10, this.y - 10);
 
         // draw arrow line
-        context.moveTo(tooth.x + tooth.width / 2 - 1, tooth.y - 10);
-        context.lineTo(tooth.x + tooth.width / 2 - 1, tooth.y);
+        context.moveTo(this.x + this.width / 2 - 1, this.y - 10);
+        context.lineTo(this.x + this.width / 2 - 1, this.y);
     }
 
     context.lineWidth = 3;
@@ -793,7 +691,7 @@ function drawDienteExtruido(tooth, context)
     context.fill();
     context.restore();
 
-}
+};
 
 /**
  * Method to draw damage Diente Intruido on the tooth
@@ -801,34 +699,34 @@ function drawDienteExtruido(tooth, context)
  * @param {type} context
  * @returns {undefined}
  */
-function drawDienteIntruido(tooth, context)
+Tooth.prototype.drawDienteIntruido = function(context)
 {
     console.log("Drawing Diente Intruido");
 
     context.beginPath();
 
-    if (tooth.type === TYPE_UPPER) {
+    if (this.type === TYPE_UPPER) {
 
         // draw arrow head
-        context.moveTo(tooth.x + 10, tooth.y + tooth.height + 5);
-        context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height);
-        context.lineTo(tooth.x + tooth.width - 10, tooth.y + tooth.height + 5);
+        context.moveTo(this.x + 10, this.y + this.height + 5);
+        context.lineTo(this.x + this.width / 2, this.y + this.height);
+        context.lineTo(this.x + this.width - 10, this.y + this.height + 5);
 
         // draw arrow line
-        context.moveTo(tooth.x + tooth.width / 2 - 1, tooth.y + tooth.height + 5);
-        context.lineTo(tooth.x + tooth.width / 2 - 1, tooth.y + tooth.height + 15);
+        context.moveTo(this.x + this.width / 2 - 1, this.y + this.height + 5);
+        context.lineTo(this.x + this.width / 2 - 1, this.y + this.height + 15);
 
 
     } else {
 
         // draw arrow head
-        context.moveTo(tooth.x + 10, tooth.y - 5);
-        context.lineTo(tooth.x + tooth.width / 2, tooth.y);
-        context.lineTo(tooth.x + tooth.width - 10, tooth.y - 5);
+        context.moveTo(this.x + 10, this.y - 5);
+        context.lineTo(this.x + this.width / 2, this.y);
+        context.lineTo(this.x + this.width - 10, this.y - 5);
 
         // draw arrow line
-        context.moveTo(tooth.x + tooth.width / 2 - 1, tooth.y - 5);
-        context.lineTo(tooth.x + tooth.width / 2 - 1, tooth.y - 15);
+        context.moveTo(this.x + this.width / 2 - 1, this.y - 5);
+        context.lineTo(this.x + this.width / 2 - 1, this.y - 15);
     }
 
     context.lineWidth = 3;
@@ -841,33 +739,33 @@ function drawDienteIntruido(tooth, context)
     context.fill();
     context.restore();
 
-}
+};
 
-function drawProtesisRemovible(tooth, context)
+Tooth.prototype.drawProtesisRemovible = function(context)
 {
     console.log("Drawing Protesis Removible");
 
     context.beginPath();
 
-    if (tooth.type === TYPE_UPPER) {
+    if (this.type === TYPE_UPPER) {
 
         // draw lower line
-        context.moveTo(tooth.x, tooth.y);
-        context.lineTo(tooth.x + tooth.width, tooth.y);
+        context.moveTo(this.x, this.y);
+        context.lineTo(this.x + this.width, this.y);
 
         // draw upper line
-        context.moveTo(tooth.x, tooth.y - 10);
-        context.lineTo(tooth.x + tooth.width, tooth.y - 10);
+        context.moveTo(this.x, this.y - 10);
+        context.lineTo(this.x + this.width, this.y - 10);
 
     } else {
 
         // draw lower line
-        context.moveTo(tooth.x, tooth.y + tooth.height);
-        context.lineTo(tooth.x + tooth.width, tooth.y + tooth.height);
+        context.moveTo(this.x, this.y + this.height);
+        context.lineTo(this.x + this.width, this.y + this.height);
 
         // draw upper line
-        context.moveTo(tooth.x, tooth.y + tooth.height + 10);
-        context.lineTo(tooth.x + tooth.width, tooth.y + tooth.height + 10);
+        context.moveTo(this.x, this.y + this.height + 10);
+        context.lineTo(this.x + this.width, this.y + this.height + 10);
     }
 
     context.lineWidth = 3;
@@ -880,9 +778,9 @@ function drawProtesisRemovible(tooth, context)
     context.fill();
     context.restore();
 
-}
+};
 
-function drawRemanenteRadicular(tooth, context)
+Tooth.prototype.drawRemanenteRadicular = function drawRemanenteRadicular(context)
 {
 
     context.beginPath();
@@ -891,51 +789,51 @@ function drawRemanenteRadicular(tooth, context)
 
     context.font = "20px Arial Bold";
 
-    if (tooth.type === TYPE_UPPER)
+    if (this.type === TYPE_UPPER)
     {
-        context.fillText("RR", tooth.x + 5, tooth.y + tooth.height / 2);
+        context.fillText("RR", this.x + 5, this.y + this.height / 2);
     } else
     {
-        context.fillText("RR", tooth.x + 5, tooth.y + tooth.height / 2);
+        context.fillText("RR", this.x + 5, this.y + this.height / 2);
     }
 
     context.restore();
 
-}
+};
 
-function drawGiroversion(tooth, context)
+Tooth.prototype.drawGiroversion = function drawGiroversion(context)
 {
 
     context.beginPath();
 
-    var cx = tooth.x + tooth.width / 2;
-    var cy = tooth.y + tooth.height;
-    var radius = (tooth.width - 10) / 2;
+    var cx = this.x + this.width / 2;
+    var cy = this.y + this.height;
+    var radius = (this.width - 10) / 2;
 
-    if (tooth.type === TYPE_UPPER)
+    if (this.type === TYPE_UPPER)
     {
 
-        // draw lower line
+        // half circle
         context.arc(cx, cy, radius, Math.PI, 2 * Math.PI, true);
 
-        context.moveTo(tooth.x + tooth.width - 3, tooth.y + tooth.height);
-        context.lineTo(tooth.x + tooth.width - 11, tooth.y + tooth.height);
+        context.moveTo(this.x + this.width - 3, this.y + this.height);
+        context.lineTo(this.x + this.width - 11, this.y + this.height);
 
-        context.moveTo(tooth.x + tooth.width - 3, tooth.y + tooth.height);
-        context.lineTo(tooth.x + tooth.width - 3, tooth.y + tooth.height + 8);
+        context.moveTo(this.x + this.width - 3, this.y + this.height);
+        context.lineTo(this.x + this.width - 3, this.y + this.height + 8);
 
     } else
     {
-        cy = tooth.y;
+        cy = this.y;
         // draw lower line
         context.arc(cx, cy, radius, Math.PI, 2 * Math.PI, false);
 
 
-        context.moveTo(tooth.x + 3, tooth.y);
-        context.lineTo(tooth.x + 11, tooth.y);
+        context.moveTo(this.x + 3, this.y);
+        context.lineTo(this.x + 11, this.y);
 
-        context.moveTo(tooth.x + 3, tooth.y);
-        context.lineTo(tooth.x + 3, tooth.y - 8);
+        context.moveTo(this.x + 3, this.y);
+        context.lineTo(this.x + 3, this.y - 8);
     }
 
 
@@ -948,29 +846,29 @@ function drawGiroversion(tooth, context)
 
 }
 
-function drawPernoMunon(tooth, context)
+Tooth.prototype.drawPernoMunon = function drawPernoMunon(context)
 {
     context.beginPath();
 
-    var size = tooth.width - 16;
+    var size = this.width - 16;
 
-    if (tooth.type === TYPE_UPPER)
+    if (this.type === TYPE_UPPER)
     {
         // draw rectangle
-        context.rect(tooth.x + 8, tooth.y + tooth.height - 8 - size, size, size);
+        context.rect(this.x + 8, this.y + this.height - 8 - size, size, size);
 
         // draw line
-        context.moveTo(tooth.x + tooth.width / 2, tooth.y + tooth.height - 8 - size);
-        context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height - 8 - 50);
+        context.moveTo(this.x + this.width / 2, this.y + this.height - 8 - size);
+        context.lineTo(this.x + this.width / 2, this.y + this.height - 8 - 50);
 
     } else
     {
         // draw rectangle
-        context.rect(tooth.x + 8, tooth.y + 8, size, size);
+        context.rect(this.x + 8, this.y + 8, size, size);
 
         // draw line
-        context.moveTo(tooth.x + tooth.width / 2, tooth.y + 8 + size);
-        context.lineTo(tooth.x + tooth.width / 2, tooth.y + 8 + 50);
+        context.moveTo(this.x + this.width / 2, this.y + 8 + size);
+        context.lineTo(this.x + this.width / 2, this.y + 8 + 50);
     }
 
 
@@ -981,27 +879,27 @@ function drawPernoMunon(tooth, context)
     context.stroke();
     context.restore();
 
-}
+};
 
-function drawDienteEnErupcion(tooth, context)
+Tooth.prototype.drawDienteEnErupcion = function(context)
 {
     context.beginPath();
 
     var pad = 2;
 
-    if (tooth.type === TYPE_UPPER)
+    if (this.type === TYPE_UPPER)
     {
         // draw arrow head
-        context.moveTo(tooth.x + pad, tooth.y + tooth.height - 6);
-        context.lineTo(tooth.x + tooth.width / 2, tooth.y + tooth.height);
-        context.lineTo(tooth.x + tooth.width - pad, tooth.y + tooth.height - 6);
+        context.moveTo(this.x + pad, this.y + this.height - 6);
+        context.lineTo(this.x + this.width / 2, this.y + this.height);
+        context.lineTo(this.x + this.width - pad, this.y + this.height - 6);
 
     } else
     {
         // draw arrow head
-        context.moveTo(tooth.x + pad, tooth.y + 6);
-        context.lineTo(tooth.x + tooth.width / 2, tooth.y);
-        context.lineTo(tooth.x + tooth.width - pad, tooth.y + 6);
+        context.moveTo(this.x + pad, this.y + 6);
+        context.lineTo(this.x + this.width / 2, this.y);
+        context.lineTo(this.x + this.width - pad, this.y + 6);
     }
 
     context.lineWidth = 3;
@@ -1010,27 +908,26 @@ function drawDienteEnErupcion(tooth, context)
 
     context.stroke();
     context.restore();
-}
+};
 
 /**
  * Method to draw a which tooth is highlighted
- * @param {type} tooth
- * @param {type} context
+ * @param {type} context canvas for drawing
  * @returns {undefined}
  */
-function drawHighlight(tooth, context)
+Tooth.prototype.drawHighlight = function(context)
 {
 
     context.beginPath();
 
-    if (tooth.type === TYPE_UPPER) {
-        context.moveTo(tooth.x, tooth.y + tooth.height);
-        context.lineTo(tooth.x + tooth.width, tooth.y + tooth.height);
+    if (this.type === TYPE_UPPER) {
+        context.moveTo(this.x, this.y + this.height);
+        context.lineTo(this.x + this.width, this.y + this.height);
 
     } else {
 
-        context.moveTo(tooth.x, tooth.y);
-        context.lineTo(tooth.x + tooth.width, tooth.y);
+        context.moveTo(this.x, this.y);
+        context.lineTo(this.x + this.width, this.y);
     }
 
     context.lineWidth = 2;
@@ -1040,5 +937,116 @@ function drawHighlight(tooth, context)
     context.restore();
 
     console.log("Drawing highlight");
-}
+};
 
+
+/**
+ * Method to draw a damage on a tooth
+ * @param {type} context the canvas to draw
+ * @returns {undefined}
+ */
+Tooth.prototype.drawDamage = function(context)
+{
+
+    for (var i = 0; i < this.damages.length; i++)
+    {
+        if (this.damages[i] === "1") {
+            this.drawFractura(context);
+        }
+
+        if (this.damages[i] === "2")
+        {
+            this.drawDienteAusente(context);
+        }
+
+        if (this.damages[i] === "3")
+        {
+            this.drawPulpar(context);
+        }
+
+        if (this.damages[i] === "4")
+        {
+            this.drawMigracion(context);
+        }
+
+        if (this.damages[i] === "5")
+        {
+            this.drawOrtondicoRemovible(context);
+        }
+
+        if (this.damages[i] === "6")
+        {
+            this.drawDienteExtruido(context);
+        }
+
+        if (this.damages[i] === "7")
+        {
+            this.drawDienteIntruido(context);
+        }
+
+        if (this.damages[i] === "8")
+        {
+            this.drawProtesisRemovible(context);
+        }
+
+        if (this.damages[i] === "9")
+        {
+            this.drawRemanenteRadicular(context);
+        }
+
+        if (this.damages[i] === "10")
+        {
+            this.drawGiroversion(context);
+        }
+
+        if (this.damages[i] === "11")
+        {
+            this.drawPernoMunon(context);
+        }
+
+        if (this.damages[i] === "12")
+        {
+            this.drawDienteEnErupcion(context);
+        }
+    }
+};
+
+/**
+ * Method to render a Tooth on the screen with all its states
+ * @param {type} context the canvas to draw on
+ * @returns {undefined}
+ */
+Tooth.prototype.render = function(context)
+{
+    if (this.image !== undefined) {
+
+        // center of tooth
+        var cx = (this.x + this.width / 2);
+
+        // centerinng of the tooth in x axis
+        var dx = cx - this.image.naturalWidth / 2;
+
+        // draw tooth
+        context.drawImage(this.image, dx, this.y);
+    }
+
+    this.drawId(context);
+   
+    this.drawCheckBoxes(context);
+    
+    this.drawDamage(context);
+    
+    if(this.highlight)
+    {
+        this.drawHighlight(context);
+    }
+
+    if (DEBUG) {
+        context.beginPath();
+        context.strokeStyle = '#000000';
+        context.rect(this.x, this.y, this.width, this.height);
+        context.stroke();
+        context.restore();
+    }
+    
+};

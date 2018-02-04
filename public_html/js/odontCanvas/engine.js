@@ -117,7 +117,7 @@ function onMouseClick(event)
         
         for(var j = 0; j < mouth[i].checkBoxes.length; j++)
         {
-            if( checkCollisionCheckBox(mouth[i].checkBoxes[j], event) )
+            if( mouth[i].checkBoxes[j].checkCollision(event.clientX, event.clientY) )
             {
                 handleCollisionCheckBox(mouth[i].checkBoxes[j], selectedHallazgo);
                 shouldUpdate = true;

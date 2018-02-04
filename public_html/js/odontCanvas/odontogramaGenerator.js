@@ -20,7 +20,7 @@ var arrayCount = 0;
 var ADULT = 32;
 
 var base = 20;
-var seperator = 210;
+var seperator = 250;
 var imgWidth = 40;
 var imgHeight = 90;
 
@@ -42,14 +42,15 @@ function prepareOdontogramaAdult(array) {
 
     for (var i = 18; i > 10; i--) {
 
-        var tooth;
+        var tooth = new Tooth();
 
         if (i > 13)
         {
-            tooth = Tooth5();
+            tooth.setSurfaces(5);
+
         } else
         {
-            tooth = Tooth4();
+            tooth.setSurfaces(4);
         }
 
         var image = new Image();
@@ -62,34 +63,29 @@ function prepareOdontogramaAdult(array) {
 
         tooth.id = i;
         tooth.image = image;
-        tooth.x = x;
-        tooth.y = base;
-        tooth.width = imgWidth;
-        tooth.height = imgHeight;
-        tooth.type = TYPE_UPPER;
+        tooth.setDimens(x, base, imgWidth, imgHeight);
+        tooth.setType(TYPE_UPPER);
 
         x += tooth.width + TOOTH_PADDING;
-
-
 
         array[arrayCount] = tooth;
 
         arrayCount++;
-        
-        createSurfaces(tooth);
+
+        tooth.createSurfaces();
 
     }
 
     for (var i = 21; i < 29; i++) {
 
-        var tooth;
+        var tooth = new Tooth();
 
         if (i < 24)
         {
-            tooth = Tooth4();
+            tooth.setSurfaces(4);
         } else
         {
-            tooth = Tooth5();
+            tooth.setSurfaces(5);
         }
 
         var image = new Image;
@@ -102,19 +98,16 @@ function prepareOdontogramaAdult(array) {
 
         tooth.id = i;
         tooth.image = image;
-        tooth.x = x;
-        tooth.y = base;
-        tooth.width = imgWidth;
-        tooth.height = imgHeight;
-        tooth.type = TYPE_UPPER;
+        tooth.setDimens(x, base, imgWidth, imgHeight);
+        tooth.setType(TYPE_UPPER);
 
         x += tooth.width + TOOTH_PADDING;
 
         array[arrayCount] = tooth;
-        
+
         arrayCount++;
-        
-        createSurfaces(tooth);
+
+        tooth.createSurfaces();
 
     }
 
@@ -123,15 +116,15 @@ function prepareOdontogramaAdult(array) {
 
     for (var i = 48; i > 40; i--) {
 
-        var tooth;
+        var tooth = new Tooth();
 
         if (i < 44)
         {
-            tooth = Tooth4();
+            tooth.setSurfaces(4);
 
         } else
         {
-            tooth = Tooth5();
+            tooth.setSurfaces(5);
         }
 
 
@@ -145,34 +138,30 @@ function prepareOdontogramaAdult(array) {
 
         tooth.id = i;
         tooth.image = image;
-        tooth.x = x;
-        tooth.y = base + seperator;
-        tooth.width = imgWidth;
-        tooth.height = imgHeight;
-        tooth.type = TYPE_LOWER;
+        tooth.setDimens(x, base + seperator, imgWidth, imgHeight);
+        tooth.setType(TYPE_LOWER);
 
         x += tooth.width + TOOTH_PADDING;
 
         array[arrayCount] = tooth;
 
         arrayCount++;
-        
-        createSurfaces(tooth);
+
+        tooth.createSurfaces();
 
     }
 
     for (var i = 31; i < 39; i++) {
 
-        var tooth;
+        var tooth = new Tooth();
 
         if (i < 34)
         {
-            tooth = Tooth4();
+            tooth.setSurfaces(4);
         } else
         {
-            tooth = Tooth5();
+            tooth.setSurfaces(5);
         }
-
 
         var image = new Image();
 
@@ -184,18 +173,16 @@ function prepareOdontogramaAdult(array) {
 
         tooth.id = i;
         tooth.image = image;
-        tooth.x = x;
-        tooth.y = base + seperator;
-        tooth.width = imgWidth;
-        tooth.height = imgHeight;
-        tooth.type = TYPE_LOWER;
+        tooth.setDimens(x, base + seperator, imgWidth, imgHeight);
+
+        tooth.setType(TYPE_LOWER);
 
         array[arrayCount] = tooth;
         x += tooth.width + TOOTH_PADDING;
 
         arrayCount++;
-        
-        createSurfaces(tooth);
+
+        tooth.createSurfaces();
 
     }
 
@@ -206,9 +193,9 @@ function updateLoad() {
     currentLoad++;
 
     console.log("Images " + currentLoad + " loaded");
-    
+
     // notify when all images have been loaded
-    if(currentLoad >= arrayCount){
+    if (currentLoad >= arrayCount) {
         Callback(true);
     }
 }

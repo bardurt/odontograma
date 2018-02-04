@@ -31,3 +31,22 @@ Rect.prototype.restoration = function(){
 Rect.prototype.uncheck = function(){
     this.state = 0;
 };
+
+Rect.prototype.checkCollision = function(cursX, cursY){
+    
+   var collision = false;
+
+    if (cursX > this.x) {
+        if (cursY > this.y) {
+            if (cursX < this.x + this.width) {
+                if (cursY < this.y + this.height) {
+                    collision = true;
+                    console.log("Collision");
+                }
+            }
+        }
+    }
+
+    return collision;
+    
+};

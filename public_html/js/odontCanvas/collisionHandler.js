@@ -24,7 +24,7 @@ function handleCollision(tooth, argument)
     }
     else
     {
-        toggleDamage(tooth, argument);
+        tooth.toggleDamage(argument);
     }
 
 }

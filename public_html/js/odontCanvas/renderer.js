@@ -54,21 +54,7 @@ function render(mouth)
     // draw the teeth
     for (var i = 0; i < mouth.length; i++) {
 
-        drawTooth(mouth[i], context);
-    }
-
-    // draw all damages
-    for (var i = 0; i < mouth.length; i++) {
-
-        // only draw those which have damages
-        if (mouth[i].damages.length > 0) {
-            drawDamage(mouth[i], context);
-        }
-
-        if (mouth[i].highlight)
-        {
-            drawHighlight(mouth[i], context);
-        }
+        mouth[i].render(context);
     }
 
 }
