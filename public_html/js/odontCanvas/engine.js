@@ -70,7 +70,29 @@ function checkCollision(obj, event)
     }
 
     return collision;
+}
 
+function checkCollisionCheckBox(obj, event)
+{
+    var x = event.clientX;
+    var y = event.clientY;
+    var width = obj.x + obj.width;
+    var height = obj.y + obj.height;
+
+    var collision = false;
+
+    if (x > obj.x) {
+        if (y > obj.y) {
+            if (x < width) {
+                if (y < height) {
+                    collision = true;
+                    console.log("Checkbox " + obj.id + " clicked");
+                }
+            }
+        }
+    }
+
+    return collision;
 }
 
 /**
@@ -91,6 +113,15 @@ function onMouseClick(event)
             
             handleCollision(mouth[i], selectedHallazgo);
             shouldUpdate = true;
+        }
+        
+        for(var j = 0; j < mouth[i].checkBoxes.length; j++)
+        {
+            if( checkCollisionCheckBox(mouth[i].checkBoxes[j], event) )
+            {
+                handleCollisionCheckBox(mouth[i].checkBoxes[j], selectedHallazgo);
+                shouldUpdate = true;
+            }
         }
     }
 
@@ -113,6 +144,11 @@ function reset()
     for(var i = 0; i < mouth.length; i++)
     {
         mouth[i].damages.length = 0;
+        
+        for(var j = 0; j < mouth[i].checkBoxes.length; j++)
+        {
+            mouth[i].checkBoxes[j].state = 0;
+        }
     }
     
     draw();
@@ -185,6 +221,16 @@ function onButtonClick(event)
     if(event.key === "w")
     {
         selectedHallazgo = "12";
+    }
+    
+    if(event.key === "r")
+    {
+        selectedHallazgo = "12";
+    }
+    
+    if(event.key === "b")
+    {
+        selectedHallazgo = "13";
     }
     
     if (event.key === "h")

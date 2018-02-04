@@ -59,7 +59,7 @@ function create4Surfaces(tooth)
     var width = RECT_DIMEN;
 
     var startX = tooth.x + 10;
-    
+
     if (tooth.type === TYPE_UPPER) {
 
         var rect1 = new Rect();
@@ -88,25 +88,24 @@ function create4Surfaces(tooth)
         rect3.y = tooth.y + tooth.height;
 
         tooth.checkBoxes.push(rect3);
-        
+
         var rect4 = new Rect();
 
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + 5;
-        rect4.y = tooth.y + tooth.height + width*2;
+        rect4.y = tooth.y + tooth.height + width * 2;
 
         tooth.checkBoxes.push(rect4);
 
-    }
-    else
+    } else
     {
-         var rect1 = new Rect();
+        var rect1 = new Rect();
 
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = tooth.y - width*2;
+        rect1.y = tooth.y - width * 2;
 
         tooth.checkBoxes.push(rect1);
 
@@ -115,7 +114,7 @@ function create4Surfaces(tooth)
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = tooth.y - width*2;
+        rect2.y = tooth.y - width * 2;
 
         tooth.checkBoxes.push(rect2);
 
@@ -127,16 +126,16 @@ function create4Surfaces(tooth)
         rect3.y = tooth.y - width;
 
         tooth.checkBoxes.push(rect3);
-        
+
         var rect4 = new Rect();
 
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + 5;
-        rect4.y = tooth.y - width*3;
+        rect4.y = tooth.y - width * 3;
 
         tooth.checkBoxes.push(rect4);
-        
+
     }
 
 
@@ -197,15 +196,14 @@ function create5Surfaces(tooth)
         rect5.y = tooth.y + tooth.height + width * 2;
 
         tooth.checkBoxes.push(rect5);
-    }
-    else
+    } else
     {
         var rect1 = new Rect();
 
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = tooth.y - width*2;
+        rect1.y = tooth.y - width * 2;
 
         tooth.checkBoxes.push(rect1);
 
@@ -214,7 +212,7 @@ function create5Surfaces(tooth)
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = tooth.y - width*2;
+        rect2.y = tooth.y - width * 2;
 
         tooth.checkBoxes.push(rect2);
 
@@ -223,7 +221,7 @@ function create5Surfaces(tooth)
         rect3.width = width;
         rect3.height = width;
         rect3.x = startX + width * 2;
-        rect3.y = tooth.y - width*2;
+        rect3.y = tooth.y - width * 2;
 
         tooth.checkBoxes.push(rect3);
 
@@ -244,7 +242,7 @@ function create5Surfaces(tooth)
         rect5.y = tooth.y - width * 3;
 
         tooth.checkBoxes.push(rect5);
-        
+
     }
 
 }
@@ -346,16 +344,85 @@ function drawCheckBoxes(tooth, context)
 {
     for (var i = 0; i < tooth.checkBoxes.length; i++)
     {
-        context.beginPath();
 
-        context.rect(tooth.checkBoxes[i].x,
-                tooth.checkBoxes[i].y,
-                tooth.checkBoxes[i].width,
-                tooth.checkBoxes[i].height);
-        context.stroke();
+        if(tooth.checkBoxes[i].state === 1)
+        {
+            drawCheckBoxRed(tooth.checkBoxes[i], context); 
+        }
+        else if(tooth.checkBoxes[i].state === 2)
+        {
+            drawCheckBoxBlue(tooth.checkBoxes[i], context); 
+        }
+        else
+        {
+            drawCheckBoxOutLine(tooth.checkBoxes[i], context); 
+        }
 
     }
+}
 
+function drawCheckBoxOutLine(checkBox, context) {
+    context.beginPath();
+
+    context.rect(checkBox.x,
+            checkBox.y,
+            checkBox.width,
+            checkBox.height);
+
+    context.lineWidth = 1;
+    // set line color
+    context.strokeStyle = COLOR_BLACK;
+    context.stroke();
+    context.restore();
+
+}
+
+function drawCheckBoxRed(checkBox, context) {
+    
+    context.beginPath();
+    context.fillStyle = COLOR_RED;
+    
+    context.fillRect(checkBox.x,
+            checkBox.y,
+            checkBox.width,
+            checkBox.height);
+    
+    context.restore();
+    
+    context.rect(checkBox.x,
+            checkBox.y,
+            checkBox.width,
+            checkBox.height);
+
+    context.lineWidth = 1;
+    // set line color
+    context.strokeStyle = COLOR_BLACK;
+    context.stroke();
+    context.restore();
+}
+
+function drawCheckBoxBlue(checkBox, context) {
+    
+    context.beginPath();
+    context.fillStyle = COLOR_BLUE;
+    
+    context.fillRect(checkBox.x,
+            checkBox.y,
+            checkBox.width,
+            checkBox.height);
+    
+    context.restore();
+    
+    context.rect(checkBox.x,
+            checkBox.y,
+            checkBox.width,
+            checkBox.height);
+
+    context.lineWidth = 1;
+    // set line color
+    context.strokeStyle = COLOR_BLACK;
+    context.stroke();
+    context.restore();
 }
 
 /**

@@ -27,6 +27,34 @@ function handleCollision(tooth, argument)
         toggleDamage(tooth, argument);
     }
 
+}
 
+function handleCollisionCheckBox(checkBox, argument)
+{
+    console.log("handleCollisionCheckBox(" + checkBox +", " + argument+ ")");
+
+    if(argument === "12")
+    {
+        if(checkBox.state === 1)
+        {
+            checkBox.state = 0;
+        }
+        else
+        {
+            checkBox.state = 1;
+        }
+      
+    }
+    else if(argument === "13")
+    {
+         if(checkBox.state === 2)
+        {
+            checkBox.state = 0;
+        }
+        else
+        {
+            checkBox.state = 2;
+        }
+    }
 
 }
