@@ -10,6 +10,7 @@
  */
 
 var COLOR_HIGHLIGHT = "#1CDE02";
+var COLOR_HIGHLIGHT_ALPHA = "#881CDE02";
 var COLOR_RED = "#ff0000";
 var COLOR_BLUE = "#0052ff";
 var COLOR_BLACK = "#000000";

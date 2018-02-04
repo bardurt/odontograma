@@ -26,6 +26,10 @@
                engine.onMouseClick(event);
             }, false);
             
+            canvas.addEventListener('mousemove', function(event) {
+               engine.onMouseMove(event);
+            }, false);
+            
             window.addEventListener('keydown', function(event){
                 engine.onButtonClick(event);
             }, false);

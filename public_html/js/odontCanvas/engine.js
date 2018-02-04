@@ -25,9 +25,13 @@ function Engine()
     this.selectedHallazgo = "0";
     this.mouth = new Array();
     this.canvas = null;
+
+    this.cursorX = 0;
+    this.corsorY = 0;
+
 }
 
-Engine.prototype.setCanvas = function(canvas)
+Engine.prototype.setCanvas = function (canvas)
 {
     console.log("Engine, setting canvas: " + canvas);
     this.canvas = canvas;
@@ -35,7 +39,7 @@ Engine.prototype.setCanvas = function(canvas)
 };
 
 
-Engine.prototype.init = function() {
+Engine.prototype.init = function () {
 
     this.odontogramaGenerator.setEngine(this);
     this.odontogramaGenerator.prepareOdontogramaAdult(this.mouth);
@@ -45,9 +49,13 @@ Engine.prototype.init = function() {
  * Method to draw odontograma
  * @returns {undefined}
  */
-Engine.prototype.draw = function()
+Engine.prototype.draw = function ()
 {
     this.renderer.render(this.mouth);
+
+    if (DEBUG) {
+        this.renderer.renderRect(this.cursorX, this.cursorY, 20, 20, true, true);
+    }
 };
 
 /**
@@ -57,7 +65,7 @@ Engine.prototype.draw = function()
  * @param {type} event mouse event containing x and y coords.
  * @returns {Boolean} true if there is a collision
  */
-Engine.prototype.checkCollision = function(obj, event)
+Engine.prototype.checkCollision = function (obj, event)
 {
     var x = event.clientX;
     var y = event.clientY;
@@ -85,7 +93,7 @@ Engine.prototype.checkCollision = function(obj, event)
  * @param {type} event mouse click event
  * @returns {undefined}
  */
-Engine.prototype.onMouseClick = function(event)
+Engine.prototype.onMouseClick = function (event)
 {
 
     shouldUpdate = false;
@@ -93,16 +101,16 @@ Engine.prototype.onMouseClick = function(event)
     for (var i = 0; i < this.mouth.length; i++)
     {
         this.mouth[i].highlight = false;
-        
-        if(this.checkCollision(this.mouth[i], event)){
-            
-             this.collisionHandler.handleCollision(this.mouth[i], this.selectedHallazgo);
+
+        if (this.checkCollision(this.mouth[i], event)) {
+
+            this.collisionHandler.handleCollision(this.mouth[i], this.selectedHallazgo);
             shouldUpdate = true;
         }
-        
-        for(var j = 0; j < this.mouth[i].checkBoxes.length; j++)
+
+        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
         {
-            if( this.mouth[i].checkBoxes[j].checkCollision(event.clientX, event.clientY) )
+            if (this.mouth[i].checkBoxes[j].checkCollision(event.clientX, event.clientY))
             {
                 this.collisionHandler.handleCollisionCheckBox(this.mouth[i].checkBoxes[j], this.selectedHallazgo);
                 shouldUpdate = true;
@@ -119,32 +127,62 @@ Engine.prototype.onMouseClick = function(event)
 
 };
 
+Engine.prototype.followMouse = function (event)
+{
+
+    this.cursorX = event.clientX;
+    this.cursorY = event.clientY;
+
+    this.draw();
+
+    console.log("On mouse move called");
+};
+
+/**
+ * Event handler for when the mouse is moved
+ * @param {type} event mouse click event
+ * @returns {undefined}
+ */
+Engine.prototype.onMouseMove = function (event)
+{
+    if (DEBUG)
+    {
+        this.followMouse(event);
+    }
+};
+
 /*'
  * Method to reset the odontograma
  * @returns {undefined}
  */
-Engine.prototype.reset = function()
+Engine.prototype.reset = function ()
 {
-    
-    for(var i = 0; i < this.mouth.length; i++)
+
+    for (var i = 0; i < this.mouth.length; i++)
     {
         this.mouth[i].damages.length = 0;
-        
-        for(var j = 0; j < this.mouth[i].checkBoxes.length; j++)
+
+        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
         {
             this.mouth[i].checkBoxes[j].state = 0;
         }
     }
-    
-    draw();
+
+    this.draw();
 };
 
 
-Engine.prototype.save = function()
+Engine.prototype.save = function ()
 {
-    var image = this.canvas.toDataURL("image/jpg").replace("image/png", "image/octet-stream"); //Convert image to 'octet-stream' (Just a download, really)
-    window.location.href = image;
-    
+
+
+    // save image as png
+    var link = document.createElement('a');
+    link.download = "test.png";
+    link.href = this.canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+
+    link.click();
+
 };
 
 /**
@@ -152,7 +190,7 @@ Engine.prototype.save = function()
  * @param {type} event mouse click event
  * @returns {undefined}
  */
-Engine.prototype.onButtonClick = function(event)
+Engine.prototype.onButtonClick = function (event)
 {
     console.log("key " + event.key);
 
@@ -160,95 +198,95 @@ Engine.prototype.onButtonClick = function(event)
     {
         this.selectedHallazgo = "1";
     }
-    
+
     if (event.key === "2")
     {
         this.selectedHallazgo = "2";
-    } 
-    
+    }
+
     if (event.key === "3")
     {
         this.selectedHallazgo = "3";
-    } 
-    
+    }
+
     if (event.key === "4")
     {
         this.selectedHallazgo = "4";
-    } 
-    
-    if(event.key === "5")
+    }
+
+    if (event.key === "5")
     {
         this.selectedHallazgo = "5";
     }
-    
-    if(event.key === "6")
+
+    if (event.key === "6")
     {
         this.selectedHallazgo = "6";
     }
-    
-    if(event.key === "7")
+
+    if (event.key === "7")
     {
         this.selectedHallazgo = "7";
     }
-    
-    if(event.key === "8")
+
+    if (event.key === "8")
     {
         this.selectedHallazgo = "8";
     }
-    
-    if(event.key === "9")
+
+    if (event.key === "9")
     {
         this.selectedHallazgo = "9";
     }
-    
-    if(event.key === "0")
+
+    if (event.key === "0")
     {
         this.selectedHallazgo = "10";
     }
-    
-    if(event.key === "q")
+
+    if (event.key === "q")
     {
         this.selectedHallazgo = "11";
     }
-    
-    if(event.key === "w")
+
+    if (event.key === "w")
     {
         this.selectedHallazgo = "12";
     }
-    
-    if(event.key === "r")
+
+    if (event.key === "r")
     {
         this.selectedHallazgo = "12";
     }
-    
-    if(event.key === "b")
+
+    if (event.key === "b")
     {
         this.selectedHallazgo = "13";
     }
-    
+
     if (event.key === "h")
     {
         this.selectedHallazgo = "0";
-    } 
-    
+    }
+
     if (event.key === "z")
     {
         this.selectedHallazgo = "0";
-        reset();
-    } 
-    
+        this.reset();
+    }
+
     if (event.key === "m")
     {
         this.selectedHallazgo = "0";
-        save();
-    } 
-    
-    if(event.key === "d"){
-        
+        this.save();
+    }
+
+    if (event.key === "d") {
+
         DEBUG = !DEBUG;
-        
+
         console.log("DEBUG: " + DEBUG);
-        
+
         this.draw();
     }
 };

@@ -48,7 +48,10 @@ Renderer.prototype.render = function(mouth)
     console.log("Renderer render, context = " +  this.context);
     
     // clear
-    this.context.clearRect(0, 0, this.width, this.height);
+    this.context.fillStyle ="#ffffff";
+    this.context.fillRect(0, 0, this.width, this.height);
+    
+    this.context.restore();
     
     // draw the teeth
     for (var i = 0; i < mouth.length; i++) {
@@ -56,4 +59,51 @@ Renderer.prototype.render = function(mouth)
         mouth[i].render( this.context);
     }
 
+};
+
+/**
+ * Method to render a point
+ * @param {type} x 
+ * @param {type} y
+ * @param {type} width
+ * @param {type} heigt
+ * @returns {undefined}
+ */
+Renderer.prototype.renderRect = function(x, y, width, height, fill, center)
+{
+    this.context.beginPath();
+    this.context.globalAlpha=0.5;
+    if(fill)
+    {
+        this.context.fillStyle = COLOR_HIGHLIGHT;
+        
+        if(!center)
+        {
+            this.context.fillRect(x, y, width, height);  
+        } 
+        else
+        {
+            this.context.fillRect(x-width/2, y-height/2, width, height);   
+        }
+    }
+    else
+    {
+        this.context.strokeStyle = COLOR_HIGHLIGHT;
+        this.context.lineWidth = 1;
+        
+        if(!center)
+        {
+            this.context.rect(x, y, width, height);  
+        } 
+        else
+        {
+            this.context.rect(x-width/2, y-height/2, width, height);   
+        }
+        
+        this.context.stroke();
+    }
+    
+    this.context.globalAlpha=1;
+    this.context.restore();
+  
 };
