@@ -1032,6 +1032,32 @@ Tooth.prototype.drawProtesisTotal = function (context)
 
 };
 
+Tooth.prototype.drawFusion = function (context)
+{
+    var cx = this.x + this.width / 2;
+  
+    var radius = (this.width + 5) / 2;
+  
+    context.beginPath();
+
+    if (this.type === TYPE_UPPER) {
+       var cy = this.y + this.height + this.spacer + 45;
+       context.ellipse(cx, cy, radius, radius - 15, 0, 0, 2 * Math.PI);
+
+    } else {
+        var cy = this.y - this.spacer - 50;
+        context.ellipse(cx, cy, radius, radius - 15, 0, 0, 2 * Math.PI);
+    }
+
+    context.lineWidth = 2;
+    // set line color
+    context.strokeStyle = COLOR_BLUE;
+    context.stroke();
+    context.restore();
+
+}
+
+
 
 /**
  * Method to draw a which tooth is highlighted
@@ -1138,6 +1164,11 @@ Tooth.prototype.drawDamage = function (context)
         {
             this.drawProtesisTotal(context);
         }
+        
+        if (this.damages[i] === "17")
+        {
+            this.drawFusion(context);
+        }
     }
 };
 
@@ -1189,5 +1220,4 @@ Tooth.prototype.render = function (context)
         }
 
     }
-
 };
