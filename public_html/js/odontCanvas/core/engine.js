@@ -11,6 +11,7 @@
 document.writeln("<script type='text/javascript' src='js/odontCanvas/util/const.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/util/colors.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/rect.js'></script>");
+document.writeln("<script type='text/javascript' src='js/odontCanvas/models/damage.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/tooth.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/renderer.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/odontogramaGenerator.js'></script>");
@@ -89,7 +90,6 @@ Engine.prototype.checkCollision = function (obj, event)
             if (x < width) {
                 if (y < height) {
                     collision = true;
-                    console.log("Tooth surfaces " + obj.surfaces);
                 }
             }
         }

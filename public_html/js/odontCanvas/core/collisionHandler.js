@@ -23,18 +23,12 @@ function CollisionHandler()
 CollisionHandler.prototype.handleCollision = function(tooth, argument)
 {
 
-    console.log("HandleCollision("+ tooth.id +"," + argument +")");
-
-    if (argument === "0")
-    {
-        
-        tooth.toggleSelected(true);
-    }
-    else
-    {
+    console.log("Handle collision");
+    
+    if(argument !== "0"){
         tooth.toggleDamage(argument);
     }
-
+    
 };
 
 /**
@@ -45,7 +39,6 @@ CollisionHandler.prototype.handleCollision = function(tooth, argument)
  */
 CollisionHandler.prototype.handleCollisionCheckBox = function(checkBox, argument)
 {
-    console.log("handleCollisionCheckBox(" + checkBox +", " + argument+ ")");
 
     if(argument === "13")
     {

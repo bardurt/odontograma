@@ -35,7 +35,6 @@ Renderer.prototype.init = function(canvas) {
     this.width = canvas.width;
     this.height = canvas.height;
     
-    console.log("Renderer init, context = " + this.context);
     
     this.load();
 };
@@ -48,7 +47,6 @@ Renderer.prototype.init = function(canvas) {
  */
 Renderer.prototype.render = function(data)
 {
-    console.log("Renderer render, context = " +  this.context);
     
     // clear
     this.context.fillStyle ="#ffffff";
