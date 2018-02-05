@@ -305,6 +305,11 @@ Engine.prototype.onButtonClick = function (event)
     {
         this.selectedHallazgo = "15";
     }
+    
+    if (event.key === "t")
+    {
+        this.selectedHallazgo = "16";
+    }
 
     if (event.key === "h")
     {

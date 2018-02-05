@@ -1003,14 +1003,43 @@ Tooth.prototype.drawDienteEnClavija = function (context)
 
 };
 
+Tooth.prototype.drawProtesisTotal = function (context)
+{
+
+    context.beginPath();
+
+    if (this.type === TYPE_UPPER) {
+        context.moveTo(this.x, this.y + this.height - 10);
+        context.lineTo(this.x + this.width, this.y + this.height - 10);
+        
+        context.moveTo(this.x, this.y + this.height - 15);
+        context.lineTo(this.x + this.width, this.y + this.height - 15);
+
+    } else {
+
+        context.moveTo(this.x, this.y + 10);
+        context.lineTo(this.x + this.width, this.y + 10);
+        
+        context.moveTo(this.x, this.y + 15);
+        context.lineTo(this.x + this.width, this.y + 15);
+    }
+
+    context.lineWidth = 2;
+    // set line color
+    context.strokeStyle = COLOR_BLUE;
+    context.stroke();
+    context.restore();
+
+};
+
+
 /**
  * Method to draw a which tooth is highlighted
  * @param {type} context canvas for drawing
  * @returns {undefined}
  */
-Tooth.prototype.drawHighlight = function (context)
+Tooth.prototype.drawHighlight = function(context)
 {
-
     context.beginPath();
 
     if (this.type === TYPE_UPPER) {
@@ -1029,9 +1058,7 @@ Tooth.prototype.drawHighlight = function (context)
     context.stroke();
     context.restore();
 
-    console.log("Drawing highlight");
 };
-
 
 /**
  * Method to draw a damage on a tooth
@@ -1105,6 +1132,11 @@ Tooth.prototype.drawDamage = function (context)
         if (this.damages[i] === "15")
         {
             this.drawDienteEnClavija(context);
+        }
+        
+        if (this.damages[i] === "16")
+        {
+            this.drawProtesisTotal(context);
         }
     }
 };
