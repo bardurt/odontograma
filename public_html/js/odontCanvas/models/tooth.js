@@ -594,7 +594,7 @@ Tooth.prototype.render = function (context)
     {
         if (this.checkBoxes[i].touching)
         {
-            this.checkBoxes[i].highlight(context);
+            this.checkBoxes[i].highlightWithColor(context, "#36BE1B", 0.6);
         }
 
     }

@@ -707,8 +707,9 @@ Damage.prototype.render = function(context)
         this.drawCoronaTemporal(context);
     }
     
-    
-    this.rect.highlight(context);
+    if(DEBUG){
+        this.rect.highlight(context);
+    }
 };
 
 

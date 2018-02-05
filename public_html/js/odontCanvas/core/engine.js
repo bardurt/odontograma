@@ -19,15 +19,25 @@ document.writeln("<script type='text/javascript' src='js/odontCanvas/core/collis
 
 function Engine()
 {
+    this.adultShowing = true;
+
+    this.mouth = new Array();
+    this.odontAdult = new Array();
+    this.odontChild = new Array();
+
+
     this.renderer = new Renderer();
     this.odontogramaGenerator = new OdontogramaGenerator();
     this.collisionHandler = new CollisionHandler();
     this.selectedHallazgo = "0";
-    this.mouth = new Array();
+
     this.canvas = null;
 
     this.cursorX = 0;
     this.corsorY = 0;
+
+    this.multiSelect = false;
+    this.multiSelection = Array();
 
 }
 
@@ -51,7 +61,10 @@ Engine.prototype.init = function () {
 
     // set up the odontograma
     this.odontogramaGenerator.setEngine(this);
-    this.odontogramaGenerator.prepareOdontogramaAdult(this.mouth);
+    this.odontogramaGenerator.prepareOdontogramaAdult(this.odontAdult);
+    this.odontogramaGenerator.prepareOdontogramaChild(this.odontChild);
+
+    this.mouth = this.odontAdult;
 };
 
 /**
@@ -98,6 +111,17 @@ Engine.prototype.checkCollision = function (obj, event)
     return collision;
 };
 
+Engine.prototype.printMultiSelection = function () {
+
+    console.log("Multi Select count: " + this.multiSelection.length);
+    for (var i = 0; i < this.multiSelection.length; i++) {
+
+        console.log("multiSelection[" + i + "]: " + this.multiSelection[i].id);
+
+    }
+
+};
+
 /**
  * Event handler for when the mouse is clicked
  * @param {type} event mouse click event
@@ -116,7 +140,13 @@ Engine.prototype.onMouseClick = function (event)
         // check collision for current tooth
         if (this.mouth[i].checkCollision(event.clientX, event.clientY)) {
 
-            this.collisionHandler.handleCollision(this.mouth[i], this.selectedHallazgo);
+            if (!this.multiSelect) {
+                this.collisionHandler.handleCollision(this.mouth[i], this.selectedHallazgo);
+            } else {
+                this.multiSelection.push(this.mouth[i]);
+
+                this.printMultiSelection();
+            }
             shouldUpdate = true;
         }
 
@@ -353,4 +383,33 @@ Engine.prototype.onButtonClick = function (event)
 
         this.update();
     }
+
+    if (event.key === "Control") {
+
+        this.multiSelect = !this.multiSelect;
+
+        if (!this.multiSelect) {
+            this.multiSelection.length = 0;
+        }
+
+    }
+
+    if (event.key === "F1") {
+
+        this.adultShowing = true;
+        console.log("Setting odontograma to adult");
+        this.mouth = this.odontAdult;
+        this.update();
+
+    }
+
+    if (event.key === "F2") {
+
+        this.adultShowing = false;
+        console.log("Setting odontograma to child");
+        this.mouth = this.odontChild;
+        this.update();
+
+    }
+
 };

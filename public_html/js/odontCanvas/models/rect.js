@@ -65,6 +65,19 @@ Rect.prototype.highlight = function (context) {
 
 };
 
+Rect.prototype.highlightWithColor = function (context, color, alpha) {
+
+    context.beginPath();
+    context.globalAlpha = alpha;
+    context.fillStyle = color;
+
+    context.fillRect(this.x, this.y, this.width, this.height);
+
+    context.globalAlpha = 1;
+    context.restore();
+
+};
+
 Rect.prototype.outline = function (context) {
 
     context.beginPath();

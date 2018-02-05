@@ -210,4 +210,149 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function(array) {
 
 };
 
+/**
+ * Method to prepare the layout for an odontograma
+ * @param {type} array container for all the teeths
+ * @returns {undefined}
+ */
+OdontogramaGenerator.prototype.prepareOdontogramaChild = function(array) {
+
+    var self = this;
+    this.arrayCount = 0;
+
+    // start of first tooth
+    var x = 0;
+
+    for (var i = 55; i > 50; i--) {
+
+        var tooth = new Tooth();
+
+        if (i > 54)
+        {
+            tooth.setSurfaces(5);
+
+        } else
+        {
+            tooth.setSurfaces(4);
+        }
+
+        var image = new Image();
+
+        image.src = "images/dentadura-sup-" + i + ".png";
+
+        tooth.id = i;
+        tooth.image = image;
+        tooth.setDimens(x, this.base, this.imgWidth, this.imgHeight);
+        tooth.setType(TYPE_UPPER);
+
+        x += tooth.width + TOOTH_PADDING;
+
+        array[this.arrayCount] = tooth;
+
+        this.arrayCount++;
+
+        tooth.createSurfaces();
+
+    }
+
+    for (var i = 61; i < 66; i++) {
+
+        var tooth = new Tooth();
+
+        if (i < 64)
+        {
+            tooth.setSurfaces(4);
+        } else
+        {
+            tooth.setSurfaces(5);
+        }
+
+        var image = new Image;
+
+        image.src = "images/dentadura-sup-" + i + ".png";
+
+        tooth.id = i;
+        tooth.image = image;
+        tooth.setDimens(x, this.base, this.imgWidth, this.imgHeight);
+        tooth.setType(TYPE_UPPER);
+
+        x += tooth.width + TOOTH_PADDING;
+
+        array[this.arrayCount] = tooth;
+
+        this.arrayCount++;
+
+        tooth.createSurfaces();
+
+    }
+
+    // start position of first 
+    var x = 0;
+
+    for (var i = 85; i > 80; i--) {
+
+        var tooth = new Tooth();
+
+        if (i < 84)
+        {
+            tooth.setSurfaces(4);
+
+        } else
+        {
+            tooth.setSurfaces(5);
+        }
+
+
+        var image = new Image();
+
+        image.src = "images/dentadura-inf-" + i + ".png";
+
+        tooth.id = i;
+        tooth.image = image;
+        tooth.setDimens(x, this.base + this.seperator, this.imgWidth, this.imgHeight);
+        tooth.setType(TYPE_LOWER);
+
+        x += tooth.width + TOOTH_PADDING;
+
+        array[this.arrayCount] = tooth;
+
+        this.arrayCount++;
+
+        tooth.createSurfaces();
+
+    }
+
+    for (var i = 71; i < 76; i++) {
+
+        var tooth = new Tooth();
+
+        if (i < 74)
+        {
+            tooth.setSurfaces(4);
+        } else
+        {
+            tooth.setSurfaces(5);
+        }
+
+        var image = new Image();
+
+        image.src = "images/dentadura-inf-" + i + ".png";
+
+        tooth.id = i;
+        tooth.image = image;
+        tooth.setDimens(x, this.base + this.seperator, this.imgWidth, this.imgHeight);
+
+        tooth.setType(TYPE_LOWER);
+
+        array[this.arrayCount] = tooth;
+        x += tooth.width + TOOTH_PADDING;
+
+        this.arrayCount++;
+
+        tooth.createSurfaces();
+
+    }
+
+};
+
 
