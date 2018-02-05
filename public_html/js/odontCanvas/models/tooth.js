@@ -27,7 +27,7 @@ function Tooth()
     this.rect = new Rect();
     this.spacer = 20; // spacer to seperate tooth from surfaces
     this.touching = false;
-
+    this.address = 0;
     this.normalY;
     this.highY;
 

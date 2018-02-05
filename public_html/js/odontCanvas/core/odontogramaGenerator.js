@@ -98,6 +98,8 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function(array, canvas)
 
         array[this.arrayCount] = tooth;
 
+        tooth.address = this.arrayCount;
+        
         this.arrayCount++;
 
         tooth.createSurfaces();
@@ -133,6 +135,8 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function(array, canvas)
 
         array[this.arrayCount] = tooth;
 
+        tooth.address = this.arrayCount;
+        
         this.arrayCount++;
 
         tooth.createSurfaces();
@@ -173,6 +177,8 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function(array, canvas)
 
         array[this.arrayCount] = tooth;
 
+        tooth.address = this.arrayCount;
+        
         this.arrayCount++;
 
         tooth.createSurfaces();
@@ -208,6 +214,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function(array, canvas)
         array[this.arrayCount] = tooth;
         x += tooth.width + TOOTH_PADDING;
 
+        tooth.address = this.arrayCount;
         this.arrayCount++;
 
         tooth.createSurfaces();
@@ -259,6 +266,8 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function(array, canvas)
 
         array[this.arrayCount] = tooth;
 
+        tooth.address = this.arrayCount;
+        
         this.arrayCount++;
 
         tooth.createSurfaces();
@@ -287,7 +296,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function(array, canvas)
         tooth.setType(TYPE_UPPER);
 
         x += tooth.width + TOOTH_PADDING;
-
+        
+        tooth.address = this.arrayCount;
+        
         array[this.arrayCount] = tooth;
 
         this.arrayCount++;
@@ -326,6 +337,8 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function(array, canvas)
 
         array[this.arrayCount] = tooth;
 
+        tooth.address = this.arrayCount;
+        
         this.arrayCount++;
 
         tooth.createSurfaces();
@@ -357,6 +370,8 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function(array, canvas)
         array[this.arrayCount] = tooth;
         x += tooth.width + TOOTH_PADDING;
 
+
+        tooth.address = this.arrayCount;
         this.arrayCount++;
 
         tooth.createSurfaces();

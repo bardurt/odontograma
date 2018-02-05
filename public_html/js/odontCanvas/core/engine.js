@@ -139,6 +139,37 @@ Engine.prototype.printMultiSelection = function () {
 
 };
 
+Engine.prototype.handleMultiSelection = function ()
+{
+
+    console.log("handleMultiSelection called");
+
+    if (this.multiSelection.length === 2) {
+
+
+        item1 = this.multiSelection[0];
+        item2 = this.multiSelection[1];
+
+        if (item1.type === item2.type) {
+            console.log("Multi select same type");
+
+            var result = Math.abs(item1.address - item2.address);
+
+            if (result === 1) {
+                console.log("Multi select Neighbours");
+            } else {
+                console.log("Multi select NOT Neighbours");
+            }
+
+        } else {
+            console.log("Multi select NOT same type");
+
+        }
+
+    }
+
+};
+
 
 
 /**
@@ -162,11 +193,17 @@ Engine.prototype.onMouseClick = function (event)
                 this.getYpos(event))) {
 
             if (!this.multiSelect) {
+
                 this.collisionHandler.handleCollision(this.mouth[i], this.selectedHallazgo);
+
             } else {
+
                 this.multiSelection.push(this.mouth[i]);
 
                 this.printMultiSelection();
+
+                this.handleMultiSelection();
+
             }
             shouldUpdate = true;
         }
