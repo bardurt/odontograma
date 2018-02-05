@@ -36,6 +36,10 @@ OdontogramaGenerator.prototype.setEngine = function(engine)
     this.engine = engine;
 };
 
+/**
+ * Method to update the count of images which have been loaded
+ * @returns {undefined}
+ */
 OdontogramaGenerator.prototype.updateLoad = function() {
 
     this.currentLoad++;

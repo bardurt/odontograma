@@ -83,6 +83,11 @@ Tooth.prototype.setSurfaces = function (surfaces)
     this.surfaces = surfaces;
 };
 
+Tooth.prototype.toggleSelected = function(selected)
+{
+    this.highlight = selected;
+};
+
 /**
  * Method to create 4 surfaces for the tooth, 4 checkboxes
  * @returns {undefined}

@@ -28,7 +28,7 @@ CollisionHandler.prototype.handleCollision = function(tooth, argument)
     if (argument === "0")
     {
         
-        tooth.highlight = true;
+        tooth.toggleSelected(true);
     }
     else
     {

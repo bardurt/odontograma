@@ -8,13 +8,13 @@
  * Contributors:
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
+document.writeln("<script type='text/javascript' src='js/odontCanvas/util/const.js'></script>");
+document.writeln("<script type='text/javascript' src='js/odontCanvas/util/colors.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/rect.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/tooth.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/renderer.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/odontogramaGenerator.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/const.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/collisionHandler.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/colors.js'></script>");
+document.writeln("<script type='text/javascript' src='js/odontCanvas/core/renderer.js'></script>");
+document.writeln("<script type='text/javascript' src='js/odontCanvas/core/odontogramaGenerator.js'></script>");
+document.writeln("<script type='text/javascript' src='js/odontCanvas/core/collisionHandler.js'></script>");
 
 function Engine()
 {
@@ -63,7 +63,8 @@ Engine.prototype.update = function ()
 
     if (DEBUG) {
        
-       this.renderer.renderText("X: " + this.cursorX + ", Y: "  + this.cursorY, 2, 15);
+       this.renderer.renderText("DEBUG MODE", 2, 15);
+       this.renderer.renderText("X: " + this.cursorX + ", Y: "  + this.cursorY, 128, 15);
     }
 };
 
@@ -107,16 +108,19 @@ Engine.prototype.onMouseClick = function (event)
 
     shouldUpdate = false;
 
+    // loop through all teeth
     for (var i = 0; i < this.mouth.length; i++)
     {
-        this.mouth[i].highlight = false;
+        this.mouth[i].toggleSelected(false);
 
-        if (this.checkCollision(this.mouth[i], event)) {
+        // check collision for current tooth
+        if (this.mouth[i].checkCollision(event.clientX, event.clientY)) {
 
             this.collisionHandler.handleCollision(this.mouth[i], this.selectedHallazgo);
             shouldUpdate = true;
         }
 
+        // check if there is a collision with one of the tooth surfaces
         for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
         {
             if (this.mouth[i].checkBoxes[j].checkCollision(event.clientX, event.clientY))
@@ -127,12 +131,10 @@ Engine.prototype.onMouseClick = function (event)
         }
     }
 
+    // only update if something new has occurred
     if (shouldUpdate) {
         this.update();
     }
-
-    console.log("X " + event.clientX);
-    console.log("Y " + event.clientX);
 
 };
 
@@ -143,8 +145,6 @@ Engine.prototype.followMouse = function (event)
     this.cursorY = event.clientY;
 
     this.update();
-
-    console.log("On mouse move called");
 };
 
 /**
@@ -156,8 +156,6 @@ Engine.prototype.onMouseMove = function (event)
 {
     if (DEBUG)
     {
-        this.followMouse(event);
-        
         
         for(var i = 0; i < this.mouth.length; i++){
             
@@ -182,6 +180,8 @@ Engine.prototype.onMouseMove = function (event)
                 }
             }
         }
+        
+        this.followMouse(event);
     }
 };
 
@@ -205,7 +205,10 @@ Engine.prototype.reset = function ()
     this.update();
 };
 
-
+/**
+ * Method to save the odontograma as an image file
+ * @returns {undefined}
+ */
 Engine.prototype.save = function ()
 {
 
