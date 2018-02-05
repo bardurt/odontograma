@@ -30,7 +30,14 @@ function Tooth()
 
 }
 
-
+/**
+ * Method to set up position and dimension of the Tooth
+ * @param {type} x position
+ * @param {type} y position
+ * @param {type} width 
+ * @param {type} height
+ * @returns {undefined}
+ */
 Tooth.prototype.setDimens = function (x, y, width, height)
 {
     this.x = x;
@@ -45,22 +52,41 @@ Tooth.prototype.setDimens = function (x, y, width, height)
 
 };
 
+/**
+ * Method to set the type of the tooth
+ * @param {type} type of the tooth, upper or lower
+ * @returns {undefined}
+ */
 Tooth.prototype.setType = function (type)
 {
     this.type = type;
 };
 
-Tooth.prototype.checkCollision = function (cursX, cursY)
+/**
+ * Method to check for collision
+ * @param {type} eX 
+ * @param {type} eY
+ * @returns {unresolved}
+ */
+Tooth.prototype.checkCollision = function (eX, eY)
 {
-    return this.rect.checkCollision(cursX, cursY);
+    return this.rect.checkCollision(eX, eY);
 };
 
+/**
+ * Method to set surfaces for the tooth, 4 or 5
+ * @param {type} surfaces
+ * @returns {undefined}
+ */
 Tooth.prototype.setSurfaces = function (surfaces)
 {
     this.surfaces = surfaces;
 };
 
-
+/**
+ * Method to create 4 surfaces for the tooth, 4 checkboxes
+ * @returns {undefined}
+ */
 Tooth.prototype.create4Surfaces = function ()
 {
     var width = RECT_DIMEN;
@@ -147,6 +173,10 @@ Tooth.prototype.create4Surfaces = function ()
 
 };
 
+/**
+ * Method to create 5 surfaces for the tooth, 5 checkboxes
+ * @returns {undefined}
+ */
 Tooth.prototype.create5Surfaces = function ()
 {
     var width = RECT_DIMEN;
@@ -252,7 +282,10 @@ Tooth.prototype.create5Surfaces = function ()
 
 };
 
-
+/**
+ * Base method for setting the surfaces for a tooth
+ * @returns {undefined}
+ */
 Tooth.prototype.createSurfaces = function ()
 {
     if (this.surfaces === 4)

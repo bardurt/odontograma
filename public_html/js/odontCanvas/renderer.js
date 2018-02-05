@@ -16,7 +16,10 @@ function Renderer()
     this.height = 0;
 }
 
-
+/**
+ * Method to show display a loading screen
+ * @returns {undefined}
+ */
 Renderer.prototype.load = function()
 {
     this.context.fillText("Loading...", this.width/2, this.height/2);
@@ -108,6 +111,13 @@ Renderer.prototype.renderRect = function(x, y, width, height, fill, center)
   
 };
 
+/**
+ * Method to render text on canvas
+ * @param {type} text the text to render
+ * @param {type} x position on canvas
+ * @param {type} y posiont on canvas
+ * @returns {undefined}
+ */
 Renderer.prototype.renderText = function(text, x, y)
 {
     this.context.fillStyle = '#000000';

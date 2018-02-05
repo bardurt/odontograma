@@ -30,6 +30,11 @@ function Engine()
 
 }
 
+/**
+ * Method to set the canvas for the engine.
+ * @param {type} canvas the canvas which will be used for drawing
+ * @returns {undefined}
+ */
 Engine.prototype.setCanvas = function (canvas)
 {
     console.log("Engine, setting canvas: " + canvas);
@@ -37,18 +42,22 @@ Engine.prototype.setCanvas = function (canvas)
     this.renderer.init(this.canvas);
 };
 
-
+/**
+ * Method to prepare the engine
+ * @returns {undefined}
+ */
 Engine.prototype.init = function () {
 
+    // set up the odontograma
     this.odontogramaGenerator.setEngine(this);
     this.odontogramaGenerator.prepareOdontogramaAdult(this.mouth);
 };
 
 /**
- * Method to draw odontograma
+ * Method for updating
  * @returns {undefined}
  */
-Engine.prototype.draw = function ()
+Engine.prototype.update = function ()
 {
     this.renderer.render(this.mouth);
 
@@ -119,7 +128,7 @@ Engine.prototype.onMouseClick = function (event)
     }
 
     if (shouldUpdate) {
-        this.draw();
+        this.update();
     }
 
     console.log("X " + event.clientX);
@@ -133,7 +142,7 @@ Engine.prototype.followMouse = function (event)
     this.cursorX = event.clientX;
     this.cursorY = event.clientY;
 
-    this.draw();
+    this.update();
 
     console.log("On mouse move called");
 };
@@ -193,7 +202,7 @@ Engine.prototype.reset = function ()
         }
     }
 
-    this.draw();
+    this.update();
 };
 
 
@@ -317,6 +326,6 @@ Engine.prototype.onButtonClick = function (event)
 
         console.log("DEBUG: " + DEBUG);
 
-        this.draw();
+        this.update();
     }
 };
