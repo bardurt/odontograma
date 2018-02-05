@@ -38,6 +38,8 @@ function Engine()
 
     this.multiSelect = false;
     this.multiSelection = Array();
+    
+    this.boundingRect = 0;
 
 }
 
@@ -51,6 +53,19 @@ Engine.prototype.setCanvas = function (canvas)
     console.log("Engine, setting canvas: " + canvas);
     this.canvas = canvas;
     this.renderer.init(this.canvas);
+    this.boundingRect = canvas.getBoundingClientRect();
+    
+};
+
+
+Engine.prototype.getXpos = function (event)
+{
+    return event.clientX - this.boundingRect.left;
+};
+
+Engine.prototype.getYpos = function (event)
+{
+     return event.clientY - this.boundingRect.top;
 };
 
 /**
@@ -61,8 +76,8 @@ Engine.prototype.init = function () {
 
     // set up the odontograma
     this.odontogramaGenerator.setEngine(this);
-    this.odontogramaGenerator.prepareOdontogramaAdult(this.odontAdult);
-    this.odontogramaGenerator.prepareOdontogramaChild(this.odontChild);
+    this.odontogramaGenerator.prepareOdontogramaAdult(this.odontAdult, this.canvas);
+    this.odontogramaGenerator.prepareOdontogramaChild(this.odontChild, this.canvas);
 
     this.mouth = this.odontAdult;
 };
@@ -122,6 +137,8 @@ Engine.prototype.printMultiSelection = function () {
 
 };
 
+
+
 /**
  * Event handler for when the mouse is clicked
  * @param {type} event mouse click event
@@ -138,7 +155,9 @@ Engine.prototype.onMouseClick = function (event)
         this.mouth[i].toggleSelected(false);
 
         // check collision for current tooth
-        if (this.mouth[i].checkCollision(event.clientX, event.clientY)) {
+        if (this.mouth[i].checkCollision(
+                this.getXpos(event), 
+                this.getYpos(event)) ){
 
             if (!this.multiSelect) {
                 this.collisionHandler.handleCollision(this.mouth[i], this.selectedHallazgo);
@@ -153,7 +172,7 @@ Engine.prototype.onMouseClick = function (event)
         // check if there is a collision with one of the tooth surfaces
         for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
         {
-            if (this.mouth[i].checkBoxes[j].checkCollision(event.clientX, event.clientY))
+            if (this.mouth[i].checkBoxes[j].checkCollision(this.getXpos(event), this.getYpos(event)))
             {
                 this.collisionHandler.handleCollisionCheckBox(this.mouth[i].checkBoxes[j], this.selectedHallazgo);
                 shouldUpdate = true;
@@ -171,8 +190,8 @@ Engine.prototype.onMouseClick = function (event)
 Engine.prototype.followMouse = function (event)
 {
 
-    this.cursorX = event.clientX;
-    this.cursorY = event.clientY;
+    this.cursorX = this.getXpos(event);
+    this.cursorY = this.getYpos(event);
 
     this.update();
 };
@@ -188,7 +207,7 @@ Engine.prototype.onMouseMove = function (event)
 
     for (var i = 0; i < this.mouth.length; i++) {
 
-        if (this.mouth[i].checkCollision(event.clientX, event.clientY))
+        if (this.mouth[i].checkCollision(this.getXpos(event), this.getYpos(event)))
         {
             this.mouth[i].onTouch(true);
         } else
@@ -198,7 +217,7 @@ Engine.prototype.onMouseMove = function (event)
 
         for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
         {
-            if (this.mouth[i].checkBoxes[j].checkCollision(event.clientX, event.clientY))
+            if (this.mouth[i].checkBoxes[j].checkCollision(this.getXpos(event), this.getYpos(event)))
             {
                 this.mouth[i].checkBoxes[j].touching = true;
             } else

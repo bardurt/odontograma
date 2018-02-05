@@ -54,13 +54,19 @@ OdontogramaGenerator.prototype.updateLoad = function() {
  * @param {type} array container for all the teeths
  * @returns {undefined}
  */
-OdontogramaGenerator.prototype.prepareOdontogramaAdult = function(array) {
+OdontogramaGenerator.prototype.prepareOdontogramaAdult = function(array, canvas) {
 
     var self = this;
     this.arrayCount = 0;
 
+    
+    var width = canvas.width;
+    var odontWidth = 16 * this.imgWidth;
+    var start = (width - odontWidth)/2;
+    
     // start of first tooth
-    var x = 0;
+    var x = start;
+
 
     for (var i = 18; i > 10; i--) {
 
@@ -134,7 +140,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function(array) {
     }
 
     // start position of first 
-    var x = 0;
+    var x = start;
 
     for (var i = 48; i > 40; i--) {
 
@@ -215,13 +221,17 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function(array) {
  * @param {type} array container for all the teeths
  * @returns {undefined}
  */
-OdontogramaGenerator.prototype.prepareOdontogramaChild = function(array) {
+OdontogramaGenerator.prototype.prepareOdontogramaChild = function(array, canvas) {
 
     var self = this;
     this.arrayCount = 0;
 
+
+    var width = canvas.width;
+    var odontWidth = 10 * this.imgWidth;
+    var start = (width - odontWidth)/2;
     // start of first tooth
-    var x = 0;
+    var x = start;
 
     for (var i = 55; i > 50; i--) {
 
@@ -287,7 +297,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function(array) {
     }
 
     // start position of first 
-    var x = 0;
+    var x = start;
 
     for (var i = 85; i > 80; i--) {
 
