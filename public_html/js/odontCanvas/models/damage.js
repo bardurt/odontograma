@@ -13,6 +13,7 @@ function Damage(id, x, y, width, height, type)
     this.rect.y = y;
     this.rect.width = width;
     this.rect.height = height;
+    this.neighbour = -1;
     
     this.type = type;
     

@@ -38,8 +38,6 @@ function Engine()
 
     this.multiSelect = false;
     this.multiSelection = Array();
-    
-    this.boundingRect = 0;
 
 }
 
@@ -53,19 +51,23 @@ Engine.prototype.setCanvas = function (canvas)
     console.log("Engine, setting canvas: " + canvas);
     this.canvas = canvas;
     this.renderer.init(this.canvas);
-    this.boundingRect = canvas.getBoundingClientRect();
-    
 };
 
 
 Engine.prototype.getXpos = function (event)
 {
-    return event.clientX - this.boundingRect.left;
+
+    var boundingRect = this.canvas.getBoundingClientRect();
+
+    return Math.round(event.clientX - (boundingRect.left));
 };
 
 Engine.prototype.getYpos = function (event)
 {
-     return event.clientY - this.boundingRect.top;
+
+    var boundingRect = this.canvas.getBoundingClientRect();
+
+    return Math.round(event.clientY - (boundingRect.top));
 };
 
 /**
@@ -156,8 +158,8 @@ Engine.prototype.onMouseClick = function (event)
 
         // check collision for current tooth
         if (this.mouth[i].checkCollision(
-                this.getXpos(event), 
-                this.getYpos(event)) ){
+                this.getXpos(event),
+                this.getYpos(event))) {
 
             if (!this.multiSelect) {
                 this.collisionHandler.handleCollision(this.mouth[i], this.selectedHallazgo);
