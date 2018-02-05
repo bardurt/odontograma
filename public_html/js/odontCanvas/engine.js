@@ -8,7 +8,6 @@
  * Contributors:
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
-
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/rect.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/tooth.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/renderer.js'></script>");
@@ -54,7 +53,8 @@ Engine.prototype.draw = function ()
     this.renderer.render(this.mouth);
 
     if (DEBUG) {
-        this.renderer.renderRect(this.cursorX, this.cursorY, 20, 20, true, true);
+       
+       this.renderer.renderText("X: " + this.cursorX + ", Y: "  + this.cursorY, 2, 15);
     }
 };
 
@@ -148,6 +148,31 @@ Engine.prototype.onMouseMove = function (event)
     if (DEBUG)
     {
         this.followMouse(event);
+        
+        
+        for(var i = 0; i < this.mouth.length; i++){
+            
+            if(this.mouth[i].checkCollision(event.clientX, event.clientY))
+            {
+                this.mouth[i].onTouch(true);
+            }
+            else
+            {
+                this.mouth[i].onTouch(false);
+            }
+            
+            for(var j = 0; j < this.mouth[i].checkBoxes.length; j++ )
+            {
+                if(this.mouth[i].checkBoxes[j].checkCollision(event.clientX, event.clientY))
+                {
+                    this.mouth[i].checkBoxes[j].touching = true;
+                }
+                else
+                {
+                    this.mouth[i].checkBoxes[j].touching = false;
+                }
+            }
+        }
     }
 };
 
@@ -256,12 +281,17 @@ Engine.prototype.onButtonClick = function (event)
 
     if (event.key === "r")
     {
-        this.selectedHallazgo = "12";
+        this.selectedHallazgo = "13";
     }
 
     if (event.key === "b")
     {
-        this.selectedHallazgo = "13";
+        this.selectedHallazgo = "14";
+    }
+    
+    if (event.key === "e")
+    {
+        this.selectedHallazgo = "15";
     }
 
     if (event.key === "h")

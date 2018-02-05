@@ -17,24 +17,25 @@ function Rect()
     this.width = 0;
     this.height = 0;
     this.state = 0;
-    
+    this.touching = false;
+
 }
 
-Rect.prototype.cavity = function(){
+Rect.prototype.cavity = function () {
     this.state = 1;
 };
 
-Rect.prototype.restoration = function(){
+Rect.prototype.restoration = function () {
     this.state = 2;
 };
 
-Rect.prototype.uncheck = function(){
+Rect.prototype.uncheck = function () {
     this.state = 0;
 };
 
-Rect.prototype.checkCollision = function(cursX, cursY){
-    
-   var collision = false;
+Rect.prototype.checkCollision = function (cursX, cursY) {
+
+    var collision = false;
 
     if (cursX > this.x) {
         if (cursY > this.y) {
@@ -48,5 +49,28 @@ Rect.prototype.checkCollision = function(cursX, cursY){
     }
 
     return collision;
-    
+
+};
+
+Rect.prototype.highlight = function (context) {
+
+    context.beginPath();
+    context.globalAlpha = 0.4;
+    context.fillStyle = COLOR_ON_TOUCH;
+
+    context.fillRect(this.x, this.y, this.width, this.height);
+
+    context.globalAlpha = 1;
+    context.restore();
+
+};
+
+Rect.prototype.outline = function (context) {
+
+    context.beginPath();
+    context.strokeStyle = '#000000';
+    context.rect(this.x, this.y, this.width, this.height);
+    context.stroke();
+    context.restore();
+
 };

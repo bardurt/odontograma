@@ -72,7 +72,7 @@ Renderer.prototype.render = function(mouth)
 Renderer.prototype.renderRect = function(x, y, width, height, fill, center)
 {
     this.context.beginPath();
-    this.context.globalAlpha=0.5;
+    this.context.globalAlpha=0.2;
     if(fill)
     {
         this.context.fillStyle = COLOR_HIGHLIGHT;
@@ -106,4 +106,11 @@ Renderer.prototype.renderRect = function(x, y, width, height, fill, center)
     this.context.globalAlpha=1;
     this.context.restore();
   
+};
+
+Renderer.prototype.renderText = function(text, x, y)
+{
+    this.context.fillStyle = '#000000';
+    this.context.fillText(text, x, y);
+    this.context.restore();
 };

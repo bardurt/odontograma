@@ -18,6 +18,7 @@ var TYPE_LOWER = 1;
  */
 function Tooth()
 {
+
     this.id = '';
     this.surfaces = 0;
     this.highlight = false;
@@ -25,41 +26,42 @@ function Tooth()
     this.checkBoxes = Array();
     this.rect = new Rect();
     this.spacer = 20; // spacer to seperate tooth from surfaces
+    this.touching = false;
+
 }
 
 
-Tooth.prototype.setDimens = function(x, y, width, height)
+Tooth.prototype.setDimens = function (x, y, width, height)
 {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
-    
+
     this.rect.x = x;
     this.rect.y = y;
     this.rect.width = width;
     this.rect.height = height;
-    
+
 };
 
-Tooth.prototype.setType = function(type)
+Tooth.prototype.setType = function (type)
 {
     this.type = type;
 };
 
-Tooth.prototype.checkCollision = function(cursX, cursY)
+Tooth.prototype.checkCollision = function (cursX, cursY)
 {
-    
     return this.rect.checkCollision(cursX, cursY);
 };
 
-Tooth.prototype.setSurfaces = function(surfaces)
+Tooth.prototype.setSurfaces = function (surfaces)
 {
     this.surfaces = surfaces;
 };
 
 
-Tooth.prototype.create4Surfaces = function()
+Tooth.prototype.create4Surfaces = function ()
 {
     var width = RECT_DIMEN;
 
@@ -142,10 +144,10 @@ Tooth.prototype.create4Surfaces = function()
         this.checkBoxes.push(rect4);
 
     }
-    
+
 };
 
-Tooth.prototype.create5Surfaces = function()
+Tooth.prototype.create5Surfaces = function ()
 {
     var width = RECT_DIMEN;
 
@@ -199,8 +201,7 @@ Tooth.prototype.create5Surfaces = function()
         rect5.y = this.y + this.height + this.spacer + width * 2;
 
         this.checkBoxes.push(rect5);
-    }
-    else
+    } else
     {
         var rect1 = new Rect();
 
@@ -248,17 +249,16 @@ Tooth.prototype.create5Surfaces = function()
         this.checkBoxes.push(rect5);
 
     }
-    
+
 };
 
 
-Tooth.prototype.createSurfaces = function()
+Tooth.prototype.createSurfaces = function ()
 {
-    if(this.surfaces === 4)
+    if (this.surfaces === 4)
     {
         this.create4Surfaces();
-    }
-    else
+    } else
     {
         this.create5Surfaces();
     }
@@ -266,7 +266,7 @@ Tooth.prototype.createSurfaces = function()
 
 
 
-Tooth.prototype.drawId = function(context)
+Tooth.prototype.drawId = function (context)
 {
     context.beginPath();
     context.fillStyle = "#000000";
@@ -277,7 +277,7 @@ Tooth.prototype.drawId = function(context)
     if (this.type === TYPE_UPPER)
     {
         // draw id
-        context.fillText("" + this.id, this.x + 5, this.y + this.height + space + 10);
+        context.fillText("" + this.id, this.x + 12, this.y + this.height + space + 10);
 
         // draw id border
         context.moveTo(this.x, this.y + this.height + space + 20);
@@ -288,7 +288,7 @@ Tooth.prototype.drawId = function(context)
     } else
     {
         // draw id
-        context.fillText("" + this.id, this.x + 5, this.y - space - 5);
+        context.fillText("" + this.id, this.x + 12, this.y - space - 5);
 
         // draw id border
         context.moveTo(this.x, this.y - space - 20);
@@ -303,13 +303,13 @@ Tooth.prototype.drawId = function(context)
     context.strokeStyle = '#000000';
     context.stroke();
     context.restore();
-    
-    
+
+
 };
 
-Tooth.prototype.drawCheckBoxOutLine = function(checkBox, context)
+Tooth.prototype.drawCheckBoxOutLine = function (checkBox, context)
 {
-   context.beginPath();
+    context.beginPath();
 
     context.rect(checkBox.x,
             checkBox.y,
@@ -323,19 +323,19 @@ Tooth.prototype.drawCheckBoxOutLine = function(checkBox, context)
     context.restore();
 };
 
-Tooth.prototype.drawCheckBoxRed = function(checkBox, context) 
+Tooth.prototype.drawCheckBoxRed = function (checkBox, context)
 {
-    
+
     context.beginPath();
     context.fillStyle = COLOR_RED;
-    
+
     context.fillRect(checkBox.x,
             checkBox.y,
             checkBox.width,
             checkBox.height);
-    
+
     context.restore();
-    
+
     context.rect(checkBox.x,
             checkBox.y,
             checkBox.width,
@@ -348,18 +348,18 @@ Tooth.prototype.drawCheckBoxRed = function(checkBox, context)
     context.restore();
 }
 
-Tooth.prototype.drawCheckBoxBlue = function(checkBox, context) {
-    
+Tooth.prototype.drawCheckBoxBlue = function (checkBox, context) {
+
     context.beginPath();
     context.fillStyle = COLOR_BLUE;
-    
+
     context.fillRect(checkBox.x,
             checkBox.y,
             checkBox.width,
             checkBox.height);
-    
+
     context.restore();
-    
+
     context.rect(checkBox.x,
             checkBox.y,
             checkBox.width,
@@ -372,28 +372,35 @@ Tooth.prototype.drawCheckBoxBlue = function(checkBox, context) {
     context.restore();
 };
 
-Tooth.prototype.drawCheckBoxes = function(context)
+
+Tooth.prototype.drawCheckBoxes = function (context)
 {
     for (var i = 0; i < this.checkBoxes.length; i++)
     {
 
-        if(this.checkBoxes[i].state === 1)
+        if (this.checkBoxes[i].state === 1)
         {
-            this.drawCheckBoxRed(this.checkBoxes[i], context); 
-        }
-        else if(this.checkBoxes[i].state === 2)
+            this.drawCheckBoxRed(this.checkBoxes[i], context);
+        } else if (this.checkBoxes[i].state === 2)
         {
-            this.drawCheckBoxBlue(this.checkBoxes[i], context); 
-        }
-        else
+            this.drawCheckBoxBlue(this.checkBoxes[i], context);
+        } else
         {
-            this.drawCheckBoxOutLine(this.checkBoxes[i], context); 
+            this.drawCheckBoxOutLine(this.checkBoxes[i], context);
         }
 
     }
 };
 
-
+/**
+ * Method to toggle Touchin on / off
+ * @param {type} touch boolean value 
+ * @returns {undefined}
+ */
+Tooth.prototype.onTouch = function(touch)
+{
+   this.rect.touching = touch;
+};
 
 /**
  * Method to toggle damage on a tooth on off
@@ -401,7 +408,7 @@ Tooth.prototype.drawCheckBoxes = function(context)
  * @param {type} damage to add or remove
  * @returns {undefined}
  */
-Tooth.prototype.toggleDamage = function(damage) {
+Tooth.prototype.toggleDamage = function (damage) {
 
     console.log("Toggle damage for " + this.id + ", damage " + damage);
 
@@ -442,7 +449,7 @@ Tooth.prototype.toggleDamage = function(damage) {
  * @param {type} context canvas
  * @returns {undefined}
  */
-Tooth.prototype.drawFractura = function(context)
+Tooth.prototype.drawFractura = function (context)
 {
     context.beginPath();
 
@@ -470,7 +477,7 @@ Tooth.prototype.drawFractura = function(context)
  * @param {type} context canvas to draw on
  * @returns {undefined}
  */
-Tooth.prototype.drawDienteAusente = function(context)
+Tooth.prototype.drawDienteAusente = function (context)
 {
 
     context.beginPath();
@@ -528,7 +535,7 @@ Tooth.prototype.drawDienteAusente = function(context)
  * @param {type} context
  * @returns {undefined}
  */
-Tooth.prototype.drawPulpar = function(context)
+Tooth.prototype.drawPulpar = function (context)
 {
     console.log("Drawing pulpar");
 
@@ -562,7 +569,7 @@ Tooth.prototype.drawPulpar = function(context)
  * @param {type} context
  * @returns {undefined}
  */
-Tooth.prototype.drawMigracion = function( context)
+Tooth.prototype.drawMigracion = function (context)
 {
     console.log("Drawing Migracion");
 
@@ -610,7 +617,7 @@ Tooth.prototype.drawMigracion = function( context)
 
 };
 
-Tooth.prototype.drawOrtondicoRemovible = function(context)
+Tooth.prototype.drawOrtondicoRemovible = function (context)
 {
     console.log("Drawing Ortondico Removible");
 
@@ -649,7 +656,7 @@ Tooth.prototype.drawOrtondicoRemovible = function(context)
  * @param {type} context
  * @returns {undefined}
  */
-Tooth.prototype.drawDienteExtruido = function(context)
+Tooth.prototype.drawDienteExtruido = function (context)
 {
     console.log("Drawing Diente Extruido");
 
@@ -697,7 +704,7 @@ Tooth.prototype.drawDienteExtruido = function(context)
  * @param {type} context
  * @returns {undefined}
  */
-Tooth.prototype.drawDienteIntruido = function(context)
+Tooth.prototype.drawDienteIntruido = function (context)
 {
     console.log("Drawing Diente Intruido");
 
@@ -739,7 +746,7 @@ Tooth.prototype.drawDienteIntruido = function(context)
 
 };
 
-Tooth.prototype.drawProtesisRemovible = function(context)
+Tooth.prototype.drawProtesisRemovible = function (context)
 {
     console.log("Drawing Protesis Removible");
 
@@ -778,7 +785,7 @@ Tooth.prototype.drawProtesisRemovible = function(context)
 
 };
 
-Tooth.prototype.drawRemanenteRadicular = function drawRemanenteRadicular(context)
+Tooth.prototype.drawRemanenteRadicular = function (context)
 {
 
     context.beginPath();
@@ -844,7 +851,7 @@ Tooth.prototype.drawGiroversion = function drawGiroversion(context)
 
 }
 
-Tooth.prototype.drawPernoMunon = function drawPernoMunon(context)
+Tooth.prototype.drawPernoMunon = function (context)
 {
     context.beginPath();
 
@@ -879,7 +886,7 @@ Tooth.prototype.drawPernoMunon = function drawPernoMunon(context)
 
 };
 
-Tooth.prototype.drawDienteEnErupcion = function(context)
+Tooth.prototype.drawDienteEnErupcion = function (context)
 {
     context.beginPath();
 
@@ -891,15 +898,15 @@ Tooth.prototype.drawDienteEnErupcion = function(context)
         context.moveTo(this.x + pad, this.y + this.height - 6);
         context.lineTo(this.x + this.width / 2, this.y + this.height);
         context.lineTo(this.x + this.width - pad, this.y + this.height - 6);
-        
+
         // draw zig zag
         context.moveTo(this.x + this.width / 2, this.y + this.height);
         context.lineTo(this.x + this.width / 2, this.y + this.height - 6);
-        context.lineTo(this.x + pad*3, this.y + this.height - 12);
-        context.lineTo(this.x + this.width - pad*3, this.y + this.height - 24);
-        context.lineTo(this.x + pad*3, this.y + this.height - 36);
-        context.lineTo(this.x + this.width - pad*3, this.y + this.height - 48);
-        context.lineTo(this.x + pad*3, this.y + this.height - 60);
+        context.lineTo(this.x + pad * 3, this.y + this.height - 12);
+        context.lineTo(this.x + this.width - pad * 3, this.y + this.height - 24);
+        context.lineTo(this.x + pad * 3, this.y + this.height - 36);
+        context.lineTo(this.x + this.width - pad * 3, this.y + this.height - 48);
+        context.lineTo(this.x + pad * 3, this.y + this.height - 60);
 
     } else
     {
@@ -907,15 +914,15 @@ Tooth.prototype.drawDienteEnErupcion = function(context)
         context.moveTo(this.x + pad, this.y + 6);
         context.lineTo(this.x + this.width / 2, this.y);
         context.lineTo(this.x + this.width - pad, this.y + 6);
-        
-          // draw zig zag
+
+        // draw zig zag
         context.moveTo(this.x + this.width / 2, this.y);
-        context.lineTo(this.x + this.width / 2, this.y +  6);
-        context.lineTo(this.x + this.width - pad*3, this.y + 12);
-        context.lineTo(this.x + pad*3, this.y + 24);
-        context.lineTo(this.x + this.width - pad*3, this.y + 36);
-        context.lineTo(this.x + pad*3, this.y + 48);
-        context.lineTo(this.x + this.width - pad*3, this.y + 60);
+        context.lineTo(this.x + this.width / 2, this.y + 6);
+        context.lineTo(this.x + this.width - pad * 3, this.y + 12);
+        context.lineTo(this.x + pad * 3, this.y + 24);
+        context.lineTo(this.x + this.width - pad * 3, this.y + 36);
+        context.lineTo(this.x + pad * 3, this.y + 48);
+        context.lineTo(this.x + this.width - pad * 3, this.y + 60);
     }
 
     context.lineWidth = 3;
@@ -926,12 +933,44 @@ Tooth.prototype.drawDienteEnErupcion = function(context)
     context.restore();
 };
 
+
+Tooth.prototype.drawDienteEnClavija = function (context)
+{
+    context.beginPath();
+    var space = 40 + this.spacer;
+
+    context.lineWidth = 3;
+
+    context.strokeStyle = COLOR_BLUE;
+
+    if (this.type === TYPE_UPPER)
+    {
+        context.moveTo(this.x, this.y + this.height + space + 20);
+        context.lineTo(this.x + this.width / 2, this.y + this.height + space - 10);
+        context.lineTo(this.x + this.width, this.y + this.height + space + 20);
+
+        context.closePath();
+    } else
+    {
+        context.moveTo(this.x, this.y - space - 20);
+        context.lineTo(this.x + this.width / 2, this.y - space + 10);
+        context.lineTo(this.x + this.width, this.y - space - 20);
+
+        context.closePath();
+
+    }
+
+    context.stroke();
+    context.restore();
+
+};
+
 /**
  * Method to draw a which tooth is highlighted
  * @param {type} context canvas for drawing
  * @returns {undefined}
  */
-Tooth.prototype.drawHighlight = function(context)
+Tooth.prototype.drawHighlight = function (context)
 {
 
     context.beginPath();
@@ -961,7 +1000,7 @@ Tooth.prototype.drawHighlight = function(context)
  * @param {type} context the canvas to draw
  * @returns {undefined}
  */
-Tooth.prototype.drawDamage = function(context)
+Tooth.prototype.drawDamage = function (context)
 {
 
     for (var i = 0; i < this.damages.length; i++)
@@ -1024,6 +1063,11 @@ Tooth.prototype.drawDamage = function(context)
         {
             this.drawDienteEnErupcion(context);
         }
+
+        if (this.damages[i] === "15")
+        {
+            this.drawDienteEnClavija(context);
+        }
     }
 };
 
@@ -1032,7 +1076,7 @@ Tooth.prototype.drawDamage = function(context)
  * @param {type} context the canvas to draw on
  * @returns {undefined}
  */
-Tooth.prototype.render = function(context)
+Tooth.prototype.render = function (context)
 {
     if (this.image !== undefined) {
 
@@ -1047,22 +1091,33 @@ Tooth.prototype.render = function(context)
     }
 
     this.drawId(context);
-   
+
     this.drawCheckBoxes(context);
-    
+
     this.drawDamage(context);
-    
-    if(this.highlight)
+
+    if (this.highlight)
     {
         this.drawHighlight(context);
     }
 
     if (DEBUG) {
-        context.beginPath();
-        context.strokeStyle = '#000000';
-        context.rect(this.x, this.y, this.width, this.height);
-        context.stroke();
-        context.restore();
+        
+        this.rect.outline(context);
+        
+        if (this.rect.touching) {
+            this.rect.highlight(context);
+        }
+        
+        for(var i = 0; i < this.checkBoxes.length; i++)
+        {
+            if(this.checkBoxes[i].touching)
+            {
+                this.checkBoxes[i].highlight(context);
+            }
+            
+        }
+
     }
-    
+
 };

@@ -47,7 +47,7 @@ CollisionHandler.prototype.handleCollisionCheckBox = function(checkBox, argument
 {
     console.log("handleCollisionCheckBox(" + checkBox +", " + argument+ ")");
 
-    if(argument === "12")
+    if(argument === "13")
     {
         if(checkBox.state === 1)
         {
@@ -59,7 +59,7 @@ CollisionHandler.prototype.handleCollisionCheckBox = function(checkBox, argument
         }
       
     }
-    else if(argument === "13")
+    else if(argument === "14")
     {
          if(checkBox.state === 2)
         {
