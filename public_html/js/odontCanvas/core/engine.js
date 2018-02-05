@@ -62,9 +62,9 @@ Engine.prototype.update = function ()
     this.renderer.render(this.mouth);
 
     if (DEBUG) {
-       
-       this.renderer.renderText("DEBUG MODE", 2, 15);
-       this.renderer.renderText("X: " + this.cursorX + ", Y: "  + this.cursorY, 128, 15);
+
+        this.renderer.renderText("DEBUG MODE", 2, 15, "#000000");
+        this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY, 128, 15, "#000000");
     }
 };
 
@@ -154,35 +154,32 @@ Engine.prototype.followMouse = function (event)
  */
 Engine.prototype.onMouseMove = function (event)
 {
-    if (DEBUG)
-    {
-        
-        for(var i = 0; i < this.mouth.length; i++){
-            
-            if(this.mouth[i].checkCollision(event.clientX, event.clientY))
+
+
+    for (var i = 0; i < this.mouth.length; i++) {
+
+        if (this.mouth[i].checkCollision(event.clientX, event.clientY))
+        {
+            this.mouth[i].onTouch(true);
+        } else
+        {
+            this.mouth[i].onTouch(false);
+        }
+
+        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
+        {
+            if (this.mouth[i].checkBoxes[j].checkCollision(event.clientX, event.clientY))
             {
-                this.mouth[i].onTouch(true);
-            }
-            else
+                this.mouth[i].checkBoxes[j].touching = true;
+            } else
             {
-                this.mouth[i].onTouch(false);
-            }
-            
-            for(var j = 0; j < this.mouth[i].checkBoxes.length; j++ )
-            {
-                if(this.mouth[i].checkBoxes[j].checkCollision(event.clientX, event.clientY))
-                {
-                    this.mouth[i].checkBoxes[j].touching = true;
-                }
-                else
-                {
-                    this.mouth[i].checkBoxes[j].touching = false;
-                }
+                this.mouth[i].checkBoxes[j].touching = false;
             }
         }
-        
-        this.followMouse(event);
     }
+
+    this.followMouse(event);
+
 };
 
 /*'
@@ -300,20 +297,35 @@ Engine.prototype.onButtonClick = function (event)
     {
         this.selectedHallazgo = "14";
     }
-    
+
     if (event.key === "e")
     {
         this.selectedHallazgo = "15";
     }
-    
+
     if (event.key === "t")
     {
         this.selectedHallazgo = "16";
     }
-    
+
     if (event.key === "y")
     {
         this.selectedHallazgo = "17";
+    }
+
+    if (event.key === "u")
+    {
+        this.selectedHallazgo = "18";
+    }
+
+    if (event.key === "i")
+    {
+        this.selectedHallazgo = "19";
+    }
+
+    if (event.key === "o")
+    {
+        this.selectedHallazgo = "20";
     }
 
     if (event.key === "h")

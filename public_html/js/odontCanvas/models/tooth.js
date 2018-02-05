@@ -27,6 +27,9 @@ function Tooth()
     this.rect = new Rect();
     this.spacer = 20; // spacer to seperate tooth from surfaces
     this.touching = false;
+    
+    this.normalY;
+    this.highY;
 
 }
 
@@ -45,10 +48,14 @@ Tooth.prototype.setDimens = function (x, y, width, height)
     this.width = width;
     this.height = height;
 
+
+
     this.rect.x = x;
     this.rect.y = y;
     this.rect.width = width;
     this.rect.height = height;
+    
+    this.normalY = y;
 
 };
 
@@ -60,6 +67,12 @@ Tooth.prototype.setDimens = function (x, y, width, height)
 Tooth.prototype.setType = function (type)
 {
     this.type = type;
+    
+    if(type === TYPE_UPPER){
+        this.highY = this.y - 10;
+    } else {
+        this.highY = this.y + 10;
+    }
 };
 
 /**
@@ -83,7 +96,7 @@ Tooth.prototype.setSurfaces = function (surfaces)
     this.surfaces = surfaces;
 };
 
-Tooth.prototype.toggleSelected = function(selected)
+Tooth.prototype.toggleSelected = function (selected)
 {
     this.highlight = selected;
 };
@@ -315,25 +328,25 @@ Tooth.prototype.drawId = function (context)
     if (this.type === TYPE_UPPER)
     {
         // draw id
-        context.fillText("" + this.id, this.x + 12, this.y + this.height + space + 10);
+        context.fillText("" + this.id, this.rect.x + 12, this.rect.y + this.rect.height + space + 10);
 
         // draw id border
-        context.moveTo(this.x, this.y + this.height + space + 20);
-        context.lineTo(this.x + this.width, this.y + this.height + space + 20);
+        context.moveTo(this.rect.x, this.rect.y + this.rect.height + space + 20);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height + space + 20);
 
-        context.moveTo(this.x + this.width, this.y + this.height + space + 20);
-        context.lineTo(this.x + this.width, this.y + this.height + space);
+        context.moveTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height + space + 20);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height + space);
     } else
     {
         // draw id
-        context.fillText("" + this.id, this.x + 12, this.y - space - 5);
+        context.fillText("" + this.id, this.rect.x + 12, this.rect.y - space - 5);
 
         // draw id border
-        context.moveTo(this.x, this.y - space - 20);
-        context.lineTo(this.x + this.width, this.y - space - 20);
+        context.moveTo(this.rect.x, this.rect.y - space - 20);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y - space - 20);
 
-        context.moveTo(this.x + this.width, this.y - space - 20);
-        context.lineTo(this.x + this.width, this.y - space);
+        context.moveTo(this.rect.x + this.rect.width, this.rect.y - space - 20);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y - space);
     }
 
     context.lineWidth = 1;
@@ -435,14 +448,21 @@ Tooth.prototype.drawCheckBoxes = function (context)
  * @param {type} touch boolean value 
  * @returns {undefined}
  */
-Tooth.prototype.onTouch = function(touch)
+Tooth.prototype.onTouch = function (touch)
 {
-   this.rect.touching = touch;
+    if(touch)
+    {
+        this.y = this.highY;
+        
+    } else {
+        this.y = this.normalY;
+    }
+    
+    this.rect.touching = touch;
 };
 
 /**
  * Method to toggle damage on a tooth on off
- * @param {type} tooth for damage
  * @param {type} damage to add or remove
  * @returns {undefined}
  */
@@ -492,13 +512,13 @@ Tooth.prototype.drawFractura = function (context)
     context.beginPath();
 
     if (this.type === TYPE_UPPER) {
-        context.moveTo(this.x, this.y + this.height);
-        context.lineTo(this.x + this.width, this.y + this.height / 2);
+        context.moveTo(this.rect.x, this.rect.y + this.rect.height);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height / 2);
 
     } else {
 
-        context.moveTo(this.x, this.y);
-        context.lineTo(this.x + this.width, this.y + this.height / 2);
+        context.moveTo(this.rect.x, this.rect.y);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height / 2);
     }
 
     context.lineWidth = 2;
@@ -524,8 +544,8 @@ Tooth.prototype.drawDienteAusente = function (context)
 
     if (this.type === TYPE_UPPER) {
 
-        context.moveTo(this.x, this.y + this.height);
-        context.lineTo(this.x + this.width, this.y + this.height / 2);
+        context.moveTo(this.rect.x, this.rect.y + this.rect.height);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height / 2);
 
         context.lineWidth = 2;
 
@@ -534,8 +554,8 @@ Tooth.prototype.drawDienteAusente = function (context)
         context.stroke();
         context.restore();
 
-        context.moveTo(this.x + this.width, this.y + this.height);
-        context.lineTo(this.x, this.y + this.height / 2);
+        context.moveTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height);
+        context.lineTo(this.rect.x, this.rect.y + this.rect.height / 2);
 
         context.strokeStyle = COLOR_BLUE;
         context.stroke();
@@ -545,8 +565,8 @@ Tooth.prototype.drawDienteAusente = function (context)
 
         console.log("Drawing lower");
 
-        context.moveTo(this.x, this.y);
-        context.lineTo(this.x + this.width, this.y + this.height / 2);
+        context.moveTo(this.rect.x, this.rect.y);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height / 2);
 
         context.lineWidth = 2;
 
@@ -555,8 +575,8 @@ Tooth.prototype.drawDienteAusente = function (context)
         context.stroke();
         context.restore();
 
-        context.moveTo(this.x + this.width, this.y);
-        context.lineTo(this.x, this.y + this.height / 2);
+        context.moveTo(this.rect.x + this.rect.width, this.rect.y);
+        context.lineTo(this.rect.x, this.rect.y + this.rect.height / 2);
 
         context.strokeStyle = COLOR_BLUE;
         context.stroke();
@@ -582,13 +602,13 @@ Tooth.prototype.drawPulpar = function (context)
     if (this.type === TYPE_UPPER) {
 
 
-        context.moveTo(this.x + this.width / 2, this.y + this.height - 10);
-        context.lineTo(this.x + this.width / 2, this.y + this.height / 2);
+        context.moveTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height - 10);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height / 2);
 
     } else {
 
-        context.moveTo(this.x + this.width / 2, this.y + 10);
-        context.lineTo(this.x + this.width / 2, this.y + this.height / 2);
+        context.moveTo(this.rect.x + this.rect.width / 2, this.rect.y + 10);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height / 2);
 
     }
 
@@ -618,30 +638,30 @@ Tooth.prototype.drawMigracion = function (context)
     if (this.type === TYPE_UPPER) {
 
         // draw line
-        context.moveTo(this.x + spacer, this.y + this.height + 5);
-        context.lineTo(this.x + this.width - spacer, this.y + this.height + 5);
+        context.moveTo(this.rect.x + spacer, this.rect.y + this.rect.height + 5);
+        context.lineTo(this.rect.x + this.rect.width - spacer, this.rect.y + this.rect.height + 5);
 
         // upper point
-        context.moveTo(this.x + spacer, this.y + this.height + 5);
-        context.lineTo(this.x + spacer + 4, this.y + this.height + 10);
+        context.moveTo(this.rect.x + spacer, this.rect.y + this.rect.height + 5);
+        context.lineTo(this.rect.x + spacer + 4, this.rect.y + this.rect.height + 10);
 
         // lower point
-        context.moveTo(this.x + spacer, this.y + this.height + 5);
-        context.lineTo(this.x + spacer + 4, this.y + this.height);
+        context.moveTo(this.rect.x + spacer, this.rect.y + this.rect.height + 5);
+        context.lineTo(this.rect.x + spacer + 4, this.rect.y + this.rect.height);
 
     } else {
 
         // draw line
-        context.moveTo(this.x + spacer, this.y - 5);
-        context.lineTo(this.x + this.width - spacer, this.y - 5);
+        context.moveTo(this.rect.x + spacer, this.rect.y - 5);
+        context.lineTo(this.rect.x + this.rect.width - spacer, this.rect.y - 5);
 
         // upper point
-        context.moveTo(this.x + this.width - spacer, this.y - 5);
-        context.lineTo(this.x + this.width - spacer - 4, this.y - 10);
+        context.moveTo(this.rect.x + this.rect.width - spacer, this.rect.y - 5);
+        context.lineTo(this.rect.x + this.rect.width - spacer - 4, this.rect.y - 10);
 
         // upper point
-        context.moveTo(this.x + this.width - spacer, this.y - 5);
-        context.lineTo(this.x + this.width - spacer - 4, this.y);
+        context.moveTo(this.rect.x + this.rect.width - spacer, this.rect.y - 5);
+        context.lineTo(this.rect.x + this.rect.width - spacer - 4, this.rect.y);
 
     }
 
@@ -666,16 +686,16 @@ Tooth.prototype.drawOrtondicoRemovible = function (context)
     if (this.type === TYPE_UPPER) {
 
         // draw ZigZag
-        context.moveTo(this.x, this.y);
-        context.lineTo(this.x + this.width / 2, this.y - 10);
-        context.lineTo(this.x + this.width, this.y);
+        context.moveTo(this.rect.x, this.rect.y);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y - 10);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y);
 
     } else {
 
         // draw ZigZag
-        context.moveTo(this.x, this.y + this.height);
-        context.lineTo(this.x + this.width / 2, this.y + this.height + 10);
-        context.lineTo(this.x + this.width, this.y + this.height);
+        context.moveTo(this.rect.x, this.rect.y + this.rect.height);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height + 10);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height);
 
     }
 
@@ -703,25 +723,25 @@ Tooth.prototype.drawDienteExtruido = function (context)
     if (this.type === TYPE_UPPER) {
 
         // draw arrow head
-        context.moveTo(this.x + 10, this.y + this.height + 10);
-        context.lineTo(this.x + this.width / 2, this.y + this.height + 15);
-        context.lineTo(this.x + this.width - 10, this.y + this.height + 10);
+        context.moveTo(this.rect.x + 10, this.rect.y + this.rect.height + 10);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height + 15);
+        context.lineTo(this.rect.x + this.rect.width - 10, this.rect.y + this.rect.height + 10);
 
         // draw arrow line
-        context.moveTo(this.x + this.width / 2 - 1, this.y + this.height + 10);
-        context.lineTo(this.x + this.width / 2 - 1, this.y + this.height);
+        context.moveTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y + this.rect.height + 10);
+        context.lineTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y + this.rect.height);
 
 
     } else {
 
         // draw arrow head
-        context.moveTo(this.x + 10, this.y - 10);
-        context.lineTo(this.x + this.width / 2, this.y - 15);
-        context.lineTo(this.x + this.width - 10, this.y - 10);
+        context.moveTo(this.rect.x + 10, this.rect.y - 10);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y - 15);
+        context.lineTo(this.rect.x + this.rect.width - 10, this.rect.y - 10);
 
         // draw arrow line
-        context.moveTo(this.x + this.width / 2 - 1, this.y - 10);
-        context.lineTo(this.x + this.width / 2 - 1, this.y);
+        context.moveTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y - 10);
+        context.lineTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y);
     }
 
     context.lineWidth = 3;
@@ -751,25 +771,25 @@ Tooth.prototype.drawDienteIntruido = function (context)
     if (this.type === TYPE_UPPER) {
 
         // draw arrow head
-        context.moveTo(this.x + 10, this.y + this.height + 5);
-        context.lineTo(this.x + this.width / 2, this.y + this.height);
-        context.lineTo(this.x + this.width - 10, this.y + this.height + 5);
+        context.moveTo(this.rect.x + 10, this.rect.y + this.rect.height + 5);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height);
+        context.lineTo(this.rect.x + this.rect.width - 10, this.rect.y + this.rect.height + 5);
 
         // draw arrow line
-        context.moveTo(this.x + this.width / 2 - 1, this.y + this.height + 5);
-        context.lineTo(this.x + this.width / 2 - 1, this.y + this.height + 15);
+        context.moveTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y + this.rect.height + 5);
+        context.lineTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y + this.rect.height + 15);
 
 
     } else {
 
         // draw arrow head
-        context.moveTo(this.x + 10, this.y - 5);
-        context.lineTo(this.x + this.width / 2, this.y);
-        context.lineTo(this.x + this.width - 10, this.y - 5);
+        context.moveTo(this.rect.x + 10, this.rect.y - 5);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y);
+        context.lineTo(this.rect.x + this.rect.width - 10, this.rect.y - 5);
 
         // draw arrow line
-        context.moveTo(this.x + this.width / 2 - 1, this.y - 5);
-        context.lineTo(this.x + this.width / 2 - 1, this.y - 15);
+        context.moveTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y - 5);
+        context.lineTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y - 15);
     }
 
     context.lineWidth = 3;
@@ -793,22 +813,22 @@ Tooth.prototype.drawProtesisRemovible = function (context)
     if (this.type === TYPE_UPPER) {
 
         // draw lower line
-        context.moveTo(this.x, this.y);
-        context.lineTo(this.x + this.width, this.y);
+        context.moveTo(this.rect.x, this.rect.y);
+        context.lineTo(this.rect.x + this.rect.width, this.y);
 
         // draw upper line
-        context.moveTo(this.x, this.y - 10);
-        context.lineTo(this.x + this.width, this.y - 10);
+        context.moveTo(this.rect.x, this.rect.y - 10);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y - 10);
 
     } else {
 
         // draw lower line
-        context.moveTo(this.x, this.y + this.height);
-        context.lineTo(this.x + this.width, this.y + this.height);
+        context.moveTo(this.rect.x, this.rect.y + this.rect.height);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height);
 
         // draw upper line
-        context.moveTo(this.x, this.y + this.height + 10);
-        context.lineTo(this.x + this.width, this.y + this.height + 10);
+        context.moveTo(this.rect.x, this.rect.y + this.rect.height + 10);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height + 10);
     }
 
     context.lineWidth = 3;
@@ -834,10 +854,10 @@ Tooth.prototype.drawRemanenteRadicular = function (context)
 
     if (this.type === TYPE_UPPER)
     {
-        context.fillText("RR", this.x + 5, this.y + this.height / 2);
+        context.fillText("RR", this.rect.x + 5, this.rect.y + this.rect.height / 2);
     } else
     {
-        context.fillText("RR", this.x + 5, this.y + this.height / 2);
+        context.fillText("RR", this.rect.x + 5, this.rect.y + this.rect.height / 2);
     }
 
     context.restore();
@@ -849,9 +869,9 @@ Tooth.prototype.drawGiroversion = function drawGiroversion(context)
 
     context.beginPath();
 
-    var cx = this.x + this.width / 2;
-    var cy = this.y + this.height;
-    var radius = (this.width - 10) / 2;
+    var cx = this.rect.x + this.rect.width / 2;
+    var cy = this.rect.y + this.rect.height;
+    var radius = (this.rect.width - 10) / 2;
 
     if (this.type === TYPE_UPPER)
     {
@@ -859,11 +879,11 @@ Tooth.prototype.drawGiroversion = function drawGiroversion(context)
         // half circle
         context.arc(cx, cy, radius, Math.PI, 2 * Math.PI, true);
 
-        context.moveTo(this.x + this.width - 3, this.y + this.height);
-        context.lineTo(this.x + this.width - 11, this.y + this.height);
+        context.moveTo(this.rect.x + this.rect.width - 3, this.rect.y + this.rect.height);
+        context.lineTo(this.rect.x + this.rect.width - 11, this.rect.y + this.rect.height);
 
-        context.moveTo(this.x + this.width - 3, this.y + this.height);
-        context.lineTo(this.x + this.width - 3, this.y + this.height + 8);
+        context.moveTo(this.rect.x + this.rect.width - 3, this.rect.y + this.rect.height);
+        context.lineTo(this.rect.x + this.rect.width - 3, this.rect.y + this.rect.height + 8);
 
     } else
     {
@@ -872,11 +892,11 @@ Tooth.prototype.drawGiroversion = function drawGiroversion(context)
         context.arc(cx, cy, radius, Math.PI, 2 * Math.PI, false);
 
 
-        context.moveTo(this.x + 3, this.y);
-        context.lineTo(this.x + 11, this.y);
+        context.moveTo(this.rect.x + 3, this.rect.y);
+        context.lineTo(this.rect.x + 11, this.rect.y);
 
-        context.moveTo(this.x + 3, this.y);
-        context.lineTo(this.x + 3, this.y - 8);
+        context.moveTo(this.rect.x + 3, this.rect.y);
+        context.lineTo(this.rect.x + 3, this.rect.y - 8);
     }
 
 
@@ -893,25 +913,25 @@ Tooth.prototype.drawPernoMunon = function (context)
 {
     context.beginPath();
 
-    var size = this.width - 16;
+    var size = this.rect.width - 16;
 
     if (this.type === TYPE_UPPER)
     {
         // draw rectangle
-        context.rect(this.x + 8, this.y + this.height - 8 - size, size, size);
+        context.rect(this.rect.x + 8, this.rect.y + this.rect.height - 8 - size, size, size);
 
         // draw line
-        context.moveTo(this.x + this.width / 2, this.y + this.height - 8 - size);
-        context.lineTo(this.x + this.width / 2, this.y + this.height - 8 - 50);
+        context.moveTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height - 8 - size);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height - 8 - 50);
 
     } else
     {
         // draw rectangle
-        context.rect(this.x + 8, this.y + 8, size, size);
+        context.rect(this.rect.x + 8, this.rect.y + 8, size, size);
 
         // draw line
-        context.moveTo(this.x + this.width / 2, this.y + 8 + size);
-        context.lineTo(this.x + this.width / 2, this.y + 8 + 50);
+        context.moveTo(this.rect.x + this.rect.width / 2, this.rect.y + 8 + size);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y + 8 + 50);
     }
 
 
@@ -933,34 +953,34 @@ Tooth.prototype.drawDienteEnErupcion = function (context)
     if (this.type === TYPE_UPPER)
     {
         // draw arrow head
-        context.moveTo(this.x + pad, this.y + this.height - 6);
-        context.lineTo(this.x + this.width / 2, this.y + this.height);
-        context.lineTo(this.x + this.width - pad, this.y + this.height - 6);
+        context.moveTo(this.rect.x + pad, this.rect.y + this.rect.height - 6);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height);
+        context.lineTo(this.rect.x + this.rect.width - pad, this.rect.y + this.rect.height - 6);
 
         // draw zig zag
-        context.moveTo(this.x + this.width / 2, this.y + this.height);
-        context.lineTo(this.x + this.width / 2, this.y + this.height - 6);
-        context.lineTo(this.x + pad * 3, this.y + this.height - 12);
-        context.lineTo(this.x + this.width - pad * 3, this.y + this.height - 24);
-        context.lineTo(this.x + pad * 3, this.y + this.height - 36);
-        context.lineTo(this.x + this.width - pad * 3, this.y + this.height - 48);
-        context.lineTo(this.x + pad * 3, this.y + this.height - 60);
+        context.moveTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height - 6);
+        context.lineTo(this.rect.x + pad * 3, this.rect.y + this.rect.height - 12);
+        context.lineTo(this.rect.x + this.rect.width - pad * 3, this.rect.y + this.rect.height - 24);
+        context.lineTo(this.rect.x + pad * 3, this.rect.y + this.rect.height - 36);
+        context.lineTo(this.rect.x + this.rect.width - pad * 3, this.rect.y + this.rect.height - 48);
+        context.lineTo(this.rect.x + pad * 3, this.rect.y + this.rect.height - 60);
 
     } else
     {
         // draw arrow head
-        context.moveTo(this.x + pad, this.y + 6);
-        context.lineTo(this.x + this.width / 2, this.y);
-        context.lineTo(this.x + this.width - pad, this.y + 6);
+        context.moveTo(this.rect.x + pad, this.rect.y + 6);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y);
+        context.lineTo(this.rect.x + this.rect.width - pad, this.rect.y + 6);
 
         // draw zig zag
-        context.moveTo(this.x + this.width / 2, this.y);
-        context.lineTo(this.x + this.width / 2, this.y + 6);
-        context.lineTo(this.x + this.width - pad * 3, this.y + 12);
-        context.lineTo(this.x + pad * 3, this.y + 24);
-        context.lineTo(this.x + this.width - pad * 3, this.y + 36);
-        context.lineTo(this.x + pad * 3, this.y + 48);
-        context.lineTo(this.x + this.width - pad * 3, this.y + 60);
+        context.moveTo(this.rect.x + this.rect.width / 2, this.rect.y);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y + 6);
+        context.lineTo(this.rect.x + this.rect.width - pad * 3, this.rect.y + 12);
+        context.lineTo(this.rect.x + pad * 3, this.rect.y + 24);
+        context.lineTo(this.rect.x + this.rect.width - pad * 3, this.rect.y + 36);
+        context.lineTo(this.rect.x + pad * 3, this.rect.y + 48);
+        context.lineTo(this.rect.x + this.rect.width - pad * 3, this.rect.y + 60);
     }
 
     context.lineWidth = 3;
@@ -983,16 +1003,16 @@ Tooth.prototype.drawDienteEnClavija = function (context)
 
     if (this.type === TYPE_UPPER)
     {
-        context.moveTo(this.x, this.y + this.height + space + 20);
-        context.lineTo(this.x + this.width / 2, this.y + this.height + space - 10);
-        context.lineTo(this.x + this.width, this.y + this.height + space + 20);
+        context.moveTo(this.rect.x, this.rect.y + this.rect.height + space + 20);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.y + this.rect.height + space - 10);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height + space + 20);
 
         context.closePath();
     } else
     {
-        context.moveTo(this.x, this.y - space - 20);
-        context.lineTo(this.x + this.width / 2, this.y - space + 10);
-        context.lineTo(this.x + this.width, this.y - space - 20);
+        context.moveTo(this.rect.x, this.rect.y - space - 20);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y - space + 10);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y - space - 20);
 
         context.closePath();
 
@@ -1009,19 +1029,19 @@ Tooth.prototype.drawProtesisTotal = function (context)
     context.beginPath();
 
     if (this.type === TYPE_UPPER) {
-        context.moveTo(this.x, this.y + this.height - 10);
-        context.lineTo(this.x + this.width, this.y + this.height - 10);
-        
-        context.moveTo(this.x, this.y + this.height - 15);
-        context.lineTo(this.x + this.width, this.y + this.height - 15);
+        context.moveTo(this.rect.x, this.rect.y + this.rect.height - 10);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height - 10);
+
+        context.moveTo(this.rect.x, this.rect.y + this.rect.height - 15);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height - 15);
 
     } else {
 
-        context.moveTo(this.x, this.y + 10);
-        context.lineTo(this.x + this.width, this.y + 10);
-        
-        context.moveTo(this.x, this.y + 15);
-        context.lineTo(this.x + this.width, this.y + 15);
+        context.moveTo(this.rect.x, this.rect.y + 10);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + 10);
+
+        context.moveTo(this.rect.x, this.rect.y + 15);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + 15);
     }
 
     context.lineWidth = 2;
@@ -1034,20 +1054,70 @@ Tooth.prototype.drawProtesisTotal = function (context)
 
 Tooth.prototype.drawFusion = function (context)
 {
-    var cx = this.x + this.width / 2;
-  
-    var radius = (this.width + 5) / 2;
-  
+    var cx = this.rect.x + this.rect.width / 2;
+
+    var radius = (this.rect.width + 5) / 2;
+
     context.beginPath();
 
     if (this.type === TYPE_UPPER) {
-       var cy = this.y + this.height + this.spacer + 45;
-       context.ellipse(cx, cy, radius, radius - 15, 0, 0, 2 * Math.PI);
+        var cy = this.rect.y + this.rect.height + this.spacer + 45;
 
     } else {
-        var cy = this.y - this.spacer - 50;
-        context.ellipse(cx, cy, radius, radius - 15, 0, 0, 2 * Math.PI);
+        var cy = this.rect.y - this.spacer - 50;
     }
+
+    context.ellipse(cx, cy, radius, radius - 15, 0, 0, 2 * Math.PI);
+    
+    context.lineWidth = 2;
+    // set line color
+    context.strokeStyle = COLOR_BLUE;
+    context.stroke();
+    context.restore();
+
+};
+
+Tooth.prototype.drawEdentuloTotal = function (context)
+{
+
+    context.beginPath();
+
+    if (this.type === TYPE_UPPER) {
+
+        context.moveTo(this.rect.x, this.rect.y + this.rect.height - 20);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height - 20);
+
+    } else {
+
+        context.moveTo(this.rect.x, this.rect.y + 20);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + 20);
+    }
+
+    context.lineWidth = 3;
+    // set line color
+    context.strokeStyle = COLOR_BLUE;
+    context.stroke();
+    context.restore();
+
+};
+
+Tooth.prototype.drawCoronaDefinitiva = function (context)
+{
+
+    var cx = this.rect.x + this.rect.width / 2;
+    var cy = 0;
+
+    var radius = (RECT_DIMEN * 3) / 2;
+
+    context.beginPath();
+
+    if (this.type === TYPE_UPPER) {
+        var cy = this.rect.y + this.rect.height + this.spacer + RECT_DIMEN * 2 - RECT_DIMEN/2;
+    } else {
+        var cy = this.rect.y - this.spacer - RECT_DIMEN * 2 + RECT_DIMEN/2;
+    }
+
+    context.ellipse(cx, cy, radius, radius, 0, 0, 2 * Math.PI);
 
     context.lineWidth = 2;
     // set line color
@@ -1055,32 +1125,29 @@ Tooth.prototype.drawFusion = function (context)
     context.stroke();
     context.restore();
 
-}
+};
 
-
-
-/**
- * Method to draw a which tooth is highlighted
- * @param {type} context canvas for drawing
- * @returns {undefined}
- */
-Tooth.prototype.drawHighlight = function(context)
+Tooth.prototype.drawCoronaTemporal = function (context)
 {
+
+    var cx = this.rect.x + this.rect.width / 2;
+    var cy = 0;
+
+    var radius = (RECT_DIMEN * 3) / 2;
+
     context.beginPath();
 
     if (this.type === TYPE_UPPER) {
-        context.moveTo(this.x, this.y + this.height);
-        context.lineTo(this.x + this.width, this.y + this.height);
-
+        var cy = this.rect.y + this.rect.height + this.spacer + RECT_DIMEN * 2 - RECT_DIMEN/2;
     } else {
-
-        context.moveTo(this.x, this.y);
-        context.lineTo(this.x + this.width, this.y);
+        var cy = this.rect.y - this.spacer - RECT_DIMEN * 2 + RECT_DIMEN/2;
     }
+
+    context.ellipse(cx, cy, radius, radius, 0, 0, 2 * Math.PI);
 
     context.lineWidth = 2;
     // set line color
-    context.strokeStyle = COLOR_HIGHLIGHT;
+    context.strokeStyle = COLOR_RED;
     context.stroke();
     context.restore();
 
@@ -1159,16 +1226,32 @@ Tooth.prototype.drawDamage = function (context)
         {
             this.drawDienteEnClavija(context);
         }
-        
+
         if (this.damages[i] === "16")
         {
             this.drawProtesisTotal(context);
         }
-        
+
         if (this.damages[i] === "17")
         {
             this.drawFusion(context);
         }
+
+        if (this.damages[i] === "18")
+        {
+            this.drawEdentuloTotal(context);
+        }
+
+        if (this.damages[i] === "19")
+        {
+            this.drawCoronaDefinitiva(context);
+        }
+        
+        if (this.damages[i] === "20")
+        {
+            this.drawCoronaTemporal(context);
+        }
+
     }
 };
 
@@ -1197,27 +1280,17 @@ Tooth.prototype.render = function (context)
 
     this.drawDamage(context);
 
-    if (this.highlight)
-    {
-        this.drawHighlight(context);
-    }
-
     if (DEBUG) {
-        
+
         this.rect.outline(context);
-        
-        if (this.rect.touching) {
-            this.rect.highlight(context);
-        }
-        
-        for(var i = 0; i < this.checkBoxes.length; i++)
+    }
+    
+     for (var i = 0; i < this.checkBoxes.length; i++)
         {
-            if(this.checkBoxes[i].touching)
+            if (this.checkBoxes[i].touching)
             {
                 this.checkBoxes[i].highlight(context);
             }
-            
-        }
 
-    }
+        }
 };

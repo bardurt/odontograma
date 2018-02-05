@@ -43,10 +43,10 @@ Renderer.prototype.init = function(canvas) {
 
 /**
  * Method to render odontograma
- * @param {type} mouth
+ * @param {type} data data frm for odontograma
  * @returns {undefined}
  */
-Renderer.prototype.render = function(mouth)
+Renderer.prototype.render = function(data)
 {
     console.log("Renderer render, context = " +  this.context);
     
@@ -57,70 +57,28 @@ Renderer.prototype.render = function(mouth)
     this.context.restore();
     
     // draw the teeth
-    for (var i = 0; i < mouth.length; i++) {
+    for (var i = 0; i < data.length; i++) {
 
-        mouth[i].render( this.context);
+        data[i].render( this.context);
     }
 
-};
-
-/**
- * Method to render a point
- * @param {type} x 
- * @param {type} y
- * @param {type} width
- * @param {type} heigt
- * @returns {undefined}
- */
-Renderer.prototype.renderRect = function(x, y, width, height, fill, center)
-{
-    this.context.beginPath();
-    this.context.globalAlpha=0.2;
-    if(fill)
-    {
-        this.context.fillStyle = COLOR_HIGHLIGHT;
-        
-        if(!center)
-        {
-            this.context.fillRect(x, y, width, height);  
-        } 
-        else
-        {
-            this.context.fillRect(x-width/2, y-height/2, width, height);   
-        }
-    }
-    else
-    {
-        this.context.strokeStyle = COLOR_HIGHLIGHT;
-        this.context.lineWidth = 1;
-        
-        if(!center)
-        {
-            this.context.rect(x, y, width, height);  
-        } 
-        else
-        {
-            this.context.rect(x-width/2, y-height/2, width, height);   
-        }
-        
-        this.context.stroke();
-    }
-    
-    this.context.globalAlpha=1;
-    this.context.restore();
-  
 };
 
 /**
  * Method to render text on canvas
  * @param {type} text the text to render
  * @param {type} x position on canvas
- * @param {type} y posiont on canvas
+ * @param {type} y position on canvas
+ * @param {type} color the color which the text should be
  * @returns {undefined}
  */
-Renderer.prototype.renderText = function(text, x, y)
+Renderer.prototype.renderText = function(text, x, y, color)
 {
-    this.context.fillStyle = '#000000';
+    if(color === undefined){
+        color = "#000000"; // default color = black
+    }
+    
+    this.context.fillStyle = color;
     this.context.fillText(text, x, y);
     this.context.restore();
 };
