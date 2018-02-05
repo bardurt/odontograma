@@ -907,13 +907,13 @@ Tooth.prototype.drawGiroversion = function drawGiroversion(context)
     context.stroke();
     context.restore();
 
-}
+};
 
 Tooth.prototype.drawPernoMunon = function (context)
 {
     context.beginPath();
 
-    var size = this.rect.width - 16;
+    var size = this.rect.width - 20;
 
     if (this.type === TYPE_UPPER)
     {

@@ -21,8 +21,6 @@ function OdontogramaGenerator()
     // variable for how many teeths are in array
     this.arrayCount = 0;
 
-    this.ADULT = 32;
-
     this.base = 20;
     this.seperator = 250;
     this.imgWidth = 40;
@@ -50,10 +48,11 @@ OdontogramaGenerator.prototype.updateLoad = function() {
     }
 };
 
+
 /**
  * Method to prepare the layout for an odontograma
- * for adult person
- * @returns {Array|mouth} list of teeth for odontograma
+ * @param {type} array container for all the teeths
+ * @returns {undefined}
  */
 OdontogramaGenerator.prototype.prepareOdontogramaAdult = function(array) {
 
