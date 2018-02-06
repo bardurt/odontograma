@@ -7,19 +7,20 @@
 function Damage(id, x, y, width, height, type)
 {
     this.id = id;
-    
+
     this.rect = new Rect();
     this.rect.x = x;
     this.rect.y = y;
     this.rect.width = width;
     this.rect.height = height;
     this.neighbour = -1;
-    
+    this.direction = -1; // 0 left, 1 right
+
     this.type = type;
-    
+
 }
 
-Damage.prototype.renderFractura = function(context)
+Damage.prototype.renderFractura = function (context)
 {
     context.beginPath();
 
@@ -38,11 +39,11 @@ Damage.prototype.renderFractura = function(context)
     context.strokeStyle = COLOR_RED;
     context.stroke();
     context.restore();
-    
+
 };
 
 
-Damage.prototype.renderDienteAusente = function(context)
+Damage.prototype.renderDienteAusente = function (context)
 {
     context.beginPath();
 
@@ -92,7 +93,7 @@ Damage.prototype.renderDienteAusente = function(context)
     context.restore();
 };
 
-Damage.prototype.drawPulpar = function(context)
+Damage.prototype.drawPulpar = function (context)
 {
     console.log("Drawing pulpar");
 
@@ -563,7 +564,7 @@ Damage.prototype.drawFusion = function (context)
     context.beginPath();
 
     if (this.type === TYPE_UPPER) {
-        var cy = this.rect.y + this.rect.height*3/4;
+        var cy = this.rect.y + this.rect.height * 3 / 4;
 
     } else {
         var cy = this.rect.y + 10;
@@ -615,7 +616,7 @@ Damage.prototype.drawCoronaTemporal = function (context)
 
     context.beginPath();
 
-     if (this.type === TYPE_UPPER) {
+    if (this.type === TYPE_UPPER) {
         cy = this.rect.y + 16;
     } else {
         cy = this.rect.y + this.rect.height - 16;
@@ -631,84 +632,150 @@ Damage.prototype.drawCoronaTemporal = function (context)
 
 };
 
-Damage.prototype.render = function(context)
+Damage.prototype.drawDiastema = function (context)
 {
-    if(this.id === "1")
+
+    context.beginPath();
+
+    if (this.type === TYPE_UPPER) {
+
+        console.log("Drawing diastema");
+
+        if (this.direction === 0) {
+            
+            context.arc(this.rect.x + this.rect.width - 15,
+                            this.rect.y + this.rect.height/2 + this.rect.height/4,
+                            15,
+                            Math.PI * 0.5, // 90 degress
+                            Math.PI * 1.5, // 270 degrees
+                            true); 
+                          
+            
+            
+        } else {
+            context.arc(this.rect.x + 15,
+                            this.rect.y + this.rect.height/2 + this.rect.height/4,
+                            15,
+                            Math.PI * 0.5, // 90 degress
+                            Math.PI * 1.5, // 270 degrees
+                            false); 
+        }
+
+    } else {
+        
+         if (this.direction === 0) {
+            
+            context.arc(this.rect.x + this.rect.width - 15,
+                            this.rect.y + this.rect.height/2 - this.rect.height/4,
+                            15,
+                            Math.PI * 0.5, // 90 degress
+                            Math.PI * 1.5, // 270 degrees
+                            true); 
+                          
+            
+            
+        } else {
+            context.arc(this.rect.x + 15,
+                            this.rect.y + this.rect.height/2 - this.rect.height/4,
+                            15,
+                            Math.PI * 0.5, // 90 degress
+                            Math.PI * 1.5, // 270 degrees
+                            false); 
+        }
+
+    }
+
+    context.lineWidth = 2;
+    // set line color
+    context.strokeStyle = COLOR_BLUE;
+    context.stroke();
+    context.restore();
+
+};
+
+Damage.prototype.render = function (context)
+{
+    if (this.id === "1")
     {
         this.renderFractura(context);
     }
-    
-    if(this.id === "2")
+
+    if (this.id === "2")
     {
         this.renderDienteAusente(context);
     }
-    
-    if(this.id === "3")
+
+    if (this.id === "3")
     {
         this.drawPulpar(context);
     }
-    
-    if(this.id === "4"){
+
+    if (this.id === "4") {
         this.drawMigracion(context);
     }
-    
-    if(this.id === "5"){
+
+    if (this.id === "5") {
         this.drawOrtondicoRemovible(context);
     }
-    
-    if(this.id === "6"){
+
+    if (this.id === "6") {
         this.drawDienteExtruido(context);
     }
-    
-    if(this.id === "7"){
+
+    if (this.id === "7") {
         this.drawDienteIntruido(context);
     }
-    
-    if(this.id === "8"){
+
+    if (this.id === "8") {
         this.drawProtesisRemovible(context);
     }
-    
-    if(this.id === "9"){
+
+    if (this.id === "9") {
         this.drawRemanenteRadicular(context);
     }
-    
-    if(this.id === "10"){
+
+    if (this.id === "10") {
         this.drawGiroversion(context);
     }
-    
-    if(this.id === "11"){
+
+    if (this.id === "11") {
         this.drawPernoMunon(context);
     }
-    
-    if(this.id === "12"){
+
+    if (this.id === "12") {
         this.drawDienteEnErupcion(context);
     }
-    
-    if(this.id === "15"){
+
+    if (this.id === "15") {
         this.drawProtesisTotal(context);
     }
-    
-    if(this.id === "16"){
+
+    if (this.id === "16") {
         this.drawEdentuloTotal(context);
     }
-    
-    if(this.id === "17"){
+
+    if (this.id === "17") {
         this.drawDienteEnClavija(context);
     }
-    
-    if(this.id === "18"){
+
+    if (this.id === "18") {
         this.drawFusion(context);
     }
-    
-    if(this.id === "19"){
+
+    if (this.id === "19") {
         this.drawCoronaDefinitiva(context);
     }
-    
-    if(this.id === "20"){
+
+    if (this.id === "20") {
         this.drawCoronaTemporal(context);
     }
-    
-    if(DEBUG){
+
+    if (this.id === "21") {
+        this.drawDiastema(context);
+    }
+
+
+    if (DEBUG) {
         this.rect.highlight(context);
     }
 };

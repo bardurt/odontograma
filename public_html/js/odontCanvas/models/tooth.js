@@ -30,6 +30,7 @@ function Tooth()
     this.address = 0;
     this.normalY;
     this.highY;
+    this.blocked = false;
 
 }
 
@@ -560,6 +561,16 @@ Tooth.prototype.drawDamage = function (context)
 
 };
 
+Tooth.prototype.lock = function()
+{
+    this.blocked = true;  
+};
+
+Tooth.prototype.open = function()
+{
+    this.blocked = false;
+};
+
 /**
  * Method to render a Tooth on the screen with all its states
  * @param {type} context the canvas to draw on
@@ -585,6 +596,10 @@ Tooth.prototype.render = function (context)
 
     this.drawDamage(context);
 
+    if(this.blocked){
+        //this.rect.highlightWithColor(context, "#ff2d2d", 0.5);
+    }
+    
     if (DEBUG) {
 
         this.rect.outline(context);

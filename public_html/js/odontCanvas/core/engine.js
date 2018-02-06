@@ -139,13 +139,73 @@ Engine.prototype.printMultiSelection = function () {
 
 };
 
+
+Engine.prototype.openMouth = function () {
+    console.log("Opening mouth");
+    for (var i = 0; i < this.mouth.length; i++) {
+
+        this.mouth[i].open();
+    }
+};
+
+Engine.prototype.resetMultiSelect = function () {
+
+    this.multiSelect = false;
+    this.multiSelection.length = 0;
+
+    this.openMouth();
+    
+    this.update();
+};
+
+Engine.prototype.createDiastema = function (tooth1, tooth2)
+{
+    console.log("Engine: creating diastema");
+
+    if (tooth1.address < tooth2.address)
+    {
+        damage1 = tooth1.createDamage("21");
+
+        damage1.direction = 0;
+
+        tooth1.damages.push(damage1);
+
+        damage2 = tooth2.createDamage("21");
+
+        damage2.direction = 1;
+
+        tooth2.damages.push(damage2);
+
+        this.resetMultiSelect();
+
+      
+
+    } else {
+
+        damage1 = tooth1.createDamage("21");
+
+        damage1.direction = 1;
+
+        tooth1.damages.push(damage1);
+
+        damage2 = tooth2.createDamage("21");
+
+        damage2.direction = 0;
+
+        tooth2.damages.push(damage2);
+
+        this.resetMultiSelect();
+
+    }
+
+};
+
 Engine.prototype.handleMultiSelection = function ()
 {
 
     console.log("handleMultiSelection called");
 
     if (this.multiSelection.length === 2) {
-
 
         item1 = this.multiSelection[0];
         item2 = this.multiSelection[1];
@@ -155,8 +215,11 @@ Engine.prototype.handleMultiSelection = function ()
 
             var result = Math.abs(item1.address - item2.address);
 
+            console.log("Math.abs = " + result);
+
             if (result === 1) {
                 console.log("Multi select Neighbours");
+                this.createDiastema(item1, item2);
             } else {
                 console.log("Multi select NOT Neighbours");
             }
@@ -166,11 +229,30 @@ Engine.prototype.handleMultiSelection = function ()
 
         }
 
+    } else {
+
     }
 
 };
 
+Engine.prototype.addToMultiSelection = function (tooth)
+{
 
+    this.multiSelection.push(tooth);
+
+    this.printMultiSelection();
+
+    this.handleMultiSelection();
+
+    for (var i = 0; i < this.mouth.length; i++) {
+
+        if (i !== tooth.address) {
+            this.mouth[i].lock();
+        }
+
+    }
+
+};
 
 /**
  * Event handler for when the mouse is clicked
@@ -198,11 +280,8 @@ Engine.prototype.onMouseClick = function (event)
 
             } else {
 
-                this.multiSelection.push(this.mouth[i]);
+                this.addToMultiSelection(this.mouth[i]);
 
-                this.printMultiSelection();
-
-                this.handleMultiSelection();
 
             }
             shouldUpdate = true;
@@ -445,9 +524,10 @@ Engine.prototype.onButtonClick = function (event)
     if (event.key === "Control") {
 
         this.multiSelect = !this.multiSelect;
-
+        console.log("multiselect: " + this.multiSelect);
         if (!this.multiSelect) {
             this.multiSelection.length = 0;
+            this.openMouth();
         }
 
     }
