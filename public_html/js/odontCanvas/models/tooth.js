@@ -18,7 +18,6 @@ var TYPE_LOWER = 1;
  */
 function Tooth()
 {
-
     this.id = '';
     this.surfaces = 0;
     this.highlight = false;
@@ -468,20 +467,20 @@ Tooth.prototype.createDamage = function (damageId)
     if (damageId === "17" || damageId === "18" || damageId === "19" || damageId === "20") {
 
 
-        if(this.type === TYPE_UPPER){
+        if (this.type === TYPE_UPPER) {
             damage = new Damage(damageId,
-                                this.rect.x,
-                                this.rect.y + this.rect.height + this.spacer,
-                                this.width,
-                                60,
-                                this.type);
+                    this.rect.x,
+                    this.rect.y + this.rect.height + this.spacer,
+                    this.width,
+                    60,
+                    this.type);
         } else {
             damage = new Damage(damageId,
-                                this.rect.x,
-                                this.rect.y - this.spacer - 60,
-                                this.width,
-                                60,
-                                this.type);
+                    this.rect.x,
+                    this.rect.y - this.spacer - 60,
+                    this.width,
+                    60,
+                    this.type);
         }
 
     } else {
@@ -493,7 +492,6 @@ Tooth.prototype.createDamage = function (damageId)
                 this.rect.height,
                 this.type);
     }
-
 
     console.log("Create damage: " + damageId);
 
@@ -561,12 +559,12 @@ Tooth.prototype.drawDamage = function (context)
 
 };
 
-Tooth.prototype.lock = function()
+Tooth.prototype.lock = function ()
 {
-    this.blocked = true;  
+    this.blocked = true;
 };
 
-Tooth.prototype.open = function()
+Tooth.prototype.open = function ()
 {
     this.blocked = false;
 };
@@ -578,6 +576,7 @@ Tooth.prototype.open = function()
  */
 Tooth.prototype.render = function (context)
 {
+
     if (this.image !== undefined) {
 
         // center of tooth
@@ -596,10 +595,10 @@ Tooth.prototype.render = function (context)
 
     this.drawDamage(context);
 
-    if(this.blocked){
+    if (this.blocked) {
         //this.rect.highlightWithColor(context, "#ff2d2d", 0.5);
     }
-    
+
     if (DEBUG) {
 
         this.rect.outline(context);
@@ -613,4 +612,5 @@ Tooth.prototype.render = function (context)
         }
 
     }
+
 };

@@ -25,6 +25,20 @@ Renderer.prototype.load = function()
     this.context.fillText("Loading...", this.width/2, this.height/2);
 };
 
+Renderer.prototype.drawSplash = function(){
+    
+    this.context.fillStyle ="#ffffff";
+    this.context.fillRect(0, 0, this.width, this.height);
+    
+    this.context.beginPath();
+    this.context.textAlign = 'center';
+    this.context.fillStyle = "#000000";
+    this.context.font = "32px Arial Bold";
+    this.context.fillText("OdontEngine", this.width/2, this.height/2 -16);
+    this.context.font = "18px Arial Bold";
+    this.context.fillText("Created by Bardur Thomsen - 2018", this.width/2, this.height/2 + 40);
+};
+
 /**
  * Method to initialize the renderer for drawing the odontograma
  * @param {type} canvas the canvas to draw on
@@ -76,6 +90,7 @@ Renderer.prototype.renderText = function(text, x, y, color)
         color = "#000000"; // default color = black
     }
     
+    this.context.textAlign = 'left';
     this.context.fillStyle = color;
     this.context.fillText(text, x, y);
     this.context.restore();

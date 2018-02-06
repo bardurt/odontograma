@@ -641,54 +641,64 @@ Damage.prototype.drawDiastema = function (context)
 
         console.log("Drawing diastema");
 
-        if (this.direction === 0) {
-            
-            context.arc(this.rect.x + this.rect.width - 15,
-                            this.rect.y + this.rect.height/2 + this.rect.height/4,
-                            15,
-                            Math.PI * 0.5, // 90 degress
-                            Math.PI * 1.5, // 270 degrees
-                            true); 
-                          
-            
-            
-        } else {
-            context.arc(this.rect.x + 15,
-                            this.rect.y + this.rect.height/2 + this.rect.height/4,
-                            15,
-                            Math.PI * 0.5, // 90 degress
-                            Math.PI * 1.5, // 270 degrees
-                            false); 
-        }
+        context.lineWidth = 2;
+        // set line color
+        context.strokeStyle = COLOR_BLUE;
+
+        context.beginPath();
+
+        context.arc(this.rect.x - 15,
+                this.rect.y + this.rect.height / 2 + this.rect.height / 4,
+                15,
+                Math.PI * 0.5, // 90 degress
+                Math.PI * 1.5, // 270 degrees
+                true);
+
+        context.stroke();
+
+        context.beginPath();
+
+        context.arc(this.rect.x + 15,
+                this.rect.y + this.rect.height / 2 + this.rect.height / 4,
+                15,
+                Math.PI * 0.5, // 90 degress
+                Math.PI * 1.5, // 270 degrees
+                false);
+
+        context.stroke();
 
     } else {
-        
-         if (this.direction === 0) {
-            
-            context.arc(this.rect.x + this.rect.width - 15,
-                            this.rect.y + this.rect.height/2 - this.rect.height/4,
-                            15,
-                            Math.PI * 0.5, // 90 degress
-                            Math.PI * 1.5, // 270 degrees
-                            true); 
-                          
-            
-            
-        } else {
-            context.arc(this.rect.x + 15,
-                            this.rect.y + this.rect.height/2 - this.rect.height/4,
-                            15,
-                            Math.PI * 0.5, // 90 degress
-                            Math.PI * 1.5, // 270 degrees
-                            false); 
-        }
 
+        console.log("Drawing diastema");
+
+        context.lineWidth = 2;
+        // set line color
+        context.strokeStyle = COLOR_BLUE;
+
+        context.beginPath();
+
+        context.arc(this.rect.x - 15,
+                this.rect.y + this.rect.height / 4,
+                15,
+                Math.PI * 0.5, // 90 degress
+                Math.PI * 1.5, // 270 degrees
+                true);
+
+        context.stroke();
+
+        context.beginPath();
+
+        context.arc(this.rect.x + 15,
+                this.rect.y + this.rect.height / 4,
+                15,
+                Math.PI * 0.5, // 90 degress
+                Math.PI * 1.5, // 270 degrees
+                false);
+
+        context.stroke();
     }
 
-    context.lineWidth = 2;
-    // set line color
-    context.strokeStyle = COLOR_BLUE;
-    context.stroke();
+
     context.restore();
 
 };

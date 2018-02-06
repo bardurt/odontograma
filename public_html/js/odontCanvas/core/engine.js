@@ -22,9 +22,12 @@ function Engine()
     this.adultShowing = true;
 
     this.mouth = new Array();
+    this.spaces = new Array();
+
     this.odontAdult = new Array();
     this.odontChild = new Array();
 
+    this.odontSpaceAdult = new Array();
 
     this.renderer = new Renderer();
     this.odontogramaGenerator = new OdontogramaGenerator();
@@ -154,7 +157,7 @@ Engine.prototype.resetMultiSelect = function () {
     this.multiSelection.length = 0;
 
     this.openMouth();
-    
+
     this.update();
 };
 
@@ -177,8 +180,6 @@ Engine.prototype.createDiastema = function (tooth1, tooth2)
         tooth2.damages.push(damage2);
 
         this.resetMultiSelect();
-
-      
 
     } else {
 
@@ -376,7 +377,6 @@ Engine.prototype.reset = function ()
 Engine.prototype.save = function ()
 {
 
-
     // save image as png
     var link = document.createElement('a');
     link.download = "test.png";
@@ -495,6 +495,12 @@ Engine.prototype.onButtonClick = function (event)
         this.selectedHallazgo = "20";
     }
 
+    if (event.key === "a") {
+
+        this.selectedHallazgo = "21";
+
+    }
+
     if (event.key === "h")
     {
         this.selectedHallazgo = "0";
@@ -520,6 +526,8 @@ Engine.prototype.onButtonClick = function (event)
 
         this.update();
     }
+
+
 
     if (event.key === "Control") {
 
@@ -549,5 +557,17 @@ Engine.prototype.onButtonClick = function (event)
         this.update();
 
     }
+
+};
+
+Engine.prototype.splash = function () {
+
+    this.renderer.drawSplash();
+
+    var self = this;
+
+    setTimeout(function () {
+        self.update();
+    }, 3000);
 
 };
