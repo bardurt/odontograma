@@ -9,6 +9,8 @@
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
 
+/* global TYPE_LOWER, TOOTH_PADDING */
+
 //TODO : create a pre loader of the images
 
 

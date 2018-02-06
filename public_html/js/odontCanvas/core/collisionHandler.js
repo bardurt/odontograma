@@ -11,7 +11,7 @@
 
 function CollisionHandler()
 {
-    
+
 }
 
 /**
@@ -20,26 +20,65 @@ function CollisionHandler()
  * @param {type} argument
  * @returns {undefined}
  */
-CollisionHandler.prototype.handleCollision = function(tooth, argument)
+CollisionHandler.prototype.handleCollision = function (tooth, argument)
 {
 
     console.log("Handle collision");
-    
-    if(argument === "21")
+
+    if (argument === "21")
     {
-        
-        if(tooth.id !== "28" && tooth.id !== "38" && tooth.id !== "65" && tooth.id !== "75")
+
+        if (tooth.id >= "28" && tooth.id <= "12" && tooth.id !== "65" && tooth.id !== "75")
         {
             tooth.toggleDamage(argument);
         }
-        
-    }
-    else if(argument !== "0" && argument !== "13" && argument !== "14")
+
+    } else if (argument !== "0" && argument !== "13" && argument !== "14")
     {
         tooth.toggleDamage(argument);
     }
-    
-    
+
+
+};
+
+CollisionHandler.prototype.handleCollisionGrouping = function (odontograma, index, tooth, argument)
+{
+
+    console.log("Handle collision Grouping");
+    console.log("Tooth id " + tooth.id);
+
+    if (argument === "21")
+    {
+        console.log("Argument " + argument);
+
+        if (tooth.id <= 18 && tooth.id >= 12)
+        {
+            odontograma[index + 1].toggleDamage(argument);
+        }
+        
+        if(tooth.id === 11)
+        {
+             odontograma[index].toggleDamage(argument);
+        }
+
+        if (tooth.id <= 48 && tooth.id >= 41) 
+        {
+            odontograma[index + 1].toggleDamage(argument);
+        }
+        
+        if (tooth.id >= 21 && tooth.id <= 28)
+        {
+            odontograma[index].toggleDamage(argument);
+        }
+        
+        if (tooth.id >= 31 && tooth.id <= 38)
+        {
+            odontograma[index].toggleDamage(argument);
+        }
+        
+
+    }
+
 };
 
 /**
@@ -48,28 +87,25 @@ CollisionHandler.prototype.handleCollision = function(tooth, argument)
  * @param {type} argument
  * @returns {undefined}
  */
-CollisionHandler.prototype.handleCollisionCheckBox = function(checkBox, argument)
+CollisionHandler.prototype.handleCollisionCheckBox = function (checkBox, argument)
 {
 
-    if(argument === "13")
+    if (argument === "13")
     {
-        if(checkBox.state === 1)
+        if (checkBox.state === 1)
         {
             checkBox.state = 0;
-        }
-        else
+        } else
         {
             checkBox.state = 1;
         }
-      
-    }
-    else if(argument === "14")
+
+    } else if (argument === "14")
     {
-         if(checkBox.state === 2)
+        if (checkBox.state === 2)
         {
             checkBox.state = 0;
-        }
-        else
+        } else
         {
             checkBox.state = 2;
         }

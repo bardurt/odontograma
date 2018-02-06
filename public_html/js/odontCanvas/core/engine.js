@@ -275,16 +275,15 @@ Engine.prototype.onMouseClick = function (event)
                 this.getXpos(event),
                 this.getYpos(event))) {
 
-            if (!this.multiSelect) {
-
-                this.collisionHandler.handleCollision(this.mouth[i], this.selectedHallazgo);
-
-            } else {
-
-                this.addToMultiSelection(this.mouth[i]);
-
-
+            if(this.selectedHallazgo === "21"){
+                this.collisionHandler.handleCollisionGrouping(this.mouth, i, this.mouth[i], this.selectedHallazgo);
             }
+            else
+            {
+                this.collisionHandler.handleCollision(this.mouth[i], this.selectedHallazgo);
+            }
+            
+           
             shouldUpdate = true;
         }
 
