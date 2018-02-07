@@ -45,7 +45,7 @@ Renderer.prototype.drawSplash = function(){
     this.context.font = "32px Arial Bold";
     this.context.fillText("OdontoGraph", this.width/2, this.height/2 -16);
     this.context.font = "18px Arial Bold";
-    this.context.fillText("Created by Bardur Thomsen - 2018", this.width/2, this.height/2 + 40);
+    this.context.fillText("Bardur Thomsen - 2018", this.width/2, this.height/2 + 40);
 };
 
 /**

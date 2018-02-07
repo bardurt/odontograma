@@ -119,7 +119,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
         tooth.id = i;
         tooth.image = image;
         tooth.setDimens(x, this.base, this.imgWidth, this.imgHeight);
-        tooth.setType(TYPE_UPPER);
+        tooth.setType(0);
 
         x += tooth.width + this.settings.TOOTH_PADDING;
 
@@ -181,7 +181,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
         tooth.id = i;
         tooth.image = image;
         tooth.setDimens(x, this.base, this.imgWidth, this.imgHeight);
-        tooth.setType(TYPE_UPPER);
+        tooth.setType(0);
 
         x += tooth.width + this.settings.TOOTH_PADDING;
 
@@ -248,7 +248,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
                         this.imgWidth, 
                         this.imgHeight);
         
-        tooth.setType(TYPE_LOWER);
+        tooth.setType(1);
 
         x += tooth.width + this.settings.TOOTH_PADDING;
 
@@ -314,7 +314,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
                         this.imgWidth, 
                         this.imgHeight);
 
-        tooth.setType(TYPE_LOWER);
+        tooth.setType(1);
 
         odontograma[this.arrayCount] = tooth;
         x += tooth.width + this.settings.TOOTH_PADDING;
@@ -389,7 +389,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
                         this.imgWidth, 
                         this.imgHeight);
         
-        tooth.setType(TYPE_UPPER);
+        tooth.setType(0);
 
         x += tooth.width + this.settings.TOOTH_PADDING;
 
@@ -451,7 +451,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
                         this.imgWidth,
                         this.imgHeight);
         
-        tooth.setType(TYPE_UPPER);
+        tooth.setType(0);
 
         x += tooth.width + this.settings.TOOTH_PADDING;
 
@@ -513,7 +513,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
                         this.imgWidth,
                         this.imgHeight);
         
-        tooth.setType(TYPE_LOWER);
+        tooth.setType(1);
 
         x += tooth.width + this.settings.TOOTH_PADDING;
 
@@ -574,7 +574,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
                         this.imgWidth, 
                         this.imgHeight);
 
-        tooth.setType(TYPE_LOWER);
+        tooth.setType(1);
 
         odontograma[this.arrayCount] = tooth;
         x += tooth.width + this.settings.TOOTH_PADDING;

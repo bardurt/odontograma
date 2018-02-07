@@ -67,7 +67,7 @@ Tooth.prototype.setType = function (type)
 {
     this.type = type;
 
-    if (type === TYPE_UPPER) {
+    if (type === 0) {
         this.highY = this.y - 10;
     } else {
         this.highY = this.y + 10;
@@ -110,7 +110,7 @@ Tooth.prototype.create4Surfaces = function (settings)
 
     var startX = this.x + 10;
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
 
         var rect1 = new Rect();
 
@@ -202,7 +202,7 @@ Tooth.prototype.create5Surfaces = function (settings)
 
     console.log("Start X " + startX);
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
 
         var rect1 = new Rect();
 
@@ -324,7 +324,7 @@ Tooth.prototype.drawId = function (context)
 
     var space = 40 + this.spacer;
 
-    if (this.type === TYPE_UPPER)
+    if (this.type === 0)
     {
         // draw id
         context.fillText("" + this.id, this.rect.x + this.rect.width/2, this.rect.y + this.rect.height + space + 10);
@@ -470,7 +470,7 @@ Tooth.prototype.createDamage = function (damageId)
     if (damageId === "17" || damageId === "18" || damageId === "19" || damageId === "20") {
 
 
-        if (this.type === TYPE_UPPER) {
+        if (this.type === 0) {
             damage = new Damage(damageId,
                     this.rect.x,
                     this.rect.y + this.rect.height + this.spacer,
