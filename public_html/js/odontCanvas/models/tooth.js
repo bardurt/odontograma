@@ -496,7 +496,7 @@ Tooth.prototype.createDamage = function (damageId)
                 this.type);
     }
 
-    console.log("Create damage: " + damageId);
+    //console.log("Create damage: " + damageId);
 
     return damage;
 };
@@ -508,7 +508,7 @@ Tooth.prototype.createDamage = function (damageId)
  */
 Tooth.prototype.toggleDamage = function (damageId) {
 
-    console.log("Toggle damage for " + this.id + ", damage " + damageId);
+    //console.log("Toggle damage for " + this.id + ", damage " + damageId);
 
     if (this.damages.length < 1) {
 
@@ -549,19 +549,10 @@ Tooth.prototype.toggleDamage = function (damageId) {
 };
 
 
-Tooth.prototype.lock = function ()
-{
-    this.blocked = true;
-};
-
-Tooth.prototype.open = function ()
-{
-    this.blocked = false;
-};
-
 /**
  * Method to render a Tooth on the screen with all its states
  * @param {type} context the canvas to draw on
+ * @param {type} settings app settings
  * @returns {undefined}
  */
 Tooth.prototype.render = function (context, settings)
