@@ -116,7 +116,6 @@ Rect.prototype.outline = function (context, color) {
 
 };
 
-
 /**
  * Method to draw an ellipse with center of rectangle center
  * @param {type} context the canvas to draw on

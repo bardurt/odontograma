@@ -110,9 +110,7 @@ Engine.prototype.getYpos = function (event)
  * @returns {undefined}
  */
 Engine.prototype.init = function () {
-
     
-
     // set up the odontograma
     this.odontogramaGenerator.setEngine(this);
     
@@ -146,35 +144,6 @@ Engine.prototype.update = function ()
         this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY,
                 128, 15, "#000000");
     }
-};
-
-/**
- * Method to check for a collision between mouse cursor
- * and a tooth. Bounding box collision.
- * @param {type} obj the tooth 
- * @param {type} event mouse event containing x and y coords.
- * @returns {Boolean} true if there is a collision
- */
-Engine.prototype.checkCollision = function (obj, event)
-{
-    var x = event.clientX;
-    var y = event.clientY;
-    var width = obj.x + obj.width;
-    var height = obj.y + obj.height;
-
-    var collision = false;
-
-    if (x > obj.x) {
-        if (y > obj.y) {
-            if (x < width) {
-                if (y < height) {
-                    collision = true;
-                }
-            }
-        }
-    }
-
-    return collision;
 };
 
 Engine.prototype.printMultiSelection = function () {
@@ -269,7 +238,7 @@ Engine.prototype.onMouseClick = function (event)
             this.mouth[i].toggleSelected(false);
 
             // check collision for current tooth
-            if (this.mouth[i].checkCollision(
+            if (this.mouth[i].rect.checkCollision(
                     this.getXpos(event),
                     this.getYpos(event))) {
 

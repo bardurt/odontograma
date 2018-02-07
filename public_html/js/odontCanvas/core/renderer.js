@@ -117,6 +117,11 @@ Renderer.prototype.renderText = function(text, x, y, color)
     this.context.restore();
 };
 
+/**
+ * Method to set app settings to the renderer
+ * @param {type} settings the settings for the application
+ * @returns {undefined}
+ */
 Renderer.prototype.setSettings = function(settings){
     this.settings = settings;
 };
