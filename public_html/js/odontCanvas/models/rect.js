@@ -88,15 +88,15 @@ Rect.prototype.outline = function (context, color) {
 
 };
 
-Rect.prototype.highlightEllipse = function (context, color, alpha) {
+Rect.prototype.highlightEllipse = function (context, color, alpha, padding) {
 
     context.beginPath();
     context.globalAlpha = alpha;
     context.fillStyle = color;
-    context.ellipse(this.x + this.width/2, 
-                    this.y + this.height/2, 
-                    this.width/2, 
-                    this.height/2, 
+    context.ellipse(this.x + this.width / 2, 
+                    this.y + this.height / 2, 
+                    (this.width - padding) / 2, 
+                    (this.height - padding) / 2, 
                     0,
                     0,
                     2 * Math.PI);

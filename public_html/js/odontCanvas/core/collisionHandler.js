@@ -26,14 +26,16 @@ function CollisionHandler()
  */
 CollisionHandler.prototype.handleCollision = function (tooth, argument)
 {
+    
+    console.log("Collision argument " + argument);
 
-    console.log("Handle collision");
+    if (argument !== "") {
+        console.log("Handle collision");
 
-    if (argument !== "0" && argument !== "13" && argument !== "14")
-    {
-        tooth.toggleDamage(argument);
-    } else{
-        tooth.toggleDamage(argument);
+        if (argument !== "0" && argument !== "13" && argument !== "14")
+        {
+            tooth.toggleDamage(argument);
+        }
     }
 
 
@@ -53,27 +55,27 @@ CollisionHandler.prototype.handleCollisionGrouping = function (odontograma, inde
         {
             odontograma[index + 1].toggleDamage(argument);
         }
-        
-        if(tooth.id === 11)
+
+        if (tooth.id === 11)
         {
-             odontograma[index].toggleDamage(argument);
+            odontograma[index].toggleDamage(argument);
         }
 
-        if (tooth.id <= 48 && tooth.id >= 41) 
+        if (tooth.id <= 48 && tooth.id >= 41)
         {
             odontograma[index + 1].toggleDamage(argument);
         }
-        
+
         if (tooth.id >= 21 && tooth.id <= 28)
         {
             odontograma[index].toggleDamage(argument);
         }
-        
+
         if (tooth.id >= 31 && tooth.id <= 38)
         {
             odontograma[index].toggleDamage(argument);
         }
-        
+
 
     }
 

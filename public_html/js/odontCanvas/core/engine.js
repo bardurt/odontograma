@@ -21,42 +21,42 @@ function Engine()
 {
     // canvas which is used by the engine
     this.canvas = null;
-    
+
     this.adultShowing = true;
 
     // array which contains all the teeth for an odontograma
     this.mouth = new Array();
-    
+
     // array which holds all the spaces between teeth
     this.spaces = new Array();
 
     // array for an adult odontograma
     this.odontAdult = new Array();
-    
+
     // spaces for a adult odontograma
     this.odontSpacesAdult = new Array();
 
     // array for a child odontograma
     this.odontChild = new Array();
-    
+
     // spaces for a child odontograma
     this.odontSpacesChild = new Array();
 
     // renderer which will render everything on a canvas
     this.renderer = new Renderer();
-    
+
     // helper to create odontograma
     this.odontogramaGenerator = new OdontogramaGenerator();
-    
+
     // helper for handeling collision
     this.collisionHandler = new CollisionHandler();
-    
+
     // value of the selected damage which should be added or removed
     this.selectedHallazgo = "0";
 
     // x position of the mouse pointer
     this.cursorX = 0;
-    
+
     // y position of the mouse pointer
     this.corsorY = 0;
 
@@ -419,7 +419,10 @@ Engine.prototype.save = function ()
 Engine.prototype.onButtonClick = function (event)
 {
     console.log("key " + event.key);
-    this.selectedHallazgo = "0";
+
+    if (event.key !== "d") {
+        this.selectedHallazgo = "0";
+    }
 
     if (event.key === "1")
     {
@@ -537,10 +540,12 @@ Engine.prototype.onButtonClick = function (event)
 
     }
 
-    if (event.key !== "a" && event.key !== "s")
-    {
-        HIHGLIGHT_SPACES = false;
-        this.update();
+    if (event.key !== "d") {
+        if (event.key !== "a" && event.key !== "s")
+        {
+            HIHGLIGHT_SPACES = false;
+            this.update();
+        }
     }
 
     if (event.key === "h")

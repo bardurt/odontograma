@@ -347,7 +347,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
 
         var tooth = new Tooth();
 
-        if (i > 54)
+        if (i > 53)
         {
             tooth.setSurfaces(5);
 

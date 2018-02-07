@@ -602,10 +602,9 @@ Tooth.prototype.render = function (context)
         
             if (this.rect.touching) {
             
-                this.rect.highlightEllipse(context, "#36BE1B", 0.5);
-            
+                this.rect.highlightEllipse(context, "#00AEFF", 0.5, -10);
             } else{
-                this.rect.highlightEllipse(context, "#FF3D57", 0.2);
+                this.rect.highlightEllipse(context, "#19B900", 0.2, 10);
             }
         }
     }
@@ -618,7 +617,7 @@ Tooth.prototype.render = function (context)
         if(this.tooth){
             this.rect.outline(context, "#000000");
         } else {
-            this.rect.highlightEllipse(context, "#FFD100", 0.4);
+            this.rect.highlightEllipse(context, "#FFD100", 0.4, 2);
         }
     }
 
