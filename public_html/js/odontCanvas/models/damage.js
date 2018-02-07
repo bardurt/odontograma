@@ -847,7 +847,7 @@ Damage.prototype.render = function (context, settings)
 
 
     if (settings.DEBUG) {
-        this.rect.highlight(context);
+        this.rect.highlight(context, settings);
     }
 };
 
