@@ -335,10 +335,10 @@ Damage.prototype.drawRemanenteRadicular = function (context, settings)
 
     if (this.type === 0)
     {
-        context.fillText("RR", this.rect.x + this.rect.width/2, this.rect.y + this.rect.height / 2);
+        context.fillText("RR", this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height / 2);
     } else
     {
-        context.fillText("RR", this.rect.x + this.rect.width/2, this.rect.y + this.rect.height / 2);
+        context.fillText("RR", this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height / 2);
     }
 
     context.restore();
@@ -760,6 +760,114 @@ Damage.prototype.drawSuperNumerario = function (context, settings)
 
 };
 
+Damage.prototype.drawOrtodonticoFijoEnd = function (context, settings)
+{
+    context.beginPath();
+    context.lineWidth = 2;
+    // set line color
+    context.strokeStyle = settings.COLOR_BLUE;
+
+    if (this.type === 0) {
+
+        context.rect(this.rect.x + 10,
+                this.rect.y - this.rect.width + 20,
+                this.rect.width - 20,
+                this.rect.width - 20);
+
+        context.stroke();
+
+        context.beginPath();
+
+        context.moveTo(this.rect.x + this.rect.width / 2,
+                this.rect.y - this.rect.width + 25);
+
+        context.lineTo(this.rect.x + this.rect.width / 2,
+                this.rect.y - 5);
+
+        context.stroke();
+
+        context.moveTo(this.rect.x + 15,
+                this.rect.y - ((this.rect.width - 20) / 2));
+
+        context.lineTo(this.rect.x + this.rect.width - 15,
+                this.rect.y - ((this.rect.width - 20) / 2));
+
+        context.stroke();
+
+    } else {
+
+
+        context.rect(this.rect.x + 10,
+                this.rect.y  + this.rect.height,
+                this.rect.width - 20,
+                this.rect.width - 20);
+
+        context.stroke();
+
+        context.beginPath();
+
+        context.moveTo(this.rect.x + this.rect.width / 2,
+                this.rect.y + this.rect.height + 5);
+
+        context.lineTo(this.rect.x + this.rect.width / 2,
+                this.rect.y + this.rect.height + this.rect.width - 25);
+
+        context.stroke();
+
+        context.moveTo(this.rect.x + 15,
+                this.rect.y + this.rect.height + ((this.rect.width - 20) / 2));
+
+        context.lineTo(this.rect.x + this.rect.width - 15,
+                this.rect.y + this.rect.height + ((this.rect.width - 20) / 2));
+
+        context.stroke();
+
+    }
+
+
+    context.restore();
+
+};
+
+Damage.prototype.drawOrtodonticoFijoCenter = function (context, settings)
+{
+    context.beginPath();
+    context.lineWidth = 2;
+    // set line color
+    context.strokeStyle = settings.COLOR_BLUE;
+
+    if (this.type === 0) {
+  
+        context.beginPath();
+
+       context.moveTo(this.rect.x - 10,
+                this.rect.y - ((this.rect.width - 20) / 2));
+
+        context.lineTo(this.rect.x + this.rect.width + 10,
+                this.rect.y - ((this.rect.width - 20) / 2));
+
+        context.stroke();
+
+
+    } else {
+
+        context.beginPath();
+
+        context.moveTo(this.rect.x - 10,
+                  this.rect.y + this.rect.height + ((this.rect.width - 20) / 2));
+
+        context.lineTo(this.rect.x + this.rect.width + 10,
+                this.rect.y + this.rect.height + ((this.rect.width - 20) / 2));
+
+        context.stroke();
+
+    }
+
+
+    context.restore();
+
+};
+
 Damage.prototype.render = function (context, settings)
 {
     if (this.id === "1")
@@ -843,6 +951,14 @@ Damage.prototype.render = function (context, settings)
 
     if (this.id === "22") {
         this.drawSuperNumerario(context, settings);
+    }
+
+    if (this.id === "23") {
+        this.drawOrtodonticoFijoEnd(context, settings);
+    }
+    
+    if(this.id === "24") {
+        this.drawOrtodonticoFijoCenter(context, settings);
     }
 
 

@@ -26,7 +26,7 @@ function OdontogramaGenerator()
     // variable for how many teeths are in array
     this.arrayCount = 0;
 
-    this.base = 20;
+    this.base = 25;
     this.seperator = 250;
     this.imgWidth = 40;
     this.imgHeight = 90;

@@ -146,91 +146,6 @@ Engine.prototype.update = function ()
     }
 };
 
-Engine.prototype.printMultiSelection = function () {
-
-    console.log("Multi Select count: " + this.multiSelection.length);
-    for (var i = 0; i < this.multiSelection.length; i++) {
-
-        console.log("multiSelection[" + i + "]: " + this.multiSelection[i].id);
-
-    }
-
-};
-
-Engine.prototype.resetMultiSelect = function () {
-
-    this.multiSelect = false;
-    this.multiSelection.length = 0;
-
-    this.update();
-};
-
-
-/**
- * Method to get the index for a tooth
- * @param {type} tooth the tooth to find the index of
- * @returns {Number} index of the tooth
- */
-Engine.prototype.getIndexForTooth = function (tooth) {
-
-    var index = -1;
-
-    for (var i = 0; i < this.mouth.length; i++) {
-
-        if (this.mouth[i].id === tooth.id) {
-            index = i;
-            break;
-        }
-    }
-
-    return index;
-
-};
-
-Engine.prototype.handleMultiSelection = function ()
-{
-
-    console.log("handleMultiSelection called");
-
-    if (this.multiSelection.length === 2) {
-
-        item1 = this.multiSelection[0];
-        item2 = this.multiSelection[1];
-
-        if (item1.type === item2.type) {
-            console.log("Multi select same type");
-
-            var result = Math.abs(item1.address - item2.address);
-
-            console.log("Math.abs = " + result);
-
-            if (result === 1) {
-                console.log("Multi select Neighbours");
-                this.createDiastema(item1, item2);
-            } else {
-                console.log("Multi select NOT Neighbours");
-            }
-
-        } else {
-            console.log("Multi select NOT same type");
-
-        }
-
-    } else {
-
-    }
-
-};
-
-Engine.prototype.addToMultiSelection = function (tooth)
-{
-    this.multiSelection.push(tooth);
-
-    this.printMultiSelection();
-
-    //this.handleMultiSelection();
-
-};
 
 Engine.prototype.removeHighlight = function()
 {
@@ -238,7 +153,7 @@ Engine.prototype.removeHighlight = function()
         this.mouth[i].highlight = false;
     }
     
-}
+};
 
 Engine.prototype.highlightMultiSelection = function (tooth)
 {
@@ -276,6 +191,92 @@ Engine.prototype.highlightMultiSelection = function (tooth)
     }
 
 };
+
+Engine.prototype.printMultiSelection = function () {
+
+    console.log("Multi Select count: " + this.multiSelection.length);
+    for (var i = 0; i < this.multiSelection.length; i++) {
+
+        console.log("multiSelection[" + i + "]: " + this.multiSelection[i].id);
+
+    }
+
+};
+
+Engine.prototype.resetMultiSelect = function () {
+
+    console.log("Reseting multiselect");
+    this.multiSelect = false;
+    this.multiSelection.length = 0;
+    this.removeHighlight();
+    this.update();
+};
+
+
+/**
+ * Method to get the index for a tooth
+ * @param {type} tooth the tooth to find the index of
+ * @returns {Number} index of the tooth
+ */
+Engine.prototype.getIndexForTooth = function (tooth) {
+
+    var index = -1;
+
+    for (var i = 0; i < this.mouth.length; i++) {
+
+        if (this.mouth[i].id === tooth.id) {
+            index = i;
+            break;
+        }
+    }
+
+    return index;
+
+};
+
+Engine.prototype.handleMultiSelection = function ()
+{
+
+    console.log("handleMultiSelection called");
+
+    if (this.multiSelection.length === 2) {
+
+        var index1 = this.getIndexForTooth(this.multiSelection[0]);
+        var index2 = this.getIndexForTooth(this.multiSelection[1]);
+        
+        var start = Math.min(index1, index2);
+        var end = Math.max(index1, index2);
+        
+        console.log("Start " + start);
+        console.log("End " + end);
+        
+        this.mouth[start].toggleDamage("23");
+        this.mouth[end].toggleDamage("23");
+        
+        for(var i = start +1 ; i <= end-1; i++ ){
+            
+            this.mouth[i].toggleDamage("24");
+            
+        }
+
+        
+        this.resetMultiSelect();
+    } 
+
+};
+
+Engine.prototype.addToMultiSelection = function (tooth)
+{
+    this.multiSelection.push(tooth);
+
+    this.printMultiSelection();
+
+    if(this.multiSelection.length === 2){
+        this.handleMultiSelection();
+    }
+
+};
+
 
 /**
  * Event handler for when the mouse is clicked
@@ -638,9 +639,7 @@ Engine.prototype.onButtonClick = function (event)
         this.multiSelect = !this.multiSelect;
         console.log("multiselect: " + this.multiSelect);
         if (!this.multiSelect) {
-            this.multiSelection.length = 0;
-            this.removeHighlight();
-            this.update();
+            this.resetMultiSelect();
         }
 
     }

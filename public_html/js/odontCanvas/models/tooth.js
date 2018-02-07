@@ -508,7 +508,7 @@ Tooth.prototype.createDamage = function (damageId)
  */
 Tooth.prototype.toggleDamage = function (damageId) {
 
-    //console.log("Toggle damage for " + this.id + ", damage " + damageId);
+    console.log("Toggle damage for " + this.id + ", damage " + damageId);
 
     if (this.damages.length < 1) {
 
@@ -577,7 +577,7 @@ Tooth.prototype.render = function (context, settings)
         this.drawCheckBoxes(context, settings);
         
         if(this.highlight){
-            this.rect.highlightWithColor(context, "#00AEFF", 0.5,);
+            this.rect.highlightWithColor(context, "#00AEFF", 0.3,);
         }
 
     } else {
