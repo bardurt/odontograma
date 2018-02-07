@@ -559,6 +559,7 @@ Tooth.prototype.render = function (context, settings)
 {
 
     if (this.tooth) {
+        
         if (this.image !== undefined) {
 
             // center of tooth
@@ -574,6 +575,10 @@ Tooth.prototype.render = function (context, settings)
         this.drawId(context);
 
         this.drawCheckBoxes(context, settings);
+        
+        if(this.highlight){
+            this.rect.highlightWithColor(context, "#00AEFF", 0.5,);
+        }
 
     } else {
         

@@ -50,7 +50,7 @@ function Engine()
 
     // helper for handeling collision
     this.collisionHandler = new CollisionHandler();
-    
+
     this.settings = new Settings();
 
     // value of the selected damage which should be added or removed
@@ -110,12 +110,12 @@ Engine.prototype.getYpos = function (event)
  * @returns {undefined}
  */
 Engine.prototype.init = function () {
-    
+
     // set up the odontograma
     this.odontogramaGenerator.setEngine(this);
-    
+
     this.odontogramaGenerator.setSettings(this.settings);
-    
+
     this.odontogramaGenerator.prepareOdontogramaAdult(this.odontAdult,
             this.odontSpacesAdult, this.canvas);
 
@@ -140,7 +140,7 @@ Engine.prototype.update = function ()
     if (this.settings.DEBUG) {
 
         this.renderer.renderText("DEBUG MODE", 2, 15, "#000000");
-        
+
         this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY,
                 128, 15, "#000000");
     }
@@ -162,9 +162,29 @@ Engine.prototype.resetMultiSelect = function () {
     this.multiSelect = false;
     this.multiSelection.length = 0;
 
-    this.openMouth();
-
     this.update();
+};
+
+
+/**
+ * Method to get the index for a tooth
+ * @param {type} tooth the tooth to find the index of
+ * @returns {Number} index of the tooth
+ */
+Engine.prototype.getIndexForTooth = function (tooth) {
+
+    var index = -1;
+
+    for (var i = 0; i < this.mouth.length; i++) {
+
+        if (this.mouth[i].id === tooth.id) {
+            index = i;
+            break;
+        }
+    }
+
+    return index;
+
 };
 
 Engine.prototype.handleMultiSelection = function ()
@@ -204,19 +224,55 @@ Engine.prototype.handleMultiSelection = function ()
 
 Engine.prototype.addToMultiSelection = function (tooth)
 {
-
     this.multiSelection.push(tooth);
 
     this.printMultiSelection();
 
-    this.handleMultiSelection();
+    //this.handleMultiSelection();
 
-    for (var i = 0; i < this.mouth.length; i++) {
+};
 
-        if (i !== tooth.address) {
-            this.mouth[i].lock();
+Engine.prototype.removeHighlight = function()
+{
+    for(var i = 0; i < this.mouth.length; i++){
+        this.mouth[i].highlight = false;
+    }
+    
+}
+
+Engine.prototype.highlightMultiSelection = function (tooth)
+{
+    try {
+
+        if (this.multiSelection.length > 0) {
+
+            for (var i = 0; i < this.mouth.length; i++) {
+                this.mouth[i].highlight = false;
+            }
+
+            var tooth1 = this.multiSelection[0];
+
+            // check if these are same types
+            if (tooth1.type === tooth.type) {
+
+                var index1 = this.getIndexForTooth(tooth1);
+                var index2 = this.getIndexForTooth(tooth);
+
+                var begin = Math.min(index1, index2);
+                var end = Math.max(index1, index2);
+
+                for (var i = begin; i <= end; i++) {
+
+                    this.mouth[i].highlight = true;
+                }
+
+            }
+
+            this.update();
         }
 
+    } catch (error) {
+        console.log("Engine highlightMultiSelection e: " + error.message);
     }
 
 };
@@ -242,8 +298,14 @@ Engine.prototype.onMouseClick = function (event)
                     this.getXpos(event),
                     this.getYpos(event))) {
 
-                this.collisionHandler.handleCollision(this.mouth[i], 
-                this.selectedHallazgo);
+                if (this.multiSelect) {
+
+                    this.addToMultiSelection(this.mouth[i]);
+
+                } else {
+                    this.collisionHandler.handleCollision(this.mouth[i],
+                            this.selectedHallazgo);
+                }
 
                 shouldUpdate = true;
             }
@@ -252,12 +314,12 @@ Engine.prototype.onMouseClick = function (event)
             for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
             {
                 if (this.mouth[i].checkBoxes[j].checkCollision(this.getXpos(event),
-                    this.getYpos(event)))
+                        this.getYpos(event)))
                 {
                     this.collisionHandler.handleCollisionCheckBox(
-                            this.mouth[i].checkBoxes[j], 
+                            this.mouth[i].checkBoxes[j],
                             this.selectedHallazgo);
-                   
+
                     shouldUpdate = true;
                 }
             }
@@ -309,14 +371,14 @@ Engine.prototype.followMouse = function (event)
 Engine.prototype.onMouseMove = function (event)
 {
 
-    if (this.settings.HIHGLIGHT_SPACES )
+    if (this.settings.HIHGLIGHT_SPACES)
     {
         for (var i = 0; i < this.spaces.length; i++) {
 
             var update = false;
 
             if (this.spaces[i].checkCollision(this.getXpos(event),
-                                              this.getYpos(event)))
+                    this.getYpos(event)))
             {
                 this.spaces[i].onTouch(true);
                 update = true;
@@ -333,10 +395,17 @@ Engine.prototype.onMouseMove = function (event)
 
         for (var i = 0; i < this.mouth.length; i++) {
 
-            if (this.mouth[i].checkCollision(this.getXpos(event), 
-                                             this.getYpos(event)))
+            if (this.mouth[i].checkCollision(this.getXpos(event),
+                    this.getYpos(event)))
             {
-                this.mouth[i].onTouch(true);    
+                this.mouth[i].onTouch(true);
+
+                if (this.multiSelect) {
+                    if (this.multiSelection.length > 0) {
+                        this.highlightMultiSelection(this.mouth[i]);
+                    }
+                }
+
             } else
             {
                 this.mouth[i].onTouch(false);
@@ -348,8 +417,7 @@ Engine.prototype.onMouseMove = function (event)
                         this.getXpos(event), this.getYpos(event)))
                 {
                     this.mouth[i].checkBoxes[j].touching = true;
-                } 
-                else
+                } else
                 {
                     this.mouth[i].checkBoxes[j].touching = false;
                 }
@@ -398,7 +466,7 @@ Engine.prototype.save = function ()
     var link = document.createElement('a');
     link.download = "test.png";
     link.href = this.canvas.toDataURL("image/png")
-                .replace("image/png", "image/octet-stream");
+            .replace("image/png", "image/octet-stream");
 
     link.click();
 
@@ -565,15 +633,14 @@ Engine.prototype.onButtonClick = function (event)
         this.update();
     }
 
-
-
     if (event.key === "Control") {
 
         this.multiSelect = !this.multiSelect;
         console.log("multiselect: " + this.multiSelect);
         if (!this.multiSelect) {
             this.multiSelection.length = 0;
-            this.openMouth();
+            this.removeHighlight();
+            this.update();
         }
 
     }

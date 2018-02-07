@@ -24,7 +24,7 @@ Damage.prototype.renderFractura = function (context, settings)
 {
     context.beginPath();
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
         context.moveTo(this.rect.x, this.rect.y + this.rect.height);
         context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height / 2);
 
@@ -49,10 +49,10 @@ Damage.prototype.renderDienteAusente = function (context, settings)
 
     console.log("Drawing upper");
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
 
         context.moveTo(this.rect.x, this.rect.y + this.rect.height);
-        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height / 2);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height * 0.25);
 
         context.lineWidth = 2;
 
@@ -62,7 +62,7 @@ Damage.prototype.renderDienteAusente = function (context, settings)
         context.restore();
 
         context.moveTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height);
-        context.lineTo(this.rect.x, this.rect.y + this.rect.height / 2);
+        context.lineTo(this.rect.x, this.rect.y + this.rect.height * 0.25);
 
         context.strokeStyle = settings.COLOR_BLUE;
         context.stroke();
@@ -73,7 +73,7 @@ Damage.prototype.renderDienteAusente = function (context, settings)
         console.log("Drawing lower");
 
         context.moveTo(this.rect.x, this.rect.y);
-        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height / 2);
+        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height * 0.75);
 
         context.lineWidth = 2;
 
@@ -83,7 +83,7 @@ Damage.prototype.renderDienteAusente = function (context, settings)
         context.restore();
 
         context.moveTo(this.rect.x + this.rect.width, this.rect.y);
-        context.lineTo(this.rect.x, this.rect.y + this.rect.height / 2);
+        context.lineTo(this.rect.x, this.rect.y + this.rect.height * 0.75);
 
         context.strokeStyle = settings.COLOR_BLUE;
         context.stroke();
@@ -99,7 +99,7 @@ Damage.prototype.drawPulpar = function (context, settings)
 
     context.beginPath();
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
 
 
         context.moveTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height - 10);
@@ -128,7 +128,7 @@ Damage.prototype.drawMigracion = function (context, settings)
 
     var spacer = 5;
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
 
         // draw line
         context.moveTo(this.rect.x + spacer, this.rect.y + this.rect.height + 5);
@@ -176,7 +176,7 @@ Damage.prototype.drawOrtondicoRemovible = function (context, settings)
 
     var spacer = 5;
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
 
         // draw ZigZag
         context.moveTo(this.rect.x, this.rect.y);
@@ -207,7 +207,7 @@ Damage.prototype.drawDienteExtruido = function (context, settings)
 
     context.beginPath();
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
 
         // draw arrow head
         context.moveTo(this.rect.x + 10, this.rect.y + this.rect.height + 10);
@@ -249,7 +249,7 @@ Damage.prototype.drawDienteIntruido = function (context, settings)
 
     context.beginPath();
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
 
         // draw arrow head
         context.moveTo(this.rect.x + 10, this.rect.y + this.rect.height + 5);
@@ -291,7 +291,7 @@ Damage.prototype.drawProtesisRemovible = function (context, settings)
 
     context.beginPath();
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
 
         // draw lower line
         context.moveTo(this.rect.x, this.rect.y);
@@ -333,7 +333,7 @@ Damage.prototype.drawRemanenteRadicular = function (context, settings)
     context.textAlign = 'center';
     context.font = "20px Arial Bold";
 
-    if (this.type === TYPE_UPPER)
+    if (this.type === 0)
     {
         context.fillText("RR", this.rect.x + this.rect.width/2, this.rect.y + this.rect.height / 2);
     } else
@@ -354,7 +354,7 @@ Damage.prototype.drawGiroversion = function drawGiroversion(context, settings)
     var cy = this.rect.y + this.rect.height;
     var radius = (this.rect.width - 10) / 2;
 
-    if (this.type === TYPE_UPPER)
+    if (this.type === 0)
     {
 
         // half circle
@@ -395,7 +395,7 @@ Damage.prototype.drawPernoMunon = function (context, settings)
 
     var size = this.rect.width - 20;
 
-    if (this.type === TYPE_UPPER)
+    if (this.type === 0)
     {
         // draw rectangle
         context.rect(this.rect.x + 8, this.rect.y + this.rect.height - 8 - size, size, size);
@@ -430,7 +430,7 @@ Damage.prototype.drawDienteEnErupcion = function (context, settings)
 
     var pad = 2;
 
-    if (this.type === TYPE_UPPER)
+    if (this.type === 0)
     {
         // draw arrow head
         context.moveTo(this.rect.x + pad, this.rect.y + this.rect.height - 6);
@@ -476,7 +476,7 @@ Damage.prototype.drawProtesisTotal = function (context, settings)
 
     context.beginPath();
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
         context.moveTo(this.rect.x, this.rect.y + this.rect.height - 10);
         context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height - 10);
 
@@ -505,7 +505,7 @@ Damage.prototype.drawEdentuloTotal = function (context, settings)
 
     context.beginPath();
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
 
         context.moveTo(this.rect.x, this.rect.y + this.rect.height - 20);
         context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height - 20);
@@ -533,7 +533,7 @@ Damage.prototype.drawDienteEnClavija = function (context, settings)
 
     context.strokeStyle = settings.COLOR_BLUE;
 
-    if (this.type === TYPE_UPPER)
+    if (this.type === 0)
     {
         context.moveTo(this.rect.x, this.rect.y + this.rect.height);
         context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height - 30);
@@ -563,7 +563,7 @@ Damage.prototype.drawFusion = function (context, settings)
 
     context.beginPath();
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
         var cy = this.rect.y + this.rect.height * 3 / 4;
 
     } else {
@@ -590,7 +590,7 @@ Damage.prototype.drawCoronaDefinitiva = function (context, settings)
 
     context.beginPath();
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
         cy = this.rect.y + 16;
     } else {
         cy = this.rect.y + this.rect.height - 16;
@@ -616,7 +616,7 @@ Damage.prototype.drawCoronaTemporal = function (context, settings)
 
     context.beginPath();
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
         cy = this.rect.y + 16;
     } else {
         cy = this.rect.y + this.rect.height - 16;
@@ -637,7 +637,7 @@ Damage.prototype.drawDiastema = function (context, settings)
 
     context.beginPath();
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
 
         console.log("Drawing diastema");
 
@@ -707,7 +707,7 @@ Damage.prototype.drawSuperNumerario = function (context, settings)
 
     context.beginPath();
 
-    if (this.type === TYPE_UPPER) {
+    if (this.type === 0) {
 
         context.lineWidth = 2;
         // set line color
