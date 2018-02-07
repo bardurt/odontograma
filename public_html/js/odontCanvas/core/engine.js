@@ -19,24 +19,45 @@ document.writeln("<script type='text/javascript' src='js/odontCanvas/core/collis
 
 function Engine()
 {
+    // canvas which is used by the engine
+    this.canvas = null;
+    
     this.adultShowing = true;
 
+    // array which contains all the teeth for an odontograma
     this.mouth = new Array();
+    
+    // array which holds all the spaces between teeth
     this.spaces = new Array();
 
+    // array for an adult odontograma
     this.odontAdult = new Array();
+    
+    // spaces for a adult odontograma
+    this.odontSpacesAdult = new Array();
+
+    // array for a child odontograma
     this.odontChild = new Array();
+    
+    // spaces for a child odontograma
+    this.odontSpacesChild = new Array();
 
-    this.odontSpaceAdult = new Array();
-
+    // renderer which will render everything on a canvas
     this.renderer = new Renderer();
+    
+    // helper to create odontograma
     this.odontogramaGenerator = new OdontogramaGenerator();
+    
+    // helper for handeling collision
     this.collisionHandler = new CollisionHandler();
+    
+    // value of the selected damage which should be added or removed
     this.selectedHallazgo = "0";
 
-    this.canvas = null;
-
+    // x position of the mouse pointer
     this.cursorX = 0;
+    
+    // y position of the mouse pointer
     this.corsorY = 0;
 
     this.multiSelect = false;
@@ -56,7 +77,11 @@ Engine.prototype.setCanvas = function (canvas)
     this.renderer.init(this.canvas);
 };
 
-
+/**
+ * Helper method to get the real x position of mouse
+ * @param {type} event mouse event containing mouse position
+ * @returns {Number} the x position of the mouse
+ */
 Engine.prototype.getXpos = function (event)
 {
 
@@ -65,6 +90,11 @@ Engine.prototype.getXpos = function (event)
     return Math.round(event.clientX - (boundingRect.left));
 };
 
+/**
+ * Helper method to get the real y position of mouse
+ * @param {type} event mouse event containing mouse position
+ * @returns {Number} the y position of the mouse
+ */
 Engine.prototype.getYpos = function (event)
 {
 
@@ -81,19 +111,23 @@ Engine.prototype.init = function () {
 
     // set up the odontograma
     this.odontogramaGenerator.setEngine(this);
-    this.odontogramaGenerator.prepareOdontogramaAdult(this.odontAdult, this.canvas);
-    this.odontogramaGenerator.prepareOdontogramaChild(this.odontChild, this.canvas);
+    this.odontogramaGenerator.prepareOdontogramaAdult(this.odontAdult, this.odontSpacesAdult, this.canvas);
+    this.odontogramaGenerator.prepareOdontogramaChild(this.odontChild, this.odontSpacesChild, this.canvas);
+
 
     this.mouth = this.odontAdult;
+    this.spaces = this.odontSpacesAdult;
 };
 
 /**
- * Method for updating
+ * Method for updating the engine
  * @returns {undefined}
  */
 Engine.prototype.update = function ()
 {
+    this.renderer.clear();
     this.renderer.render(this.mouth);
+    this.renderer.render(this.spaces);
 
     if (DEBUG) {
 
@@ -142,15 +176,6 @@ Engine.prototype.printMultiSelection = function () {
 
 };
 
-
-Engine.prototype.openMouth = function () {
-    console.log("Opening mouth");
-    for (var i = 0; i < this.mouth.length; i++) {
-
-        this.mouth[i].open();
-    }
-};
-
 Engine.prototype.resetMultiSelect = function () {
 
     this.multiSelect = false;
@@ -159,46 +184,6 @@ Engine.prototype.resetMultiSelect = function () {
     this.openMouth();
 
     this.update();
-};
-
-Engine.prototype.createDiastema = function (tooth1, tooth2)
-{
-    console.log("Engine: creating diastema");
-
-    if (tooth1.address < tooth2.address)
-    {
-        damage1 = tooth1.createDamage("21");
-
-        damage1.direction = 0;
-
-        tooth1.damages.push(damage1);
-
-        damage2 = tooth2.createDamage("21");
-
-        damage2.direction = 1;
-
-        tooth2.damages.push(damage2);
-
-        this.resetMultiSelect();
-
-    } else {
-
-        damage1 = tooth1.createDamage("21");
-
-        damage1.direction = 1;
-
-        tooth1.damages.push(damage1);
-
-        damage2 = tooth2.createDamage("21");
-
-        damage2.direction = 0;
-
-        tooth2.damages.push(damage2);
-
-        this.resetMultiSelect();
-
-    }
-
 };
 
 Engine.prototype.handleMultiSelection = function ()
@@ -265,34 +250,43 @@ Engine.prototype.onMouseClick = function (event)
 
     shouldUpdate = false;
 
-    // loop through all teeth
-    for (var i = 0; i < this.mouth.length; i++)
-    {
-        this.mouth[i].toggleSelected(false);
-
-        // check collision for current tooth
-        if (this.mouth[i].checkCollision(
-                this.getXpos(event),
-                this.getYpos(event))) {
-
-            if(this.selectedHallazgo === "21"){
-                this.collisionHandler.handleCollisionGrouping(this.mouth, i, this.mouth[i], this.selectedHallazgo);
-            }
-            else
-            {
-                this.collisionHandler.handleCollision(this.mouth[i], this.selectedHallazgo);
-            }
-            
-           
-            shouldUpdate = true;
-        }
-
-        // check if there is a collision with one of the tooth surfaces
-        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
+    if (!HIHGLIGHT_SPACES) {
+        // loop through all teeth
+        for (var i = 0; i < this.mouth.length; i++)
         {
-            if (this.mouth[i].checkBoxes[j].checkCollision(this.getXpos(event), this.getYpos(event)))
+            this.mouth[i].toggleSelected(false);
+
+            // check collision for current tooth
+            if (this.mouth[i].checkCollision(
+                    this.getXpos(event),
+                    this.getYpos(event))) {
+
+                this.collisionHandler.handleCollision(this.mouth[i], this.selectedHallazgo);
+
+                shouldUpdate = true;
+            }
+
+            // check if there is a collision with one of the tooth surfaces
+            for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
             {
-                this.collisionHandler.handleCollisionCheckBox(this.mouth[i].checkBoxes[j], this.selectedHallazgo);
+                if (this.mouth[i].checkBoxes[j].checkCollision(this.getXpos(event), this.getYpos(event)))
+                {
+                    this.collisionHandler.handleCollisionCheckBox(this.mouth[i].checkBoxes[j], this.selectedHallazgo);
+                    shouldUpdate = true;
+                }
+            }
+        }
+    } else {
+
+        for (var i = 0; i < this.spaces.length; i++)
+        {
+            // check collision for current space
+            if (this.spaces[i].checkCollision(
+                    this.getXpos(event),
+                    this.getYpos(event))) {
+
+                this.collisionHandler.handleCollision(this.spaces[i], this.selectedHallazgo);
+
                 shouldUpdate = true;
             }
         }
@@ -305,6 +299,11 @@ Engine.prototype.onMouseClick = function (event)
 
 };
 
+/**
+ * Method to get the x and y coordinates of the mouse cursor
+ * @param {type} event mouse move event
+ * @returns {undefined}
+ */
 Engine.prototype.followMouse = function (event)
 {
 
@@ -322,27 +321,49 @@ Engine.prototype.followMouse = function (event)
 Engine.prototype.onMouseMove = function (event)
 {
 
+    if (HIHGLIGHT_SPACES)
+    {
+        for (var i = 0; i < this.spaces.length; i++) {
 
-    for (var i = 0; i < this.mouth.length; i++) {
+            var update = false;
 
-        if (this.mouth[i].checkCollision(this.getXpos(event), this.getYpos(event)))
-        {
-            this.mouth[i].onTouch(true);
-        } else
-        {
-            this.mouth[i].onTouch(false);
-        }
-
-        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
-        {
-            if (this.mouth[i].checkBoxes[j].checkCollision(this.getXpos(event), this.getYpos(event)))
+            if (this.spaces[i].checkCollision(this.getXpos(event), this.getYpos(event)))
             {
-                this.mouth[i].checkBoxes[j].touching = true;
+                this.spaces[i].onTouch(true);
+                update = true;
             } else
             {
-                this.mouth[i].checkBoxes[j].touching = false;
+                this.spaces[i].onTouch(false);
             }
         }
+
+        if (update) {
+            this.update();
+        }
+    } else {
+
+        for (var i = 0; i < this.mouth.length; i++) {
+
+            if (this.mouth[i].checkCollision(this.getXpos(event), this.getYpos(event)))
+            {
+                this.mouth[i].onTouch(true);
+            } else
+            {
+                this.mouth[i].onTouch(false);
+            }
+
+            for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
+            {
+                if (this.mouth[i].checkBoxes[j].checkCollision(this.getXpos(event), this.getYpos(event)))
+                {
+                    this.mouth[i].checkBoxes[j].touching = true;
+                } else
+                {
+                    this.mouth[i].checkBoxes[j].touching = false;
+                }
+            }
+        }
+
     }
 
     this.followMouse(event);
@@ -364,6 +385,11 @@ Engine.prototype.reset = function ()
         {
             this.mouth[i].checkBoxes[j].state = 0;
         }
+    }
+
+    for (var i = 0; i < this.spaces.length; i++)
+    {
+        this.spaces[i].damages.length = 0;
     }
 
     this.update();
@@ -393,6 +419,7 @@ Engine.prototype.save = function ()
 Engine.prototype.onButtonClick = function (event)
 {
     console.log("key " + event.key);
+    this.selectedHallazgo = "0";
 
     if (event.key === "1")
     {
@@ -497,7 +524,23 @@ Engine.prototype.onButtonClick = function (event)
     if (event.key === "a") {
 
         this.selectedHallazgo = "21";
+        HIHGLIGHT_SPACES = true;
+        this.update();
 
+    }
+
+    if (event.key === "s") {
+
+        this.selectedHallazgo = "22";
+        HIHGLIGHT_SPACES = true;
+        this.update();
+
+    }
+
+    if (event.key !== "a" && event.key !== "s")
+    {
+        HIHGLIGHT_SPACES = false;
+        this.update();
     }
 
     if (event.key === "h")
@@ -544,6 +587,7 @@ Engine.prototype.onButtonClick = function (event)
         this.adultShowing = true;
         console.log("Setting odontograma to adult");
         this.mouth = this.odontAdult;
+        this.spaces = this.odontSpacesAdult;
         this.update();
 
     }
@@ -553,18 +597,25 @@ Engine.prototype.onButtonClick = function (event)
         this.adultShowing = false;
         console.log("Setting odontograma to child");
         this.mouth = this.odontChild;
+        this.spaces = this.odontSpacesChild;
         this.update();
 
     }
 
 };
 
+/**
+ * Method to displaying a splash screen
+ * @returns {undefined}
+ */
 Engine.prototype.splash = function () {
 
     this.renderer.drawSplash();
 
     var self = this;
 
+    // show splash screen for 3 seconds 
+    // then continue
     setTimeout(function () {
         self.update();
     }, 3000);

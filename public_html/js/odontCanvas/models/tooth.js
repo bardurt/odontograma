@@ -19,6 +19,7 @@ var TYPE_LOWER = 1;
 function Tooth()
 {
     this.id = '';
+    this.tooth = true;
     this.surfaces = 0;
     this.highlight = false;
     this.damages = Array();
@@ -318,6 +319,7 @@ Tooth.prototype.createSurfaces = function ()
 Tooth.prototype.drawId = function (context)
 {
     context.beginPath();
+    context.textAlign = 'center';
     context.fillStyle = "#000000";
     context.font = "15px Arial Bold";
 
@@ -326,7 +328,7 @@ Tooth.prototype.drawId = function (context)
     if (this.type === TYPE_UPPER)
     {
         // draw id
-        context.fillText("" + this.id, this.rect.x + 12, this.rect.y + this.rect.height + space + 10);
+        context.fillText("" + this.id, this.rect.x + this.rect.width/2, this.rect.y + this.rect.height + space + 10);
 
         // draw id border
         context.moveTo(this.rect.x, this.rect.y + this.rect.height + space + 20);
@@ -337,7 +339,7 @@ Tooth.prototype.drawId = function (context)
     } else
     {
         // draw id
-        context.fillText("" + this.id, this.rect.x + 12, this.rect.y - space - 5);
+        context.fillText("" + this.id, this.rect.x + this.rect.width/2, this.rect.y - space - 5);
 
         // draw id border
         context.moveTo(this.rect.x, this.rect.y - space - 20);
@@ -577,31 +579,47 @@ Tooth.prototype.open = function ()
 Tooth.prototype.render = function (context)
 {
 
-    if (this.image !== undefined) {
+    if (this.tooth) {
+        if (this.image !== undefined) {
 
-        // center of tooth
-        var cx = (this.x + this.width / 2);
+            // center of tooth
+            var cx = (this.x + this.width / 2);
 
-        // centerinng of the tooth in x axis
-        var dx = cx - this.image.naturalWidth / 2;
+            // centerinng of the tooth in x axis
+            var dx = cx - this.image.naturalWidth / 2;
 
-        // draw tooth
-        context.drawImage(this.image, dx, this.y);
+            // draw tooth
+            context.drawImage(this.image, dx, this.y);
+        }
+
+        this.drawId(context);
+
+        this.drawCheckBoxes(context);
+
+    } else {
+        
+       if(HIHGLIGHT_SPACES) {
+        
+            if (this.rect.touching) {
+            
+                this.rect.highlightEllipse(context, "#36BE1B", 0.5);
+            
+            } else{
+                this.rect.highlightEllipse(context, "#FF3D57", 0.2);
+            }
+        }
     }
-
-    this.drawId(context);
-
-    this.drawCheckBoxes(context);
 
     this.drawDamage(context);
 
-    if (this.blocked) {
-        //this.rect.highlightWithColor(context, "#ff2d2d", 0.5);
-    }
 
     if (DEBUG) {
 
-        this.rect.outline(context);
+        if(this.tooth){
+            this.rect.outline(context, "#000000");
+        } else {
+            this.rect.highlightEllipse(context, "#FFD100", 0.4);
+        }
     }
 
     for (var i = 0; i < this.checkBoxes.length; i++)

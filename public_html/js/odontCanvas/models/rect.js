@@ -78,12 +78,30 @@ Rect.prototype.highlightWithColor = function (context, color, alpha) {
 
 };
 
-Rect.prototype.outline = function (context) {
+Rect.prototype.outline = function (context, color) {
 
     context.beginPath();
-    context.strokeStyle = '#000000';
+    context.strokeStyle = color;
     context.rect(this.x, this.y, this.width, this.height);
     context.stroke();
+    context.restore();
+
+};
+
+Rect.prototype.highlightEllipse = function (context, color, alpha) {
+
+    context.beginPath();
+    context.globalAlpha = alpha;
+    context.fillStyle = color;
+    context.ellipse(this.x + this.width/2, 
+                    this.y + this.height/2, 
+                    this.width/2, 
+                    this.height/2, 
+                    0,
+                    0,
+                    2 * Math.PI);
+    context.fill();
+    context.globalAlpha = 1;
     context.restore();
 
 };

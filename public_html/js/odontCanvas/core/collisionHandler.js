@@ -9,6 +9,10 @@
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
 
+/**
+ * Helper class for handling collisions
+ * @returns {CollisionHandler}
+ */
 function CollisionHandler()
 {
 
@@ -25,16 +29,10 @@ CollisionHandler.prototype.handleCollision = function (tooth, argument)
 
     console.log("Handle collision");
 
-    if (argument === "21")
+    if (argument !== "0" && argument !== "13" && argument !== "14")
     {
-
-        if (tooth.id >= "28" && tooth.id <= "12" && tooth.id !== "65" && tooth.id !== "75")
-        {
-            tooth.toggleDamage(argument);
-        }
-
-    } else if (argument !== "0" && argument !== "13" && argument !== "14")
-    {
+        tooth.toggleDamage(argument);
+    } else{
         tooth.toggleDamage(argument);
     }
 

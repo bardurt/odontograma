@@ -10,6 +10,8 @@
  */
 
 
+var HIHGLIGHT_SPACES = false;
+
 var DEBUG = false;
 
 var TOOTH_PADDING = 0;

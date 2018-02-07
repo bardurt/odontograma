@@ -14,7 +14,10 @@
 //TODO : create a pre loader of the images
 
 
-
+/**
+ * Helper class for creating a Odontograma
+ * @returns {OdontogramaGenerator}
+ */
 function OdontogramaGenerator()
 {
     // variable for how many images have been loaded
@@ -31,6 +34,12 @@ function OdontogramaGenerator()
 
 }
 
+/**
+ * Method to set reference to the engine which uses this 
+ * odontograma
+ * @param {type} engine
+ * @returns {undefined}
+ */
 OdontogramaGenerator.prototype.setEngine = function (engine)
 {
     this.engine = engine;
@@ -51,17 +60,19 @@ OdontogramaGenerator.prototype.updateLoad = function () {
 };
 
 
-/**
- * Method to prepare the layout for an odontograma
- * @param {type} array container for all the teeths
+/*'
+ * Method to prepare an Odontograma for an adult, 32 teeth
+ * @param {type} odontograma array which holds all 32 teeth
+ * @param {type} spaces array to hold all the spaces between teeths
+ * @param {type} canvas the canvas where the odontograma will be drawn
  * @returns {undefined}
  */
-OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (array, canvas) {
+OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma, spaces, canvas) {
 
     var self = this;
     this.arrayCount = 0;
 
-
+    // center the ondotograma
     var width = canvas.width;
     var odontWidth = 16 * this.imgWidth;
     var start = (width - odontWidth) / 2;
@@ -70,6 +81,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (array, canvas
     var x = start;
 
 
+    // create the 1st group of upper teeth
     for (var i = 18; i > 10; i--) {
 
         var tooth = new Tooth();
@@ -98,7 +110,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (array, canvas
 
         x += tooth.width + TOOTH_PADDING;
 
-        array[this.arrayCount] = tooth;
+        odontograma[this.arrayCount] = tooth;
 
         tooth.address = this.arrayCount;
 
@@ -106,8 +118,33 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (array, canvas
 
         tooth.createSurfaces();
 
+        var space = new Tooth();
+        space.setSurfaces(5);
+
+        if (i !== 11) {
+            var tmpid = (i) + "" + (i - 1);
+            space.id = Number(tmpid);
+
+        } else {
+
+            var tmpid = (i) + "" + (21);
+            space.id = Number(tmpid);
+
+        }
+
+        space.setDimens(tooth.rect.x + tooth.rect.width / 2,
+                tooth.rect.y,
+                tooth.rect.width,
+                tooth.rect.height);
+
+        space.type = tooth.type;
+        space.tooth = false;
+
+        spaces.push(space);
+
     }
 
+    // create the first 2nd of upper teeth
     for (var i = 21; i < 29; i++) {
 
         var tooth = new Tooth();
@@ -135,7 +172,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (array, canvas
 
         x += tooth.width + TOOTH_PADDING;
 
-        array[this.arrayCount] = tooth;
+        odontograma[this.arrayCount] = tooth;
 
         tooth.address = this.arrayCount;
 
@@ -143,11 +180,31 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (array, canvas
 
         tooth.createSurfaces();
 
+
+
+        if (i < 28) {
+
+            var space = new Tooth();
+            space.setSurfaces(5);
+            var tmpid = (i) + "" + (i - 1);
+            space.id = Number(tmpid);
+
+            space.setDimens(tooth.rect.x + tooth.rect.width / 2,
+                    tooth.rect.y,
+                    tooth.rect.width,
+                    tooth.rect.height);
+
+            space.type = tooth.type;
+            space.tooth = false;
+
+            spaces.push(space);
+        }
     }
 
     // start position of first 
     var x = start;
 
+    // create the 1st group of lower teeth
     for (var i = 48; i > 40; i--) {
 
         var tooth = new Tooth();
@@ -177,7 +234,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (array, canvas
 
         x += tooth.width + TOOTH_PADDING;
 
-        array[this.arrayCount] = tooth;
+        odontograma[this.arrayCount] = tooth;
 
         tooth.address = this.arrayCount;
 
@@ -185,8 +242,33 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (array, canvas
 
         tooth.createSurfaces();
 
+        var space = new Tooth();
+        space.setSurfaces(5);
+
+        if (i !== 21) {
+            var tmpid = (i) + "" + (i - 1);
+            space.id = Number(tmpid);
+
+        } else {
+
+            var tmpid = (i) + "" + (31);
+            space.id = Number(tmpid);
+
+        }
+
+        space.setDimens(tooth.rect.x + tooth.rect.width / 2,
+                tooth.rect.y,
+                tooth.rect.width,
+                tooth.rect.height);
+
+        space.type = tooth.type;
+        space.tooth = false;
+
+        spaces.push(space);
+
     }
 
+    // create the 2nd group of lower teeth
     for (var i = 31; i < 39; i++) {
 
         var tooth = new Tooth();
@@ -213,7 +295,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (array, canvas
 
         tooth.setType(TYPE_LOWER);
 
-        array[this.arrayCount] = tooth;
+        odontograma[this.arrayCount] = tooth;
         x += tooth.width + TOOTH_PADDING;
 
         tooth.address = this.arrayCount;
@@ -221,16 +303,35 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (array, canvas
 
         tooth.createSurfaces();
 
+        if (i < 38) {
+
+            var space = new Tooth();
+            space.setSurfaces(5);
+            var tmpid = (i) + "" + (i - 1);
+            space.id = Number(tmpid);
+
+            space.setDimens(tooth.rect.x + tooth.rect.width / 2,
+                    tooth.rect.y,
+                    tooth.rect.width,
+                    tooth.rect.height);
+
+            space.type = tooth.type;
+            space.tooth = false;
+
+            spaces.push(space);
+        }
+
     }
 
 };
+
 
 /**
  * Method to prepare the layout for an odontograma
  * @param {type} array container for all the teeths
  * @returns {undefined}
  */
-OdontogramaGenerator.prototype.prepareOdontogramaChild = function (array, canvas) {
+OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, spaces, canvas) {
 
     var self = this;
     this.arrayCount = 0;
@@ -266,13 +367,37 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (array, canvas
 
         x += tooth.width + TOOTH_PADDING;
 
-        array[this.arrayCount] = tooth;
+        odontograma[this.arrayCount] = tooth;
 
         tooth.address = this.arrayCount;
 
         this.arrayCount++;
 
         tooth.createSurfaces();
+        
+        var space = new Tooth();
+        space.setSurfaces(5);
+
+        if (i !== 51) {
+            var tmpid = (i) + "" + (i - 1);
+            space.id = Number(tmpid);
+
+        } else {
+
+            var tmpid = (i) + "" + (61);
+            space.id = Number(tmpid);
+
+        }
+
+        space.setDimens(tooth.rect.x + tooth.rect.width / 2,
+                tooth.rect.y,
+                tooth.rect.width,
+                tooth.rect.height);
+
+        space.type = tooth.type;
+        space.tooth = false;
+
+        spaces.push(space);
 
     }
 
@@ -301,11 +426,30 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (array, canvas
 
         tooth.address = this.arrayCount;
 
-        array[this.arrayCount] = tooth;
+        odontograma[this.arrayCount] = tooth;
 
         this.arrayCount++;
 
         tooth.createSurfaces();
+        
+        
+        if (i < 65) {
+
+            var space = new Tooth();
+            space.setSurfaces(5);
+            var tmpid = (i) + "" + (i - 1);
+            space.id = Number(tmpid);
+
+            space.setDimens(tooth.rect.x + tooth.rect.width / 2,
+                    tooth.rect.y,
+                    tooth.rect.width,
+                    tooth.rect.height);
+
+            space.type = tooth.type;
+            space.tooth = false;
+
+            spaces.push(space);
+        }
 
     }
 
@@ -337,13 +481,37 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (array, canvas
 
         x += tooth.width + TOOTH_PADDING;
 
-        array[this.arrayCount] = tooth;
+        odontograma[this.arrayCount] = tooth;
 
         tooth.address = this.arrayCount;
 
         this.arrayCount++;
 
         tooth.createSurfaces();
+
+        var space = new Tooth();
+        space.setSurfaces(5);
+
+        if (i !== 81) {
+            var tmpid = (i) + "" + (i - 1);
+            space.id = Number(tmpid);
+
+        } else {
+
+            var tmpid = (i) + "" + (71);
+            space.id = Number(tmpid);
+
+        }
+
+        space.setDimens(tooth.rect.x + tooth.rect.width / 2,
+                tooth.rect.y,
+                tooth.rect.width,
+                tooth.rect.height);
+
+        space.type = tooth.type;
+        space.tooth = false;
+
+        spaces.push(space);
 
     }
 
@@ -369,7 +537,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (array, canvas
 
         tooth.setType(TYPE_LOWER);
 
-        array[this.arrayCount] = tooth;
+        odontograma[this.arrayCount] = tooth;
         x += tooth.width + TOOTH_PADDING;
 
 
@@ -378,8 +546,25 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (array, canvas
 
         tooth.createSurfaces();
 
+
+        if (i < 75) {
+
+            var space = new Tooth();
+            space.setSurfaces(5);
+            var tmpid = (i) + "" + (i - 1);
+            space.id = Number(tmpid);
+
+            space.setDimens(tooth.rect.x + tooth.rect.width / 2,
+                    tooth.rect.y,
+                    tooth.rect.width,
+                    tooth.rect.height);
+
+            space.type = tooth.type;
+            space.tooth = false;
+
+            spaces.push(space);
+        }
+
     }
 
 };
-
-

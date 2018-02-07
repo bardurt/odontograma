@@ -9,6 +9,10 @@
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
 
+/**
+ * Helper class for drawing items on a canvas
+ * @returns {Renderer}
+ */
 function Renderer()
 {
     this.context;
@@ -25,6 +29,10 @@ Renderer.prototype.load = function()
     this.context.fillText("Loading...", this.width/2, this.height/2);
 };
 
+/**
+ * Method to render a splash screen
+ * @returns {undefined}
+ */
 Renderer.prototype.drawSplash = function(){
     
     this.context.fillStyle ="#ffffff";
@@ -34,7 +42,7 @@ Renderer.prototype.drawSplash = function(){
     this.context.textAlign = 'center';
     this.context.fillStyle = "#000000";
     this.context.font = "32px Arial Bold";
-    this.context.fillText("OdontEngine", this.width/2, this.height/2 -16);
+    this.context.fillText("OdontoGraph", this.width/2, this.height/2 -16);
     this.context.font = "18px Arial Bold";
     this.context.fillText("Created by Bardur Thomsen - 2018", this.width/2, this.height/2 + 40);
 };
@@ -54,12 +62,13 @@ Renderer.prototype.init = function(canvas) {
 };
 
 
+
 /**
  * Method to render odontograma
  * @param {type} data data frm for odontograma
  * @returns {undefined}
  */
-Renderer.prototype.render = function(data)
+Renderer.prototype.clear = function()
 {
     
     // clear
@@ -67,6 +76,18 @@ Renderer.prototype.render = function(data)
     this.context.fillRect(0, 0, this.width, this.height);
     
     this.context.restore();
+    
+};
+
+
+
+/**
+ * Method to render odontograma
+ * @param {type} data data frm for odontograma
+ * @returns {undefined}
+ */
+Renderer.prototype.render = function(data)
+{
     
     // draw the teeth
     for (var i = 0; i < data.length; i++) {

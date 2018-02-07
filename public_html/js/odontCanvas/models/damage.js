@@ -330,15 +330,15 @@ Damage.prototype.drawRemanenteRadicular = function (context)
     context.beginPath();
 
     context.fillStyle = COLOR_RED;
-
+    context.textAlign = 'center';
     context.font = "20px Arial Bold";
 
     if (this.type === TYPE_UPPER)
     {
-        context.fillText("RR", this.rect.x + 5, this.rect.y + this.rect.height / 2);
+        context.fillText("RR", this.rect.x + this.rect.width/2, this.rect.y + this.rect.height / 2);
     } else
     {
-        context.fillText("RR", this.rect.x + 5, this.rect.y + this.rect.height / 2);
+        context.fillText("RR", this.rect.x + this.rect.width/2, this.rect.y + this.rect.height / 2);
     }
 
     context.restore();
@@ -647,23 +647,23 @@ Damage.prototype.drawDiastema = function (context)
 
         context.beginPath();
 
-        context.arc(this.rect.x - 15,
-                this.rect.y + this.rect.height / 2 + this.rect.height / 4,
-                15,
-                Math.PI * 0.5, // 90 degress
-                Math.PI * 1.5, // 270 degrees
-                true);
-
-        context.stroke();
-
-        context.beginPath();
-
-        context.arc(this.rect.x + 15,
+        context.arc(this.rect.x + this.rect.width / 2 + 15,
                 this.rect.y + this.rect.height / 2 + this.rect.height / 4,
                 15,
                 Math.PI * 0.5, // 90 degress
                 Math.PI * 1.5, // 270 degrees
                 false);
+
+        context.stroke();
+
+        context.beginPath();
+
+        context.arc(this.rect.x + this.rect.width / 2 - 15,
+                this.rect.y + this.rect.height / 2 + this.rect.height / 4,
+                15,
+                Math.PI * 0.5, // 90 degress
+                Math.PI * 1.5, // 270 degrees
+                true);
 
         context.stroke();
 
@@ -677,18 +677,7 @@ Damage.prototype.drawDiastema = function (context)
 
         context.beginPath();
 
-        context.arc(this.rect.x - 15,
-                this.rect.y + this.rect.height / 4,
-                15,
-                Math.PI * 0.5, // 90 degress
-                Math.PI * 1.5, // 270 degrees
-                true);
-
-        context.stroke();
-
-        context.beginPath();
-
-        context.arc(this.rect.x + 15,
+        context.arc(this.rect.x + this.rect.width / 2 + 15,
                 this.rect.y + this.rect.height / 4,
                 15,
                 Math.PI * 0.5, // 90 degress
@@ -696,8 +685,76 @@ Damage.prototype.drawDiastema = function (context)
                 false);
 
         context.stroke();
+
+        context.beginPath();
+
+        context.arc(this.rect.x + this.rect.width / 2 - 15,
+                this.rect.y + this.rect.height / 4,
+                15,
+                Math.PI * 0.5, // 90 degress
+                Math.PI * 1.5, // 270 degrees
+                true);
+
+        context.stroke();
     }
 
+    context.restore();
+
+};
+
+Damage.prototype.drawSuperNumerario = function (context)
+{
+
+    context.beginPath();
+
+    if (this.type === TYPE_UPPER) {
+
+        context.lineWidth = 2;
+        // set line color
+        context.strokeStyle = COLOR_BLUE;
+
+        context.beginPath();
+
+        context.arc(this.rect.x + this.rect.width / 2,
+                this.rect.y + 20,
+                10,
+                0, // 0 degress
+                Math.PI * 2, // 360 degrees
+                false);
+
+        context.stroke();
+
+        context.textAlign = 'center';
+        context.fillStyle = COLOR_BLUE;
+        context.font = "16px Arial Bold";
+        context.fillText("S", this.rect.x + this.rect.width / 2, this.rect.y + 25);
+
+        context.restore();
+
+    } else {
+
+        context.lineWidth = 2;
+        // set line color
+        context.strokeStyle = COLOR_BLUE;
+
+        context.beginPath();
+
+        context.arc(this.rect.x + this.rect.width / 2,
+                this.rect.y + this.rect.height - 20,
+                10,
+                0, // 0 degress
+                Math.PI * 2, // 360 degrees
+                false);
+
+        context.stroke();
+
+        context.textAlign = 'center';
+        context.fillStyle = COLOR_BLUE;
+        context.font = "16px Arial Bold";
+        context.fillText("S", this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height - 15);
+
+        context.restore();
+    }
 
     context.restore();
 
@@ -782,6 +839,10 @@ Damage.prototype.render = function (context)
 
     if (this.id === "21") {
         this.drawDiastema(context);
+    }
+
+    if (this.id === "22") {
+        this.drawSuperNumerario(context);
     }
 
 
