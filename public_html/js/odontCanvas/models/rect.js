@@ -9,7 +9,10 @@
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
 
-
+/*
+ * Class for a rectangle
+ * @returns {Rect}
+ */
 function Rect()
 {
     this.x = 0;
@@ -33,6 +36,12 @@ Rect.prototype.uncheck = function () {
     this.state = 0;
 };
 
+/**
+ * Method to if a point is inside the rectangle
+ * @param {type} cursX x coordinate of point
+ * @param {type} cursY y coordinate of point
+ * @returns {Boolean} true if collision, false else
+ */
 Rect.prototype.checkCollision = function (cursX, cursY) {
 
     var collision = false;
@@ -42,7 +51,6 @@ Rect.prototype.checkCollision = function (cursX, cursY) {
             if (cursX < this.x + this.width) {
                 if (cursY < this.y + this.height) {
                     collision = true;
-                    console.log("Collision");
                 }
             }
         }
@@ -52,11 +60,17 @@ Rect.prototype.checkCollision = function (cursX, cursY) {
 
 };
 
-Rect.prototype.highlight = function (context) {
+/**
+ * Method to highlight a the checkbox
+ * @param {type} context canvas to draw on
+ * @param {type} settings global highlight color of checkbox
+ * @returns {undefined}
+ */
+Rect.prototype.highlight = function (context, settings) {
 
     context.beginPath();
     context.globalAlpha = 0.4;
-    context.fillStyle = COLOR_ON_TOUCH;
+    context.fillStyle = settings.COLOR_ON_TOUCH;
 
     context.fillRect(this.x, this.y, this.width, this.height);
 
@@ -65,6 +79,13 @@ Rect.prototype.highlight = function (context) {
 
 };
 
+/**
+ * Method to higlight the checkbox with a specific color
+ * @param {type} context canvas to draw on
+ * @param {type} color the color of the highlight
+ * @param {type} alpha alpha valu of the color
+ * @returns {undefined}
+ */
 Rect.prototype.highlightWithColor = function (context, color, alpha) {
 
     context.beginPath();
@@ -78,6 +99,13 @@ Rect.prototype.highlightWithColor = function (context, color, alpha) {
 
 };
 
+
+/**
+ * Method to outline the rectangle with a specific color
+ * @param {type} context canvas to draw on
+ * @param {type} color the color for the outline
+ * @returns {undefined}
+ */
 Rect.prototype.outline = function (context, color) {
 
     context.beginPath();
@@ -88,11 +116,25 @@ Rect.prototype.outline = function (context, color) {
 
 };
 
+
+/**
+ * Method to draw an ellipse with center of rectangle center
+ * @param {type} context the canvas to draw on
+ * @param {type} color the color of the ellipses
+ * @param {type} alpha the alpha value of the color
+ * @param {type} padding padding for the ellipses default is 0;
+ * @returns {undefined}
+ */
 Rect.prototype.highlightEllipse = function (context, color, alpha, padding) {
+
+    if(padding === undefined){
+        padding = 0;
+    }
 
     context.beginPath();
     context.globalAlpha = alpha;
     context.fillStyle = color;
+    
     context.ellipse(this.x + this.width / 2, 
                     this.y + this.height / 2, 
                     (this.width - padding) / 2, 
@@ -100,6 +142,7 @@ Rect.prototype.highlightEllipse = function (context, color, alpha, padding) {
                     0,
                     0,
                     2 * Math.PI);
+                    
     context.fill();
     context.globalAlpha = 1;
     context.restore();

@@ -104,9 +104,9 @@ Tooth.prototype.toggleSelected = function (selected)
  * Method to create 4 surfaces for the tooth, 4 checkboxes
  * @returns {undefined}
  */
-Tooth.prototype.create4Surfaces = function ()
+Tooth.prototype.create4Surfaces = function (settings)
 {
-    var width = RECT_DIMEN;
+    var width = settings.RECT_DIMEN;
 
     var startX = this.x + 10;
 
@@ -194,9 +194,9 @@ Tooth.prototype.create4Surfaces = function ()
  * Method to create 5 surfaces for the tooth, 5 checkboxes
  * @returns {undefined}
  */
-Tooth.prototype.create5Surfaces = function ()
+Tooth.prototype.create5Surfaces = function (settings)
 {
-    var width = RECT_DIMEN;
+    var width = settings.RECT_DIMEN;
 
     var startX = this.x + 5;
 
@@ -303,17 +303,16 @@ Tooth.prototype.create5Surfaces = function ()
  * Base method for setting the surfaces for a tooth
  * @returns {undefined}
  */
-Tooth.prototype.createSurfaces = function ()
+Tooth.prototype.createSurfaces = function (settings)
 {
     if (this.surfaces === 4)
     {
-        this.create4Surfaces();
+        this.create4Surfaces(settings);
     } else
     {
-        this.create5Surfaces();
+        this.create5Surfaces(settings);
     }
 };
-
 
 
 Tooth.prototype.drawId = function (context)
@@ -358,7 +357,7 @@ Tooth.prototype.drawId = function (context)
 
 };
 
-Tooth.prototype.drawCheckBoxOutLine = function (checkBox, context)
+Tooth.prototype.drawCheckBoxOutLine = function (checkBox, context, settings)
 {
     context.beginPath();
 
@@ -369,16 +368,16 @@ Tooth.prototype.drawCheckBoxOutLine = function (checkBox, context)
 
     context.lineWidth = 1;
     // set line color
-    context.strokeStyle = COLOR_BLACK;
+    context.strokeStyle = settings.COLOR_BLACK;
     context.stroke();
     context.restore();
 };
 
-Tooth.prototype.drawCheckBoxRed = function (checkBox, context)
+Tooth.prototype.drawCheckBoxRed = function (checkBox, context, settings)
 {
 
     context.beginPath();
-    context.fillStyle = COLOR_RED;
+    context.fillStyle = settings.COLOR_RED;
 
     context.fillRect(checkBox.x,
             checkBox.y,
@@ -394,15 +393,15 @@ Tooth.prototype.drawCheckBoxRed = function (checkBox, context)
 
     context.lineWidth = 1;
     // set line color
-    context.strokeStyle = COLOR_BLACK;
+    context.strokeStyle = settings.COLOR_BLACK;
     context.stroke();
     context.restore();
-}
+};
 
-Tooth.prototype.drawCheckBoxBlue = function (checkBox, context) {
+Tooth.prototype.drawCheckBoxBlue = function (checkBox, context, settings) {
 
     context.beginPath();
-    context.fillStyle = COLOR_BLUE;
+    context.fillStyle = settings.COLOR_BLUE;
 
     context.fillRect(checkBox.x,
             checkBox.y,
@@ -418,26 +417,28 @@ Tooth.prototype.drawCheckBoxBlue = function (checkBox, context) {
 
     context.lineWidth = 1;
     // set line color
-    context.strokeStyle = COLOR_BLACK;
+    context.strokeStyle = settings.COLOR_BLACK;
     context.stroke();
     context.restore();
 };
 
 
-Tooth.prototype.drawCheckBoxes = function (context)
+Tooth.prototype.drawCheckBoxes = function (context, settings)
 {
     for (var i = 0; i < this.checkBoxes.length; i++)
     {
 
         if (this.checkBoxes[i].state === 1)
         {
-            this.drawCheckBoxRed(this.checkBoxes[i], context);
+            this.drawCheckBoxRed(this.checkBoxes[i], context, settings);
+            
         } else if (this.checkBoxes[i].state === 2)
         {
-            this.drawCheckBoxBlue(this.checkBoxes[i], context);
+            this.drawCheckBoxBlue(this.checkBoxes[i], context, settings);
+            
         } else
         {
-            this.drawCheckBoxOutLine(this.checkBoxes[i], context);
+            this.drawCheckBoxOutLine(this.checkBoxes[i], context, settings);
         }
 
     }
@@ -547,19 +548,6 @@ Tooth.prototype.toggleDamage = function (damageId) {
     }
 };
 
-/**
- * Method to draw a damage on a tooth
- * @param {type} context the canvas to draw
- * @returns {undefined}
- */
-Tooth.prototype.drawDamage = function (context)
-{
-
-    for (var i = 0; i < this.damages.length; i++) {
-        this.damages[i].render(context);
-    }
-
-};
 
 Tooth.prototype.lock = function ()
 {
@@ -576,7 +564,7 @@ Tooth.prototype.open = function ()
  * @param {type} context the canvas to draw on
  * @returns {undefined}
  */
-Tooth.prototype.render = function (context)
+Tooth.prototype.render = function (context, settings)
 {
 
     if (this.tooth) {
@@ -594,11 +582,11 @@ Tooth.prototype.render = function (context)
 
         this.drawId(context);
 
-        this.drawCheckBoxes(context);
+        this.drawCheckBoxes(context, settings);
 
     } else {
         
-       if(HIHGLIGHT_SPACES) {
+       if(settings.HIHGLIGHT_SPACES) {
         
             if (this.rect.touching) {
             
@@ -609,10 +597,12 @@ Tooth.prototype.render = function (context)
         }
     }
 
-    this.drawDamage(context);
+    // draw all damages
+    for (var i = 0; i < this.damages.length; i++) {
+        this.damages[i].render(context, settings);
+    }
 
-
-    if (DEBUG) {
+    if (settings.DEBUG) {
 
         if(this.tooth){
             this.rect.outline(context, "#000000");

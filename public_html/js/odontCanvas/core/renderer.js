@@ -18,6 +18,7 @@ function Renderer()
     this.context;
     this.width = 0;
     this.height = 0;
+    this.settings;
 }
 
 /**
@@ -62,10 +63,8 @@ Renderer.prototype.init = function(canvas) {
 };
 
 
-
 /**
- * Method to render odontograma
- * @param {type} data data frm for odontograma
+ * Method to clear the canvas
  * @returns {undefined}
  */
 Renderer.prototype.clear = function()
@@ -84,15 +83,16 @@ Renderer.prototype.clear = function()
 /**
  * Method to render odontograma
  * @param {type} data data frm for odontograma
+ * @param {type} settings for the canvas
  * @returns {undefined}
  */
-Renderer.prototype.render = function(data)
+Renderer.prototype.render = function(data, settings)
 {
     
     // draw the teeth
     for (var i = 0; i < data.length; i++) {
 
-        data[i].render( this.context);
+        data[i].render( this.context, settings);
     }
 
 };
@@ -115,4 +115,8 @@ Renderer.prototype.renderText = function(text, x, y, color)
     this.context.fillStyle = color;
     this.context.fillText(text, x, y);
     this.context.restore();
+};
+
+Renderer.prototype.setSettings = function(settings){
+    this.settings = settings;
 };

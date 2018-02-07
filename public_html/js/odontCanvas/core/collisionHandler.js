@@ -41,7 +41,8 @@ CollisionHandler.prototype.handleCollision = function (tooth, argument)
 
 };
 
-CollisionHandler.prototype.handleCollisionGrouping = function (odontograma, index, tooth, argument)
+CollisionHandler.prototype.handleCollisionGrouping = function (odontograma, 
+    index, tooth, argument)
 {
 
     console.log("Handle collision Grouping");

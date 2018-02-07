@@ -20,7 +20,7 @@ function Damage(id, x, y, width, height, type)
 
 }
 
-Damage.prototype.renderFractura = function (context)
+Damage.prototype.renderFractura = function (context, settings)
 {
     context.beginPath();
 
@@ -36,14 +36,14 @@ Damage.prototype.renderFractura = function (context)
 
     context.lineWidth = 2;
     // set line color
-    context.strokeStyle = COLOR_RED;
+    context.strokeStyle = settings.COLOR_RED;
     context.stroke();
     context.restore();
 
 };
 
 
-Damage.prototype.renderDienteAusente = function (context)
+Damage.prototype.renderDienteAusente = function (context, settings)
 {
     context.beginPath();
 
@@ -57,14 +57,14 @@ Damage.prototype.renderDienteAusente = function (context)
         context.lineWidth = 2;
 
         // set line color
-        context.strokeStyle = COLOR_BLUE;
+        context.strokeStyle = settings.COLOR_BLUE;
         context.stroke();
         context.restore();
 
         context.moveTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height);
         context.lineTo(this.rect.x, this.rect.y + this.rect.height / 2);
 
-        context.strokeStyle = COLOR_BLUE;
+        context.strokeStyle = settings.COLOR_BLUE;
         context.stroke();
 
 
@@ -78,14 +78,14 @@ Damage.prototype.renderDienteAusente = function (context)
         context.lineWidth = 2;
 
         // set line color
-        context.strokeStyle = COLOR_BLUE;
+        context.strokeStyle = settings.COLOR_BLUE;
         context.stroke();
         context.restore();
 
         context.moveTo(this.rect.x + this.rect.width, this.rect.y);
         context.lineTo(this.rect.x, this.rect.y + this.rect.height / 2);
 
-        context.strokeStyle = COLOR_BLUE;
+        context.strokeStyle = settings.COLOR_BLUE;
         context.stroke();
 
     }
@@ -93,7 +93,7 @@ Damage.prototype.renderDienteAusente = function (context)
     context.restore();
 };
 
-Damage.prototype.drawPulpar = function (context)
+Damage.prototype.drawPulpar = function (context, settings)
 {
     console.log("Drawing pulpar");
 
@@ -114,13 +114,13 @@ Damage.prototype.drawPulpar = function (context)
 
     context.lineWidth = 3;
 
-    context.strokeStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
 
     context.stroke();
     context.restore();
 };
 
-Damage.prototype.drawMigracion = function (context)
+Damage.prototype.drawMigracion = function (context, settings)
 {
     console.log("Drawing Migracion");
 
@@ -161,14 +161,14 @@ Damage.prototype.drawMigracion = function (context)
     context.lineWidth = 2;
 
 
-    context.strokeStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
 
     context.stroke();
     context.restore();
 
 };
 
-Damage.prototype.drawOrtondicoRemovible = function (context)
+Damage.prototype.drawOrtondicoRemovible = function (context, settings)
 {
     console.log("Drawing Ortondico Removible");
 
@@ -194,14 +194,14 @@ Damage.prototype.drawOrtondicoRemovible = function (context)
 
     context.lineWidth = 2;
 
-    context.strokeStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
 
     context.stroke();
     context.restore();
 
 };
 
-Damage.prototype.drawDienteExtruido = function (context)
+Damage.prototype.drawDienteExtruido = function (context, settings)
 {
     console.log("Drawing Diente Extruido");
 
@@ -234,8 +234,8 @@ Damage.prototype.drawDienteExtruido = function (context)
     context.lineWidth = 3;
 
     // set line color
-    context.strokeStyle = COLOR_BLUE;
-    context.fillStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
+    context.fillStyle = settings.COLOR_BLUE;
 
     context.stroke();
     context.fill();
@@ -243,7 +243,7 @@ Damage.prototype.drawDienteExtruido = function (context)
 
 };
 
-Damage.prototype.drawDienteIntruido = function (context)
+Damage.prototype.drawDienteIntruido = function (context, settings)
 {
     console.log("Drawing Diente Intruido");
 
@@ -276,8 +276,8 @@ Damage.prototype.drawDienteIntruido = function (context)
     context.lineWidth = 3;
 
     // set line color
-    context.strokeStyle = COLOR_BLUE;
-    context.fillStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
+    context.fillStyle = settings.COLOR_BLUE;
 
     context.stroke();
     context.fill();
@@ -285,7 +285,7 @@ Damage.prototype.drawDienteIntruido = function (context)
 
 };
 
-Damage.prototype.drawProtesisRemovible = function (context)
+Damage.prototype.drawProtesisRemovible = function (context, settings)
 {
     console.log("Drawing Protesis Removible");
 
@@ -315,8 +315,8 @@ Damage.prototype.drawProtesisRemovible = function (context)
     context.lineWidth = 3;
 
     // set line color
-    context.strokeStyle = COLOR_BLUE;
-    context.fillStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
+    context.fillStyle = settings.COLOR_BLUE;
 
     context.stroke();
     context.fill();
@@ -324,12 +324,12 @@ Damage.prototype.drawProtesisRemovible = function (context)
 
 };
 
-Damage.prototype.drawRemanenteRadicular = function (context)
+Damage.prototype.drawRemanenteRadicular = function (context, settings)
 {
 
     context.beginPath();
 
-    context.fillStyle = COLOR_RED;
+    context.fillStyle = settings.COLOR_RED;
     context.textAlign = 'center';
     context.font = "20px Arial Bold";
 
@@ -345,7 +345,7 @@ Damage.prototype.drawRemanenteRadicular = function (context)
 
 };
 
-Damage.prototype.drawGiroversion = function drawGiroversion(context)
+Damage.prototype.drawGiroversion = function drawGiroversion(context, settings)
 {
 
     context.beginPath();
@@ -382,14 +382,14 @@ Damage.prototype.drawGiroversion = function drawGiroversion(context)
 
     context.lineWidth = 2;
 
-    context.strokeStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
 
     context.stroke();
     context.restore();
 
 };
 
-Damage.prototype.drawPernoMunon = function (context)
+Damage.prototype.drawPernoMunon = function (context, settings)
 {
     context.beginPath();
 
@@ -417,14 +417,14 @@ Damage.prototype.drawPernoMunon = function (context)
 
     context.lineWidth = 2;
 
-    context.strokeStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
 
     context.stroke();
     context.restore();
 
 };
 
-Damage.prototype.drawDienteEnErupcion = function (context)
+Damage.prototype.drawDienteEnErupcion = function (context, settings)
 {
     context.beginPath();
 
@@ -465,13 +465,13 @@ Damage.prototype.drawDienteEnErupcion = function (context)
 
     context.lineWidth = 3;
 
-    context.strokeStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
 
     context.stroke();
     context.restore();
 };
 
-Damage.prototype.drawProtesisTotal = function (context)
+Damage.prototype.drawProtesisTotal = function (context, settings)
 {
 
     context.beginPath();
@@ -494,13 +494,13 @@ Damage.prototype.drawProtesisTotal = function (context)
 
     context.lineWidth = 2;
     // set line color
-    context.strokeStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
     context.stroke();
     context.restore();
 
 };
 
-Damage.prototype.drawEdentuloTotal = function (context)
+Damage.prototype.drawEdentuloTotal = function (context, settings)
 {
 
     context.beginPath();
@@ -518,20 +518,20 @@ Damage.prototype.drawEdentuloTotal = function (context)
 
     context.lineWidth = 3;
     // set line color
-    context.strokeStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
     context.stroke();
     context.restore();
 
 };
 
-Damage.prototype.drawDienteEnClavija = function (context)
+Damage.prototype.drawDienteEnClavija = function (context, settings)
 {
     context.beginPath();
     var space = 40;
 
     context.lineWidth = 3;
 
-    context.strokeStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
 
     if (this.type === TYPE_UPPER)
     {
@@ -555,7 +555,7 @@ Damage.prototype.drawDienteEnClavija = function (context)
 
 };
 
-Damage.prototype.drawFusion = function (context)
+Damage.prototype.drawFusion = function (context, settings)
 {
     var cx = this.rect.x + this.rect.width / 2;
 
@@ -574,19 +574,19 @@ Damage.prototype.drawFusion = function (context)
 
     context.lineWidth = 2;
     // set line color
-    context.strokeStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
     context.stroke();
     context.restore();
 
 };
 
-Damage.prototype.drawCoronaDefinitiva = function (context)
+Damage.prototype.drawCoronaDefinitiva = function (context, settings)
 {
 
     var cx = this.rect.x + this.rect.width / 2;
     var cy = 0;
 
-    var radius = (RECT_DIMEN * 3) / 2;
+    var radius = (settings.RECT_DIMEN * 3) / 2;
 
     context.beginPath();
 
@@ -600,19 +600,19 @@ Damage.prototype.drawCoronaDefinitiva = function (context)
 
     context.lineWidth = 2;
     // set line color
-    context.strokeStyle = COLOR_BLUE;
+    context.strokeStyle = settings.COLOR_BLUE;
     context.stroke();
     context.restore();
 
 };
 
-Damage.prototype.drawCoronaTemporal = function (context)
+Damage.prototype.drawCoronaTemporal = function (context, settings)
 {
 
     var cx = this.rect.x + this.rect.width / 2;
     var cy = 0;
 
-    var radius = (RECT_DIMEN * 3) / 2;
+    var radius = (settings.RECT_DIMEN * 3) / 2;
 
     context.beginPath();
 
@@ -626,13 +626,13 @@ Damage.prototype.drawCoronaTemporal = function (context)
 
     context.lineWidth = 2;
     // set line color
-    context.strokeStyle = COLOR_RED;
+    context.strokeStyle = settings.COLOR_RED;
     context.stroke();
     context.restore();
 
 };
 
-Damage.prototype.drawDiastema = function (context)
+Damage.prototype.drawDiastema = function (context, settings)
 {
 
     context.beginPath();
@@ -643,7 +643,7 @@ Damage.prototype.drawDiastema = function (context)
 
         context.lineWidth = 2;
         // set line color
-        context.strokeStyle = COLOR_BLUE;
+        context.strokeStyle = settings.COLOR_BLUE;
 
         context.beginPath();
 
@@ -673,7 +673,7 @@ Damage.prototype.drawDiastema = function (context)
 
         context.lineWidth = 2;
         // set line color
-        context.strokeStyle = COLOR_BLUE;
+        context.strokeStyle = settings.COLOR_BLUE;
 
         context.beginPath();
 
@@ -702,7 +702,7 @@ Damage.prototype.drawDiastema = function (context)
 
 };
 
-Damage.prototype.drawSuperNumerario = function (context)
+Damage.prototype.drawSuperNumerario = function (context, settings)
 {
 
     context.beginPath();
@@ -711,7 +711,7 @@ Damage.prototype.drawSuperNumerario = function (context)
 
         context.lineWidth = 2;
         // set line color
-        context.strokeStyle = COLOR_BLUE;
+        context.strokeStyle = settings.COLOR_BLUE;
 
         context.beginPath();
 
@@ -725,7 +725,7 @@ Damage.prototype.drawSuperNumerario = function (context)
         context.stroke();
 
         context.textAlign = 'center';
-        context.fillStyle = COLOR_BLUE;
+        context.fillStyle = settings.COLOR_BLUE;
         context.font = "16px Arial Bold";
         context.fillText("S", this.rect.x + this.rect.width / 2, this.rect.y + 25);
 
@@ -735,7 +735,7 @@ Damage.prototype.drawSuperNumerario = function (context)
 
         context.lineWidth = 2;
         // set line color
-        context.strokeStyle = COLOR_BLUE;
+        context.strokeStyle = settings.COLOR_BLUE;
 
         context.beginPath();
 
@@ -749,7 +749,7 @@ Damage.prototype.drawSuperNumerario = function (context)
         context.stroke();
 
         context.textAlign = 'center';
-        context.fillStyle = COLOR_BLUE;
+        context.fillStyle = settings.COLOR_BLUE;
         context.font = "16px Arial Bold";
         context.fillText("S", this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height - 15);
 
@@ -760,93 +760,93 @@ Damage.prototype.drawSuperNumerario = function (context)
 
 };
 
-Damage.prototype.render = function (context)
+Damage.prototype.render = function (context, settings)
 {
     if (this.id === "1")
     {
-        this.renderFractura(context);
+        this.renderFractura(context, settings);
     }
 
     if (this.id === "2")
     {
-        this.renderDienteAusente(context);
+        this.renderDienteAusente(context, settings);
     }
 
     if (this.id === "3")
     {
-        this.drawPulpar(context);
+        this.drawPulpar(context, settings);
     }
 
     if (this.id === "4") {
-        this.drawMigracion(context);
+        this.drawMigracion(context, settings);
     }
 
     if (this.id === "5") {
-        this.drawOrtondicoRemovible(context);
+        this.drawOrtondicoRemovible(context, settings);
     }
 
     if (this.id === "6") {
-        this.drawDienteExtruido(context);
+        this.drawDienteExtruido(context, settings);
     }
 
     if (this.id === "7") {
-        this.drawDienteIntruido(context);
+        this.drawDienteIntruido(context, settings);
     }
 
     if (this.id === "8") {
-        this.drawProtesisRemovible(context);
+        this.drawProtesisRemovible(context, settings);
     }
 
     if (this.id === "9") {
-        this.drawRemanenteRadicular(context);
+        this.drawRemanenteRadicular(context, settings);
     }
 
     if (this.id === "10") {
-        this.drawGiroversion(context);
+        this.drawGiroversion(context, settings);
     }
 
     if (this.id === "11") {
-        this.drawPernoMunon(context);
+        this.drawPernoMunon(context, settings);
     }
 
     if (this.id === "12") {
-        this.drawDienteEnErupcion(context);
+        this.drawDienteEnErupcion(context, settings);
     }
 
     if (this.id === "15") {
-        this.drawProtesisTotal(context);
+        this.drawProtesisTotal(context, settings);
     }
 
     if (this.id === "16") {
-        this.drawEdentuloTotal(context);
+        this.drawEdentuloTotal(context, settings);
     }
 
     if (this.id === "17") {
-        this.drawDienteEnClavija(context);
+        this.drawDienteEnClavija(context, settings);
     }
 
     if (this.id === "18") {
-        this.drawFusion(context);
+        this.drawFusion(context, settings);
     }
 
     if (this.id === "19") {
-        this.drawCoronaDefinitiva(context);
+        this.drawCoronaDefinitiva(context, settings);
     }
 
     if (this.id === "20") {
-        this.drawCoronaTemporal(context);
+        this.drawCoronaTemporal(context, settings);
     }
 
     if (this.id === "21") {
-        this.drawDiastema(context);
+        this.drawDiastema(context, settings);
     }
 
     if (this.id === "22") {
-        this.drawSuperNumerario(context);
+        this.drawSuperNumerario(context, settings);
     }
 
 
-    if (DEBUG) {
+    if (settings.DEBUG) {
         this.rect.highlight(context);
     }
 };

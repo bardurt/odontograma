@@ -8,8 +8,8 @@
  * Contributors:
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
-document.writeln("<script type='text/javascript' src='js/odontCanvas/util/const.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/util/colors.js'></script>");
+
+document.writeln("<script type='text/javascript' src='js/odontCanvas/core/settings.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/rect.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/damage.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/tooth.js'></script>");
@@ -50,6 +50,8 @@ function Engine()
 
     // helper for handeling collision
     this.collisionHandler = new CollisionHandler();
+    
+    this.settings = new Settings();
 
     // value of the selected damage which should be added or removed
     this.selectedHallazgo = "0";
@@ -109,10 +111,18 @@ Engine.prototype.getYpos = function (event)
  */
 Engine.prototype.init = function () {
 
+    
+
     // set up the odontograma
     this.odontogramaGenerator.setEngine(this);
-    this.odontogramaGenerator.prepareOdontogramaAdult(this.odontAdult, this.odontSpacesAdult, this.canvas);
-    this.odontogramaGenerator.prepareOdontogramaChild(this.odontChild, this.odontSpacesChild, this.canvas);
+    
+    this.odontogramaGenerator.setSettings(this.settings);
+    
+    this.odontogramaGenerator.prepareOdontogramaAdult(this.odontAdult,
+            this.odontSpacesAdult, this.canvas);
+
+    this.odontogramaGenerator.prepareOdontogramaChild(this.odontChild,
+            this.odontSpacesChild, this.canvas);
 
 
     this.mouth = this.odontAdult;
@@ -126,13 +136,15 @@ Engine.prototype.init = function () {
 Engine.prototype.update = function ()
 {
     this.renderer.clear();
-    this.renderer.render(this.mouth);
-    this.renderer.render(this.spaces);
+    this.renderer.render(this.mouth, this.settings);
+    this.renderer.render(this.spaces, this.settings);
 
-    if (DEBUG) {
+    if (this.settings.DEBUG) {
 
         this.renderer.renderText("DEBUG MODE", 2, 15, "#000000");
-        this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY, 128, 15, "#000000");
+        
+        this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY,
+                128, 15, "#000000");
     }
 };
 
@@ -250,7 +262,7 @@ Engine.prototype.onMouseClick = function (event)
 
     shouldUpdate = false;
 
-    if (!HIHGLIGHT_SPACES) {
+    if (!this.settings.HIHGLIGHT_SPACES) {
         // loop through all teeth
         for (var i = 0; i < this.mouth.length; i++)
         {
@@ -261,7 +273,8 @@ Engine.prototype.onMouseClick = function (event)
                     this.getXpos(event),
                     this.getYpos(event))) {
 
-                this.collisionHandler.handleCollision(this.mouth[i], this.selectedHallazgo);
+                this.collisionHandler.handleCollision(this.mouth[i], 
+                this.selectedHallazgo);
 
                 shouldUpdate = true;
             }
@@ -269,9 +282,13 @@ Engine.prototype.onMouseClick = function (event)
             // check if there is a collision with one of the tooth surfaces
             for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
             {
-                if (this.mouth[i].checkBoxes[j].checkCollision(this.getXpos(event), this.getYpos(event)))
+                if (this.mouth[i].checkBoxes[j].checkCollision(this.getXpos(event),
+                    this.getYpos(event)))
                 {
-                    this.collisionHandler.handleCollisionCheckBox(this.mouth[i].checkBoxes[j], this.selectedHallazgo);
+                    this.collisionHandler.handleCollisionCheckBox(
+                            this.mouth[i].checkBoxes[j], 
+                            this.selectedHallazgo);
+                   
                     shouldUpdate = true;
                 }
             }
@@ -285,7 +302,9 @@ Engine.prototype.onMouseClick = function (event)
                     this.getXpos(event),
                     this.getYpos(event))) {
 
-                this.collisionHandler.handleCollision(this.spaces[i], this.selectedHallazgo);
+                this.collisionHandler.handleCollision(
+                        this.spaces[i],
+                        this.selectedHallazgo);
 
                 shouldUpdate = true;
             }
@@ -321,13 +340,14 @@ Engine.prototype.followMouse = function (event)
 Engine.prototype.onMouseMove = function (event)
 {
 
-    if (HIHGLIGHT_SPACES)
+    if (this.settings.HIHGLIGHT_SPACES )
     {
         for (var i = 0; i < this.spaces.length; i++) {
 
             var update = false;
 
-            if (this.spaces[i].checkCollision(this.getXpos(event), this.getYpos(event)))
+            if (this.spaces[i].checkCollision(this.getXpos(event),
+                                              this.getYpos(event)))
             {
                 this.spaces[i].onTouch(true);
                 update = true;
@@ -344,9 +364,10 @@ Engine.prototype.onMouseMove = function (event)
 
         for (var i = 0; i < this.mouth.length; i++) {
 
-            if (this.mouth[i].checkCollision(this.getXpos(event), this.getYpos(event)))
+            if (this.mouth[i].checkCollision(this.getXpos(event), 
+                                             this.getYpos(event)))
             {
-                this.mouth[i].onTouch(true);
+                this.mouth[i].onTouch(true);    
             } else
             {
                 this.mouth[i].onTouch(false);
@@ -354,10 +375,12 @@ Engine.prototype.onMouseMove = function (event)
 
             for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
             {
-                if (this.mouth[i].checkBoxes[j].checkCollision(this.getXpos(event), this.getYpos(event)))
+                if (this.mouth[i].checkBoxes[j].checkCollision(
+                        this.getXpos(event), this.getYpos(event)))
                 {
                     this.mouth[i].checkBoxes[j].touching = true;
-                } else
+                } 
+                else
                 {
                     this.mouth[i].checkBoxes[j].touching = false;
                 }
@@ -405,7 +428,8 @@ Engine.prototype.save = function ()
     // save image as png
     var link = document.createElement('a');
     link.download = "test.png";
-    link.href = this.canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    link.href = this.canvas.toDataURL("image/png")
+                .replace("image/png", "image/octet-stream");
 
     link.click();
 
@@ -527,7 +551,7 @@ Engine.prototype.onButtonClick = function (event)
     if (event.key === "a") {
 
         this.selectedHallazgo = "21";
-        HIHGLIGHT_SPACES = true;
+        this.settings.HIHGLIGHT_SPACES = true;
         this.update();
 
     }
@@ -535,7 +559,7 @@ Engine.prototype.onButtonClick = function (event)
     if (event.key === "s") {
 
         this.selectedHallazgo = "22";
-        HIHGLIGHT_SPACES = true;
+        this.settings.HIHGLIGHT_SPACES = true;
         this.update();
 
     }
@@ -543,7 +567,7 @@ Engine.prototype.onButtonClick = function (event)
     if (event.key !== "d") {
         if (event.key !== "a" && event.key !== "s")
         {
-            HIHGLIGHT_SPACES = false;
+            this.settings.HIHGLIGHT_SPACES = false;
             this.update();
         }
     }
@@ -567,9 +591,7 @@ Engine.prototype.onButtonClick = function (event)
 
     if (event.key === "d") {
 
-        DEBUG = !DEBUG;
-
-        console.log("DEBUG: " + DEBUG);
+        this.settings.DEBUG = !this.settings.DEBUG;
 
         this.update();
     }
