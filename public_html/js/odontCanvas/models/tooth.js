@@ -511,6 +511,7 @@ Tooth.prototype.toggleDamage = function (damageId) {
 
     console.log("Toggle damage for " + this.id + ", damage " + damageId);
 
+    // if there are no damages, then add.
     if (this.damages.length < 1) {
 
         var d = this.createDamage(damageId);
@@ -520,10 +521,14 @@ Tooth.prototype.toggleDamage = function (damageId) {
         }
 
     } else {
+        // if this tooth has damages, check for duplicates
         var exists = false;
         var splicer = -1;
 
+        // check to see if this damage exists
         for (var i = 0; i < this.damages.length; i++) {
+            
+            // found this damage
             if (this.damages[i].id === damageId)
             {
                 console.log("Splicing array for tooth " + this.id);
@@ -533,9 +538,11 @@ Tooth.prototype.toggleDamage = function (damageId) {
                 break;
             }
         }
-
+        
+        // check if damage exists
         if (!exists) {
 
+            // damge is new, so add it
             var d = this.createDamage(damageId);
 
             if (d !== undefined) {
@@ -543,7 +550,7 @@ Tooth.prototype.toggleDamage = function (damageId) {
             }
 
         } else {
-
+            // if damage already exists, then we remove it
             this.damages.splice(splicer, 1);
         }
     }
