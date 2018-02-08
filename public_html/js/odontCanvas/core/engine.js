@@ -146,15 +146,23 @@ Engine.prototype.update = function ()
     }
 };
 
-
-Engine.prototype.removeHighlight = function()
+/**
+ * Method to remove all the highlight from all the teeth
+ * @returns {undefined}
+ */
+Engine.prototype.removeHighlight = function ()
 {
-    for(var i = 0; i < this.mouth.length; i++){
+    for (var i = 0; i < this.mouth.length; i++) {
         this.mouth[i].highlight = false;
     }
-    
+
 };
 
+/**
+ * Method to highlight all the teeth which are marked when multiselected
+ * @param {type} tooth the tooth which should be highlighted
+ * @returns {undefined}
+ */
 Engine.prototype.highlightMultiSelection = function (tooth)
 {
     try {
@@ -192,6 +200,10 @@ Engine.prototype.highlightMultiSelection = function (tooth)
 
 };
 
+/** 
+ * Helper method to print the ids of the mutliselection to the console
+ * @returns {undefined}
+ */
 Engine.prototype.printMultiSelection = function () {
 
     console.log("Multi Select count: " + this.multiSelection.length);
@@ -203,9 +215,14 @@ Engine.prototype.printMultiSelection = function () {
 
 };
 
+/**
+ * Method to reset the multiselection - deactivate multiselection
+ * @returns {undefined}
+ */
 Engine.prototype.resetMultiSelect = function () {
 
     console.log("Reseting multiselect");
+    this.selectedHallazgo = "0";
     this.multiSelect = false;
     this.multiSelection.length = 0;
     this.removeHighlight();
@@ -243,40 +260,58 @@ Engine.prototype.handleMultiSelection = function ()
 
         var index1 = this.getIndexForTooth(this.multiSelection[0]);
         var index2 = this.getIndexForTooth(this.multiSelection[1]);
-        
+
         var start = Math.min(index1, index2);
         var end = Math.max(index1, index2);
-        
+
         console.log("Start " + start);
         console.log("End " + end);
-        
-        this.mouth[start].toggleDamage("23");
-        this.mouth[end].toggleDamage("23");
-        
-        for(var i = start +1 ; i <= end-1; i++ ){
-            
-            this.mouth[i].toggleDamage("24");
-            
+
+        if (this.selectedHallazgo === "23") {
+
+            this.mouth[start].toggleDamage("23");
+            this.mouth[end].toggleDamage("23");
+
+            for (var i = start + 1; i <= end - 1; i++) {
+
+                this.mouth[i].toggleDamage("24");
+
+            }
+        } else if (this.selectedHallazgo === "25") {
+
+            this.mouth[start].toggleDamage("25");
+            this.mouth[end].toggleDamage("27");
+
+            for (var i = start + 1; i <= end - 1; i++) {
+
+                this.mouth[i].toggleDamage("26");
+
+            }
+
         }
 
-        
+        // reset multiselection when multiselect is finished
         this.resetMultiSelect();
-    } 
+    }
 
 };
 
+/**
+ * Method to add items to a list of selected items
+ * @param {type} tooth the tooth to add to the list
+ * @returns {undefined}
+ */
 Engine.prototype.addToMultiSelection = function (tooth)
 {
     this.multiSelection.push(tooth);
 
     this.printMultiSelection();
 
-    if(this.multiSelection.length === 2){
+    if (this.multiSelection.length === 2) {
         this.handleMultiSelection();
     }
 
 };
-
 
 /**
  * Event handler for when the mouse is clicked
@@ -632,6 +667,34 @@ Engine.prototype.onButtonClick = function (event)
         this.settings.DEBUG = !this.settings.DEBUG;
 
         this.update();
+    }
+
+    if (event.key === "j") {
+
+        if (this.selectedHallazgo === "23")
+        {
+            this.resetMultiSelect();
+            this.multiSelect = true;
+
+        } else {
+
+            this.selectedHallazgo = "23";
+            this.multiSelect = true;
+        }
+    }
+
+    if (event.key === "k") {
+
+        if (this.selectedHallazgo === "25")
+        {
+            this.resetMultiSelect();
+            this.multiSelect = true;
+
+        } else {
+
+            this.selectedHallazgo = "25";
+            this.multiSelect = true;
+        }
     }
 
     if (event.key === "Control") {

@@ -798,7 +798,7 @@ Damage.prototype.drawOrtodonticoFijoEnd = function (context, settings)
 
 
         context.rect(this.rect.x + 10,
-                this.rect.y  + this.rect.height,
+                this.rect.y + this.rect.height,
                 this.rect.width - 20,
                 this.rect.width - 20);
 
@@ -837,10 +837,10 @@ Damage.prototype.drawOrtodonticoFijoCenter = function (context, settings)
     context.strokeStyle = settings.COLOR_BLUE;
 
     if (this.type === 0) {
-  
+
         context.beginPath();
 
-       context.moveTo(this.rect.x - 10,
+        context.moveTo(this.rect.x - 10,
                 this.rect.y - ((this.rect.width - 20) / 2));
 
         context.lineTo(this.rect.x + this.rect.width + 10,
@@ -854,7 +854,7 @@ Damage.prototype.drawOrtodonticoFijoCenter = function (context, settings)
         context.beginPath();
 
         context.moveTo(this.rect.x - 10,
-                  this.rect.y + this.rect.height + ((this.rect.width - 20) / 2));
+                this.rect.y + this.rect.height + ((this.rect.width - 20) / 2));
 
         context.lineTo(this.rect.x + this.rect.width + 10,
                 this.rect.y + this.rect.height + ((this.rect.width - 20) / 2));
@@ -867,6 +867,111 @@ Damage.prototype.drawOrtodonticoFijoCenter = function (context, settings)
     context.restore();
 
 };
+
+Damage.prototype.DrawProtesisFijaRight = function (context, settings) {
+
+    context.beginPath();
+
+    context.lineWidth = 2;
+    // set line color
+    context.strokeStyle = settings.COLOR_BLUE;
+
+    if (this.type === 0) {
+
+        context.moveTo(this.rect.x + this.rect.width / 2,
+                this.rect.y);
+
+        context.lineTo(this.rect.x + this.rect.width / 2,
+                this.rect.y - 15);
+
+        context.lineTo(this.rect.x + this.rect.width,
+                this.rect.y - 15);
+
+
+
+    } else {
+
+        context.moveTo(this.rect.x + this.rect.width / 2,
+                this.rect.y + this.rect.height);
+
+        context.lineTo(this.rect.x + this.rect.width / 2,
+                this.rect.y + this.rect.height + 15);
+
+        context.lineTo(this.rect.x + this.rect.width,
+                this.rect.y + this.rect.height + 15);
+
+
+    }
+
+    context.stroke();
+    context.restore();
+};
+
+Damage.prototype.DrawProtesisFijaCenter = function (context, settings) {
+
+    context.beginPath();
+
+    context.lineWidth = 2;
+    // set line color
+    context.strokeStyle = settings.COLOR_BLUE;
+
+    if (this.type === 0) {
+
+        context.moveTo(this.rect.x,
+                this.rect.y - 15);
+
+        context.lineTo(this.rect.x + this.rect.width,
+                this.rect.y - 15);
+        
+    } else {
+
+        context.moveTo(this.rect.x,
+                this.rect.y + this.rect.height + 15);
+
+        context.lineTo(this.rect.x + this.rect.width,
+                this.rect.y + this.rect.height + 15);
+
+    }
+
+    context.stroke();
+    context.restore();
+};
+
+Damage.prototype.DrawProtesisFijaLeft = function (context, settings) {
+
+    context.beginPath();
+
+    context.lineWidth = 2;
+    // set line color
+    context.strokeStyle = settings.COLOR_BLUE;
+
+    if (this.type === 0) {
+
+        context.moveTo(this.rect.x + this.rect.width / 2,
+                this.rect.y);
+
+        context.lineTo(this.rect.x + this.rect.width / 2,
+                this.rect.y - 15);
+
+        context.lineTo(this.rect.x,
+                this.rect.y - 15);
+    } else {
+
+        context.moveTo(this.rect.x + this.rect.width / 2,
+                this.rect.y + this.rect.height);
+
+        context.lineTo(this.rect.x + this.rect.width / 2,
+                this.rect.y + this.rect.height + 15);
+
+        context.lineTo(this.rect.x,
+                this.rect.y + this.rect.height + 15);
+
+    }
+
+    context.stroke();
+    context.restore();
+};
+
 
 Damage.prototype.render = function (context, settings)
 {
@@ -956,11 +1061,22 @@ Damage.prototype.render = function (context, settings)
     if (this.id === "23") {
         this.drawOrtodonticoFijoEnd(context, settings);
     }
-    
-    if(this.id === "24") {
+
+    if (this.id === "24") {
         this.drawOrtodonticoFijoCenter(context, settings);
     }
 
+    if (this.id === "25") {
+        this.DrawProtesisFijaRight(context, settings);
+    }
+    
+    if (this.id === "26") {
+        this.DrawProtesisFijaCenter(context, settings);
+    }
+
+    if (this.id === "27") {
+        this.DrawProtesisFijaLeft(context, settings);
+    }
 
     if (settings.DEBUG) {
         this.rect.highlight(context, settings);
