@@ -27,7 +27,7 @@ function OdontogramaGenerator()
     this.arrayCount = 0;
 
     this.base = 25;
-    this.seperator = 250;
+    this.seperator = 210;
     this.imgWidth = 40;
     this.imgHeight = 90;
     this.engine = null;

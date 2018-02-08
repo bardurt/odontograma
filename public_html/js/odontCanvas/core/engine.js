@@ -171,6 +171,7 @@ Engine.prototype.highlightMultiSelection = function (tooth)
 
             for (var i = 0; i < this.mouth.length; i++) {
                 this.mouth[i].highlight = false;
+                this.mouth[i].highlightColor = this.settings.COLOR_HIGHLIGHT;
             }
 
             var tooth1 = this.multiSelection[0];
@@ -187,6 +188,18 @@ Engine.prototype.highlightMultiSelection = function (tooth)
                 for (var i = begin; i <= end; i++) {
 
                     this.mouth[i].highlight = true;
+                }
+                
+                if(this.selectedHallazgo === "30"){
+                    
+                    if((end-begin) > 1){
+                        
+                         for (var i = begin; i <= end; i++) {
+
+                            this.mouth[i].highlightColor = this.settings.COLOR_HIGHLIGHT_BAD;
+                         }
+                    }
+                    
                 }
 
             }
@@ -288,6 +301,13 @@ Engine.prototype.handleMultiSelection = function ()
 
             }
 
+        } else if(this.selectedHallazgo === "30"){
+            
+            if(end - start === 1){
+                this.mouth[start].toggleDamage("30");
+                this.mouth[end].toggleDamage("31");
+            }
+            
         }
 
         // reset multiselection when multiselect is finished
@@ -696,6 +716,20 @@ Engine.prototype.onButtonClick = function (event)
             this.multiSelect = true;
         }
     }
+    
+     if (event.key === "l") {
+
+        if (this.selectedHallazgo === "30")
+        {
+            this.resetMultiSelect();
+            this.multiSelect = true;
+
+        } else {
+
+            this.selectedHallazgo = "30";
+            this.multiSelect = true;
+        }
+    }
 
     if (event.key === "Control") {
 
@@ -730,7 +764,7 @@ Engine.prototype.onButtonClick = function (event)
 };
 
 /**
- * Method to displaying a splash screen
+ * Method for displaying a splash screen
  * @returns {undefined}
  */
 Engine.prototype.splash = function () {

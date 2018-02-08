@@ -22,6 +22,7 @@ function Tooth()
     this.tooth = true;
     this.surfaces = 0;
     this.highlight = false;
+    this.highlightColor = "";
     this.damages = Array();
     this.checkBoxes = Array();
     this.rect = new Rect();
@@ -117,7 +118,7 @@ Tooth.prototype.create4Surfaces = function (settings)
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = this.y + this.height + this.spacer + width;
+        rect1.y = this.y + this.height + width;
 
         this.checkBoxes.push(rect1);
 
@@ -126,7 +127,7 @@ Tooth.prototype.create4Surfaces = function (settings)
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = this.y + this.height + this.spacer + width;
+        rect2.y = this.y + this.height + width;
 
         this.checkBoxes.push(rect2);
 
@@ -135,7 +136,7 @@ Tooth.prototype.create4Surfaces = function (settings)
         rect3.width = width;
         rect3.height = width;
         rect3.x = startX + 5;
-        rect3.y = this.y + this.height + this.spacer;
+        rect3.y = this.y + this.height;
 
         this.checkBoxes.push(rect3);
 
@@ -144,7 +145,7 @@ Tooth.prototype.create4Surfaces = function (settings)
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + 5;
-        rect4.y = this.y + this.height + this.spacer + width * 2;
+        rect4.y = this.y + this.height + width * 2;
 
         this.checkBoxes.push(rect4);
 
@@ -155,7 +156,7 @@ Tooth.prototype.create4Surfaces = function (settings)
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = this.y - this.spacer - width * 2;
+        rect1.y = this.y - width * 2;
 
         this.checkBoxes.push(rect1);
 
@@ -164,7 +165,7 @@ Tooth.prototype.create4Surfaces = function (settings)
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = this.y - this.spacer - width * 2;
+        rect2.y = this.y - width * 2;
 
         this.checkBoxes.push(rect2);
 
@@ -173,7 +174,7 @@ Tooth.prototype.create4Surfaces = function (settings)
         rect3.width = width;
         rect3.height = width;
         rect3.x = startX + 5;
-        rect3.y = this.y - this.spacer - width;
+        rect3.y = this.y - width;
 
         this.checkBoxes.push(rect3);
 
@@ -182,7 +183,7 @@ Tooth.prototype.create4Surfaces = function (settings)
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + 5;
-        rect4.y = this.y - this.spacer - width * 3;
+        rect4.y = this.y - width * 3;
 
         this.checkBoxes.push(rect4);
 
@@ -209,7 +210,7 @@ Tooth.prototype.create5Surfaces = function (settings)
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = this.y + this.height + this.spacer + width;
+        rect1.y = this.y + this.height + width;
 
         this.checkBoxes.push(rect1);
 
@@ -218,7 +219,7 @@ Tooth.prototype.create5Surfaces = function (settings)
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = this.y + this.height + this.spacer + width;
+        rect2.y = this.y + this.height + width;
 
         this.checkBoxes.push(rect2);
 
@@ -227,7 +228,7 @@ Tooth.prototype.create5Surfaces = function (settings)
         rect3.width = width;
         rect3.height = width;
         rect3.x = startX + width * 2;
-        rect3.y = this.y + this.height + this.spacer + width;
+        rect3.y = this.y + this.height + width;
 
         this.checkBoxes.push(rect3);
 
@@ -236,7 +237,7 @@ Tooth.prototype.create5Surfaces = function (settings)
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + width;
-        rect4.y = this.y + this.height + this.spacer;
+        rect4.y = this.y + this.height;
 
         this.checkBoxes.push(rect4);
 
@@ -245,7 +246,7 @@ Tooth.prototype.create5Surfaces = function (settings)
         rect5.width = width;
         rect5.height = width;
         rect5.x = startX + width;
-        rect5.y = this.y + this.height + this.spacer + width * 2;
+        rect5.y = this.y + this.height + width * 2;
 
         this.checkBoxes.push(rect5);
     } else
@@ -255,7 +256,7 @@ Tooth.prototype.create5Surfaces = function (settings)
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = this.y - this.spacer - width * 2;
+        rect1.y = this.y - width * 2;
 
         this.checkBoxes.push(rect1);
 
@@ -264,7 +265,7 @@ Tooth.prototype.create5Surfaces = function (settings)
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = this.y - this.spacer - width * 2;
+        rect2.y = this.y - width * 2;
 
         this.checkBoxes.push(rect2);
 
@@ -273,7 +274,7 @@ Tooth.prototype.create5Surfaces = function (settings)
         rect3.width = width;
         rect3.height = width;
         rect3.x = startX + width * 2;
-        rect3.y = this.y - this.spacer - width * 2;
+        rect3.y = this.y - width * 2;
 
         this.checkBoxes.push(rect3);
 
@@ -282,7 +283,7 @@ Tooth.prototype.create5Surfaces = function (settings)
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + width;
-        rect4.y = this.y - this.spacer - width;
+        rect4.y = this.y - width;
 
         this.checkBoxes.push(rect4);
 
@@ -291,7 +292,7 @@ Tooth.prototype.create5Surfaces = function (settings)
         rect5.width = width;
         rect5.height = width;
         rect5.x = startX + width;
-        rect5.y = this.y - this.spacer - width * 3;
+        rect5.y = this.y - width * 3;
 
         this.checkBoxes.push(rect5);
 
@@ -322,7 +323,7 @@ Tooth.prototype.drawId = function (context)
     context.fillStyle = "#000000";
     context.font = "15px Arial Bold";
 
-    var space = 40 + this.spacer;
+    var space = 40;
 
     if (this.type === 0)
     {
@@ -473,14 +474,14 @@ Tooth.prototype.createDamage = function (damageId)
         if (this.type === 0) {
             damage = new Damage(damageId,
                     this.rect.x,
-                    this.rect.y + this.rect.height + this.spacer,
+                    this.rect.y + this.rect.height,
                     this.width,
                     60,
                     this.type);
         } else {
             damage = new Damage(damageId,
                     this.rect.x,
-                    this.rect.y - this.spacer - 60,
+                    this.rect.y - 60,
                     this.width,
                     60,
                     this.type);
@@ -577,7 +578,7 @@ Tooth.prototype.render = function (context, settings)
         this.drawCheckBoxes(context, settings);
         
         if(this.highlight){
-            this.rect.highlightWithColor(context, "#00AEFF", 0.3,);
+            this.rect.highlightWithColor(context, this.highlightColor, 0.3,);
         }
 
     } else {

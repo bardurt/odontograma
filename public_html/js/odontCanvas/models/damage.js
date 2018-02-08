@@ -131,30 +131,39 @@ Damage.prototype.drawMigracion = function (context, settings)
     if (this.type === 0) {
 
         // draw line
-        context.moveTo(this.rect.x + spacer, this.rect.y + this.rect.height + 5);
-        context.lineTo(this.rect.x + this.rect.width - spacer, this.rect.y + this.rect.height + 5);
-
-        // upper point
-        context.moveTo(this.rect.x + spacer, this.rect.y + this.rect.height + 5);
-        context.lineTo(this.rect.x + spacer + 4, this.rect.y + this.rect.height + 10);
-
-        // lower point
-        context.moveTo(this.rect.x + spacer, this.rect.y + this.rect.height + 5);
-        context.lineTo(this.rect.x + spacer + 4, this.rect.y + this.rect.height);
-
-    } else {
-
-        // draw line
         context.moveTo(this.rect.x + spacer, this.rect.y - 5);
         context.lineTo(this.rect.x + this.rect.width - spacer, this.rect.y - 5);
 
         // upper point
-        context.moveTo(this.rect.x + this.rect.width - spacer, this.rect.y - 5);
-        context.lineTo(this.rect.x + this.rect.width - spacer - 4, this.rect.y - 10);
+        context.moveTo(this.rect.x + spacer, this.rect.y - 5);
+        context.lineTo(this.rect.x + spacer + 4, this.rect.y - 10);
+
+        // lower point
+        context.moveTo(this.rect.x + spacer, this.rect.y - 5);
+        context.lineTo(this.rect.x + spacer + 4, this.rect.y);
+
+    } else {
+
+        // draw line
+        context.moveTo(this.rect.x + spacer, 
+                       this.rect.y + this.rect.height + 5);
+        
+        context.lineTo(this.rect.x + this.rect.width - spacer, 
+                       this.rect.y  + this.rect.height + 5);
 
         // upper point
-        context.moveTo(this.rect.x + this.rect.width - spacer, this.rect.y - 5);
-        context.lineTo(this.rect.x + this.rect.width - spacer - 4, this.rect.y);
+        context.moveTo(this.rect.x + this.rect.width - spacer, 
+                        this.rect.y + this.rect.height + 5);
+                        
+        context.lineTo(this.rect.x + this.rect.width - spacer - 4,
+                       this.rect.y + this.rect.height + 10);
+
+        // upper point
+        context.moveTo(this.rect.x + this.rect.width - spacer,
+                       this.rect.y + this.rect.height + 5);
+        
+        context.lineTo(this.rect.x + this.rect.width - spacer - 4, 
+                       this.rect.y + this.rect.height);
 
     }
 
@@ -210,25 +219,33 @@ Damage.prototype.drawDienteExtruido = function (context, settings)
     if (this.type === 0) {
 
         // draw arrow head
-        context.moveTo(this.rect.x + 10, this.rect.y + this.rect.height + 10);
-        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height + 15);
-        context.lineTo(this.rect.x + this.rect.width - 10, this.rect.y + this.rect.height + 10);
+        context.moveTo(this.rect.x + 10, this.rect.y - 5);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y);
+        context.lineTo(this.rect.x + this.rect.width - 10, this.rect.y - 5);
 
         // draw arrow line
-        context.moveTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y + this.rect.height + 10);
-        context.lineTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y + this.rect.height);
+        context.moveTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y);
+        context.lineTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y - 15);
 
 
     } else {
 
         // draw arrow head
-        context.moveTo(this.rect.x + 10, this.rect.y - 10);
-        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y - 15);
-        context.lineTo(this.rect.x + this.rect.width - 10, this.rect.y - 10);
+        context.moveTo(this.rect.x + 10, 
+                       this.rect.y + this.rect.height +5);
+                       
+        context.lineTo(this.rect.x + this.rect.width / 2, 
+                        this.rect.y + this.rect.height);
+                        
+        context.lineTo(this.rect.x + this.rect.width - 10, 
+                       this.rect.y + this.rect.height + 5);
 
         // draw arrow line
-        context.moveTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y - 10);
-        context.lineTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y);
+        context.moveTo(this.rect.x + this.rect.width / 2 - 1, 
+                       this.rect.y + this.rect.height + 5);
+                       
+        context.lineTo(this.rect.x + this.rect.width / 2 - 1, 
+                       this.rect.y + this.rect.height + 15);
     }
 
     context.lineWidth = 3;
@@ -252,25 +269,30 @@ Damage.prototype.drawDienteIntruido = function (context, settings)
     if (this.type === 0) {
 
         // draw arrow head
-        context.moveTo(this.rect.x + 10, this.rect.y + this.rect.height + 5);
-        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height);
-        context.lineTo(this.rect.x + this.rect.width - 10, this.rect.y + this.rect.height + 5);
+        context.moveTo(this.rect.x + 10, this.rect.y - 10);
+        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y - 15);
+        context.lineTo(this.rect.x + this.rect.width - 10, this.rect.y - 10);
 
         // draw arrow line
-        context.moveTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y + this.rect.height + 5);
-        context.lineTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y + this.rect.height + 15);
+        context.moveTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y - 15);
+        context.lineTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y);
 
 
     } else {
 
         // draw arrow head
-        context.moveTo(this.rect.x + 10, this.rect.y - 5);
-        context.lineTo(this.rect.x + this.rect.width / 2, this.rect.y);
-        context.lineTo(this.rect.x + this.rect.width - 10, this.rect.y - 5);
+        context.moveTo(this.rect.x + 10, 
+                       this.rect.y + this.rect.height  + 10);
+                       
+        context.lineTo(this.rect.x + this.rect.width / 2,
+                       this.rect.y + this.rect.height + 15);
+                       
+        context.lineTo(this.rect.x + this.rect.width - 10, 
+                       this.rect.y + this.rect.height + 10);
 
         // draw arrow line
-        context.moveTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y - 5);
-        context.lineTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y - 15);
+        context.moveTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y + this.rect.height + 10);
+        context.lineTo(this.rect.x + this.rect.width / 2 - 1, this.rect.y +  this.rect.height);
     }
 
     context.lineWidth = 3;
@@ -351,32 +373,38 @@ Damage.prototype.drawGiroversion = function drawGiroversion(context, settings)
     context.beginPath();
 
     var cx = this.rect.x + this.rect.width / 2;
-    var cy = this.rect.y + this.rect.height;
+    var cy = this.rect.y;
     var radius = (this.rect.width - 10) / 2;
 
     if (this.type === 0)
     {
 
         // half circle
-        context.arc(cx, cy, radius, Math.PI, 2 * Math.PI, true);
+        context.arc(cx, cy, radius, Math.PI, 2 * Math.PI, false);
 
-        context.moveTo(this.rect.x + this.rect.width - 3, this.rect.y + this.rect.height);
-        context.lineTo(this.rect.x + this.rect.width - 11, this.rect.y + this.rect.height);
+        context.moveTo(this.rect.x + this.rect.width - 3, this.rect.y);
+        context.lineTo(this.rect.x + this.rect.width - 11, this.rect.y);
 
-        context.moveTo(this.rect.x + this.rect.width - 3, this.rect.y + this.rect.height);
-        context.lineTo(this.rect.x + this.rect.width - 3, this.rect.y + this.rect.height + 8);
+        context.moveTo(this.rect.x + this.rect.width - 3, this.rect.y);
+        context.lineTo(this.rect.x + this.rect.width - 3, this.rect.y - 8);
 
     } else
     {
-        cy = this.rect.y;
+        cy = this.rect.y + this.rect.height;
         // draw lower line
-        context.arc(cx, cy, radius, Math.PI, 2 * Math.PI, false);
+        context.arc(cx, cy, radius, Math.PI, 2 * Math.PI, true);
 
-        context.moveTo(this.rect.x + 3, this.rect.y);
-        context.lineTo(this.rect.x + 11, this.rect.y);
+        context.moveTo(this.rect.x + 3,
+                       this.rect.y + this.rect.height);
+                       
+        context.lineTo(this.rect.x + 11,
+                       this.rect.y + this.rect.height);
 
-        context.moveTo(this.rect.x + 3, this.rect.y);
-        context.lineTo(this.rect.x + 3, this.rect.y - 8);
+        context.moveTo(this.rect.x + 3, 
+                       this.rect.y + this.rect.height);
+                       
+        context.lineTo(this.rect.x + 3,
+                       this.rect.y + this.rect.height + 8);
     }
 
 
@@ -922,7 +950,7 @@ Damage.prototype.DrawProtesisFijaCenter = function (context, settings) {
 
         context.lineTo(this.rect.x + this.rect.width,
                 this.rect.y - 15);
-        
+
     } else {
 
         context.moveTo(this.rect.x,
@@ -967,6 +995,118 @@ Damage.prototype.DrawProtesisFijaLeft = function (context, settings) {
                 this.rect.y + this.rect.height + 15);
 
     }
+
+    context.stroke();
+    context.restore();
+};
+
+Damage.prototype.DrawTransposicionLeft = function (context, settings) {
+
+    context.beginPath();
+
+    var cx = this.rect.x + this.rect.width * 0.75;
+    var cy = this.rect.y;
+    var radiusX = (this.rect.width) / 2;
+    var radiusY = 10;
+
+    if (this.type === 0)
+    {
+
+        // half circle
+        context.ellipse(cx, cy, radiusX, radiusY, 0, Math.PI, 2 * Math.PI, false);
+
+        context.moveTo(this.rect.x + (this.rect.width * 0.75) + (this.rect.width / 2),
+                this.rect.y);
+
+        context.lineTo(this.rect.x + (this.rect.width * 0.75) + (this.rect.width / 2),
+                this.rect.y - 8);
+
+        context.moveTo(this.rect.x + (this.rect.width * 0.75) + (this.rect.width / 2),
+                this.rect.y);
+
+        context.lineTo(this.rect.x + (this.rect.width * 0.75) + (this.rect.width / 2) - 8,
+                this.rect.y);
+
+    } else
+    {
+        cy = this.rect.y + this.rect.height;
+
+         // half circle
+        context.ellipse(cx, cy, radiusX, radiusY, 0, Math.PI, 2 * Math.PI, true);
+
+        context.moveTo(this.rect.x + (this.rect.width * 0.75) + (this.rect.width / 2),
+                this.rect.y + this.rect.height);
+
+        context.lineTo(this.rect.x + (this.rect.width * 0.75) + (this.rect.width / 2),
+                this.rect.y + this.rect.height + 8);
+
+        context.moveTo(this.rect.x + (this.rect.width * 0.75) + (this.rect.width / 2),
+                this.rect.y + this.rect.height);
+
+        context.lineTo(this.rect.x + (this.rect.width * 0.75) + (this.rect.width / 2) - 8,
+                this.rect.y + this.rect.height);
+    }
+
+    context.lineWidth = 2;
+
+    context.strokeStyle = settings.COLOR_BLUE;
+
+    context.stroke();
+
+    context.restore();
+};
+
+Damage.prototype.DrawTransposicionRight = function (context, settings) {
+
+    context.beginPath();
+
+    var cx = this.rect.x + this.rect.width * 0.25;
+    var cy = this.rect.y;
+    var radiusX = (this.rect.width) / 2;
+    var radiusY = 10;
+
+    if (this.type === 0)
+    {
+
+        // half circle
+        context.ellipse(cx, cy, radiusX, radiusY, 0, Math.PI, 2 * Math.PI, false);
+
+        context.moveTo(this.rect.x + (this.rect.width * 0.25) - (this.rect.width / 2),
+                this.rect.y);
+
+        context.lineTo(this.rect.x + (this.rect.width * 0.25) - (this.rect.width / 2),
+                this.rect.y - 8);
+
+        context.moveTo(this.rect.x + (this.rect.width * 0.25) - (this.rect.width / 2),
+                this.rect.y);
+
+        context.lineTo(this.rect.x + (this.rect.width * 0.25) - (this.rect.width / 2) + 8,
+                this.rect.y);
+
+    } else
+    {
+        cy = this.rect.y + this.rect.height;
+
+        // half circle
+        context.ellipse(cx, cy, radiusX, radiusY, 0, Math.PI, 2 * Math.PI, true);
+
+        context.moveTo(this.rect.x + (this.rect.width * 0.25) - (this.rect.width / 2),
+                this.rect.y + this.rect.height);
+
+        context.lineTo(this.rect.x + (this.rect.width * 0.25) - (this.rect.width / 2),
+                this.rect.y + this.rect.height + 8);
+
+        context.moveTo(this.rect.x + (this.rect.width * 0.25) - (this.rect.width / 2),
+                this.rect.y + this.rect.height);
+
+        context.lineTo(this.rect.x + (this.rect.width * 0.25) - (this.rect.width / 2) + 8,
+                this.rect.y + this.rect.height);
+    }
+
+
+    context.lineWidth = 2;
+
+    context.strokeStyle = settings.COLOR_BLUE;
 
     context.stroke();
     context.restore();
@@ -1069,13 +1209,21 @@ Damage.prototype.render = function (context, settings)
     if (this.id === "25") {
         this.DrawProtesisFijaRight(context, settings);
     }
-    
+
     if (this.id === "26") {
         this.DrawProtesisFijaCenter(context, settings);
     }
 
     if (this.id === "27") {
         this.DrawProtesisFijaLeft(context, settings);
+    }
+
+    if (this.id === "30") {
+        this.DrawTransposicionLeft(context, settings);
+    }
+
+    if (this.id === "31") {
+        this.DrawTransposicionRight(context, settings);
     }
 
     if (settings.DEBUG) {
