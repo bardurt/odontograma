@@ -189,17 +189,17 @@ Engine.prototype.highlightMultiSelection = function (tooth)
 
                     this.mouth[i].highlight = true;
                 }
-                
-                if(this.selectedHallazgo === "30"){
-                    
-                    if((end-begin) > 1){
-                        
-                         for (var i = begin; i <= end; i++) {
+
+                if (this.selectedHallazgo === "30") {
+
+                    if ((end - begin) > 1) {
+
+                        for (var i = begin; i <= end; i++) {
 
                             this.mouth[i].highlightColor = this.settings.COLOR_HIGHLIGHT_BAD;
-                         }
+                        }
                     }
-                    
+
                 }
 
             }
@@ -301,13 +301,13 @@ Engine.prototype.handleMultiSelection = function ()
 
             }
 
-        } else if(this.selectedHallazgo === "30"){
-            
-            if(end - start === 1){
+        } else if (this.selectedHallazgo === "30") {
+
+            if (end - start === 1) {
                 this.mouth[start].toggleDamage("30");
                 this.mouth[end].toggleDamage("31");
             }
-            
+
         }
 
         // reset multiselection when multiselect is finished
@@ -515,44 +515,42 @@ Engine.prototype.reset = function ()
  * Method to get all the data from the engine
  * @returns {undefined}
  */
-Engine.prototype.getData = function()
+Engine.prototype.getData = function ()
 {
     var list = Array();
-    
-    for(var i = 0; i < this.spaces.length; i++){
-    
+
+    for (var i = 0; i < this.spaces.length; i++) {
+
         var t1 = this.spaces[i];
-        
-        for(var j = 0; j < t1.damages.length; j++){
-            
+
+        for (var j = 0; j < t1.damages.length; j++) {
+
             var d = new Object();
-            
+
             d.tooth = t1.id;
             d.damage = t1.damages[j].id;
-            
-            
+
             list.push(d);
         }
-        
+
     }
-    
-    for(var i = 0; i < this.mouth.length; i++){
-    
+
+    for (var i = 0; i < this.mouth.length; i++) {
+
         var t1 = this.mouth[i];
-        
-        for(var j = 0; j < t1.damages.length; j++){
-            
+
+        for (var j = 0; j < t1.surfaces.length; j++) {
+
             var d = new Object();
-            
+
             d.tooth = t1.id;
-            d.damage = t1.damages[j].id;
-            
-            
+            d.damage = t1.surfaces[j].id;
+
             list.push(d);
         }
-        
+
     }
-    
+
     return list;
 };
 
@@ -761,8 +759,8 @@ Engine.prototype.onButtonClick = function (event)
             this.multiSelect = true;
         }
     }
-    
-     if (event.key === "l") {
+
+    if (event.key === "l") {
 
         if (this.selectedHallazgo === "30")
         {
@@ -807,21 +805,21 @@ Engine.prototype.onButtonClick = function (event)
     }
 
 
-    if(event.key === "v"){
+    if (event.key === "v") {
         var data = this.getData();
-        
-        console.log("Data length: " +data.length);
-        
-        for(var i = 0; i < data.length; i++){
-            
-            console.log("Data[" + i +"]: " + data[i].tooth + ", " + data[i].damage);
-            
+
+        console.log("Data length: " + data.length);
+
+        for (var i = 0; i < data.length; i++) {
+
+            console.log("Data[" + i + "]: " + data[i].tooth + ", " + data[i].damage);
+
         }
     }
 };
 
-Engine.prototype.setDamage = function(damage){
-    
+Engine.prototype.setDamage = function (damage) {
+
     console.log("Setting damage " + damage);
 
     if (damage !== "d") {
@@ -998,8 +996,8 @@ Engine.prototype.setDamage = function(damage){
             this.multiSelect = true;
         }
     }
-    
-     if (damage === "l") {
+
+    if (damage === "l") {
 
         if (this.selectedHallazgo === "30")
         {
@@ -1015,28 +1013,28 @@ Engine.prototype.setDamage = function(damage){
 
 };
 
-Engine.prototype.changeView = function(which)
+Engine.prototype.changeView = function (which)
 {
-    
-    
-    if(which === "1"){
-    
+
+
+    if (which === "1") {
+
         this.adultShowing = false;
         this.mouth = this.odontChild;
         this.spaces = this.odontSpacesChild;
         this.update();
-        
-        
+
+
     } else {
-        
+
         this.adultShowing = true;
         this.mouth = this.odontAdult;
         this.spaces = this.odontSpacesAdult;
         this.update();
-        
+
     }
-    
-    
+
+
 };
 
 /**
