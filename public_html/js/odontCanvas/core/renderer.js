@@ -43,8 +43,9 @@ Renderer.prototype.drawSplash = function(){
     this.context.textAlign = 'center';
     this.context.fillStyle = "#000000";
     this.context.font = "32px Arial Bold";
-    this.context.fillText("OdontoGraph", this.width/2, this.height/2 -16);
+    this.context.fillText("OdontoGraph 1.0.0", this.width/2, this.height/2 -16);
     this.context.font = "18px Arial Bold";
+    this.context.fillStyle = "#000000";
     this.context.fillText("Bardur Thomsen - 2018", this.width/2, this.height/2 + 40);
 };
 
@@ -65,13 +66,19 @@ Renderer.prototype.init = function(canvas) {
 
 /**
  * Method to clear the canvas
+ * @param {type} settings for color, and debug state
  * @returns {undefined}
  */
-Renderer.prototype.clear = function()
+Renderer.prototype.clear = function(settings)
 {
     
     // clear
-    this.context.fillStyle ="#ffffff";
+    if(settings.DEBUG){
+        this.context.fillStyle ="#ffff31";
+    } else{
+        this.context.fillStyle ="#ffffff";
+    }
+    
     this.context.fillRect(0, 0, this.width, this.height);
     
     this.context.restore();

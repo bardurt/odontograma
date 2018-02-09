@@ -133,7 +133,7 @@ Engine.prototype.init = function () {
  */
 Engine.prototype.update = function ()
 {
-    this.renderer.clear();
+    this.renderer.clear(this.settings);
     this.renderer.render(this.mouth, this.settings);
     this.renderer.render(this.spaces, this.settings);
 
@@ -761,6 +761,225 @@ Engine.prototype.onButtonClick = function (event)
 
     }
 
+};
+
+Engine.prototype.setDamage = function(damage){
+    
+    console.log("Setting damage " + damage);
+
+    if (damage !== "d") {
+        this.selectedHallazgo = "0";
+    }
+
+    if (damage === "1")
+    {
+        this.selectedHallazgo = "1";
+    }
+
+    if (damage === "2")
+    {
+        this.selectedHallazgo = "2";
+    }
+
+    if (damage === "3")
+    {
+        this.selectedHallazgo = "3";
+    }
+
+    if (damage === "4")
+    {
+        this.selectedHallazgo = "4";
+    }
+
+    if (damage === "5")
+    {
+        this.selectedHallazgo = "5";
+    }
+
+    if (damage === "6")
+    {
+        this.selectedHallazgo = "6";
+    }
+
+    if (damage === "7")
+    {
+        this.selectedHallazgo = "7";
+    }
+
+    if (damage === "8")
+    {
+        this.selectedHallazgo = "8";
+    }
+
+    if (damage === "9")
+    {
+        this.selectedHallazgo = "9";
+    }
+
+    if (damage === "0")
+    {
+        this.selectedHallazgo = "10";
+    }
+
+    if (damage === "q")
+    {
+        this.selectedHallazgo = "11";
+    }
+
+    if (damage === "w")
+    {
+        this.selectedHallazgo = "12";
+    }
+
+    if (damage === "r")
+    {
+        this.selectedHallazgo = "13";
+    }
+
+    if (damage === "b")
+    {
+        this.selectedHallazgo = "14";
+    }
+
+    if (damage === "e")
+    {
+        this.selectedHallazgo = "15";
+    }
+
+    if (damage === "t")
+    {
+        this.selectedHallazgo = "16";
+    }
+
+    if (damage === "y")
+    {
+        this.selectedHallazgo = "17";
+    }
+
+    if (damage === "u")
+    {
+        this.selectedHallazgo = "18";
+    }
+
+    if (damage === "i")
+    {
+        this.selectedHallazgo = "19";
+    }
+
+    if (damage === "o")
+    {
+        this.selectedHallazgo = "20";
+    }
+
+    if (damage === "a") {
+
+        this.selectedHallazgo = "21";
+        this.settings.HIHGLIGHT_SPACES = true;
+        this.update();
+
+    }
+
+    if (damage === "s") {
+
+        this.selectedHallazgo = "22";
+        this.settings.HIHGLIGHT_SPACES = true;
+        this.update();
+
+    }
+
+    if (damage !== "d") {
+        if (damage !== "a" && damage !== "s")
+        {
+            this.settings.HIHGLIGHT_SPACES = false;
+            this.update();
+        }
+    }
+
+    if (damage === "z")
+    {
+        this.selectedHallazgo = "0";
+        this.reset();
+    }
+
+    if (damage === "m")
+    {
+        this.selectedHallazgo = "0";
+        this.save();
+    }
+
+    if (damage === "d") {
+
+        this.settings.DEBUG = !this.settings.DEBUG;
+
+        this.update();
+    }
+
+    if (damage === "j") {
+
+        if (this.selectedHallazgo === "23")
+        {
+            this.resetMultiSelect();
+            this.multiSelect = true;
+
+        } else {
+
+            this.selectedHallazgo = "23";
+            this.multiSelect = true;
+        }
+    }
+
+    if (damage === "k") {
+
+        if (this.selectedHallazgo === "25")
+        {
+            this.resetMultiSelect();
+            this.multiSelect = true;
+
+        } else {
+
+            this.selectedHallazgo = "25";
+            this.multiSelect = true;
+        }
+    }
+    
+     if (damage === "l") {
+
+        if (this.selectedHallazgo === "30")
+        {
+            this.resetMultiSelect();
+            this.multiSelect = true;
+
+        } else {
+
+            this.selectedHallazgo = "30";
+            this.multiSelect = true;
+        }
+    }
+
+};
+
+Engine.prototype.changeView = function(which)
+{
+    
+    
+    if(which === "1"){
+    
+        this.adultShowing = false;
+        this.mouth = this.odontChild;
+        this.spaces = this.odontSpacesChild;
+        this.update();
+        
+        
+    } else {
+        
+        this.adultShowing = true;
+        this.mouth = this.odontAdult;
+        this.spaces = this.odontSpacesAdult;
+        this.update();
+        
+    }
+    
+    
 };
 
 /**
