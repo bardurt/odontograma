@@ -529,6 +529,7 @@ Engine.prototype.getData = function ()
 
             d.tooth = t1.id;
             d.damage = t1.damages[j].id;
+            d.surface = "0";
 
             list.push(d);
         }
@@ -539,14 +540,29 @@ Engine.prototype.getData = function ()
 
         var t1 = this.mouth[i];
 
-        for (var j = 0; j < t1.surfaces.length; j++) {
+        for (var j = 0; j < t1.damages.length; j++) {
 
             var d = new Object();
 
             d.tooth = t1.id;
-            d.damage = t1.surfaces[j].id;
+            d.damage = "" + t1.damages[j].id;
+            d.surface = "0";
 
             list.push(d);
+        }
+
+        for (var j = 0; j < t1.checkBoxes.length; j++) {
+
+            if (t1.checkBoxes[j].state !== 0) {
+                var d = new Object();
+
+
+                d.tooth = t1.id;
+                d.damage = t1.checkBoxes[j].state;
+                d.surface = t1.checkBoxes[j].id;
+
+                list.push(d);
+            }
         }
 
     }
@@ -812,7 +828,7 @@ Engine.prototype.onButtonClick = function (event)
 
         for (var i = 0; i < data.length; i++) {
 
-            console.log("Data[" + i + "]: " + data[i].tooth + ", " + data[i].damage);
+            console.log("Data[" + i + "]: " + data[i].tooth + ", " + data[i].damage + ", " + data[i].surface);
 
         }
     }
@@ -1052,5 +1068,67 @@ Engine.prototype.splash = function () {
     setTimeout(function () {
         self.update();
     }, 3000);
+
+};
+
+Engine.prototype.getToothById = function (id)
+{
+    var tooth;
+
+    for (var i = 0; i < this.mouth.length; i++) {
+
+        if (this.mouth[i].id === id) {
+
+            tooth = this.mouth[i];
+            break;
+
+        }
+    }
+
+    return tooth;
+
+};
+
+Engine.prototype.getSpaceById = function (id)
+{
+    var space;
+
+    for (var i = 0; i < this.spaces.length; i++) {
+
+        if (this.spaces[i].id === id) {
+
+            space = this.spaces[i];
+            break;
+
+        }
+    }
+
+    return space;
+
+};
+
+Engine.prototype.load = function (tooth, damage, surface) {
+
+    if (surface === "0") {
+
+        // if id is less than 1000 then we have to find a tooth
+        if (tooth < 1000) {
+            this.collisionHandler.handleCollision(this.getToothById(tooth), damage);
+        } else {
+            // if the id is greater than 1000
+            // then we have to find a space
+             this.collisionHandler.handleCollision(this.getSpaceById(tooth), damage);
+        }
+
+    } else {
+
+        var surfaceId = tooth + "_" + surface;
+
+        var tooth = this.getToothById(tooth);
+        var surface = tooth.getSurfaceById(surfaceId);
+
+        this.collisionHandler.handleCollisionCheckBox(surface, damage);
+
+    }
 
 };

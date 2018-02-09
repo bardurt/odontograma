@@ -671,3 +671,19 @@ Tooth.prototype.render = function (context, settings)
     }
 
 };
+
+Tooth.prototype.getSurfaceById = function(id)
+{
+    var surface;
+    
+    for(var i = 0; i < this.checkBoxes.length; i++){
+        
+        if(this.checkBoxes[i].id === id){
+            
+            surface = this.checkBoxes[i];
+            break;
+        }
+    }
+    
+    return surface;
+}

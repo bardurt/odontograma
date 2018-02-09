@@ -53,7 +53,7 @@ Rect.prototype.checkCollision = function (cursX, cursY) {
                 if (cursY < this.y + this.height) {
                     collision = true;
                     
-                    console.log("Collision cb: " + this.id);
+                    //console.log("Collision cb: " + this.id);
                 }
             }
         }

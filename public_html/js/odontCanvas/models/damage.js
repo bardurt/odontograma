@@ -47,7 +47,6 @@ Damage.prototype.renderDienteAusente = function (context, settings)
 {
     context.beginPath();
 
-    console.log("Drawing upper");
 
     if (this.type === 0) {
 
@@ -70,7 +69,6 @@ Damage.prototype.renderDienteAusente = function (context, settings)
 
     } else {
 
-        console.log("Drawing lower");
 
         context.moveTo(this.rect.x, this.rect.y);
         context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height * 0.75);
@@ -95,7 +93,6 @@ Damage.prototype.renderDienteAusente = function (context, settings)
 
 Damage.prototype.drawPulpar = function (context, settings)
 {
-    console.log("Drawing pulpar");
 
     context.beginPath();
 
@@ -122,7 +119,6 @@ Damage.prototype.drawPulpar = function (context, settings)
 
 Damage.prototype.drawMigracion = function (context, settings)
 {
-    console.log("Drawing Migracion");
 
     context.beginPath();
 
@@ -179,7 +175,6 @@ Damage.prototype.drawMigracion = function (context, settings)
 
 Damage.prototype.drawOrtondicoRemovible = function (context, settings)
 {
-    console.log("Drawing Ortondico Removible");
 
     context.beginPath();
 
@@ -212,7 +207,6 @@ Damage.prototype.drawOrtondicoRemovible = function (context, settings)
 
 Damage.prototype.drawDienteExtruido = function (context, settings)
 {
-    console.log("Drawing Diente Extruido");
 
     context.beginPath();
 
@@ -262,8 +256,7 @@ Damage.prototype.drawDienteExtruido = function (context, settings)
 
 Damage.prototype.drawDienteIntruido = function (context, settings)
 {
-    console.log("Drawing Diente Intruido");
-
+  
     context.beginPath();
 
     if (this.type === 0) {
@@ -309,7 +302,6 @@ Damage.prototype.drawDienteIntruido = function (context, settings)
 
 Damage.prototype.drawProtesisRemovible = function (context, settings)
 {
-    console.log("Drawing Protesis Removible");
 
     context.beginPath();
 
@@ -667,8 +659,6 @@ Damage.prototype.drawDiastema = function (context, settings)
 
     if (this.type === 0) {
 
-        console.log("Drawing diastema");
-
         context.lineWidth = 2;
         // set line color
         context.strokeStyle = settings.COLOR_BLUE;
@@ -696,8 +686,6 @@ Damage.prototype.drawDiastema = function (context, settings)
         context.stroke();
 
     } else {
-
-        console.log("Drawing diastema");
 
         context.lineWidth = 2;
         // set line color
