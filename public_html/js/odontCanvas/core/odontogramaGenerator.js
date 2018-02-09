@@ -271,7 +271,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
         var space = new Tooth();
         space.setSurfaces(5);
 
-        if (i !== 21) {
+        if (i !== 41) {
             var tmpid = (i) + "" + (i - 1);
             space.id = Number(tmpid);
 

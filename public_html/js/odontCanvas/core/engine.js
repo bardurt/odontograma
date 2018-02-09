@@ -512,6 +512,51 @@ Engine.prototype.reset = function ()
 };
 
 /**
+ * Method to get all the data from the engine
+ * @returns {undefined}
+ */
+Engine.prototype.getData = function()
+{
+    var list = Array();
+    
+    for(var i = 0; i < this.spaces.length; i++){
+    
+        var t1 = this.spaces[i];
+        
+        for(var j = 0; j < t1.damages.length; j++){
+            
+            var d = new Object();
+            
+            d.tooth = t1.id;
+            d.damage = t1.damages[j].id;
+            
+            
+            list.push(d);
+        }
+        
+    }
+    
+    for(var i = 0; i < this.mouth.length; i++){
+    
+        var t1 = this.mouth[i];
+        
+        for(var j = 0; j < t1.damages.length; j++){
+            
+            var d = new Object();
+            
+            d.tooth = t1.id;
+            d.damage = t1.damages[j].id;
+            
+            
+            list.push(d);
+        }
+        
+    }
+    
+    return list;
+};
+
+/**
  * Method to save the odontograma as an image file
  * @returns {undefined}
  */
@@ -761,6 +806,18 @@ Engine.prototype.onButtonClick = function (event)
 
     }
 
+
+    if(event.key === "v"){
+        var data = this.getData();
+        
+        console.log("Data length: " +data.length);
+        
+        for(var i = 0; i < data.length; i++){
+            
+            console.log("Data[" + i +"]: " + data[i].tooth + ", " + data[i].damage);
+            
+        }
+    }
 };
 
 Engine.prototype.setDamage = function(damage){
