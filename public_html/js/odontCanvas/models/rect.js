@@ -15,6 +15,7 @@
  */
 function Rect()
 {
+    this.id = "";
     this.x = 0;
     this.y = 0;
     this.width = 0;
@@ -51,6 +52,8 @@ Rect.prototype.checkCollision = function (cursX, cursY) {
             if (cursX < this.x + this.width) {
                 if (cursY < this.y + this.height) {
                     collision = true;
+                    
+                    console.log("Collision cb: " + this.id);
                 }
             }
         }

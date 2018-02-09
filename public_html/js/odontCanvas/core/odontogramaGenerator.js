@@ -151,9 +151,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
         }
 
         space.setDimens(tooth.rect.x + tooth.rect.width / 2,
-                tooth.rect.y,
-                tooth.rect.width,
-                tooth.rect.height);
+                        tooth.rect.y,
+                        tooth.rect.width,
+                        tooth.rect.height);
 
         space.type = tooth.type;
         space.tooth = false;
@@ -211,9 +211,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
             space.id = Number(tmpid);
 
             space.setDimens(tooth.rect.x + tooth.rect.width / 2,
-                    tooth.rect.y,
-                    tooth.rect.width,
-                    tooth.rect.height);
+                            tooth.rect.y,
+                            tooth.rect.width,
+                            tooth.rect.height);
 
             space.type = tooth.type;
             space.tooth = false;
@@ -239,7 +239,6 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
             tooth.setSurfaces(5);
         }
 
-
         var image = new Image();
 
         image.onload = function () {
@@ -252,9 +251,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
         tooth.image = image;
 
         tooth.setDimens(x,
-                base + this.seperator,
-                this.imgWidth,
-                this.imgHeight);
+                        base + this.seperator,
+                        this.imgWidth,
+                        this.imgHeight);
 
         tooth.setType(1);
 
@@ -283,9 +282,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
         }
 
         space.setDimens(tooth.rect.x + tooth.rect.width / 2,
-                tooth.rect.y,
-                tooth.rect.width,
-                tooth.rect.height);
+                        tooth.rect.y,
+                        tooth.rect.width,
+                        tooth.rect.height);
 
         space.type = tooth.type;
         space.tooth = false;
@@ -318,9 +317,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
         tooth.id = i;
         tooth.image = image;
         tooth.setDimens(x,
-                base + this.seperator,
-                this.imgWidth,
-                this.imgHeight);
+                        base + this.seperator,
+                        this.imgWidth,
+                        this.imgHeight);
 
         tooth.setType(1);
 
@@ -340,9 +339,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
             space.id = Number(tmpid);
 
             space.setDimens(tooth.rect.x + tooth.rect.width / 2,
-                    tooth.rect.y,
-                    tooth.rect.width,
-                    tooth.rect.height);
+                            tooth.rect.y,
+                            tooth.rect.width,
+                            tooth.rect.height);
 
             space.type = tooth.type;
             space.tooth = false;
@@ -402,9 +401,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
         tooth.image = image;
 
         tooth.setDimens(x,
-                base,
-                this.imgWidth,
-                this.imgHeight);
+                        base,
+                        this.imgWidth,
+                        this.imgHeight);
 
         tooth.setType(0);
 
@@ -433,9 +432,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
         }
 
         space.setDimens(tooth.rect.x + tooth.rect.width / 2,
-                tooth.rect.y,
-                tooth.rect.width,
-                tooth.rect.height);
+                        tooth.rect.y,
+                        tooth.rect.width,
+                        tooth.rect.height);
 
         space.type = tooth.type;
         space.tooth = false;
@@ -464,9 +463,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
         tooth.image = image;
 
         tooth.setDimens(x,
-                base,
-                this.imgWidth,
-                this.imgHeight);
+                        base,
+                        this.imgWidth,
+                        this.imgHeight);
 
         tooth.setType(0);
 
@@ -489,9 +488,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
             space.id = Number(tmpid);
 
             space.setDimens(tooth.rect.x + tooth.rect.width / 2,
-                    tooth.rect.y,
-                    tooth.rect.width,
-                    tooth.rect.height);
+                            tooth.rect.y,
+                            tooth.rect.width,
+                            tooth.rect.height);
 
             space.type = tooth.type;
             space.tooth = false;
@@ -526,9 +525,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
         tooth.image = image;
 
         tooth.setDimens(x,
-                base + this.seperator,
-                this.imgWidth,
-                this.imgHeight);
+                        base + this.seperator,
+                        this.imgWidth,
+                        this.imgHeight);
 
         tooth.setType(1);
 
@@ -557,9 +556,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
         }
 
         space.setDimens(tooth.rect.x + tooth.rect.width / 2,
-                tooth.rect.y,
-                tooth.rect.width,
-                tooth.rect.height);
+                        tooth.rect.y,
+                        tooth.rect.width,
+                        tooth.rect.height);
 
         space.type = tooth.type;
         space.tooth = false;
@@ -587,9 +586,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
         tooth.id = i;
         tooth.image = image;
         tooth.setDimens(x,
-                base + this.seperator,
-                this.imgWidth,
-                this.imgHeight);
+                        base + this.seperator,
+                        this.imgWidth,
+                        this.imgHeight);
 
         tooth.setType(1);
 
@@ -611,9 +610,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
             space.id = Number(tmpid);
 
             space.setDimens(tooth.rect.x + tooth.rect.width / 2,
-                    tooth.rect.y,
-                    tooth.rect.width,
-                    tooth.rect.height);
+                            tooth.rect.y,
+                            tooth.rect.width,
+                            tooth.rect.height);
 
             space.type = tooth.type;
             space.tooth = false;
