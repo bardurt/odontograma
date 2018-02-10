@@ -15,8 +15,12 @@
  */
 function CollisionHandler()
 {
-
+    this.constants = null;
 }
+
+CollisionHandler.prototype.setConstants = function(constants){
+    this.constants = constants;
+};
 
 /**
  * Method to handle a collision with a tooth
@@ -32,7 +36,7 @@ CollisionHandler.prototype.handleCollision = function (tooth, argument)
     if (argument !== "") {
         console.log("Handle collision");
 
-        if (argument !== "0" && argument !== "13" && argument !== "14")
+        if (argument !== "13" && argument !== "14")
         {
             tooth.toggleDamage(argument);
         }
@@ -41,46 +45,6 @@ CollisionHandler.prototype.handleCollision = function (tooth, argument)
 
 };
 
-CollisionHandler.prototype.handleCollisionGrouping = function (odontograma, 
-    index, tooth, argument)
-{
-
-    console.log("Handle collision Grouping");
-    console.log("Tooth id " + tooth.id);
-
-    if (argument === "21")
-    {
-        console.log("Argument " + argument);
-
-        if (tooth.id <= 18 && tooth.id >= 12)
-        {
-            odontograma[index + 1].toggleDamage(argument);
-        }
-
-        if (tooth.id === 11)
-        {
-            odontograma[index].toggleDamage(argument);
-        }
-
-        if (tooth.id <= 48 && tooth.id >= 41)
-        {
-            odontograma[index + 1].toggleDamage(argument);
-        }
-
-        if (tooth.id >= 21 && tooth.id <= 28)
-        {
-            odontograma[index].toggleDamage(argument);
-        }
-
-        if (tooth.id >= 31 && tooth.id <= 38)
-        {
-            odontograma[index].toggleDamage(argument);
-        }
-
-
-    }
-
-};
 
 /**
  * Method to handle a collision with a checkbox
@@ -91,7 +55,7 @@ CollisionHandler.prototype.handleCollisionGrouping = function (odontograma,
 CollisionHandler.prototype.handleCollisionCheckBox = function (checkBox, argument)
 {
 
-    if (argument === "13")
+    if (argument === this.constants.CARIES)
     {
         if (checkBox.state === 1)
         {
@@ -101,7 +65,7 @@ CollisionHandler.prototype.handleCollisionCheckBox = function (checkBox, argumen
             checkBox.state = 1;
         }
 
-    } else if (argument === "14")
+    } else if (argument === this.constants.CURACION)
     {
         if (checkBox.state === 2)
         {

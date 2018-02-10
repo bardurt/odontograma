@@ -1101,116 +1101,116 @@ Damage.prototype.DrawTransposicionRight = function (context, settings) {
 };
 
 
-Damage.prototype.render = function (context, settings)
+Damage.prototype.render = function (context, settings, constants)
 {
-    if (this.id === "1")
+    if (this.id === constants.FRACTURA)
     {
         this.renderFractura(context, settings);
     }
 
-    if (this.id === "2")
+    if (this.id === constants.DIENTE_AUSENTE)
     {
         this.renderDienteAusente(context, settings);
     }
 
-    if (this.id === "3")
+    if (this.id === constants.PULPAR)
     {
         this.drawPulpar(context, settings);
     }
 
-    if (this.id === "4") {
+    if (this.id === constants.MIGRACION) {
         this.drawMigracion(context, settings);
     }
 
-    if (this.id === "5") {
+    if (this.id === constants.ORTONDICO_REMOVIBLE) {
         this.drawOrtondicoRemovible(context, settings);
     }
 
-    if (this.id === "6") {
+    if (this.id === constants.DIENTE_EXTRUIDO) {
         this.drawDienteExtruido(context, settings);
     }
 
-    if (this.id === "7") {
+    if (this.id === constants.DIENTE_INTRUIDO) {
         this.drawDienteIntruido(context, settings);
     }
 
-    if (this.id === "8") {
+    if (this.id === constants.PROTESIS_REMOVIBLE) {
         this.drawProtesisRemovible(context, settings);
     }
 
-    if (this.id === "9") {
+    if (this.id === constants.REMANENTE_RADICULAR) {
         this.drawRemanenteRadicular(context, settings);
     }
 
-    if (this.id === "10") {
+    if (this.id === constants.GIROVERSION) {
         this.drawGiroversion(context, settings);
     }
 
-    if (this.id === "11") {
+    if (this.id === constants.PERNO_MUNON) {
         this.drawPernoMunon(context, settings);
     }
 
-    if (this.id === "12") {
+    if (this.id === constants.DIENTE_EN_ERUPCION) {
         this.drawDienteEnErupcion(context, settings);
     }
 
-    if (this.id === "15") {
+    if (this.id === constants.PROTESIS_TOTAL) {
         this.drawProtesisTotal(context, settings);
     }
 
-    if (this.id === "16") {
+    if (this.id === constants.EDENTULOA_TOTAL) {
         this.drawEdentuloTotal(context, settings);
     }
 
-    if (this.id === "17") {
+    if (this.id === constants.DIENTE_EN_CLAVIJA) {
         this.drawDienteEnClavija(context, settings);
     }
 
-    if (this.id === "18") {
+    if (this.id === constants.FUSION) {
         this.drawFusion(context, settings);
     }
 
-    if (this.id === "19") {
+    if (this.id === constants.CORONA_DEFINITIVA) {
         this.drawCoronaDefinitiva(context, settings);
     }
 
-    if (this.id === "20") {
+    if (this.id === constants.CORONA_TEMPORAL) {
         this.drawCoronaTemporal(context, settings);
     }
 
-    if (this.id === "21") {
+    if (this.id === constants.DIASTEMA) {
         this.drawDiastema(context, settings);
     }
 
-    if (this.id === "22") {
+    if (this.id === constants.SUPER_NUMERARIO) {
         this.drawSuperNumerario(context, settings);
     }
 
-    if (this.id === "23") {
+    if (this.id === constants.ORTODONTICO_FIJO_END) {
         this.drawOrtodonticoFijoEnd(context, settings);
     }
 
-    if (this.id === "24") {
+    if (this.id === constants.ORTODONTICO_FIJO_CENTER) {
         this.drawOrtodonticoFijoCenter(context, settings);
     }
 
-    if (this.id === "25") {
+    if (this.id === constants.PROTESIS_FIJA_RIGHT) {
         this.DrawProtesisFijaRight(context, settings);
     }
 
-    if (this.id === "26") {
+    if (this.id === constants.PROTESIS_FIJA_CENTER) {
         this.DrawProtesisFijaCenter(context, settings);
     }
 
-    if (this.id === "27") {
+    if (this.id === constants.PROTESIS_FIJA_LEFT) {
         this.DrawProtesisFijaLeft(context, settings);
     }
 
-    if (this.id === "30") {
+    if (this.id === constants.TRANSPOSICION_LEFT) {
         this.DrawTransposicionLeft(context, settings);
     }
 
-    if (this.id === "31") {
+    if (this.id === constants.TRANSPOSICION_RIGHT) {
         this.DrawTransposicionRight(context, settings);
     }
 

@@ -85,21 +85,19 @@ Renderer.prototype.clear = function(settings)
     
 };
 
-
-
 /**
  * Method to render odontograma
  * @param {type} data data frm for odontograma
  * @param {type} settings for the canvas
  * @returns {undefined}
  */
-Renderer.prototype.render = function(data, settings)
+Renderer.prototype.render = function(data, settings, constants)
 {
     
     // draw the teeth
     for (var i = 0; i < data.length; i++) {
 
-        data[i].render( this.context, settings);
+        data[i].render( this.context, settings, constants);
     }
 
 };

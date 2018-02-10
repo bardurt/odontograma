@@ -8,7 +8,7 @@
  * Contributors:
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
-
+document.writeln("<script type='text/javascript' src='js/odontCanvas/core/constants.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/settings.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/rect.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/damage.js'></script>");
@@ -52,6 +52,8 @@ function Engine()
     this.collisionHandler = new CollisionHandler();
 
     this.settings = new Settings();
+    
+    this.constants = new Constants();
 
     // value of the selected damage which should be added or removed
     this.selectedHallazgo = "0";
@@ -111,10 +113,14 @@ Engine.prototype.getYpos = function (event)
  */
 Engine.prototype.init = function () {
 
+    this.collisionHandler.setConstants(this.constants);
+    
     // set up the odontograma
     this.odontogramaGenerator.setEngine(this);
 
     this.odontogramaGenerator.setSettings(this.settings);
+    
+    this.odontogramaGenerator.setConstants(this.constants);
 
     this.odontogramaGenerator.prepareOdontogramaAdult(this.odontAdult,
             this.odontSpacesAdult, this.canvas);
@@ -134,8 +140,8 @@ Engine.prototype.init = function () {
 Engine.prototype.update = function ()
 {
     this.renderer.clear(this.settings);
-    this.renderer.render(this.mouth, this.settings);
-    this.renderer.render(this.spaces, this.settings);
+    this.renderer.render(this.mouth, this.settings, this.constants);
+    this.renderer.render(this.spaces, this.settings, this.constants);
 
     if (this.settings.DEBUG) {
 
@@ -190,7 +196,7 @@ Engine.prototype.highlightMultiSelection = function (tooth)
                     this.mouth[i].highlight = true;
                 }
 
-                if (this.selectedHallazgo === "30") {
+                if (this.selectedHallazgo === this.constants.TRANSPOSICION_LEFT) {
 
                     if ((end - begin) > 1) {
 
@@ -280,32 +286,32 @@ Engine.prototype.handleMultiSelection = function ()
         console.log("Start " + start);
         console.log("End " + end);
 
-        if (this.selectedHallazgo === "23") {
+        if (this.selectedHallazgo === this.constants.ORTODONTICO_FIJO_END) {
 
-            this.mouth[start].toggleDamage("23");
-            this.mouth[end].toggleDamage("23");
-
-            for (var i = start + 1; i <= end - 1; i++) {
-
-                this.mouth[i].toggleDamage("24");
-
-            }
-        } else if (this.selectedHallazgo === "25") {
-
-            this.mouth[start].toggleDamage("25");
-            this.mouth[end].toggleDamage("27");
+            this.mouth[start].toggleDamage(this.constants.ORTODONTICO_FIJO_END, this.constants);
+            this.mouth[end].toggleDamage(this.constants.ORTODONTICO_FIJO_END, this.constants);
 
             for (var i = start + 1; i <= end - 1; i++) {
 
-                this.mouth[i].toggleDamage("26");
+                this.mouth[i].toggleDamage(this.constants.ORTODONTICO_FIJO_CENTER, this.constants);
+
+            }
+        } else if (this.selectedHallazgo === this.constants.PROTESIS_FIJA_RIGHT) {
+
+            this.mouth[start].toggleDamage(this.constants.PROTESIS_FIJA_RIGHT, this.constants);
+            this.mouth[end].toggleDamage(this.constants.PROTESIS_FIJA_LEFT, this.constants);
+
+            for (var i = start + 1; i <= end - 1; i++) {
+
+                this.mouth[i].toggleDamage(this.constants.PROTESIS_FIJA_CENTER, this.constants);
 
             }
 
-        } else if (this.selectedHallazgo === "30") {
+        } else if (this.selectedHallazgo === this.constants.TRANSPOSICION_LEFT) {
 
             if (end - start === 1) {
-                this.mouth[start].toggleDamage("30");
-                this.mouth[end].toggleDamage("31");
+                this.mouth[start].toggleDamage(this.constants.TRANSPOSICION_LEFT, this.constants);
+                this.mouth[end].toggleDamage(this.constants.TRANSPOSICION_RIGHT, this.constants);
             }
 
         }
@@ -776,16 +782,16 @@ Engine.prototype.onButtonClick = function (event)
         }
     }
 
-    if (event.key === "l") {
+   if (event.key === "l") {
 
-        if (this.selectedHallazgo === "30")
+        if (this.selectedHallazgo === "28")
         {
             this.resetMultiSelect();
             this.multiSelect = true;
 
         } else {
 
-            this.selectedHallazgo = "30";
+            this.selectedHallazgo = "28";
             this.multiSelect = true;
         }
     }
@@ -800,7 +806,7 @@ Engine.prototype.onButtonClick = function (event)
 
     }
 
-    if (event.key === "F1") {
+    if (event.key === "ArrowLeft") {
 
         this.adultShowing = true;
         console.log("Setting odontograma to adult");
@@ -810,7 +816,7 @@ Engine.prototype.onButtonClick = function (event)
 
     }
 
-    if (event.key === "F2") {
+    if (event.key === "ArrowRight") {
 
         this.adultShowing = false;
         console.log("Setting odontograma to child");
@@ -838,194 +844,7 @@ Engine.prototype.setDamage = function (damage) {
 
     console.log("Setting damage " + damage);
 
-    if (damage !== "d") {
-        this.selectedHallazgo = "0";
-    }
-
-    if (damage === "1")
-    {
-        this.selectedHallazgo = "1";
-    }
-
-    if (damage === "2")
-    {
-        this.selectedHallazgo = "2";
-    }
-
-    if (damage === "3")
-    {
-        this.selectedHallazgo = "3";
-    }
-
-    if (damage === "4")
-    {
-        this.selectedHallazgo = "4";
-    }
-
-    if (damage === "5")
-    {
-        this.selectedHallazgo = "5";
-    }
-
-    if (damage === "6")
-    {
-        this.selectedHallazgo = "6";
-    }
-
-    if (damage === "7")
-    {
-        this.selectedHallazgo = "7";
-    }
-
-    if (damage === "8")
-    {
-        this.selectedHallazgo = "8";
-    }
-
-    if (damage === "9")
-    {
-        this.selectedHallazgo = "9";
-    }
-
-    if (damage === "0")
-    {
-        this.selectedHallazgo = "10";
-    }
-
-    if (damage === "q")
-    {
-        this.selectedHallazgo = "11";
-    }
-
-    if (damage === "w")
-    {
-        this.selectedHallazgo = "12";
-    }
-
-    if (damage === "r")
-    {
-        this.selectedHallazgo = "13";
-    }
-
-    if (damage === "b")
-    {
-        this.selectedHallazgo = "14";
-    }
-
-    if (damage === "e")
-    {
-        this.selectedHallazgo = "15";
-    }
-
-    if (damage === "t")
-    {
-        this.selectedHallazgo = "16";
-    }
-
-    if (damage === "y")
-    {
-        this.selectedHallazgo = "17";
-    }
-
-    if (damage === "u")
-    {
-        this.selectedHallazgo = "18";
-    }
-
-    if (damage === "i")
-    {
-        this.selectedHallazgo = "19";
-    }
-
-    if (damage === "o")
-    {
-        this.selectedHallazgo = "20";
-    }
-
-    if (damage === "a") {
-
-        this.selectedHallazgo = "21";
-        this.settings.HIHGLIGHT_SPACES = true;
-        this.update();
-
-    }
-
-    if (damage === "s") {
-
-        this.selectedHallazgo = "22";
-        this.settings.HIHGLIGHT_SPACES = true;
-        this.update();
-
-    }
-
-    if (damage !== "d") {
-        if (damage !== "a" && damage !== "s")
-        {
-            this.settings.HIHGLIGHT_SPACES = false;
-            this.update();
-        }
-    }
-
-    if (damage === "z")
-    {
-        this.selectedHallazgo = "0";
-        this.reset();
-    }
-
-    if (damage === "m")
-    {
-        this.selectedHallazgo = "0";
-        this.save();
-    }
-
-    if (damage === "d") {
-
-        this.settings.DEBUG = !this.settings.DEBUG;
-
-        this.update();
-    }
-
-    if (damage === "j") {
-
-        if (this.selectedHallazgo === "23")
-        {
-            this.resetMultiSelect();
-            this.multiSelect = true;
-
-        } else {
-
-            this.selectedHallazgo = "23";
-            this.multiSelect = true;
-        }
-    }
-
-    if (damage === "k") {
-
-        if (this.selectedHallazgo === "25")
-        {
-            this.resetMultiSelect();
-            this.multiSelect = true;
-
-        } else {
-
-            this.selectedHallazgo = "25";
-            this.multiSelect = true;
-        }
-    }
-
-    if (damage === "l") {
-
-        if (this.selectedHallazgo === "30")
-        {
-            this.resetMultiSelect();
-            this.multiSelect = true;
-
-        } else {
-
-            this.selectedHallazgo = "30";
-            this.multiSelect = true;
-        }
-    }
+    this.selectedHallazgo = String(damage);
 
 };
 
