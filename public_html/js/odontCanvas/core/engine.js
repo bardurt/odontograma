@@ -52,11 +52,11 @@ function Engine()
     this.collisionHandler = new CollisionHandler();
 
     this.settings = new Settings();
-    
+
     this.constants = new Constants();
 
     // value of the selected damage which should be added or removed
-    this.selectedHallazgo = "0";
+    this.selectedHallazgo = 0;
 
     // x position of the mouse pointer
     this.cursorX = 0;
@@ -114,12 +114,12 @@ Engine.prototype.getYpos = function (event)
 Engine.prototype.init = function () {
 
     this.collisionHandler.setConstants(this.constants);
-    
+
     // set up the odontograma
     this.odontogramaGenerator.setEngine(this);
 
     this.odontogramaGenerator.setSettings(this.settings);
-    
+
     this.odontogramaGenerator.setConstants(this.constants);
 
     this.odontogramaGenerator.prepareOdontogramaAdult(this.odontAdult,
@@ -457,6 +457,12 @@ Engine.prototype.onMouseMove = function (event)
 
         for (var i = 0; i < this.mouth.length; i++) {
 
+            if(this.mouth[i].textBox.checkCollision(this.getXpos(event), this.getYpos(event))){
+                 this.mouth[i].textBox.touching = true;
+            } else {
+                this.mouth[i].textBox.touching = false;
+            }
+            
             if (this.mouth[i].checkCollision(this.getXpos(event),
                     this.getYpos(event)))
             {
@@ -519,12 +525,13 @@ Engine.prototype.reset = function ()
 
 /**
  * Method to get all the data from the engine
- * @returns {undefined}
+ * @returns {undefined} list of all the damages which exists in the odontograma
  */
 Engine.prototype.getData = function ()
 {
     var list = Array();
 
+    // Get data for all the spaces in the odontograma
     for (var i = 0; i < this.spaces.length; i++) {
 
         var t1 = this.spaces[i];
@@ -542,6 +549,7 @@ Engine.prototype.getData = function ()
 
     }
 
+    // get all data from the teeth in the odontograma
     for (var i = 0; i < this.mouth.length; i++) {
 
         var t1 = this.mouth[i];
@@ -557,6 +565,8 @@ Engine.prototype.getData = function ()
             list.push(d);
         }
 
+
+        // get data for the checkboxes (surfaces) for current tooth
         for (var j = 0; j < t1.checkBoxes.length; j++) {
 
             if (t1.checkBoxes[j].state !== 0) {
@@ -603,112 +613,112 @@ Engine.prototype.onButtonClick = function (event)
     console.log("key " + event.key);
 
     if (event.key !== "d") {
-        this.selectedHallazgo = "0";
+        this.selectedHallazgo = 0;
     }
 
     if (event.key === "1")
     {
-        this.selectedHallazgo = "1";
+        this.selectedHallazgo = 1;
     }
 
     if (event.key === "2")
     {
-        this.selectedHallazgo = "2";
+        this.selectedHallazgo = 2;
     }
 
     if (event.key === "3")
     {
-        this.selectedHallazgo = "3";
+        this.selectedHallazgo = 3;
     }
 
     if (event.key === "4")
     {
-        this.selectedHallazgo = "4";
+        this.selectedHallazgo = 4;
     }
 
     if (event.key === "5")
     {
-        this.selectedHallazgo = "5";
+        this.selectedHallazgo = 5;
     }
 
     if (event.key === "6")
     {
-        this.selectedHallazgo = "6";
+        this.selectedHallazgo = 6;
     }
 
     if (event.key === "7")
     {
-        this.selectedHallazgo = "7";
+        this.selectedHallazgo = 7;
     }
 
     if (event.key === "8")
     {
-        this.selectedHallazgo = "8";
+        this.selectedHallazgo = 8;
     }
 
     if (event.key === "9")
     {
-        this.selectedHallazgo = "9";
+        this.selectedHallazgo = 9;
     }
 
     if (event.key === "0")
     {
-        this.selectedHallazgo = "10";
+        this.selectedHallazgo = 10;
     }
 
     if (event.key === "q")
     {
-        this.selectedHallazgo = "11";
+        this.selectedHallazgo = 11;
     }
 
     if (event.key === "w")
     {
-        this.selectedHallazgo = "12";
+        this.selectedHallazgo = 12;
     }
 
     if (event.key === "r")
     {
-        this.selectedHallazgo = "13";
+        this.selectedHallazgo = 13;
     }
 
     if (event.key === "b")
     {
-        this.selectedHallazgo = "14";
+        this.selectedHallazgo = 14;
     }
 
     if (event.key === "e")
     {
-        this.selectedHallazgo = "15";
+        this.selectedHallazgo = 15;
     }
 
     if (event.key === "t")
     {
-        this.selectedHallazgo = "16";
+        this.selectedHallazgo = 16;
     }
 
     if (event.key === "y")
     {
-        this.selectedHallazgo = "17";
+        this.selectedHallazgo = 17;
     }
 
     if (event.key === "u")
     {
-        this.selectedHallazgo = "18";
+        this.selectedHallazgo = 18;
     }
 
     if (event.key === "i")
     {
-        this.selectedHallazgo = "19";
+        this.selectedHallazgo = 19;
     }
 
     if (event.key === "o")
     {
-        this.selectedHallazgo = "20";
+        this.selectedHallazgo = 20;
     }
 
     if (event.key === "a") {
 
-        this.selectedHallazgo = "21";
+        this.selectedHallazgo = 21;
         this.settings.HIHGLIGHT_SPACES = true;
         this.update();
 
@@ -716,7 +726,7 @@ Engine.prototype.onButtonClick = function (event)
 
     if (event.key === "s") {
 
-        this.selectedHallazgo = "22";
+        this.selectedHallazgo = 22;
         this.settings.HIHGLIGHT_SPACES = true;
         this.update();
 
@@ -730,20 +740,15 @@ Engine.prototype.onButtonClick = function (event)
         }
     }
 
-    if (event.key === "h")
-    {
-        this.selectedHallazgo = "0";
-    }
-
     if (event.key === "z")
     {
-        this.selectedHallazgo = "0";
+        this.selectedHallazgo = 0;
         this.reset();
     }
 
     if (event.key === "m")
     {
-        this.selectedHallazgo = "0";
+        this.selectedHallazgo = 0;
         this.save();
     }
 
@@ -756,42 +761,42 @@ Engine.prototype.onButtonClick = function (event)
 
     if (event.key === "j") {
 
-        if (this.selectedHallazgo === "23")
+        if (this.selectedHallazgo === 23)
         {
             this.resetMultiSelect();
             this.multiSelect = true;
 
         } else {
 
-            this.selectedHallazgo = "23";
+            this.selectedHallazgo = 23;
             this.multiSelect = true;
         }
     }
 
     if (event.key === "k") {
 
-        if (this.selectedHallazgo === "25")
+        if (this.selectedHallazgo === 25)
         {
             this.resetMultiSelect();
             this.multiSelect = true;
 
         } else {
 
-            this.selectedHallazgo = "25";
+            this.selectedHallazgo = 25;
             this.multiSelect = true;
         }
     }
 
-   if (event.key === "l") {
+    if (event.key === "l") {
 
-        if (this.selectedHallazgo === "28")
+        if (this.selectedHallazgo === 28)
         {
             this.resetMultiSelect();
             this.multiSelect = true;
 
         } else {
 
-            this.selectedHallazgo = "28";
+            this.selectedHallazgo = 28;
             this.multiSelect = true;
         }
     }
@@ -842,12 +847,20 @@ Engine.prototype.onButtonClick = function (event)
 
 Engine.prototype.setDamage = function (damage) {
 
+    var numb = damage.match(/\d/g);
+    numb = numb.join("");
+
     console.log("Setting damage " + damage);
 
-    this.selectedHallazgo = String(damage);
+    this.selectedHallazgo = parseInt(numb, 10) || 0;
 
 };
 
+/**
+ * Method to change odontograma view
+ * @param {type} which type of odontograma "0" = adult
+ * @returns {undefined}
+ */
 Engine.prototype.changeView = function (which)
 {
 
@@ -926,6 +939,9 @@ Engine.prototype.getSpaceById = function (id)
 
 };
 
+
+
+
 Engine.prototype.load = function (tooth, damage, surface) {
 
     if (surface === "0") {
@@ -936,7 +952,7 @@ Engine.prototype.load = function (tooth, damage, surface) {
         } else {
             // if the id is greater than 1000
             // then we have to find a space
-             this.collisionHandler.handleCollision(this.getSpaceById(tooth), damage);
+            this.collisionHandler.handleCollision(this.getSpaceById(tooth), damage);
         }
 
     } else {
@@ -948,6 +964,20 @@ Engine.prototype.load = function (tooth, damage, surface) {
 
         this.collisionHandler.handleCollisionCheckBox(surface, damage);
 
+    }
+
+};
+
+Engine.prototype.LoadData = function (dataArray) {
+
+    var res = dataArray.split(",");
+    
+    var i = 0;
+    while (i < res.length) {
+
+        this.load(Number(res[i]), Number(res[i + 1]), res[i + 2]);
+
+        i = i+3;
     }
 
 };

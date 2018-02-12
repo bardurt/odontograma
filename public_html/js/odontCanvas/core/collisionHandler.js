@@ -33,15 +33,14 @@ CollisionHandler.prototype.handleCollision = function (tooth, argument)
     
     console.log("Collision argument " + argument);
 
-    if (argument !== "") {
+    if (argument !== 0 && argument !== undefined && !isNaN(argument)) {
         console.log("Handle collision");
 
-        if (argument !== "13" && argument !== "14")
+        if (argument !== 13 && argument !== 14)
         {
             tooth.toggleDamage(argument);
         }
     }
-
 
 };
 
