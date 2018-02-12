@@ -1,12 +1,19 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2018 Bardur Thomsen <https://github.com/bardurt>.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
 
 
 function Constants()
 {
+    
+    // Damages for drawing
     this.CARIES = 1;
     this.CORONA_DEFINITIVA = 2;
     this.CORONA_TEMPORAL = 3;
@@ -36,7 +43,9 @@ function Constants()
     this.PROTESIS_FIJA_LEFT = 34;
     this.PROTESIS_FIJA_CENTER = 35;
     this.PROTESIS_FIJA_RIGHT = 36;
+
     
+    // Damages for writing
     this.DIENTE_DISCR0MICO = 50;
     this.DIENTE_ECTOPICO = 51;
     this.IMPACTACION = 52;
@@ -46,6 +55,12 @@ function Constants()
     this.SEMI_IMPACTACI0N = 56;
     this.SUPERFICIE_DESGASTADA = 57;
     
+    
+    /**
+     * Method to check if a damage is writable, is text only
+     * @param {type} arg id of the damage
+     * @returns {Boolean} true if this damage is only text, else false
+     */
     this.isWritable = function(arg){
         
         var match = false;
