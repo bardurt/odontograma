@@ -97,9 +97,9 @@ Tooth.prototype.setConstants = function (constants)
 
 /**
  * Method to check for collision
- * @param {type} eX 
- * @param {type} eY
- * @returns {unresolved}
+ * @param {type} eX x coordinates of event
+ * @param {type} eY y coordinates of event
+ * @returns boolean true if collision, else false
  */
 Tooth.prototype.checkCollision = function (eX, eY)
 {
@@ -430,97 +430,41 @@ Tooth.prototype.drawId = function (context)
 
 };
 
-Tooth.prototype.drawCheckBoxOutLine = function (checkBox, context, settings)
-{
-    context.beginPath();
-
-    context.rect(checkBox.x,
-            checkBox.y,
-            checkBox.width,
-            checkBox.height);
-
-    context.lineWidth = 1;
-    // set line color
-    context.strokeStyle = settings.COLOR_BLACK;
-    context.stroke();
-    context.restore();
-};
-
-Tooth.prototype.drawCheckBoxRed = function (checkBox, context, settings)
-{
-
-    context.beginPath();
-    context.fillStyle = settings.COLOR_RED;
-
-    context.fillRect(checkBox.x,
-            checkBox.y,
-            checkBox.width,
-            checkBox.height);
-
-    context.restore();
-
-    context.rect(checkBox.x,
-            checkBox.y,
-            checkBox.width,
-            checkBox.height);
-
-    context.lineWidth = 1;
-    // set line color
-    context.strokeStyle = settings.COLOR_BLACK;
-    context.stroke();
-    context.restore();
-};
-
-Tooth.prototype.drawCheckBoxBlue = function (checkBox, context, settings) {
-
-    context.beginPath();
-    context.fillStyle = settings.COLOR_BLUE;
-
-    context.fillRect(checkBox.x,
-            checkBox.y,
-            checkBox.width,
-            checkBox.height);
-
-    context.restore();
-
-    context.rect(checkBox.x,
-            checkBox.y,
-            checkBox.width,
-            checkBox.height);
-
-    context.lineWidth = 1;
-    // set line color
-    context.strokeStyle = settings.COLOR_BLACK;
-    context.stroke();
-    context.restore();
-};
-
-
+/**
+ * Method to draw the checkboxes for the tooth
+ * @param {type} context the canvas to draw on
+ * @param {type} settings global settings
+ * @returns {undefined}
+ */
 Tooth.prototype.drawCheckBoxes = function (context, settings)
 {
     for (var i = 0; i < this.checkBoxes.length; i++)
     {
+        
+        if (this.checkBoxes[i].state === 1) {
+            
+            this.checkBoxes[i].outline(context, "#000000");
+            this.checkBoxes[i].fillColor(context, settings.COLOR_RED);
 
-        if (this.checkBoxes[i].state === 1)
-        {
-            this.drawCheckBoxRed(this.checkBoxes[i], context, settings);
+        } else if (this.checkBoxes[i].state === 2) {
+            
+            this.checkBoxes[i].outline(context, "#000000");
+            this.checkBoxes[i].fillColor(context, settings.COLOR_BLUE);
 
-        } else if (this.checkBoxes[i].state === 2)
-        {
-            this.drawCheckBoxBlue(this.checkBoxes[i], context, settings);
-
-        } else
-        {
-            this.drawCheckBoxOutLine(this.checkBoxes[i], context, settings);
+        } else {
+            
+            this.checkBoxes[i].outline(context, "#000000");
+            
         }
 
     }
 };
 
 /**
- * Method to draw text box for the tooth
- * @param {type} context canvas to draw on
- * @returns {undefined}
+ * Method to draw a text box for the tooth
+ * @param {type} context the canvas to draw on
+ * @param {type} settings global settings
+ * @returns {undefined} void
  */
 Tooth.prototype.drawTextBox = function (context, settings)
 {
@@ -550,15 +494,23 @@ Tooth.prototype.onTouch = function (touch)
     this.rect.touching = touch;
 };
 
-
+/**
+ * Method to generate a damage for the tooth.
+ * @param {type} damageId the id of the damage to create
+ * @returns {Damage} damage which can be drawn
+ */
 Tooth.prototype.createDamage = function (damageId)
 {
+    // empty damage
     var damage;
-
+    
+    // attach damage in the proper position
+    // first check if the damage should be positioned on the checkboxes area
     if (damageId === this.constants.DIENTE_EN_CLAVIJA || damageId === this.constants.FUSION
             || damageId === this.constants.CORONA_DEFINITIVA || damageId === this.constants.CORONA_TEMPORAL) {
 
-
+        
+        // set the damage to proper position
         if (this.type === 0) {
             damage = new Damage(damageId,
                     this.rect.x,
@@ -576,7 +528,7 @@ Tooth.prototype.createDamage = function (damageId)
         }
 
     } else if (this.constants.isWritable(damageId)) {
-
+        // damage should be attached to the textBox area
         damage = new Damage(damageId,
                 this.textBox.rect.x,
                 this.textBox.rect.y,
@@ -585,7 +537,8 @@ Tooth.prototype.createDamage = function (damageId)
                 this.type);
 
     } else {
-
+            
+        // damage should be attached on the tooth
         damage = new Damage(damageId,
                 this.rect.x,
                 this.rect.y,
@@ -662,7 +615,7 @@ Tooth.prototype.toggleDamage = function (damageId) {
 Tooth.prototype.render = function (context, settings, constants)
 {
 
-    // check if this is a tooth of a space
+    // check if this is a tooth or a space
     if (this.tooth) {
 
         // draw the image of the tooth
@@ -678,22 +631,18 @@ Tooth.prototype.render = function (context, settings, constants)
             context.drawImage(this.image, dx, this.y);
         }
 
+        // id
         this.drawId(context);
 
+        // checkboxes
         this.drawCheckBoxes(context, settings);
-
-
-
-        if (this.highlight) {
-            this.rect.highlightWithColor(context, this.highlightColor, 0.3, );
-        }
 
     } else {
 
+        // highlight the spaces between the teeths
         if (settings.HIHGLIGHT_SPACES) {
 
             if (this.rect.touching) {
-
                 this.rect.highlightEllipse(context, "#00AEFF", 0.5, -10);
             } else {
                 this.rect.highlightEllipse(context, "#19B900", 0.2, 10);
@@ -707,15 +656,7 @@ Tooth.prototype.render = function (context, settings, constants)
     }
 
 
-    if (settings.DEBUG) {
-
-        if (this.tooth) {
-            this.rect.outline(context, "#000000");
-        } else {
-            this.rect.highlightEllipse(context, "#FFD100", 0.4, 2);
-        }
-    }
-
+    // highlight textboxes
     for (var i = 0; i < this.checkBoxes.length; i++)
     {
         if (this.checkBoxes[i].touching)
@@ -725,16 +666,28 @@ Tooth.prototype.render = function (context, settings, constants)
 
     }
 
+    // Draw textboxes
     if (this.tooth) {
         this.drawTextBox(context, settings);
+        
+    }
+    
+     // show area of tooth or space, only in DEBUG MODE
+    if (settings.DEBUG) {
+
+        if (this.tooth) {
+            this.rect.outline(context, "#000000");
+        } else {
+            this.rect.highlightEllipse(context, "#FFD100", 0.4, 2);
+        }
     }
 
 };
 
 /**
- * Method to retreive surface by the id
- * @param {type} id
- * @returns {Array}
+ * Method to get a surface (checkbox) by id
+ * @param {type} id the id of the textbox to find
+ * @returns returns a rect if found, else undefined
  */
 Tooth.prototype.getSurfaceById = function (id)
 {

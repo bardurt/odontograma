@@ -150,3 +150,27 @@ Rect.prototype.highlightEllipse = function (context, color, alpha, padding) {
     context.restore();
 
 };
+
+
+/**
+ * Method to fill rectangle with color
+ * @param {type} context the canvas to draw on
+ * @param {type} color the color of the ellipses
+ * @returns {undefined}
+ */
+Rect.prototype.fillColor = function (context, color) {
+
+    context.beginPath();
+    context.fillStyle = color;
+
+    context.fillRect(this.x,
+            this.y,
+            this.width,
+            this.height);
+
+    context.restore();
+
+    context.stroke();
+    context.restore();
+
+};

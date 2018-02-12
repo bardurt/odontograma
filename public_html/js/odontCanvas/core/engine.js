@@ -299,7 +299,7 @@ Engine.prototype.handleMultiSelection = function ()
                 this.mouth[i].toggleDamage(this.constants.ORTODONTICO_FIJO_CENTER, this.constants);
 
             }
-        } else if (this.selectedHallazgo === this.constants.PROTESIS_FIJA_RIGHT) {
+        } else if (this.selectedHallazgo === this.constants.PROTESIS_FIJA_LEFT) {
 
             this.mouth[start].toggleDamage(this.constants.PROTESIS_FIJA_RIGHT, this.constants);
             this.mouth[end].toggleDamage(this.constants.PROTESIS_FIJA_LEFT, this.constants);
