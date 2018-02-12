@@ -12,6 +12,7 @@ document.writeln("<script type='text/javascript' src='js/odontCanvas/core/consta
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/settings.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/rect.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/damage.js'></script>");
+document.writeln("<script type='text/javascript' src='js/odontCanvas/models/textBox.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/tooth.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/renderer.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/odontogramaGenerator.js'></script>");
@@ -66,6 +67,8 @@ function Engine()
 
     this.multiSelect = false;
     this.multiSelection = Array();
+    
+    var currentTextBox = null;
 
 }
 
@@ -339,6 +342,18 @@ Engine.prototype.addToMultiSelection = function (tooth)
 
 };
 
+Engine.prototype.onTextBoxClicked = function(textBox)
+{
+    
+    var text = prompt("MAX 3", "");
+
+    if(text.length < 4){
+        textBox.text = text.toUpperCase();
+    }
+    
+};
+
+
 /**
  * Event handler for when the mouse is clicked
  * @param {type} event mouse click event
@@ -354,6 +369,11 @@ Engine.prototype.onMouseClick = function (event)
         for (var i = 0; i < this.mouth.length; i++)
         {
             this.mouth[i].toggleSelected(false);
+
+            if(this.mouth[i].textBox.rect.checkCollision(this.getXpos(event), this.getYpos(event))){
+                this.onTextBoxClicked(this.mouth[i].textBox);
+            }
+
 
             // check collision for current tooth
             if (this.mouth[i].rect.checkCollision(
@@ -457,7 +477,7 @@ Engine.prototype.onMouseMove = function (event)
 
         for (var i = 0; i < this.mouth.length; i++) {
 
-            if(this.mouth[i].textBox.checkCollision(this.getXpos(event), this.getYpos(event))){
+            if(this.mouth[i].textBox.rect.checkCollision(this.getXpos(event), this.getYpos(event))){
                  this.mouth[i].textBox.touching = true;
             } else {
                 this.mouth[i].textBox.touching = false;
@@ -508,6 +528,8 @@ Engine.prototype.reset = function ()
     for (var i = 0; i < this.mouth.length; i++)
     {
         this.mouth[i].damages.length = 0;
+        
+        this.mouth[i].textBox.text = "";
 
         for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
         {
@@ -715,6 +737,38 @@ Engine.prototype.onButtonClick = function (event)
     {
         this.selectedHallazgo = 20;
     }
+    
+    if(event.key === "x"){
+        this.selectedHallazgo = 50;
+    }
+    
+    if(event.key === "c"){
+        this.selectedHallazgo = 52;
+    }
+    
+    if(event.key === ","){
+        this.selectedHallazgo = 51;
+    }
+    
+    if(event.key === "."){
+        this.selectedHallazgo = 53;
+    }
+    
+    if(event.key === "-"){
+        this.selectedHallazgo = 54;
+    }
+    
+    if(event.key === "'"){
+        this.selectedHallazgo = 55;
+    }
+    
+    if(event.key === "+"){
+        this.selectedHallazgo = 56;
+    }
+    
+    if(event.key === "/"){
+        this.selectedHallazgo = 57;
+    }
 
     if (event.key === "a") {
 
@@ -847,13 +901,50 @@ Engine.prototype.onButtonClick = function (event)
 
 Engine.prototype.setDamage = function (damage) {
 
-    var numb = damage.match(/\d/g);
-    numb = numb.join("");
+    this.multiSelect = false;
+    this.multiSelection.length = 0;
 
-    console.log("Setting damage " + damage);
+    console.log("Engine setting damage: " + damage);
 
-    this.selectedHallazgo = parseInt(numb, 10) || 0;
+    this.selectedHallazgo = parseInt(damage, 10) || 0;
 
+
+    if (this.selectedHallazgo === this.constants.TRANSPOSICION_LEFT) {
+        this.multiSelect = true;
+        this.multiSelection.length = 0;
+
+    }
+
+    if (this.selectedHallazgo === this.constants.ORTODONTICO_FIJO_END) {
+        this.multiSelect = true;
+        this.multiSelection.length = 0;
+    }
+
+    if (this.selectedHallazgo === this.constants.PROTESIS_FIJA_LEFT) {
+        this.multiSelect = true;
+        this.multiSelection.length = 0;
+    }
+
+    if (this.selectedHallazgo === this.constants.SUPER_NUMERARIO) {
+
+        this.settings.HIHGLIGHT_SPACES = true;
+        this.update();
+
+    }
+
+    if (this.selectedHallazgo === this.constants.DIASTEMA) {
+
+        this.settings.HIHGLIGHT_SPACES = true;
+        this.update();
+
+    }
+
+    if (this.selectedHallazgo !== this.constants.DIASTEMA &&
+        this.selectedHallazgo !== this.constants.SUPER_NUMERARIO) {
+
+        this.settings.HIHGLIGHT_SPACES = false;
+        this.update();
+    }
 };
 
 /**

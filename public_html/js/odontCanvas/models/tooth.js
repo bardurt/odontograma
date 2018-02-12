@@ -26,7 +26,7 @@ function Tooth()
     this.damages = Array();
     this.checkBoxes = Array();
     this.rect = new Rect();
-    this.textBox = new Rect();
+    this.textBox = new TextBox();
     this.spacer = 20; // spacer to seperate tooth from surfaces
     this.touching = false;
     this.address = 0;
@@ -59,10 +59,7 @@ Tooth.prototype.setDimens = function (x, y, width, height)
 
     this.normalY = y;
 
-    this.textBox.x = x;
-    this.textBox.y = y;
-    this.textBox.width = width;
-    this.textBox.height = 20;
+    this.textBox.setDimens(x, y, width, 20);
 
 };
 
@@ -78,12 +75,12 @@ Tooth.prototype.setType = function (type)
     if (type === 0) {
         this.highY = this.y - 10;
 
-        this.textBox.y = this.y - 40;
+        this.textBox.rect.y = this.y - 40;
 
     } else {
         this.highY = this.y + 10;
 
-        this.textBox.y = this.rect.y + this.rect.height + 20;
+        this.textBox.rect.y = this.rect.y + this.rect.height + 20;
     }
 
 };
@@ -525,13 +522,13 @@ Tooth.prototype.drawCheckBoxes = function (context, settings)
  * @param {type} context canvas to draw on
  * @returns {undefined}
  */
-Tooth.prototype.drawTextBox = function (context)
+Tooth.prototype.drawTextBox = function (context, settings)
 {
     if (this.textBox.touching) {
-        this.textBox.highlightWithColor(context, "#36BE1B", 0.6);
-    } 
-    
-    this.textBox.outline(context, "#000000");
+        this.textBox.rect.highlightWithColor(context, "#36BE1B", 0.6);
+    }
+
+    this.textBox.render(context, settings.COLOR_BLUE);
 
 };
 
@@ -577,6 +574,15 @@ Tooth.prototype.createDamage = function (damageId)
                     60,
                     this.type);
         }
+
+    } else if (this.constants.isWritable(damageId)) {
+
+        damage = new Damage(damageId,
+                this.textBox.rect.x,
+                this.textBox.rect.y,
+                this.textBox.rect.width,
+                this.textBox.rect.height,
+                this.type);
 
     } else {
 
@@ -676,7 +682,7 @@ Tooth.prototype.render = function (context, settings, constants)
 
         this.drawCheckBoxes(context, settings);
 
-        this.drawTextBox(context);
+
 
         if (this.highlight) {
             this.rect.highlightWithColor(context, this.highlightColor, 0.3, );
@@ -700,6 +706,7 @@ Tooth.prototype.render = function (context, settings, constants)
         this.damages[i].render(context, settings, constants);
     }
 
+
     if (settings.DEBUG) {
 
         if (this.tooth) {
@@ -716,6 +723,10 @@ Tooth.prototype.render = function (context, settings, constants)
             this.checkBoxes[i].highlightWithColor(context, "#36BE1B", 0.6);
         }
 
+    }
+
+    if (this.tooth) {
+        this.drawTextBox(context, settings);
     }
 
 };
