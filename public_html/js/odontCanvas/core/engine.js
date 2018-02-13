@@ -503,7 +503,7 @@ Engine.prototype.mouseClickTeeth = function (event)
 Engine.prototype.onMouseClick = function (event)
 {
     // check what is in foreground
-    if (!this.settings.HIHGLIGHT_SPACES) {
+    if (this.settings.HIHGLIGHT_SPACES) {
 
         this.mouseClickSpaces(event);
         
