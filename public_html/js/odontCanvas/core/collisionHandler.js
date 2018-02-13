@@ -18,6 +18,11 @@ function CollisionHandler()
     this.constants = null;
 }
 
+/**
+ * Method to set reference to global constants
+ * @param {type} constants
+ * @returns {undefined}
+ */
 CollisionHandler.prototype.setConstants = function(constants)
 {
     this.constants = constants;

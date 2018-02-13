@@ -9,8 +9,11 @@
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
 
-var TYPE_UPPER = 0;
-var TYPE_LOWER = 1;
+// -----------------
+// Upper mouth = 0
+// Lower mouth = 1;
+// -----------------
+
 
 /**
  * Base class for tooth

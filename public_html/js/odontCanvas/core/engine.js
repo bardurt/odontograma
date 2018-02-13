@@ -8,6 +8,7 @@
  * Contributors:
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
+
 document.writeln("<script type='text/javascript' src='js/odontCanvas/util/constants.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/util/settings.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/rect.js'></script>");

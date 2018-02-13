@@ -12,7 +12,6 @@
 
 function Constants()
 {
-    
     // Damages for drawing
     this.CARIES = 1;
     this.CORONA_DEFINITIVA = 2;

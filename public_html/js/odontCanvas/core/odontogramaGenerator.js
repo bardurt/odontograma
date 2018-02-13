@@ -77,7 +77,7 @@ OdontogramaGenerator.prototype.updateLoad = function () {
  * @param {type} odontograma array which holds all 32 teeth
  * @param {type} spaces array to hold all the spaces between teeths
  * @param {type} canvas the canvas where the odontograma will be drawn
- * @returns {undefined}
+ * @returns {void}
  */
 OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
         spaces, canvas) {
@@ -373,7 +373,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
  * @param {type} odontograma container for the odontograma, teeths
  * @param {type} spaces container for the spaces between teeth
  * @param {type} canvas the canvas where the odontograma will be drawn on
- * @returns {undefined}
+ * @returns {void}
  */
 OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, spaces, canvas) {
 
