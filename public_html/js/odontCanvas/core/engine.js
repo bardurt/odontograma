@@ -344,8 +344,9 @@ Engine.prototype.addToMultiSelection = function (tooth)
 
 Engine.prototype.onTextBoxClicked = function(textBox)
 {
+    var message = "Escribe C\u00F3digo Dental. Max. 3 letras.";
     
-    var text = prompt("MAX 3", "");
+    var text = prompt(message, "");
 
     if(text.length < 4){
         textBox.text = text.toUpperCase();
@@ -617,7 +618,10 @@ Engine.prototype.save = function ()
 
     // save image as png
     var link = document.createElement('a');
-    link.download = "test.png";
+    
+    var name = Date.now() + ".png";
+    
+    link.download = name;
     link.href = this.canvas.toDataURL("image/png")
             .replace("image/png", "image/octet-stream");
 
