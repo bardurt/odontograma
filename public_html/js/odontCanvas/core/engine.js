@@ -566,6 +566,7 @@ Engine.prototype.getData = function ()
             d.tooth = t1.id;
             d.damage = t1.damages[j].id;
             d.surface = "0";
+            d.note = "";
 
             list.push(d);
         }
@@ -576,7 +577,22 @@ Engine.prototype.getData = function ()
     for (var i = 0; i < this.mouth.length; i++) {
 
         var t1 = this.mouth[i];
+        
+        // get the notes from the text boxes
+        if(t1.textBox.text !== ""){
+            
+            var d = new Object();
 
+            d.tooth = t1.id;
+            d.damage = "";
+            d.surface = "";
+            d.note = t1.textBox.text;
+
+            list.push(d);
+            
+        }
+        
+        // get the damages registered for the tooth
         for (var j = 0; j < t1.damages.length; j++) {
 
             var d = new Object();
@@ -584,11 +600,12 @@ Engine.prototype.getData = function ()
             d.tooth = t1.id;
             d.damage = "" + t1.damages[j].id;
             d.surface = "0";
+            d.note = "";
 
             list.push(d);
         }
 
-
+        
         // get data for the checkboxes (surfaces) for current tooth
         for (var j = 0; j < t1.checkBoxes.length; j++) {
 
@@ -599,7 +616,8 @@ Engine.prototype.getData = function ()
                 d.tooth = t1.id;
                 d.damage = t1.checkBoxes[j].state;
                 d.surface = t1.checkBoxes[j].id;
-
+                d.note = "";
+                
                 list.push(d);
             }
         }
@@ -897,7 +915,8 @@ Engine.prototype.onButtonClick = function (event)
 
         for (var i = 0; i < data.length; i++) {
 
-            console.log("Data[" + i + "]: " + data[i].tooth + ", " + data[i].damage + ", " + data[i].surface);
+            console.log("Data[" + i + "]: " + data[i].tooth + ", " + data[i].damage + ", " + data[i].surface +
+                    ", " + data[i].note);
 
         }
     }

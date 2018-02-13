@@ -112,6 +112,7 @@ Rect.prototype.highlightWithColor = function (context, color, alpha) {
 Rect.prototype.outline = function (context, color) {
 
     context.beginPath();
+    context.globalAlpha = 1;
     context.strokeStyle = color;
     context.rect(this.x, this.y, this.width, this.height);
     context.stroke();
