@@ -678,7 +678,7 @@ Damage.prototype.drawDiastema = function (context, settings)
 
         context.arc(this.rect.x + this.rect.width / 2 + 15,
                 this.rect.y + this.rect.height / 2 + this.rect.height / 4,
-                15,
+                13,
                 Math.PI * 0.5, // 90 degress
                 Math.PI * 1.5, // 270 degrees
                 false);
@@ -689,7 +689,7 @@ Damage.prototype.drawDiastema = function (context, settings)
 
         context.arc(this.rect.x + this.rect.width / 2 - 15,
                 this.rect.y + this.rect.height / 2 + this.rect.height / 4,
-                15,
+                13,
                 Math.PI * 0.5, // 90 degress
                 Math.PI * 1.5, // 270 degrees
                 true);
@@ -706,7 +706,7 @@ Damage.prototype.drawDiastema = function (context, settings)
 
         context.arc(this.rect.x + this.rect.width / 2 + 15,
                 this.rect.y + this.rect.height / 4,
-                15,
+                13,
                 Math.PI * 0.5, // 90 degress
                 Math.PI * 1.5, // 270 degrees
                 false);
@@ -717,7 +717,7 @@ Damage.prototype.drawDiastema = function (context, settings)
 
         context.arc(this.rect.x + this.rect.width / 2 - 15,
                 this.rect.y + this.rect.height / 4,
-                15,
+                13,
                 Math.PI * 0.5, // 90 degress
                 Math.PI * 1.5, // 270 degrees
                 true);

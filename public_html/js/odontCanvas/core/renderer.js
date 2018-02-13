@@ -74,7 +74,7 @@ Renderer.prototype.clear = function(settings)
     
     // clear
     if(settings.DEBUG){
-        this.context.fillStyle ="#ffff31";
+        this.context.fillStyle ="#e6fff3";
     } else{
         this.context.fillStyle ="#ffffff";
     }

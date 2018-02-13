@@ -802,7 +802,7 @@ Engine.prototype.onButtonClick = function (event)
 
     if (event.key === "s") {
 
-        this.selectedHallazgo = 22;
+        this.selectedHallazgo = this.constants.DIASTEMA;
         this.settings.HIHGLIGHT_SPACES = true;
         this.update();
 
@@ -906,7 +906,6 @@ Engine.prototype.onButtonClick = function (event)
         this.update();
 
     }
-
 
     if (event.key === "v") {
         var data = this.getData();
