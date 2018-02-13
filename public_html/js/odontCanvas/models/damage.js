@@ -1250,6 +1250,7 @@ Damage.prototype.drawSuperficieDesgastada = function (context, settings)
                      this.rect.y + this.rect.height - 2);
 
     context.restore();
+    
 
 };
 

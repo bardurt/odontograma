@@ -18,8 +18,8 @@ function CollisionHandler()
     this.constants = null;
 }
 
-CollisionHandler.prototype.setConstants = function(constants){
-    
+CollisionHandler.prototype.setConstants = function(constants)
+{
     this.constants = constants;
 };
 

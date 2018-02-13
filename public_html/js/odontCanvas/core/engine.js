@@ -114,7 +114,7 @@ Engine.prototype.getYpos = function (event)
  * Method to prepare the engine
  * @returns {undefined}
  */
-Engine.prototype.init = function () 
+Engine.prototype.init = function ()
 {
 
     this.collisionHandler.setConstants(this.constants);
@@ -134,7 +134,7 @@ Engine.prototype.init = function ()
 
 
     this.mouth = this.odontAdult;
-    
+
     this.spaces = this.odontSpacesAdult;
 };
 
@@ -146,10 +146,10 @@ Engine.prototype.update = function ()
 {
     // reset the canvas
     this.renderer.clear(this.settings);
-    
+
     // render the teeth
     this.renderer.render(this.mouth, this.settings, this.constants);
-    
+
     // render spaces
     this.renderer.render(this.spaces, this.settings, this.constants);
 
@@ -192,7 +192,7 @@ Engine.prototype.highlightMultiSelection = function (tooth)
                 this.mouth[i].highlightColor = this.settings.COLOR_HIGHLIGHT;
             }
 
-            
+
             var tooth1 = this.multiSelection[0];
 
             // check if these teeth are same types
@@ -306,7 +306,7 @@ Engine.prototype.handleMultiSelection = function ()
         var index1 = this.getIndexForTooth(this.multiSelection[0]);
         var index2 = this.getIndexForTooth(this.multiSelection[1]);
 
-        
+
         var start = Math.min(index1, index2);
         var end = Math.max(index1, index2);
 
@@ -315,48 +315,52 @@ Engine.prototype.handleMultiSelection = function ()
         if (this.selectedHallazgo === this.constants.ORTODONTICO_FIJO_END) {
 
             this.mouth[start].toggleDamage(this.constants.ORTODONTICO_FIJO_END,
-                                           this.constants);
-            
-            this.mouth[end].toggleDamage(this.constants.ORTODONTICO_FIJO_END, 
-                                         this.constants);
+                    this.constants);
+
+            this.mouth[end].toggleDamage(this.constants.ORTODONTICO_FIJO_END,
+                    this.constants);
 
             for (var i = start + 1; i <= end - 1; i++) {
 
-                this.mouth[i].toggleDamage(this.constants.ORTODONTICO_FIJO_CENTER, 
-                                           this.constants);
+                this.mouth[i].toggleDamage(this.constants.ORTODONTICO_FIJO_CENTER,
+                        this.constants);
 
             }
-            
+
         } else if (this.selectedHallazgo === this.constants.PROTESIS_FIJA_LEFT) {
 
-            this.mouth[start].toggleDamage(this.constants.PROTESIS_FIJA_RIGHT, 
-                                           this.constants);
-                                           
-            this.mouth[end].toggleDamage(this.constants.PROTESIS_FIJA_LEFT, 
-                                         this.constants);
+            this.mouth[start].toggleDamage(this.constants.PROTESIS_FIJA_RIGHT,
+                    this.constants);
+
+            this.mouth[end].toggleDamage(this.constants.PROTESIS_FIJA_LEFT,
+                    this.constants);
 
             for (var i = start + 1; i <= end - 1; i++) {
 
                 this.mouth[i].toggleDamage(this.constants.PROTESIS_FIJA_CENTER,
-                                           this.constants);
+                        this.constants);
 
             }
 
         } else if (this.selectedHallazgo === this.constants.TRANSPOSICION_LEFT) {
 
             if (end - start === 1) {
-                
-                this.mouth[start].toggleDamage(this.constants.TRANSPOSICION_LEFT, 
-                                               this.constants);
-                                               
+
+                this.mouth[start].toggleDamage(this.constants.TRANSPOSICION_LEFT,
+                        this.constants);
+
                 this.mouth[end].toggleDamage(this.constants.TRANSPOSICION_RIGHT,
-                                             this.constants);
+                        this.constants);
             }
 
         }
 
         // reset multiselection when multiselect is finished
-        this.resetMultiSelect();
+        this.multiSelection.length = 0;
+
+        this.removeHighlight();
+
+        this.update();
     }
 
 };
@@ -436,15 +440,15 @@ Engine.prototype.mouseClickSpaces = function (event) {
 Engine.prototype.mouseClickTeeth = function (event)
 {
     var shouldUpdate = false;
-    
+
     // loop through all teeth
     for (var i = 0; i < this.mouth.length; i++)
     {
 
         // check if there is a collision with the textBox
-        if (this.mouth[i].textBox.rect.checkCollision(this.getXpos(event), 
-            this.getYpos(event))) {
-                
+        if (this.mouth[i].textBox.rect.checkCollision(this.getXpos(event),
+                this.getYpos(event))) {
+
             this.onTextBoxClicked(this.mouth[i].textBox);
         }
 
@@ -461,7 +465,7 @@ Engine.prototype.mouseClickTeeth = function (event)
                 this.addToMultiSelection(this.mouth[i]);
 
             } else {
-                
+
                 // handle collision with tooth
                 this.collisionHandler.handleCollision(
                         this.mouth[i],
@@ -472,12 +476,12 @@ Engine.prototype.mouseClickTeeth = function (event)
         }
 
         // check if there is a collision with one of the tooth surfaces
-        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++){
-            
+        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++) {
+
             if (this.mouth[i].checkBoxes[j].checkCollision(
                     this.getXpos(event),
                     this.getYpos(event))) {
-                        
+
                 // handle collision with surface    
                 this.collisionHandler.handleCollisionCheckBox(
                         this.mouth[i].checkBoxes[j],
@@ -487,7 +491,7 @@ Engine.prototype.mouseClickTeeth = function (event)
             }
         }
     }
-    
+
     // only update if something new has occurred
     if (shouldUpdate) {
         this.update();
@@ -506,9 +510,9 @@ Engine.prototype.onMouseClick = function (event)
     if (this.settings.HIHGLIGHT_SPACES) {
 
         this.mouseClickSpaces(event);
-        
+
     } else {
-        
+
         this.mouseClickTeeth(event);
 
     }
@@ -944,8 +948,9 @@ Engine.prototype.onButtonClick = function (event)
         this.save();
     }
 
-    if (event.key === "d") {
 
+    // key combination Ctrl + Q to activate debug mode
+    if ((event.which === 81 || event.keyCode === 81) && event.ctrlKey) {
         this.settings.DEBUG = !this.settings.DEBUG;
 
         this.update();

@@ -46,14 +46,14 @@ function Constants()
 
     
     // Damages for writing
-    this.DIENTE_DISCR0MICO = 50;
-    this.DIENTE_ECTOPICO = 51;
-    this.IMPACTACION = 52;
-    this.IMPLANTE = 53;
-    this.MACRODONCIA = 54;
-    this.MICRODONCIA = 55;
-    this.SEMI_IMPACTACI0N = 56;
-    this.SUPERFICIE_DESGASTADA = 57;
+    this.IMPLANTE = 6;
+    this.MACRODONCIA = 17;
+    this.MICRODONCIA = 18;
+    this.IMPACTACION = 19;
+    this.DIENTE_ECTOPICO = 21;
+    this.DIENTE_DISCR0MICO = 22;
+    this.SUPERFICIE_DESGASTADA = 37;
+    this.SEMI_IMPACTACI0N = 38;
     
     
     /**
