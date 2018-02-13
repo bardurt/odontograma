@@ -13,12 +13,11 @@
  * Class which represents a simple textbox 
  */
 
-function TextBox() {
-
+function TextBox() 
+{
     this.text = "";
     this.rect = new Rect();
     this.touching = false;
-
 }
 
 /**
@@ -29,7 +28,8 @@ function TextBox() {
  * @param {type} height of rectangle
  * @returns {undefined}
  */
-TextBox.prototype.setDimens = function (x, y, width, height) {
+TextBox.prototype.setDimens = function (x, y, width, height)
+{
 
     this.rect.x = x;
     this.rect.y = y;
@@ -43,7 +43,8 @@ TextBox.prototype.setDimens = function (x, y, width, height) {
  * @param {type} text string to draw
  * @returns {undefined}
  */
-TextBox.prototype.setText = function (text) {
+TextBox.prototype.setText = function (text) 
+{
 
     this.text = text;
 };
@@ -54,7 +55,8 @@ TextBox.prototype.setText = function (text) {
  * @param {type} color the color of the text
  * @returns {undefined}
  */
-TextBox.prototype.render = function (context, color) {
+TextBox.prototype.render = function (context, color) 
+{
 
     context.beginPath();
 

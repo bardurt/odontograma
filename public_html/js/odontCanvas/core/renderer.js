@@ -34,7 +34,8 @@ Renderer.prototype.load = function()
  * Method to render a splash screen
  * @returns {undefined}
  */
-Renderer.prototype.drawSplash = function(){
+Renderer.prototype.drawSplash = function()
+{
     
     this.context.fillStyle ="#ffffff";
     this.context.fillRect(0, 0, this.width, this.height);
@@ -54,7 +55,8 @@ Renderer.prototype.drawSplash = function(){
  * @param {type} canvas the canvas to draw on
  * @returns {undefined}
  */
-Renderer.prototype.init = function(canvas) {
+Renderer.prototype.init = function(canvas) 
+{
     this.context = canvas.getContext('2d');
     this.width = canvas.width;
     this.height = canvas.height;
@@ -72,10 +74,10 @@ Renderer.prototype.init = function(canvas) {
 Renderer.prototype.clear = function(settings)
 {
     
-    // clear
-    if(settings.DEBUG){
+    // clear the canvas
+    if(settings.DEBUG) {
         this.context.fillStyle ="#e6fff3";
-    } else{
+    } else {
         this.context.fillStyle ="#ffffff";
     }
     
@@ -87,8 +89,9 @@ Renderer.prototype.clear = function(settings)
 
 /**
  * Method to render odontograma
- * @param {type} data data frm for odontograma
+ * @param {type} data list of teeth for odontograma
  * @param {type} settings for the canvas
+ * @param {type} constants which are used for the engine
  * @returns {undefined}
  */
 Renderer.prototype.render = function(data, settings, constants)

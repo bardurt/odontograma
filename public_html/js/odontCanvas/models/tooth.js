@@ -400,18 +400,25 @@ Tooth.prototype.drawId = function (context)
     if (this.type === 0)
     {
         // draw id
-        context.fillText("" + this.id, this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height + space + 10);
+        context.fillText("" + this.id, this.rect.x + this.rect.width / 2, 
+                         this.rect.y + this.rect.height + space + 10);
 
         // draw id border
         context.moveTo(this.rect.x, this.rect.y + this.rect.height + space + 20);
-        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height + space + 20);
+        
+        context.lineTo(this.rect.x + this.rect.width, 
+                       this.rect.y + this.rect.height + space + 20);
 
-        context.moveTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height + space + 20);
-        context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height + space);
+        context.moveTo(this.rect.x + this.rect.width, 
+                       this.rect.y + this.rect.height + space + 20);
+                       
+        context.lineTo(this.rect.x + this.rect.width, 
+                       this.rect.y + this.rect.height + space);
     } else
     {
         // draw id
-        context.fillText("" + this.id, this.rect.x + this.rect.width / 2, this.rect.y - space - 5);
+        context.fillText("" + this.id, this.rect.x + this.rect.width / 2,
+                         this.rect.y - space - 5);
 
         // draw id border
         context.moveTo(this.rect.x, this.rect.y - space - 20);
@@ -507,8 +514,10 @@ Tooth.prototype.createDamage = function (damageId)
     
     // attach damage in the proper position
     // first check if the damage should be positioned on the checkboxes area
-    if (damageId === this.constants.DIENTE_EN_CLAVIJA || damageId === this.constants.FUSION
-            || damageId === this.constants.CORONA_DEFINITIVA || damageId === this.constants.CORONA_TEMPORAL) {
+    if (damageId === this.constants.DIENTE_EN_CLAVIJA || 
+        damageId === this.constants.FUSION ||
+        damageId === this.constants.CORONA_DEFINITIVA ||
+        damageId === this.constants.CORONA_TEMPORAL) {
 
         
         // set the damage to proper position

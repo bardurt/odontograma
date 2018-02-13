@@ -25,15 +25,18 @@ function Rect()
 
 }
 
-Rect.prototype.cavity = function () {
+Rect.prototype.cavity = function () 
+{
     this.state = 1;
 };
 
-Rect.prototype.restoration = function () {
+Rect.prototype.restoration = function ()
+{
     this.state = 2;
 };
 
-Rect.prototype.uncheck = function () {
+Rect.prototype.uncheck = function () 
+{
     this.state = 0;
 };
 
@@ -43,8 +46,8 @@ Rect.prototype.uncheck = function () {
  * @param {type} cursY y coordinate of point
  * @returns {Boolean} true if collision, false else
  */
-Rect.prototype.checkCollision = function (cursX, cursY) {
-
+Rect.prototype.checkCollision = function (cursX, cursY) 
+{
     var collision = false;
 
     if (cursX > this.x) {
@@ -69,7 +72,8 @@ Rect.prototype.checkCollision = function (cursX, cursY) {
  * @param {type} settings global highlight color of checkbox
  * @returns {undefined}
  */
-Rect.prototype.highlight = function (context, settings) {
+Rect.prototype.highlight = function (context, settings) 
+{
 
     context.beginPath();
     context.globalAlpha = 0.4;
@@ -89,7 +93,8 @@ Rect.prototype.highlight = function (context, settings) {
  * @param {type} alpha alpha valu of the color
  * @returns {undefined}
  */
-Rect.prototype.highlightWithColor = function (context, color, alpha) {
+Rect.prototype.highlightWithColor = function (context, color, alpha)
+{
 
     context.beginPath();
     context.globalAlpha = alpha;
@@ -102,14 +107,14 @@ Rect.prototype.highlightWithColor = function (context, color, alpha) {
 
 };
 
-
 /**
  * Method to outline the rectangle with a specific color
  * @param {type} context canvas to draw on
  * @param {type} color the color for the outline
  * @returns {undefined}
  */
-Rect.prototype.outline = function (context, color) {
+Rect.prototype.outline = function (context, color)
+{
 
     context.beginPath();
     context.globalAlpha = 1;
@@ -128,7 +133,8 @@ Rect.prototype.outline = function (context, color) {
  * @param {type} padding padding for the ellipses default is 0;
  * @returns {undefined}
  */
-Rect.prototype.highlightEllipse = function (context, color, alpha, padding) {
+Rect.prototype.highlightEllipse = function (context, color, alpha, padding)
+{
 
     if(padding === undefined){
         padding = 0;
@@ -159,7 +165,8 @@ Rect.prototype.highlightEllipse = function (context, color, alpha, padding) {
  * @param {type} color the color of the ellipses
  * @returns {undefined}
  */
-Rect.prototype.fillColor = function (context, color) {
+Rect.prototype.fillColor = function (context, color) 
+{
 
     context.beginPath();
     context.fillStyle = color;

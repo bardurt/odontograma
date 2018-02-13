@@ -114,7 +114,8 @@ Engine.prototype.getYpos = function (event)
  * Method to prepare the engine
  * @returns {undefined}
  */
-Engine.prototype.init = function () {
+Engine.prototype.init = function () 
+{
 
     this.collisionHandler.setConstants(this.constants);
 
@@ -133,6 +134,7 @@ Engine.prototype.init = function () {
 
 
     this.mouth = this.odontAdult;
+    
     this.spaces = this.odontSpacesAdult;
 };
 
@@ -394,7 +396,12 @@ Engine.prototype.onTextBoxClicked = function (textBox)
 
 };
 
-
+/**
+ * Method to handle mouse click event, when the spaces between the teeth 
+ * are in the forground.
+ * @param {type} event mouse click event
+ * @returns {void}
+ */
 Engine.prototype.mouseClickSpaces = function (event) {
 
     var shouldUpdate = false;
@@ -421,6 +428,11 @@ Engine.prototype.mouseClickSpaces = function (event) {
 
 };
 
+/**
+ * Method to handle mouse click event when the teeth are in the foreground
+ * @param {type} event mouse click event
+ * @returns {void}
+ */
 Engine.prototype.mouseClickTeeth = function (event)
 {
     var shouldUpdate = false;
