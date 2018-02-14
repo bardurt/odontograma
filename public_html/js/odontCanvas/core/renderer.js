@@ -47,6 +47,7 @@ Renderer.prototype.drawSplash = function()
     this.context.fillText("OdontoGraph 1.0.0", this.width/2, this.height/2 -16);
     this.context.font = "18px Arial Bold";
     this.context.fillStyle = "#000000";
+    
     this.context.fillText("Bardur Thomsen - 2018", this.width/2, this.height/2 + 40);
 };
 

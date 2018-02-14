@@ -1191,18 +1191,29 @@ Engine.prototype.getSpaceById = function (id)
 };
 
 
-Engine.prototype.load = function (tooth, damage, surface) {
+Engine.prototype.load = function (tooth, damage, surface, note) {
 
     if (surface === "0") {
 
         // if id is less than 1000 then we have to find a tooth
         if (tooth < 1000) {
-            this.collisionHandler.handleCollision(this.getToothById(tooth), damage);
+            
+            
+            var t = this.getToothById(tooth);
+            
+            this.collisionHandler.handleCollision(t, damage);
+            
+            if(note !== ""){
+                t.textBox.text = note;
+            }
+            
         } else {
             // if the id is greater than 1000
             // then we have to find a space
             this.collisionHandler.handleCollision(this.getSpaceById(tooth), damage);
         }
+        
+        
 
     } else {
 
@@ -1225,9 +1236,9 @@ Engine.prototype.LoadData = function (dataArray) {
     var i = 0;
     while (i < res.length) {
 
-        this.load(Number(res[i]), Number(res[i + 1]), res[i + 2]);
+        this.load(Number(res[i]), Number(res[i + 1]), res[i + 2], res[i + 3]);
 
-        i = i + 3;
+        i = i + 4;
     }
 
 };
