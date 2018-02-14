@@ -182,6 +182,7 @@ Engine.prototype.removeHighlight = function ()
  */
 Engine.prototype.highlightMultiSelection = function (tooth)
 {
+    console.log("Highlighting multiselection");
     try {
 
         // only highlight if we the selection is at least 1
@@ -192,7 +193,6 @@ Engine.prototype.highlightMultiSelection = function (tooth)
                 this.mouth[i].highlight = false;
                 this.mouth[i].highlightColor = this.settings.COLOR_HIGHLIGHT;
             }
-
 
             var tooth1 = this.multiSelection[0];
 
