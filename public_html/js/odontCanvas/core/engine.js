@@ -268,11 +268,10 @@ Engine.prototype.resetMultiSelect = function () {
     this.update();
 };
 
-
 /**
  * Method to get the index for a tooth
  * @param {type} tooth the tooth to find the index of
- * @returns {Number} index of the tooth
+ * @returns {Number} index of the tooth, -1 if not found
  */
 Engine.prototype.getIndexForTooth = function (tooth) {
     "use strict";
@@ -323,6 +322,7 @@ Engine.prototype.handleMultiSelection = function () {
             valid = false;
         }
         
+        // only toggle damages if everyhting is okey
         if (valid) {
 
             var start = Math.min(index1, index2);
@@ -375,7 +375,7 @@ Engine.prototype.handleMultiSelection = function () {
 
         }
 
-        // reset multiselection when multiselect is finished
+        // reset multiselection when it is finished
         this.multiSelection.length = 0;
 
         this.removeHighlight();
@@ -422,6 +422,14 @@ Engine.prototype.isAlphabetic = function (input) {
     return valid;
 };
 
+
+/**
+ * Method to add text to a textbox. This method only allows chars
+ * from the English alphabet (A to Z) to be added to a texbox
+ * @param {type} textBox for the text
+ * @param {type} text to add to the textbox
+ * @returns {void} 
+ */
 Engine.prototype.setTextToTextBox = function (textBox, text) {
     "use strict";
     if (text !== null) {
@@ -503,7 +511,6 @@ Engine.prototype.mouseClickTeeth = function (event) {
 
             this.onTextBoxClicked(this.mouth[i].textBox);
         }
-
 
         // check collision for current tooth
         if (this.mouth[i].rect.checkCollision(
@@ -811,6 +818,7 @@ Engine.prototype.getData = function () {
  */
 Engine.prototype.save = function () {
     "use strict";
+    
     // save image as png
     var link = document.createElement('a');
 
@@ -819,13 +827,21 @@ Engine.prototype.save = function () {
 
     link.download = name;
 
+    // Create an image stream of the canvas
     link.href = this.canvas.toDataURL("image/png")
             .replace("image/png", "image/octet-stream");
 
+
+    // download the image
     link.click();
 
 };
 
+/*
+ * Helper function to map keyboard keys into usable values Just for debugging
+ * @param {type} event keyDown event
+ * @returns {Number} 
+ */
 Engine.prototype.keyMapper = function (event) {
     "use strict";
     var value = 0;
@@ -1036,7 +1052,6 @@ Engine.prototype.changeView = function (which) {
 
     }
 
-
 };
 
 /**
@@ -1118,7 +1133,7 @@ Engine.prototype.load = function (tooth, damage, surface, note) {
 
         // if id is less than 1000 then we have to find a tooth
         if (tooth < 1000) {
-
+            
             var t = this.getToothById(tooth);
 
             this.collisionHandler.handleCollision(t, damage);
@@ -1126,6 +1141,7 @@ Engine.prototype.load = function (tooth, damage, surface, note) {
             this.setTextToTextBox(t.textBox, note);
 
         } else {
+            
             // if the id is greater than 1000
             // then we have to find a space
             this.collisionHandler.handleCollision(this.getSpaceById(tooth), damage);
@@ -1134,8 +1150,7 @@ Engine.prototype.load = function (tooth, damage, surface, note) {
 
     } else {
 
-        // adding damage to surface
-
+        // the damage should be added to a surface of a tooth
         var surfaceId = tooth + "_" + surface;
 
         var t = this.getToothById(tooth);
@@ -1148,8 +1163,6 @@ Engine.prototype.load = function (tooth, damage, surface, note) {
     }
 
 };
-
-
 
 /**
  * Method to pass a comma seperated string for loading data
