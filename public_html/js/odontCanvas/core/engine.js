@@ -68,9 +68,6 @@ function Engine()
 
     this.multiSelect = false;
     this.multiSelection = Array();
-
-    var currentTextBox = null;
-
 }
 
 /**
@@ -669,7 +666,15 @@ Engine.prototype.reset = function ()
 };
 
 /**
- * Method to get all the data from the engine
+ * Method to get all the data from the engine.
+ * Struct for a damage is the following
+ * 
+ * struct damage{
+ *      tooth: int;
+ *      damage: int;
+ *      surface: String;
+ *      note: String;
+ * }
  * @returns {array} list of all the damages which exists in the odontograma
  */
 Engine.prototype.getData = function ()
@@ -763,6 +768,7 @@ Engine.prototype.save = function ()
     var name = Date.now() + ".png";
 
     link.download = name;
+    
     link.href = this.canvas.toDataURL("image/png")
             .replace("image/png", "image/octet-stream");
 

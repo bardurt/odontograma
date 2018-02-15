@@ -481,11 +481,11 @@ Tooth.prototype.drawCheckBoxes = function (context, settings)
  */
 Tooth.prototype.drawTextBox = function (context, settings)
 {
+    this.textBox.render(context, settings.COLOR_BLUE);
+    
     if (this.textBox.touching) {
         this.textBox.rect.highlightWithColor(context, "#36BE1B", 0.6);
     }
-
-    this.textBox.render(context, settings.COLOR_BLUE);
 
 };
 
@@ -518,7 +518,7 @@ Tooth.prototype.createDamage = function (damageId)
     var damage;
     
     // attach damage in the proper position
-    // first check if the damage should be positioned on the checkboxes area
+    // first check if the damage should be positioned in the checkboxes area
     if (damageId === this.constants.DIENTE_EN_CLAVIJA || 
         damageId === this.constants.FUSION ||
         damageId === this.constants.CORONA_DEFINITIVA ||

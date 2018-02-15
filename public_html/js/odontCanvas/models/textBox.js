@@ -30,7 +30,6 @@ function TextBox()
  */
 TextBox.prototype.setDimens = function (x, y, width, height)
 {
-
     this.rect.x = x;
     this.rect.y = y;
     this.rect.width = width;
@@ -79,8 +78,6 @@ TextBox.prototype.drawLabel = function (context)
 
 TextBox.prototype.drawText = function(context, color)
 {
-    
-    
     context.beginPath();
 
     // if there is text, create a white background
@@ -118,7 +115,6 @@ TextBox.prototype.drawText = function(context, color)
  */
 TextBox.prototype.render = function (context, color)
 {
-
     this.drawText(context, color);
 
 };

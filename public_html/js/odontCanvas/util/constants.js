@@ -43,7 +43,6 @@ function Constants()
     this.PROTESIS_FIJA_CENTER = 35;
     this.PROTESIS_FIJA_RIGHT = 36;
 
-    
     // Damages for writing
     this.IMPLANTE = 6;
     this.MACRODONCIA = 17;

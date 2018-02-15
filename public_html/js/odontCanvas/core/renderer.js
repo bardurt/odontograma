@@ -22,15 +22,6 @@ function Renderer()
 }
 
 /**
- * Method to show display a loading screen
- * @returns {undefined}
- */
-Renderer.prototype.load = function()
-{
-    this.context.fillText("Loading...", this.width/2, this.height/2);
-};
-
-/**
  * Method to render a splash screen
  * @returns {undefined}
  */
@@ -65,7 +56,6 @@ Renderer.prototype.init = function(canvas)
     
     this.drawSplash();
 };
-
 
 /**
  * Method to clear the canvas

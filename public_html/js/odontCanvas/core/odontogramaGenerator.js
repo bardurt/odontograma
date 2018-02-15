@@ -59,7 +59,7 @@ OdontogramaGenerator.prototype.setConstants = function (constants)
 
 /**
  * Method to update the count of images which have been loaded
- * @returns {undefined}
+ * @returns {void}
  */
 OdontogramaGenerator.prototype.updateLoad = function () {
 
