@@ -1126,12 +1126,11 @@ Engine.prototype.changeView = function (which)
 };
 
 /**
- * Method for displaying a splash screen
- * @returns {undefined}
+ * Method to start the engine. Methods gets called
+ * when all assets have been loaded.
+ * @returns {void}
  */
-Engine.prototype.splash = function () {
-
-    this.renderer.drawSplash();
+Engine.prototype.start = function () {
 
     var self = this;
 
@@ -1139,7 +1138,7 @@ Engine.prototype.splash = function () {
     // then continue
     setTimeout(function () {
         self.update();
-    }, 3000);
+    }, 1500);
 
 };
 

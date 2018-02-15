@@ -63,7 +63,7 @@ Renderer.prototype.init = function(canvas)
     this.height = canvas.height;
     
     
-    this.load();
+    this.drawSplash();
 };
 
 

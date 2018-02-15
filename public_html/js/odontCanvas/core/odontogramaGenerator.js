@@ -67,7 +67,7 @@ OdontogramaGenerator.prototype.updateLoad = function () {
 
     // notify when all images have been loaded
     if (this.currentLoad >= this.arrayCount) {
-        this.engine.splash();
+        this.engine.start();
     }
 };
 
