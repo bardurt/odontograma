@@ -947,7 +947,7 @@ Engine.prototype.onButtonClick = function (event) {
         for (var i = 0; i < data.length; i++) {
 
             console.log("Data[" + i + "]: " + data[i].tooth + ", "
-                    + data[i].damage + ", " + data[i].surfac + ", "
+                    + data[i].damage + ", " + data[i].surface + ", "
                     + data[i].note);
 
         }
