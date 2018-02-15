@@ -1164,6 +1164,8 @@ Damage.prototype.drawTransposicionRight = function (context, settings) {
 
 Damage.prototype.drawDienteDiscomico = function (context, settings)
 {
+    this.rect.highlightWithColor(context, "#ffffff", 1);
+    
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
@@ -1175,6 +1177,8 @@ Damage.prototype.drawDienteDiscomico = function (context, settings)
 
 Damage.prototype.drawDienteEctopico = function (context, settings)
 {
+    this.rect.highlightWithColor(context, "#ffffff", 1);
+    
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
@@ -1186,6 +1190,8 @@ Damage.prototype.drawDienteEctopico = function (context, settings)
 
 Damage.prototype.drawImpactacion = function (context, settings)
 {
+    this.rect.highlightWithColor(context, "#ffffff", 1);
+    
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
@@ -1197,6 +1203,8 @@ Damage.prototype.drawImpactacion = function (context, settings)
 
 Damage.prototype.drawImplante = function (context, settings)
 {
+    this.rect.highlightWithColor(context, "#ffffff", 1);
+    
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
@@ -1208,6 +1216,8 @@ Damage.prototype.drawImplante = function (context, settings)
 
 Damage.prototype.drawMacrodoncia = function (context, settings)
 {
+    this.rect.highlightWithColor(context, "#ffffff", 1);
+    
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
@@ -1219,6 +1229,8 @@ Damage.prototype.drawMacrodoncia = function (context, settings)
 
 Damage.prototype.drawMicrodonica = function (context, settings)
 {
+    this.rect.highlightWithColor(context, "#ffffff", 1);
+    
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
@@ -1231,6 +1243,8 @@ Damage.prototype.drawMicrodonica = function (context, settings)
 
 Damage.prototype.drawSemiImpactaion = function (context, settings)
 {
+    this.rect.highlightWithColor(context, "#ffffff", 1);
+    
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
@@ -1243,6 +1257,8 @@ Damage.prototype.drawSemiImpactaion = function (context, settings)
 
 Damage.prototype.drawSuperficieDesgastada = function (context, settings)
 {
+    this.rect.highlightWithColor(context, "#ffffff", 1);
+    
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 

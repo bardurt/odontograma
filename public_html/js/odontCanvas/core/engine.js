@@ -395,8 +395,10 @@ Engine.prototype.onTextBoxClicked = function (textBox)
 
     var text = prompt(message, "");
 
-    if (text.length < 4) {
-        textBox.text = text.toUpperCase();
+    if(text !== null){
+        if (text.length < 4) {
+            textBox.text = text.toUpperCase();
+        }
     }
 
 };

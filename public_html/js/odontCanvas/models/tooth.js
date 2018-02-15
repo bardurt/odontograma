@@ -633,6 +633,8 @@ Tooth.prototype.render = function (context, settings, constants)
     // check if this is a tooth or a space
     if (this.tooth) {
 
+        this.textBox.drawLabel(context);
+        
         // draw the image of the tooth
         if (this.image !== undefined) {
 

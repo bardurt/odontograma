@@ -119,10 +119,6 @@ TextBox.prototype.drawText = function(context, color)
 TextBox.prototype.render = function (context, color)
 {
 
-    
-
-    this.drawLabel(context);
-
     this.drawText(context, color);
 
 };
