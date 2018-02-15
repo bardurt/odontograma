@@ -53,8 +53,10 @@ function Engine() {
     // helper for handeling collision
     this.collisionHandler = new CollisionHandler();
 
+    // settings for application
     this.settings = new Settings();
 
+    // constants for application
     this.constants = new Constants();
 
     // value of the selected damage which should be added or removed
@@ -66,8 +68,12 @@ function Engine() {
     // y position of the mouse pointer
     this.corsorY = 0;
 
+    // flag to toggle multiselection on or off
     this.multiSelect = false;
-    this.multiSelection = new Array();
+    
+    // array to hold values for multiselection. When selecting 
+    // a range of teeth
+    this.multiSelection = [];
 }
 
 /**
@@ -77,7 +83,8 @@ function Engine() {
  */
 Engine.prototype.setCanvas = function (canvas) {
     "use strict";
-    console.log("Engine, setting canvas: " + canvas);
+    console.log("Engine: setting canvas: " + canvas);
+    console.log("Engine: canvas size (" + canvas.width + ", " + canvas.height + ")");
     this.canvas = canvas;
     this.renderer.init(this.canvas);
 };
@@ -126,7 +133,6 @@ Engine.prototype.init = function () {
 
     this.odontogramaGenerator.prepareOdontogramaChild(this.odontChild,
             this.odontSpacesChild, this.canvas);
-
 
     this.mouth = this.odontAdult;
 

@@ -9,7 +9,11 @@
  *    Bardur Thomsen <https://github.com/bardurt> - initial API and implementation and/or initial documentation
  */
 
-
+/**
+ * Helper class for holding id of damages 
+ * which can be added to the odontograma
+ * @returns {Constants}
+ */
 function Constants() {
     "use strict";
     // Damages for drawing
@@ -58,7 +62,7 @@ function Constants() {
      * @param {type} arg id of the damage
      * @returns {Boolean} true if this damage is only text, else false
      */
-    this.isWritable = function(arg) {
+    this.isWritable = function (arg) {
      
         var match = false;
         
