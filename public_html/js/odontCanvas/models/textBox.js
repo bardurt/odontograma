@@ -13,7 +13,7 @@
  * Class which represents a simple textbox 
  */
 
-function TextBox() 
+function TextBox()
 {
     this.text = "";
     this.rect = new Rect();
@@ -35,6 +35,8 @@ TextBox.prototype.setDimens = function (x, y, width, height)
     this.rect.y = y;
     this.rect.width = width;
     this.rect.height = height;
+    this.text = "";
+    this.label = "";
 
 };
 
@@ -43,21 +45,42 @@ TextBox.prototype.setDimens = function (x, y, width, height)
  * @param {type} text string to draw
  * @returns {undefined}
  */
-TextBox.prototype.setText = function (text) 
+TextBox.prototype.setText = function (text)
 {
 
     this.text = text;
 };
 
-/**
- * Method to draw the textbox onto a canvas
- * @param {type} context the canvas to draw on
- * @param {type} color the color of the text
- * @returns {undefined}
- */
-TextBox.prototype.render = function (context, color) 
+TextBox.prototype.setLabel = function (label)
+{
+    this.label = label;
+};
+
+
+TextBox.prototype.drawLabel = function (context)
 {
 
+    this.rect.outline(context, "#000000");
+
+    context.beginPath();
+
+    context.textAlign = "center";
+    context.fillStyle = "#9a9a9a";
+
+    context.fillText(this.label,
+            this.rect.x + this.rect.width / 2,
+            this.rect.y + this.rect.height - 3);
+
+    context.stroke();
+
+    context.restore();
+
+};
+
+TextBox.prototype.drawText = function(context, color)
+{
+    
+    
     context.beginPath();
 
     // if there is text, create a white background
@@ -72,17 +95,34 @@ TextBox.prototype.render = function (context, color)
 
     }
 
-    context.lineWidth = 1;
-    context.strokeStyle = "#000000";
-    this.rect.outline(context, "#00000");
-
+    this.rect.outline(context, "#000000");
+    
     context.textAlign = "center";
     context.fillStyle = color;
 
-    context.fillText(this.text, 
-                     this.rect.x + this.rect.width / 2,
-                     this.rect.y + this.rect.height - 3);
+    context.fillText(this.text,
+            this.rect.x + this.rect.width / 2,
+            this.rect.y + this.rect.height - 3);
 
     context.stroke();
+
+    context.restore();
+    
+};
+
+/**
+ * Method to draw the textbox onto a canvas
+ * @param {type} context the canvas to draw on
+ * @param {type} color the color of the text
+ * @returns {undefined}
+ */
+TextBox.prototype.render = function (context, color)
+{
+
+    
+
+    this.drawLabel(context);
+
+    this.drawText(context, color);
 
 };

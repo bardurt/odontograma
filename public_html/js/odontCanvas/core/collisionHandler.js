@@ -23,7 +23,7 @@ function CollisionHandler()
  * @param {type} constants
  * @returns {undefined}
  */
-CollisionHandler.prototype.setConstants = function(constants)
+CollisionHandler.prototype.setConstants = function (constants)
 {
     this.constants = constants;
 };
@@ -36,16 +36,26 @@ CollisionHandler.prototype.setConstants = function(constants)
  */
 CollisionHandler.prototype.handleCollision = function (tooth, argument)
 {
-    
+
     console.log("Collision argument " + argument);
 
-    if (argument !== 0 && argument !== undefined && !isNaN(argument)) {
+    var newArg;
+
+    try {
+
+        newArg = Number(argument);
+
+    } catch (e) {
+        console.log("Handle Collision Exception: " + e.message);
+    }
+
+    if (newArg !== 0 && newArg !== undefined && !isNaN(newArg)) {
         console.log("Handle collision");
 
-        if (argument !== this.constants.CARIES && 
-            argument !== this.constants.CURACION) {
-            
-            tooth.toggleDamage(argument);
+        if (newArg !== this.constants.CARIES &&
+                newArg !== this.constants.CURACION) {
+
+            tooth.toggleDamage(newArg);
         }
     }
 
@@ -61,16 +71,26 @@ CollisionHandler.prototype.handleCollision = function (tooth, argument)
 CollisionHandler.prototype.handleCollisionCheckBox = function (checkBox, argument)
 {
 
-    if (argument === this.constants.CARIES) {
-        
-        if (checkBox.state === 1){
+    var newArg;
+
+    try {
+
+        newArg = Number(argument);
+
+    } catch (e) {
+        console.log("Handle Collision Exception: " + e.message);
+    }
+
+    if (newArg === this.constants.CARIES) {
+
+        if (checkBox.state === 1) {
             checkBox.state = 0;
         } else {
             checkBox.state = 1;
         }
 
-    } else if (argument === this.constants.CURACION) {
-        
+    } else if (newArg === this.constants.CURACION) {
+
         if (checkBox.state === 2) {
             checkBox.state = 0;
         } else {

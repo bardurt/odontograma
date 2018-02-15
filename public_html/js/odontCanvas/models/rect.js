@@ -117,6 +117,7 @@ Rect.prototype.outline = function (context, color)
 {
 
     context.beginPath();
+    context.lineWidth = 1;
     context.globalAlpha = 1;
     context.strokeStyle = color;
     context.rect(this.x, this.y, this.width, this.height);

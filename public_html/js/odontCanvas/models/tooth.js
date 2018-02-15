@@ -63,6 +63,8 @@ Tooth.prototype.setDimens = function (x, y, width, height)
     this.normalY = y;
 
     this.textBox.setDimens(x, y, width, 20);
+    
+    this.textBox.setLabel(this.id);
 
 };
 
