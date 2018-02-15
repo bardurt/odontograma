@@ -672,7 +672,6 @@ Tooth.prototype.render = function (context, settings, constants)
         this.damages[i].render(context, settings, constants);
     }
 
-
     // highlight textboxes
     for (var i = 0; i < this.checkBoxes.length; i++)
     {

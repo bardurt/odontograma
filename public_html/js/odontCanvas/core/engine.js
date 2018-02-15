@@ -1190,45 +1190,60 @@ Engine.prototype.getSpaceById = function (id)
 
 };
 
-
+/**
+ * Method to load damages to odontograma from external source
+ * @param {type} tooth id of the tooth which has the damage
+ * @param {type} damage id of the damage to add
+ * @param {type} surface id of the surface to add damage, empty if no surface
+ * @param {type} note text to add to textbox for tooth, empty if no note
+ * @returns {undefined}
+ */
 Engine.prototype.load = function (tooth, damage, surface, note) {
 
     if (surface === "0") {
 
         // if id is less than 1000 then we have to find a tooth
         if (tooth < 1000) {
-            
-            
+
+
             var t = this.getToothById(tooth);
-            
+
             this.collisionHandler.handleCollision(t, damage);
-            
-            if(note !== ""){
+
+            if (note !== "") {
                 t.textBox.text = note;
             }
-            
+
         } else {
             // if the id is greater than 1000
             // then we have to find a space
             this.collisionHandler.handleCollision(this.getSpaceById(tooth), damage);
         }
-        
-        
+
 
     } else {
 
         var surfaceId = tooth + "_" + surface;
 
-        var tooth = this.getToothById(tooth);
-        var surface = tooth.getSurfaceById(surfaceId);
+        var t = this.getToothById(tooth);
+        var surface = t.getSurfaceById(surfaceId);
 
         this.collisionHandler.handleCollisionCheckBox(surface, damage);
+
+        if (note !== "") {
+            t.textBox.text = note;
+        }
 
     }
 
 };
 
-
+/**
+ * Method to pass a comma seperated string for loading data
+ * fomat of string: toothId,damageId,surface,note,...toothId,damageId,surface,note
+ * @param {type} dataArray commea seperated string
+ * @returns {void}
+ */
 Engine.prototype.LoadData = function (dataArray) {
 
     var res = dataArray.split(",");
@@ -1236,6 +1251,7 @@ Engine.prototype.LoadData = function (dataArray) {
     var i = 0;
     while (i < res.length) {
 
+        // loop through all and add damage
         this.load(Number(res[i]), Number(res[i + 1]), res[i + 2], res[i + 3]);
 
         i = i + 4;

@@ -67,8 +67,8 @@ TextBox.prototype.render = function (context, color)
 
         context.fillRect(this.rect.x,
                 this.rect.y,
-                this.rect.x + this.rect.width,
-                this.rect.y + this.rect.height);
+                this.rect.width,
+                this.rect.height);
 
     }
 
