@@ -20,8 +20,8 @@
  * @returns {Tooth}
  */
 function Tooth() {
-    
-    this.id = '';
+    "use strict";
+    this.id = 0;
     this.tooth = true;
     this.surfaces = 0;
     this.highlight = false;
@@ -33,8 +33,8 @@ function Tooth() {
     this.spacer = 20; // spacer to seperate tooth from surfaces
     this.touching = false;
     this.address = 0;
-    this.normalY;
-    this.highY;
+    this.normalY = null;
+    this.highY = null;
     this.blocked = false;
     this.constants = null;
 
@@ -81,12 +81,12 @@ Tooth.prototype.setType = function (type) {
     if (type === 0) {
         this.highY = this.y - 10;
 
-        this.textBox.rect.y = this.y - 40;
+        this.textBox.rect.y = this.y - 42;
 
     } else {
         this.highY = this.y + 10;
 
-        this.textBox.rect.y = this.rect.y + this.rect.height + 20;
+        this.textBox.rect.y = this.rect.y + this.rect.height + 22;
     }
 
 };

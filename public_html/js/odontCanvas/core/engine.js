@@ -67,7 +67,7 @@ function Engine() {
     this.corsorY = 0;
 
     this.multiSelect = false;
-    this.multiSelection =  new Array();
+    this.multiSelection = new Array();
 }
 
 /**
@@ -296,55 +296,75 @@ Engine.prototype.handleMultiSelection = function () {
     // start and end
     if (this.multiSelection.length === 2) {
 
+
+        let tooth1 = this.multiSelection[0];
+        let tooth2 = this.multiSelection[1];
+
+        
         // get the indices for the teeth which have been selected
-        var index1 = this.getIndexForTooth(this.multiSelection[0]);
-        var index2 = this.getIndexForTooth(this.multiSelection[1]);
+        var index1 = this.getIndexForTooth(tooth1);
+        var index2 = this.getIndexForTooth(tooth2);
+        
+        var valid = true;
+        
+        // make sure that we dont select the same tooth 2 times
+        if(index1 === index2) {
+            valid = false;
+        }
+        
+        // make sure that both teeth are same type, upper or lower mouth
+        if(tooth1.type !== tooth2.type) {
+            valid = false;
+        }
+        
+        if (valid) {
 
+            var start = Math.min(index1, index2);
+            var end = Math.max(index1, index2);
 
-        var start = Math.min(index1, index2);
-        var end = Math.max(index1, index2);
+            // check which damage should be added or removed from the selected
+            // teeth
+            if (this.selectedHallazgo === this.constants.ORTODONTICO_FIJO_END) {
 
-        // check which damage should be added or removed from the selected
-        // teeth
-        if (this.selectedHallazgo === this.constants.ORTODONTICO_FIJO_END) {
-
-            this.mouth[start].toggleDamage(this.constants.ORTODONTICO_FIJO_END,
-                    this.constants);
-
-            this.mouth[end].toggleDamage(this.constants.ORTODONTICO_FIJO_END,
-                    this.constants);
-
-            for (var i = start + 1; i <= end - 1; i++) {
-
-                this.mouth[i].toggleDamage(this.constants.ORTODONTICO_FIJO_CENTER,
+                this.mouth[start].toggleDamage(this.constants.ORTODONTICO_FIJO_END,
                         this.constants);
 
-            }
-
-        } else if (this.selectedHallazgo === this.constants.PROTESIS_FIJA_LEFT) {
-
-            this.mouth[start].toggleDamage(this.constants.PROTESIS_FIJA_RIGHT,
-                    this.constants);
-
-            this.mouth[end].toggleDamage(this.constants.PROTESIS_FIJA_LEFT,
-                    this.constants);
-
-            for (var i = start + 1; i <= end - 1; i++) {
-
-                this.mouth[i].toggleDamage(this.constants.PROTESIS_FIJA_CENTER,
+                this.mouth[end].toggleDamage(this.constants.ORTODONTICO_FIJO_END,
                         this.constants);
 
-            }
+                for (var i = start + 1; i <= end - 1; i++) {
 
-        } else if (this.selectedHallazgo === this.constants.TRANSPOSICION_LEFT) {
+                    this.mouth[i].toggleDamage(this.constants.ORTODONTICO_FIJO_CENTER,
+                            this.constants);
 
-            if (end - start === 1) {
+                }
 
-                this.mouth[start].toggleDamage(this.constants.TRANSPOSICION_LEFT,
+            } else if (this.selectedHallazgo === this.constants.PROTESIS_FIJA_LEFT) {
+
+                this.mouth[start].toggleDamage(this.constants.PROTESIS_FIJA_RIGHT,
                         this.constants);
 
-                this.mouth[end].toggleDamage(this.constants.TRANSPOSICION_RIGHT,
+                this.mouth[end].toggleDamage(this.constants.PROTESIS_FIJA_LEFT,
                         this.constants);
+
+                for (var i = start + 1; i <= end - 1; i++) {
+
+                    this.mouth[i].toggleDamage(this.constants.PROTESIS_FIJA_CENTER,
+                            this.constants);
+
+                }
+
+            } else if (this.selectedHallazgo === this.constants.TRANSPOSICION_LEFT) {
+
+                if (end - start === 1) {
+
+                    this.mouth[start].toggleDamage(this.constants.TRANSPOSICION_LEFT,
+                            this.constants);
+
+                    this.mouth[end].toggleDamage(this.constants.TRANSPOSICION_RIGHT,
+                            this.constants);
+                }
+
             }
 
         }
@@ -386,7 +406,7 @@ Engine.prototype.isAlphabetic = function (input) {
     var valid = false;
 
     var letters = /^[a-zA-Z]+$/;
-    
+
     if (input.match(letters))
     {
         valid = true;
@@ -402,6 +422,8 @@ Engine.prototype.setTextToTextBox = function (textBox, text) {
         if (text.length < 4) {
 
             if (this.isAlphabetic(text)) {
+                textBox.setNote(text);
+            } else if (text === "") {
                 textBox.setNote(text);
             }
         }
@@ -798,6 +820,63 @@ Engine.prototype.save = function () {
 
 };
 
+Engine.prototype.keyMapper = function (event) {
+    "use strict";
+    var value = 0;
+
+    if (event.key === "q") {
+        value = 10;
+    } else if (event.key === "w") {
+        value = 11;
+    } else if (event.key === "e") {
+        value = 12;
+    } else if (event.key === "r") {
+        value = 13;
+    } else if (event.key === "t") {
+        value = 14;
+    } else if (event.key === "y") {
+        value = 15;
+    } else if (event.key === "u") {
+        value = 16;
+    } else if (event.key === "i") {
+        value = 17;
+    } else if (event.key === "o") {
+        value = 18;
+    } else if (event.key === "p") {
+        value = 19;
+    } else if (event.key === "a") {
+        value = 20;
+    } else if (event.key === "s") {
+        value = 21;
+    } else if (event.key === "d") {
+        value = 22;
+    } else if (event.key === "f") {
+        value = 23;
+    } else if (event.key === "g") {
+        value = 24;
+    } else if (event.key === "h") {
+        value = 25;
+    } else if (event.key === "j") {
+        value = 27;
+    } else if (event.key === "k") {
+        value = 28;
+    } else if (event.key === "l") {
+        value = 29;
+    } else if (event.key === "x") {
+        value = 30;
+    } else if (event.key === "c") {
+        value = 31;
+    } else if (event.key === "b") {
+        value = 32;
+    } else if (event.key === "n") {
+        value = 34;
+    } else if (event.key === "m") {
+        value = 38;
+    }
+
+    return value;
+};
+
 /**
  * Event handler for when the mouse is clicked
  * @param {type} event mouse click event
@@ -807,164 +886,23 @@ Engine.prototype.onButtonClick = function (event) {
     "use strict";
     console.log("key " + event.key);
 
-    if (event.key !== "d") {
-        this.selectedHallazgo = 0;
+    var damage;
+
+    let key = Number(event.key);
+
+    if (isNaN(key)) {
+        damage = this.keyMapper(event);
+    } else {
+        damage = key;
     }
 
-    if (event.key === "1")
-    {
-        this.selectedHallazgo = 1;
-    }
-
-    if (event.key === "2")
-    {
-        this.selectedHallazgo = 2;
-    }
-
-    if (event.key === "3")
-    {
-        this.selectedHallazgo = 3;
-    }
-
-    if (event.key === "4")
-    {
-        this.selectedHallazgo = 4;
-    }
-
-    if (event.key === "5")
-    {
-        this.selectedHallazgo = 5;
-    }
-
-    if (event.key === "6")
-    {
-        this.selectedHallazgo = 6;
-    }
-
-    if (event.key === "7")
-    {
-        this.selectedHallazgo = 7;
-    }
-
-    if (event.key === "8")
-    {
-        this.selectedHallazgo = 8;
-    }
-
-    if (event.key === "9")
-    {
-        this.selectedHallazgo = 9;
-    }
-
-    if (event.key === "0")
-    {
-        this.selectedHallazgo = 10;
-    }
-
-    if (event.key === "q")
-    {
-        this.selectedHallazgo = 11;
-    }
-
-    if (event.key === "w")
-    {
-        this.selectedHallazgo = 12;
-    }
-
-    if (event.key === "r")
-    {
-        this.selectedHallazgo = 13;
-    }
-
-    if (event.key === "b")
-    {
-        this.selectedHallazgo = 14;
-    }
-
-    if (event.key === "e")
-    {
-        this.selectedHallazgo = 15;
-    }
-
-    if (event.key === "t")
-    {
-        this.selectedHallazgo = 16;
-    }
-
-    if (event.key === "y")
-    {
-        this.selectedHallazgo = 17;
-    }
-
-    if (event.key === "u")
-    {
-        this.selectedHallazgo = 18;
-    }
-
-    if (event.key === "i")
-    {
-        this.selectedHallazgo = 19;
-    }
-
-    if (event.key === "o")
-    {
-        this.selectedHallazgo = 20;
-    }
-
-    if (event.key === "x") {
-        this.selectedHallazgo = 50;
-    }
-
-    if (event.key === "c") {
-        this.selectedHallazgo = 52;
-    }
-
-    if (event.key === ",") {
-        this.selectedHallazgo = 51;
-    }
-
-    if (event.key === ".") {
-        this.selectedHallazgo = 53;
-    }
-
-    if (event.key === "-") {
-        this.selectedHallazgo = 54;
-    }
-
-    if (event.key === "'") {
-        this.selectedHallazgo = 55;
-    }
-
-    if (event.key === "+") {
-        this.selectedHallazgo = 56;
-    }
-
-    if (event.key === "/") {
-        this.selectedHallazgo = 57;
-    }
-
-    if (event.key === "a") {
-
-        this.selectedHallazgo = 21;
-        this.settings.HIHGLIGHT_SPACES = true;
-        this.update();
-
-    }
-
-    if (event.key !== "d") {
-        if (event.key !== "a" && event.key !== "s")
-        {
-            this.settings.HIHGLIGHT_SPACES = false;
-            this.update();
-        }
-    }
+    this.setDamage(damage);
 
     if (event.key === "z")
     {
         this.selectedHallazgo = 0;
         this.reset();
     }
-
 
     // key combination Ctrl + Q to activate debug mode
     if ((event.which === 81 || event.keyCode === 81) && event.ctrlKey) {
@@ -978,58 +916,6 @@ Engine.prototype.onButtonClick = function (event) {
         this.settings.DEBUG = !this.settings.DEBUG;
 
         this.save();
-    }
-
-    if (event.key === "j") {
-
-        if (this.selectedHallazgo === 23)
-        {
-            this.resetMultiSelect();
-            this.multiSelect = true;
-
-        } else {
-
-            this.selectedHallazgo = 23;
-            this.multiSelect = true;
-        }
-    }
-
-    if (event.key === "k") {
-
-        if (this.selectedHallazgo === 25)
-        {
-            this.resetMultiSelect();
-            this.multiSelect = true;
-
-        } else {
-
-            this.selectedHallazgo = 25;
-            this.multiSelect = true;
-        }
-    }
-
-    if (event.key === "l") {
-
-        if (this.selectedHallazgo === 28)
-        {
-            this.resetMultiSelect();
-            this.multiSelect = true;
-
-        } else {
-
-            this.selectedHallazgo = 28;
-            this.multiSelect = true;
-        }
-    }
-
-    if (event.key === "Control") {
-
-        this.multiSelect = !this.multiSelect;
-        console.log("multiselect: " + this.multiSelect);
-        if (!this.multiSelect) {
-            this.resetMultiSelect();
-        }
-
     }
 
     if (event.key === "ArrowLeft") {

@@ -437,34 +437,34 @@ Damage.prototype.drawPernoMunon = function (context, settings) {
     "use strict";
     context.beginPath();
 
-    var size = this.rect.width - 20;
+    var diff = 26;
+    var size = this.rect.width - diff;
 
-    if (this.type === 0)
-    {
+    if (this.type === 0) {
         // draw rectangle
-        context.rect(this.rect.x + 8,
-                     this.rect.y + this.rect.height - 8 - size,
+        context.rect(this.rect.x + (diff / 2),
+                     this.rect.y + this.rect.height - (size / 2) - size,
                      size,
                      size);
 
         // draw line
         context.moveTo(this.rect.x + this.rect.width / 2,
-                       this.rect.y + this.rect.height - 8 - size);
+                       this.rect.y + this.rect.height - (size / 2) - size);
 
         context.lineTo(this.rect.x + this.rect.width / 2,
-                       this.rect.y + this.rect.height - 8 - 50);
+                       this.rect.y + this.rect.height - (size / 2) - 50);
 
     } else {
         // draw rectangle
-        context.rect(this.rect.x + 8,
-                     this.rect.y + 8, size, size);
+        context.rect(this.rect.x + (diff / 2),
+                     this.rect.y + (size / 2), size, size);
 
         // draw line
         context.moveTo(this.rect.x + this.rect.width / 2,
-                       this.rect.y + 8 + size);
+                       this.rect.y + (size / 2) + size);
 
         context.lineTo(this.rect.x + this.rect.width / 2,
-                       this.rect.y + 8 + 50);
+                       this.rect.y + (size / 2) + 50);
     }
 
 
@@ -1139,7 +1139,6 @@ Damage.prototype.drawTransposicionRight = function (context, settings) {
                 this.rect.y + this.rect.height);
     }
 
-
     context.lineWidth = 2;
 
     context.strokeStyle = settings.COLOR_BLUE;
@@ -1155,7 +1154,8 @@ Damage.prototype.drawDienteDiscomico = function (context, settings) {
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
-    context.fillText("DIS", this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height - 2);
+    context.fillText("DIS", this.rect.x + this.rect.width / 2,
+                     this.rect.y + this.rect.height - 4);
 
     context.restore();
 
@@ -1168,7 +1168,8 @@ Damage.prototype.drawDienteEctopico = function (context, settings) {
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
-    context.fillText("E", this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height - 2);
+    context.fillText("E", this.rect.x + this.rect.width / 2,
+                     this.rect.y + this.rect.height - 4);
 
     context.restore();
 
@@ -1181,7 +1182,8 @@ Damage.prototype.drawImpactacion = function (context, settings) {
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
-    context.fillText("I", this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height - 2);
+    context.fillText("I", this.rect.x + this.rect.width / 2, 
+                     this.rect.y + this.rect.height - 4);
 
     context.restore();
 
@@ -1194,7 +1196,8 @@ Damage.prototype.drawImplante = function (context, settings) {
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
-    context.fillText("IMP", this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height - 2);
+    context.fillText("IMP", this.rect.x + this.rect.width / 2,
+                     this.rect.y + this.rect.height - 4);
 
     context.restore();
 
@@ -1207,7 +1210,8 @@ Damage.prototype.drawMacrodoncia = function (context, settings) {
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
-    context.fillText("MAC", this.rect.x + this.rect.width / 2, this.rect.y + this.rect.height - 2);
+    context.fillText("MAC", this.rect.x + this.rect.width / 2, 
+                     this.rect.y + this.rect.height - 4);
 
     context.restore();
 
@@ -1221,7 +1225,7 @@ Damage.prototype.drawMicrodonica = function (context, settings) {
     context.fillStyle = settings.COLOR_BLUE;
 
     context.fillText("MIC", this.rect.x + this.rect.width / 2,
-                     this.rect.y + this.rect.height - 2);
+                     this.rect.y + this.rect.height - 4);
 
     context.restore();
 
@@ -1235,7 +1239,7 @@ Damage.prototype.drawSemiImpactaion = function (context, settings) {
     context.fillStyle = settings.COLOR_BLUE;
 
     context.fillText("SI", this.rect.x + this.rect.width / 2,
-                     this.rect.y + this.rect.height - 2);
+                     this.rect.y + this.rect.height - 4);
 
     context.restore();
 
@@ -1249,7 +1253,7 @@ Damage.prototype.drawSuperficieDesgastada = function (context, settings) {
     context.fillStyle = settings.COLOR_BLUE;
 
     context.fillText("DES", this.rect.x + this.rect.width / 2,
-                     this.rect.y + this.rect.height - 2);
+                     this.rect.y + this.rect.height - 4);
 
     context.restore();
 

@@ -65,7 +65,7 @@ TextBox.prototype.drawLabel = function (context) {
 
     context.fillText(this.label,
             this.rect.x + this.rect.width / 2,
-            this.rect.y + this.rect.height - 3);
+            this.rect.y + this.rect.height - 4);
 
     context.stroke();
 
@@ -96,7 +96,7 @@ TextBox.prototype.drawText = function (context, color) {
 
     context.fillText(this.text,
             this.rect.x + this.rect.width / 2,
-            this.rect.y + this.rect.height - 3);
+            this.rect.y + this.rect.height - 4);
 
     context.stroke();
 

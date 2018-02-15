@@ -31,5 +31,5 @@ function Settings() {
     this.COLOR_BLACK = "#000000";
     this.COLOR_HIGHLIGHT = "#00AEFF";
     this.COLOR_HIGHLIGHT_BAD = "#FF0000";
-    
+
 }
