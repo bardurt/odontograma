@@ -1194,6 +1194,8 @@ Engine.prototype.getSpaceById = function (id)
  */
 Engine.prototype.load = function (tooth, damage, surface, note) {
 
+
+    // check if we should add damage to a tooth
     if (surface === "0") {
 
         // if id is less than 1000 then we have to find a tooth
@@ -1216,6 +1218,8 @@ Engine.prototype.load = function (tooth, damage, surface, note) {
 
 
     } else {
+     
+        // adding damage to surface
 
         var surfaceId = tooth + "_" + surface;
 
