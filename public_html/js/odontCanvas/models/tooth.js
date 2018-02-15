@@ -249,8 +249,6 @@ Tooth.prototype.create5Surfaces = function (settings)
 
     var startX = this.x + 5;
 
-    console.log("Start X " + startX);
-
     /*
      * ids are in the following order
      * 
@@ -438,7 +436,6 @@ Tooth.prototype.drawId = function (context)
     context.strokeStyle = '#000000';
     context.stroke();
     context.restore();
-
 
 };
 

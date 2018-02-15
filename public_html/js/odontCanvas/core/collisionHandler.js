@@ -37,8 +37,6 @@ CollisionHandler.prototype.setConstants = function (constants)
 CollisionHandler.prototype.handleCollision = function (tooth, argument)
 {
 
-    console.log("Collision argument " + argument);
-
     var newArg;
 
     try {
@@ -50,7 +48,6 @@ CollisionHandler.prototype.handleCollision = function (tooth, argument)
     }
 
     if (newArg !== 0 && newArg !== undefined && !isNaN(newArg)) {
-        console.log("Handle collision");
 
         if (newArg !== this.constants.CARIES &&
                 newArg !== this.constants.CURACION) {

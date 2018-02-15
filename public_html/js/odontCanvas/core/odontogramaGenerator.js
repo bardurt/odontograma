@@ -375,9 +375,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
  * @param {type} canvas the canvas where the odontograma will be drawn on
  * @returns {void}
  */
-OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, spaces, canvas) {
+OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, spaces, canvas)
+{
 
-    var self = this;
     this.arrayCount = 0;
 
     // center odontograma horizontal
@@ -392,7 +392,6 @@ OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, 
     var height = canvas.height;
     var odontHeight = 2 * 150;
     var base = (height - odontHeight) / 2;
-    console.log("Base: " + base);
 
     for (var i = 55; i > 50; i--) {
 

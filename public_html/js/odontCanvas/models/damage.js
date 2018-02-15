@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2018 Bardur Thomsen <https://github.com/bardurt>.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
  */
 
 /*
- * Class which represents a damange, which can be attaced to a tooth 
+ * Class which represents a damange, which can be attaced to a tooth
  * and draw or written on a canvas
  */
 
@@ -35,18 +35,18 @@ Damage.prototype.renderFractura = function (context, settings)
     context.beginPath();
 
     if (this.type === 0) {
-        
-        context.moveTo(this.rect.x, 
+
+        context.moveTo(this.rect.x,
                        this.rect.y + this.rect.height);
-        
-        context.lineTo(this.rect.x + this.rect.width, 
+
+        context.lineTo(this.rect.x + this.rect.width,
                        this.rect.y + this.rect.height / 2);
 
     } else {
 
         context.moveTo(this.rect.x, this.rect.y);
-        
-        context.lineTo(this.rect.x + this.rect.width, 
+
+        context.lineTo(this.rect.x + this.rect.width,
                        this.rect.y + this.rect.height / 2);
     }
 
@@ -66,8 +66,8 @@ Damage.prototype.renderDienteAusente = function (context, settings)
     if (this.type === 0) {
 
         context.moveTo(this.rect.x, this.rect.y + this.rect.height);
-        
-        context.lineTo(this.rect.x + this.rect.width, 
+
+        context.lineTo(this.rect.x + this.rect.width,
                        this.rect.y + this.rect.height * 0.25);
 
         context.lineWidth = 2;
@@ -79,7 +79,7 @@ Damage.prototype.renderDienteAusente = function (context, settings)
 
         context.moveTo(this.rect.x + this.rect.width,
                        this.rect.y + this.rect.height);
-                       
+
         context.lineTo(this.rect.x, this.rect.y + this.rect.height * 0.25);
 
         context.strokeStyle = settings.COLOR_BLUE;
@@ -90,8 +90,8 @@ Damage.prototype.renderDienteAusente = function (context, settings)
 
 
         context.moveTo(this.rect.x, this.rect.y);
-        
-        context.lineTo(this.rect.x + this.rect.width, 
+
+        context.lineTo(this.rect.x + this.rect.width,
                        this.rect.y + this.rect.height * 0.75);
 
         context.lineWidth = 2;
@@ -120,16 +120,16 @@ Damage.prototype.drawPulpar = function (context, settings)
     if (this.type === 0) {
 
 
-        context.moveTo(this.rect.x + this.rect.width / 2, 
+        context.moveTo(this.rect.x + this.rect.width / 2,
                        this.rect.y + this.rect.height - 10);
-        
-        context.lineTo(this.rect.x + this.rect.width / 2, 
+
+        context.lineTo(this.rect.x + this.rect.width / 2,
                        this.rect.y + this.rect.height / 2);
 
     } else {
 
         context.moveTo(this.rect.x + this.rect.width / 2, this.rect.y + 10);
-        
+
         context.lineTo(this.rect.x + this.rect.width / 2,
                        this.rect.y + this.rect.height / 2);
 
@@ -204,8 +204,6 @@ Damage.prototype.drawOrtondicoRemovible = function (context, settings)
 
     context.beginPath();
 
-    var spacer = 5;
-
     if (this.type === 0) {
 
         // draw ZigZag
@@ -217,10 +215,10 @@ Damage.prototype.drawOrtondicoRemovible = function (context, settings)
 
         // draw ZigZag
         context.moveTo(this.rect.x, this.rect.y + this.rect.height);
-        
-        context.lineTo(this.rect.x + this.rect.width / 2, 
+
+        context.lineTo(this.rect.x + this.rect.width / 2,
                        this.rect.y + this.rect.height + 10);
-        
+
         context.lineTo(this.rect.x + this.rect.width,
                        this.rect.y + this.rect.height);
 
@@ -314,10 +312,10 @@ Damage.prototype.drawDienteIntruido = function (context, settings)
                 this.rect.y + this.rect.height + 10);
 
         // draw arrow line
-        context.moveTo(this.rect.x + this.rect.width / 2 - 1, 
+        context.moveTo(this.rect.x + this.rect.width / 2 - 1,
                        this.rect.y + this.rect.height + 10);
-        
-        context.lineTo(this.rect.x + this.rect.width / 2 - 1, 
+
+        context.lineTo(this.rect.x + this.rect.width / 2 - 1,
                        this.rect.y + this.rect.height);
     }
 
@@ -351,13 +349,13 @@ Damage.prototype.drawProtesisRemovible = function (context, settings)
 
         // draw lower line
         context.moveTo(this.rect.x, this.rect.y + this.rect.height);
-        
-        context.lineTo(this.rect.x + this.rect.width, 
+
+        context.lineTo(this.rect.x + this.rect.width,
                        this.rect.y + this.rect.height);
 
         // draw upper line
         context.moveTo(this.rect.x, this.rect.y + this.rect.height + 10);
-        
+
         context.lineTo(this.rect.x + this.rect.width,
                        this.rect.y + this.rect.height + 10);
     }
@@ -386,7 +384,7 @@ Damage.prototype.drawRemanenteRadicular = function (context, settings)
         context.fillText("RR", this.rect.x + this.rect.width / 2,
                          this.rect.y + this.rect.height / 2);
     } else {
-        context.fillText("RR", this.rect.x + this.rect.width / 2, 
+        context.fillText("RR", this.rect.x + this.rect.width / 2,
                          this.rect.y + this.rect.height / 2);
     }
 
@@ -451,15 +449,15 @@ Damage.prototype.drawPernoMunon = function (context, settings)
     if (this.type === 0)
     {
         // draw rectangle
-        context.rect(this.rect.x + 8, 
-                     this.rect.y + this.rect.height - 8 - size, 
-                     size, 
+        context.rect(this.rect.x + 8,
+                     this.rect.y + this.rect.height - 8 - size,
+                     size,
                      size);
 
         // draw line
-        context.moveTo(this.rect.x + this.rect.width / 2, 
+        context.moveTo(this.rect.x + this.rect.width / 2,
                        this.rect.y + this.rect.height - 8 - size);
-        
+
         context.lineTo(this.rect.x + this.rect.width / 2,
                        this.rect.y + this.rect.height - 8 - 50);
 
@@ -469,9 +467,9 @@ Damage.prototype.drawPernoMunon = function (context, settings)
                      this.rect.y + 8, size, size);
 
         // draw line
-        context.moveTo(this.rect.x + this.rect.width / 2, 
+        context.moveTo(this.rect.x + this.rect.width / 2,
                        this.rect.y + 8 + size);
-                       
+
         context.lineTo(this.rect.x + this.rect.width / 2,
                        this.rect.y + 8 + 50);
     }
@@ -495,33 +493,33 @@ Damage.prototype.drawDienteEnErupcion = function (context, settings)
     if (this.type === 0) {
         // draw arrow head
         context.moveTo(this.rect.x + pad, this.rect.y + this.rect.height - 6);
-        
-        context.lineTo(this.rect.x + this.rect.width / 2, 
+
+        context.lineTo(this.rect.x + this.rect.width / 2,
                        this.rect.y + this.rect.height);
-                       
-        context.lineTo(this.rect.x + this.rect.width - pad, 
+
+        context.lineTo(this.rect.x + this.rect.width - pad,
                        this.rect.y + this.rect.height - 6);
 
         // draw zig zag
-        context.moveTo(this.rect.x + this.rect.width / 2, 
+        context.moveTo(this.rect.x + this.rect.width / 2,
                        this.rect.y + this.rect.height);
-                       
-        context.lineTo(this.rect.x + this.rect.width / 2, 
+
+        context.lineTo(this.rect.x + this.rect.width / 2,
                        this.rect.y + this.rect.height - 6);
-                       
+
         context.lineTo(this.rect.x + pad * 3,
                        this.rect.y + this.rect.height - 12);
-                       
-        context.lineTo(this.rect.x + this.rect.width - pad * 3, 
+
+        context.lineTo(this.rect.x + this.rect.width - pad * 3,
                        this.rect.y + this.rect.height - 24);
-                       
+
         context.lineTo(this.rect.x + pad * 3,
                        this.rect.y + this.rect.height - 36);
-                       
-        context.lineTo(this.rect.x + this.rect.width - pad * 3, 
+
+        context.lineTo(this.rect.x + this.rect.width - pad * 3,
                        this.rect.y + this.rect.height - 48);
-                       
-        context.lineTo(this.rect.x + pad * 3, 
+
+        context.lineTo(this.rect.x + pad * 3,
                        this.rect.y + this.rect.height - 60);
 
     } else {
@@ -555,12 +553,12 @@ Damage.prototype.drawProtesisTotal = function (context, settings)
 
     if (this.type === 0) {
         context.moveTo(this.rect.x, this.rect.y + this.rect.height - 10);
-        
-        context.lineTo(this.rect.x + this.rect.width, 
+
+        context.lineTo(this.rect.x + this.rect.width,
                        this.rect.y + this.rect.height - 10);
 
         context.moveTo(this.rect.x, this.rect.y + this.rect.height - 15);
-        
+
         context.lineTo(this.rect.x + this.rect.width,
                        this.rect.y + this.rect.height - 15);
 
@@ -589,7 +587,7 @@ Damage.prototype.drawEdentuloTotal = function (context, settings)
     if (this.type === 0) {
 
         context.moveTo(this.rect.x, this.rect.y + this.rect.height - 20);
-        
+
         context.lineTo(this.rect.x + this.rect.width,
                        this.rect.y + this.rect.height - 20);
 
@@ -618,10 +616,10 @@ Damage.prototype.drawDienteEnClavija = function (context, settings)
 
     if (this.type === 0) {
         context.moveTo(this.rect.x, this.rect.y + this.rect.height);
-        
-        context.lineTo(this.rect.x + this.rect.width / 2, 
+
+        context.lineTo(this.rect.x + this.rect.width / 2,
                        this.rect.y + this.rect.height - 30);
-        
+
         context.lineTo(this.rect.x + this.rect.width, this.rect.y + this.rect.height);
 
         context.closePath();
@@ -830,8 +828,8 @@ Damage.prototype.drawSuperNumerario = function (context, settings)
         context.textAlign = 'center';
         context.fillStyle = settings.COLOR_BLUE;
         context.font = "16px Arial Bold";
-        
-        context.fillText("S", this.rect.x + this.rect.width / 2, 
+
+        context.fillText("S", this.rect.x + this.rect.width / 2,
                          this.rect.y + this.rect.height - 15);
 
         context.restore();
@@ -1165,7 +1163,7 @@ Damage.prototype.drawTransposicionRight = function (context, settings) {
 Damage.prototype.drawDienteDiscomico = function (context, settings)
 {
     this.rect.highlightWithColor(context, "#ffffff", 1);
-    
+
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
@@ -1178,7 +1176,7 @@ Damage.prototype.drawDienteDiscomico = function (context, settings)
 Damage.prototype.drawDienteEctopico = function (context, settings)
 {
     this.rect.highlightWithColor(context, "#ffffff", 1);
-    
+
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
@@ -1191,7 +1189,7 @@ Damage.prototype.drawDienteEctopico = function (context, settings)
 Damage.prototype.drawImpactacion = function (context, settings)
 {
     this.rect.highlightWithColor(context, "#ffffff", 1);
-    
+
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
@@ -1204,7 +1202,7 @@ Damage.prototype.drawImpactacion = function (context, settings)
 Damage.prototype.drawImplante = function (context, settings)
 {
     this.rect.highlightWithColor(context, "#ffffff", 1);
-    
+
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
@@ -1217,7 +1215,7 @@ Damage.prototype.drawImplante = function (context, settings)
 Damage.prototype.drawMacrodoncia = function (context, settings)
 {
     this.rect.highlightWithColor(context, "#ffffff", 1);
-    
+
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
@@ -1230,7 +1228,7 @@ Damage.prototype.drawMacrodoncia = function (context, settings)
 Damage.prototype.drawMicrodonica = function (context, settings)
 {
     this.rect.highlightWithColor(context, "#ffffff", 1);
-    
+
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
@@ -1244,11 +1242,11 @@ Damage.prototype.drawMicrodonica = function (context, settings)
 Damage.prototype.drawSemiImpactaion = function (context, settings)
 {
     this.rect.highlightWithColor(context, "#ffffff", 1);
-    
+
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
-    context.fillText("SI", this.rect.x + this.rect.width / 2, 
+    context.fillText("SI", this.rect.x + this.rect.width / 2,
                      this.rect.y + this.rect.height - 2);
 
     context.restore();
@@ -1258,15 +1256,15 @@ Damage.prototype.drawSemiImpactaion = function (context, settings)
 Damage.prototype.drawSuperficieDesgastada = function (context, settings)
 {
     this.rect.highlightWithColor(context, "#ffffff", 1);
-    
+
     context.textAlign = "center";
     context.fillStyle = settings.COLOR_BLUE;
 
-    context.fillText("DES", this.rect.x + this.rect.width / 2, 
+    context.fillText("DES", this.rect.x + this.rect.width / 2,
                      this.rect.y + this.rect.height - 2);
 
     context.restore();
-    
+
 
 };
 

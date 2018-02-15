@@ -53,7 +53,6 @@ function Constants()
     this.SUPERFICIE_DESGASTADA = 37;
     this.SEMI_IMPACTACI0N = 38;
     
-    
     /**
      * Method to check if a damage is writable, is text only
      * @param {type} arg id of the damage

@@ -381,6 +381,37 @@ Engine.prototype.addToMultiSelection = function (tooth)
 };
 
 /**
+ * Method to check if a string is alphabetic, only contains letters A-Z or a-z
+ * @param {type} input the text to check
+ * @returns {Boolean} true if letters only, else false
+ */
+Engine.prototype.isAlphabetic = function (input)
+{
+    var valid = false;
+
+    var letters = /^[a-zA-Z]+$/;
+    if (input.match(letters))
+    {
+        valid = true;
+
+    }
+
+    return valid;
+};
+
+Engine.prototype.setTextToTextBox = function (textBox, text)
+{
+    if (text !== null) {
+        if (text.length < 4) {
+
+            if (this.isAlphabetic(text)) {
+                textBox.setNote(text);
+            }
+        }
+    }
+};
+
+/**
  * Method to handle when there is a mouse click on a textbox
  * the method prompts the user to input a text.
  * @param {type} textBox the textbox which has been clicked
@@ -392,11 +423,7 @@ Engine.prototype.onTextBoxClicked = function (textBox)
 
     var text = prompt(message, "");
 
-    if(text !== null){
-        if (text.length < 4) {
-            textBox.text = text.toUpperCase();
-        }
-    }
+    this.setTextToTextBox(textBox, text);
 
 };
 
@@ -768,7 +795,7 @@ Engine.prototype.save = function ()
     var name = Date.now() + ".png";
 
     link.download = name;
-    
+
     link.href = this.canvas.toDataURL("image/png")
             .replace("image/png", "image/octet-stream");
 
@@ -950,8 +977,8 @@ Engine.prototype.onButtonClick = function (event)
 
         this.update();
     }
-    
-      // key combination Ctrl + W to save the canvas as an image file
+
+    // key combination Ctrl + W to save the canvas as an image file
     if ((event.which === 81 || event.keyCode === 81) && event.shiftKey) {
         this.settings.DEBUG = !this.settings.DEBUG;
 
@@ -1198,23 +1225,19 @@ Engine.prototype.getSpaceById = function (id)
  * @param {type} note text to add to textbox for tooth, empty if no note
  * @returns {undefined}
  */
-Engine.prototype.load = function (tooth, damage, surface, note) {
-
-
+Engine.prototype.load = function (tooth, damage, surface, note)
+{
     // check if we should add damage to a tooth
     if (surface === "0") {
 
         // if id is less than 1000 then we have to find a tooth
         if (tooth < 1000) {
 
-
             var t = this.getToothById(tooth);
 
             this.collisionHandler.handleCollision(t, damage);
 
-            if (note !== "") {
-                t.textBox.text = note;
-            }
+            this.setTextToTextBox(t.textBox, note);
 
         } else {
             // if the id is greater than 1000
@@ -1224,7 +1247,7 @@ Engine.prototype.load = function (tooth, damage, surface, note) {
 
 
     } else {
-     
+
         // adding damage to surface
 
         var surfaceId = tooth + "_" + surface;
@@ -1234,13 +1257,13 @@ Engine.prototype.load = function (tooth, damage, surface, note) {
 
         this.collisionHandler.handleCollisionCheckBox(surface, damage);
 
-        if (note !== "") {
-            t.textBox.text = note;
-        }
+        this.setTextToTextBox(t.textBox, note);
 
     }
 
 };
+
+
 
 /**
  * Method to pass a comma seperated string for loading data
@@ -1248,7 +1271,7 @@ Engine.prototype.load = function (tooth, damage, surface, note) {
  * @param {type} dataArray commea seperated string
  * @returns {void}
  */
-Engine.prototype.LoadData = function (dataArray) {
+Engine.prototype.setDataSource = function (dataArray) {
 
     var res = dataArray.split(",");
 

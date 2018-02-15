@@ -118,3 +118,8 @@ TextBox.prototype.render = function (context, color)
     this.drawText(context, color);
 
 };
+
+TextBox.prototype.setNote = function(note)
+{
+   this.text = note.toUpperCase();
+};
