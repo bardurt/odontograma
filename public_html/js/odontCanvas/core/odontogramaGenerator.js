@@ -14,8 +14,8 @@
  * Helper class for creating a Odontograma
  * @returns {OdontogramaGenerator}
  */
-function OdontogramaGenerator()
-{
+function OdontogramaGenerator() {
+    "use strict";
     // variable for how many images have been loaded
     this.currentLoad = 0;
 
@@ -36,8 +36,8 @@ function OdontogramaGenerator()
  * @param {type} engine
  * @returns {undefined}
  */
-OdontogramaGenerator.prototype.setEngine = function (engine)
-{
+OdontogramaGenerator.prototype.setEngine = function (engine) {
+    "use strict"; 
     this.engine = engine;
 };
 
@@ -46,13 +46,13 @@ OdontogramaGenerator.prototype.setEngine = function (engine)
  * @param {type} settings application settings
  * @returns {undefined}
  */
-OdontogramaGenerator.prototype.setSettings = function (settings)
-{
+OdontogramaGenerator.prototype.setSettings = function (settings) {
+    "use strict";
     this.settings = settings;
 };
 
-OdontogramaGenerator.prototype.setConstants = function (constants)
-{
+OdontogramaGenerator.prototype.setConstants = function (constants) {
+    "use strict";
     this.constants = constants;
 };
 
@@ -62,8 +62,8 @@ OdontogramaGenerator.prototype.setConstants = function (constants)
  * @returns {void}
  */
 OdontogramaGenerator.prototype.updateLoad = function () {
-
-    this.currentLoad++;
+    "use strict";
+    this.currentLoad = this.currentLoad + 1;
 
     // notify when all images have been loaded
     if (this.currentLoad >= this.arrayCount) {
@@ -82,6 +82,7 @@ OdontogramaGenerator.prototype.updateLoad = function () {
 OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
         spaces, canvas) {
 
+    "use strict";
     var self = this;
     this.arrayCount = 0;
 
@@ -375,9 +376,9 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
  * @param {type} canvas the canvas where the odontograma will be drawn on
  * @returns {void}
  */
-OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma, spaces, canvas)
-{
-
+OdontogramaGenerator.prototype.prepareOdontogramaChild = function (odontograma,
+spaces, canvas) {
+    "use strict"; 
     this.arrayCount = 0;
 
     // center odontograma horizontal

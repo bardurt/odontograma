@@ -13,29 +13,31 @@
  * Helper class for drawing items on a canvas
  * @returns {Renderer}
  */
-function Renderer()
-{
-    this.context;
+function Renderer() {
+    "use strict";
+    this.context = null;
     this.width = 0;
     this.height = 0;
-    this.settings;
+    this.settings = null;
 }
 
 /**
  * Method to render a splash screen
  * @returns {undefined}
  */
-Renderer.prototype.drawSplash = function()
-{
+Renderer.prototype.drawSplash = function () {
+    "use strict";
     
     this.context.fillStyle ="#ffffff";
     this.context.fillRect(0, 0, this.width, this.height);
-    
+
     this.context.beginPath();
     this.context.textAlign = 'center';
     this.context.fillStyle = "#000000";
     this.context.font = "32px Arial Bold";
-    this.context.fillText("OdontoGraph 1.0.0", this.width/2, this.height/2 -16);
+    this.context.fillText("OdontoGraph 1.0.0", this.width / 2, 
+                           this.height / 2 - 16);
+    
     this.context.font = "18px Arial Bold";
     this.context.fillStyle = "#000000";
     
@@ -47,8 +49,9 @@ Renderer.prototype.drawSplash = function()
  * @param {type} canvas the canvas to draw on
  * @returns {undefined}
  */
-Renderer.prototype.init = function(canvas) 
-{
+Renderer.prototype.init = function (canvas) {
+    "use strict";
+    
     this.context = canvas.getContext('2d');
     this.width = canvas.width;
     this.height = canvas.height;
@@ -62,11 +65,10 @@ Renderer.prototype.init = function(canvas)
  * @param {type} settings for color, and debug state
  * @returns {undefined}
  */
-Renderer.prototype.clear = function(settings)
-{
-    
+Renderer.prototype.clear = function (settings) {
+    "use strict";
     // clear the canvas
-    if(settings.DEBUG) {
+    if (settings.DEBUG) {
         this.context.fillStyle ="#e6fff3";
     } else {
         this.context.fillStyle ="#ffffff";
@@ -85,9 +87,8 @@ Renderer.prototype.clear = function(settings)
  * @param {type} constants which are used for the engine
  * @returns {undefined}
  */
-Renderer.prototype.render = function(data, settings, constants)
-{
-    
+Renderer.prototype.render = function (data, settings, constants) {
+    "use strict";
     // draw the teeth
     for (var i = 0; i < data.length; i++) {
 
@@ -104,8 +105,8 @@ Renderer.prototype.render = function(data, settings, constants)
  * @param {type} color the color which the text should be
  * @returns {undefined}
  */
-Renderer.prototype.renderText = function(text, x, y, color)
-{
+Renderer.prototype.renderText = function (text, x, y, color) {
+    "use strict";
     if(color === undefined){
         color = "#000000"; // default color = black
     }
@@ -121,6 +122,7 @@ Renderer.prototype.renderText = function(text, x, y, color)
  * @param {type} settings the settings for the application
  * @returns {undefined}
  */
-Renderer.prototype.setSettings = function(settings){
+Renderer.prototype.setSettings = function (settings){
+    "use strict"; 
     this.settings = settings;
 };

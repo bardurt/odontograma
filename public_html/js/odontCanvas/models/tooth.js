@@ -19,8 +19,8 @@
  * Base class for tooth
  * @returns {Tooth}
  */
-function Tooth()
-{
+function Tooth() {
+    
     this.id = '';
     this.tooth = true;
     this.surfaces = 0;
@@ -48,8 +48,8 @@ function Tooth()
  * @param {type} height
  * @returns {undefined}
  */
-Tooth.prototype.setDimens = function (x, y, width, height)
-{
+Tooth.prototype.setDimens = function (x, y, width, height) {
+    "use strict";
     this.x = x;
     this.y = y;
     this.width = width;
@@ -73,8 +73,9 @@ Tooth.prototype.setDimens = function (x, y, width, height)
  * @param {type} type of the tooth, upper or lower
  * @returns {undefined}
  */
-Tooth.prototype.setType = function (type)
-{
+Tooth.prototype.setType = function (type) {
+    "use strict";
+    
     this.type = type;
 
     if (type === 0) {
@@ -95,8 +96,8 @@ Tooth.prototype.setType = function (type)
  * @param {type} constants
  * @returns {undefined}
  */
-Tooth.prototype.setConstants = function (constants)
-{
+Tooth.prototype.setConstants = function (constants) {
+    "use strict";
     this.constants = constants;
 };
 
@@ -106,8 +107,8 @@ Tooth.prototype.setConstants = function (constants)
  * @param {type} eY y coordinates of event
  * @returns boolean true if collision, else false
  */
-Tooth.prototype.checkCollision = function (eX, eY)
-{
+Tooth.prototype.checkCollision = function (eX, eY) {
+    "use strict";
     return this.rect.checkCollision(eX, eY);
 };
 
@@ -116,13 +117,13 @@ Tooth.prototype.checkCollision = function (eX, eY)
  * @param {type} surfaces
  * @returns {undefined}
  */
-Tooth.prototype.setSurfaces = function (surfaces)
-{
+Tooth.prototype.setSurfaces = function (surfaces) {
+    "use strict";
     this.surfaces = surfaces;
 };
 
-Tooth.prototype.toggleSelected = function (selected)
-{
+Tooth.prototype.toggleSelected = function (selected) {
+    "use strict";
     this.highlight = selected;
 };
 
@@ -131,8 +132,8 @@ Tooth.prototype.toggleSelected = function (selected)
  * @param {type} settings global settings 
  * @returns {undefined}
  */
-Tooth.prototype.create4Surfaces = function (settings)
-{
+Tooth.prototype.create4Surfaces = function (settings) {
+    "use strict";
     var width = settings.RECT_DIMEN;
 
     var startX = this.x + 10;
@@ -192,8 +193,8 @@ Tooth.prototype.create4Surfaces = function (settings)
 
         this.checkBoxes.push(rect4);
 
-    } else
-    {
+    } else {
+        
         var rect1 = new Rect();
 
         rect1.width = width;
@@ -243,8 +244,8 @@ Tooth.prototype.create4Surfaces = function (settings)
  * @param {type} settings global settings 
  * @returns {undefined}
  */
-Tooth.prototype.create5Surfaces = function (settings)
-{
+Tooth.prototype.create5Surfaces = function (settings) {
+    "use strict";
     var width = settings.RECT_DIMEN;
 
     var startX = this.x + 5;
@@ -314,8 +315,9 @@ Tooth.prototype.create5Surfaces = function (settings)
         rect5.id = this.id + "_L";
 
         this.checkBoxes.push(rect5);
-    } else
-    {
+    
+    } else {
+        
         var rect1 = new Rect();
 
         rect1.width = width;
@@ -375,13 +377,11 @@ Tooth.prototype.create5Surfaces = function (settings)
  * @param {type} settings global settings 
  * @returns {undefined}
  */
-Tooth.prototype.createSurfaces = function (settings)
-{
-    if (this.surfaces === 4)
-    {
+Tooth.prototype.createSurfaces = function (settings) {
+    "use strict";
+    if (this.surfaces === 4) {
         this.create4Surfaces(settings);
-    } else
-    {
+    } else {
         this.create5Surfaces(settings);
     }
 };
@@ -391,8 +391,8 @@ Tooth.prototype.createSurfaces = function (settings)
  * @param {type} context the canvas to draw on
  * @returns {undefined}
  */
-Tooth.prototype.drawId = function (context)
-{
+Tooth.prototype.drawId = function (context) {
+    "use strict";
     context.beginPath();
     context.textAlign = 'center';
     context.fillStyle = "#000000";
@@ -400,8 +400,7 @@ Tooth.prototype.drawId = function (context)
 
     var space = 40;
 
-    if (this.type === 0)
-    {
+    if (this.type === 0) {
         // draw id
         context.fillText("" + this.id, this.rect.x + this.rect.width / 2, 
                          this.rect.y + this.rect.height + space + 10);
@@ -417,8 +416,7 @@ Tooth.prototype.drawId = function (context)
                        
         context.lineTo(this.rect.x + this.rect.width, 
                        this.rect.y + this.rect.height + space);
-    } else
-    {
+    } else {
         // draw id
         context.fillText("" + this.id, this.rect.x + this.rect.width / 2,
                          this.rect.y - space - 5);
@@ -445,8 +443,9 @@ Tooth.prototype.drawId = function (context)
  * @param {type} settings global settings
  * @returns {undefined}
  */
-Tooth.prototype.drawCheckBoxes = function (context, settings)
-{
+Tooth.prototype.drawCheckBoxes = function (context, settings) {
+    "use strict";
+    
     for (var i = 0; i < this.checkBoxes.length; i++)
     {
         
@@ -476,8 +475,9 @@ Tooth.prototype.drawCheckBoxes = function (context, settings)
  * @param {type} settings global settings
  * @returns {undefined} void
  */
-Tooth.prototype.drawTextBox = function (context, settings)
-{
+Tooth.prototype.drawTextBox = function (context, settings) {
+    "use strict";
+    
     this.textBox.render(context, settings.COLOR_BLUE);
     
     if (this.textBox.touching) {
@@ -491,8 +491,8 @@ Tooth.prototype.drawTextBox = function (context, settings)
  * @param {type} touch boolean value 
  * @returns {undefined}
  */
-Tooth.prototype.onTouch = function (touch)
-{
+Tooth.prototype.onTouch = function (touch) {
+    "use strict";
     if (touch)
     {
         this.y = this.highY;
@@ -509,8 +509,8 @@ Tooth.prototype.onTouch = function (touch)
  * @param {type} damageId the id of the damage to create
  * @returns {Damage} damage which can be drawn
  */
-Tooth.prototype.createDamage = function (damageId)
-{
+Tooth.prototype.createDamage = function (damageId) {
+    "use strict";
     // empty damage
     var damage;
     
@@ -568,7 +568,7 @@ Tooth.prototype.createDamage = function (damageId)
  * @returns {undefined}
  */
 Tooth.prototype.toggleDamage = function (damageId) {
-
+    "use strict";
     console.log("Toggle damage for " + this.id + ", damage " + damageId);
 
     // if there are no damages, then add.
@@ -624,9 +624,8 @@ Tooth.prototype.toggleDamage = function (damageId) {
  * @param {type} constants application constants
  * @returns {undefined}
  */
-Tooth.prototype.render = function (context, settings, constants)
-{
-
+Tooth.prototype.render = function (context, settings, constants) {
+    "use strict";
     // check if this is a tooth or a space
     if (this.tooth) {
 
@@ -706,8 +705,8 @@ Tooth.prototype.render = function (context, settings, constants)
  * @param {type} id the id of the textbox to find
  * @returns returns a rect if found, else undefined
  */
-Tooth.prototype.getSurfaceById = function (id)
-{
+Tooth.prototype.getSurfaceById = function (id) {
+    "use strict";
     var surface;
 
     for (var i = 0; i < this.checkBoxes.length; i++) {

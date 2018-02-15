@@ -15,8 +15,8 @@
  * fixed in the engine.
  * @returns {Settings}
  */
-function Settings()
-{
+function Settings() {
+    "use strict";
     // app settings
     this.DEBUG = false;
     this.HIHGLIGHT_SPACES = false;

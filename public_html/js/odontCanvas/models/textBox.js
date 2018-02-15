@@ -13,8 +13,8 @@
  * Class which represents a simple textbox 
  */
 
-function TextBox()
-{
+function TextBox() {
+    "use strict";
     this.text = "";
     this.rect = new Rect();
     this.touching = false;
@@ -28,15 +28,14 @@ function TextBox()
  * @param {type} height of rectangle
  * @returns {undefined}
  */
-TextBox.prototype.setDimens = function (x, y, width, height)
-{
+TextBox.prototype.setDimens = function (x, y, width, height) {
+    "use strict";
     this.rect.x = x;
     this.rect.y = y;
     this.rect.width = width;
     this.rect.height = height;
     this.text = "";
     this.label = "";
-
 };
 
 /**
@@ -44,21 +43,19 @@ TextBox.prototype.setDimens = function (x, y, width, height)
  * @param {type} text string to draw
  * @returns {undefined}
  */
-TextBox.prototype.setText = function (text)
-{
-
+TextBox.prototype.setText = function (text) {
+    "use strict";
     this.text = text;
 };
 
-TextBox.prototype.setLabel = function (label)
-{
+TextBox.prototype.setLabel = function (label) {
+    "use strict";
     this.label = label;
 };
 
 
-TextBox.prototype.drawLabel = function (context)
-{
-
+TextBox.prototype.drawLabel = function (context) {
+    "use strict";
     this.rect.outline(context, "#000000");
 
     context.beginPath();
@@ -76,8 +73,8 @@ TextBox.prototype.drawLabel = function (context)
 
 };
 
-TextBox.prototype.drawText = function(context, color)
-{
+TextBox.prototype.drawText = function (context, color) {
+    "use strict";
     context.beginPath();
 
     // if there is text, create a white background
@@ -113,13 +110,12 @@ TextBox.prototype.drawText = function(context, color)
  * @param {type} color the color of the text
  * @returns {undefined}
  */
-TextBox.prototype.render = function (context, color)
-{
+TextBox.prototype.render = function (context, color) {
+    "use strict";
     this.drawText(context, color);
-
 };
 
-TextBox.prototype.setNote = function(note)
-{
-   this.text = note.toUpperCase();
+TextBox.prototype.setNote = function (note) {
+    "use strict";
+    this.text = note.toUpperCase();
 };

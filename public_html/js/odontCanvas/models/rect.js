@@ -13,8 +13,8 @@
  * Class for a rectangle
  * @returns {Rect}
  */
-function Rect()
-{
+function Rect() {
+    "use strict";
     this.id = "";
     this.x = 0;
     this.y = 0;
@@ -25,18 +25,18 @@ function Rect()
 
 }
 
-Rect.prototype.cavity = function () 
-{
+Rect.prototype.cavity = function () {
+    "use strict";
     this.state = 1;
 };
 
-Rect.prototype.restoration = function ()
-{
+Rect.prototype.restoration = function () {
+    "use strict";
     this.state = 2;
 };
 
-Rect.prototype.uncheck = function () 
-{
+Rect.prototype.uncheck = function () {
+    "use strict";
     this.state = 0;
 };
 
@@ -46,8 +46,8 @@ Rect.prototype.uncheck = function ()
  * @param {type} cursY y coordinate of point
  * @returns {Boolean} true if collision, false else
  */
-Rect.prototype.checkCollision = function (cursX, cursY) 
-{
+Rect.prototype.checkCollision = function (cursX, cursY) {
+    "use strict";
     var collision = false;
 
     if (cursX > this.x) {
@@ -72,9 +72,8 @@ Rect.prototype.checkCollision = function (cursX, cursY)
  * @param {type} settings global highlight color of checkbox
  * @returns {undefined}
  */
-Rect.prototype.highlight = function (context, settings) 
-{
-
+Rect.prototype.highlight = function (context, settings) {
+    "use strict";
     context.beginPath();
     context.globalAlpha = 0.4;
     context.fillStyle = settings.COLOR_ON_TOUCH;
@@ -93,9 +92,8 @@ Rect.prototype.highlight = function (context, settings)
  * @param {type} alpha alpha valu of the color
  * @returns {undefined}
  */
-Rect.prototype.highlightWithColor = function (context, color, alpha)
-{
-
+Rect.prototype.highlightWithColor = function (context, color, alpha) {
+    "use strict";
     context.beginPath();
     context.globalAlpha = alpha;
     context.fillStyle = color;
@@ -113,9 +111,8 @@ Rect.prototype.highlightWithColor = function (context, color, alpha)
  * @param {type} color the color for the outline
  * @returns {undefined}
  */
-Rect.prototype.outline = function (context, color)
-{
-
+Rect.prototype.outline = function (context, color) {
+    "use strict";
     context.beginPath();
     context.lineWidth = 1;
     context.globalAlpha = 1;
@@ -134,10 +131,9 @@ Rect.prototype.outline = function (context, color)
  * @param {type} padding padding for the ellipses default is 0;
  * @returns {undefined}
  */
-Rect.prototype.highlightEllipse = function (context, color, alpha, padding)
-{
-
-    if(padding === undefined){
+Rect.prototype.highlightEllipse = function (context, color, alpha, padding) {
+    "use strict";
+    if (padding === undefined){
         padding = 0;
     }
 
@@ -166,9 +162,8 @@ Rect.prototype.highlightEllipse = function (context, color, alpha, padding)
  * @param {type} color the color of the ellipses
  * @returns {undefined}
  */
-Rect.prototype.fillColor = function (context, color) 
-{
-
+Rect.prototype.fillColor = function (context, color) {
+    "use strict";
     context.beginPath();
     context.fillStyle = color;
 

@@ -15,10 +15,9 @@
  */
 
 
-function Damage(id, x, y, width, height, type)
-{
+function Damage(id, x, y, width, height, type) {
+    "use strict";
     this.id = id;
-
     this.rect = new Rect();
     this.rect.x = x;
     this.rect.y = y;
@@ -30,8 +29,8 @@ function Damage(id, x, y, width, height, type)
 
 }
 
-Damage.prototype.renderFractura = function (context, settings)
-{
+Damage.prototype.renderFractura = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     if (this.type === 0) {
@@ -59,8 +58,8 @@ Damage.prototype.renderFractura = function (context, settings)
 };
 
 
-Damage.prototype.renderDienteAusente = function (context, settings)
-{
+Damage.prototype.renderDienteAusente = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     if (this.type === 0) {
@@ -112,9 +111,8 @@ Damage.prototype.renderDienteAusente = function (context, settings)
     context.restore();
 };
 
-Damage.prototype.drawPulpar = function (context, settings)
-{
-
+Damage.prototype.drawPulpar = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     if (this.type === 0) {
@@ -143,9 +141,8 @@ Damage.prototype.drawPulpar = function (context, settings)
     context.restore();
 };
 
-Damage.prototype.drawMigracion = function (context, settings)
-{
-
+Damage.prototype.drawMigracion = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     var spacer = 5;
@@ -199,9 +196,8 @@ Damage.prototype.drawMigracion = function (context, settings)
 
 };
 
-Damage.prototype.drawOrtondicoRemovible = function (context, settings)
-{
-
+Damage.prototype.drawOrtondicoRemovible = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     if (this.type === 0) {
@@ -233,9 +229,8 @@ Damage.prototype.drawOrtondicoRemovible = function (context, settings)
 
 };
 
-Damage.prototype.drawDienteExtruido = function (context, settings)
-{
-
+Damage.prototype.drawDienteExtruido = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     if (this.type === 0) {
@@ -282,9 +277,8 @@ Damage.prototype.drawDienteExtruido = function (context, settings)
 
 };
 
-Damage.prototype.drawDienteIntruido = function (context, settings)
-{
-
+Damage.prototype.drawDienteIntruido = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     if (this.type === 0) {
@@ -331,8 +325,8 @@ Damage.prototype.drawDienteIntruido = function (context, settings)
 
 };
 
-Damage.prototype.drawProtesisRemovible = function (context, settings)
-{
+Damage.prototype.drawProtesisRemovible = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     if (this.type === 0) {
@@ -372,8 +366,8 @@ Damage.prototype.drawProtesisRemovible = function (context, settings)
 
 };
 
-Damage.prototype.drawRemanenteRadicular = function (context, settings)
-{
+Damage.prototype.drawRemanenteRadicular = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     context.fillStyle = settings.COLOR_RED;
@@ -392,9 +386,8 @@ Damage.prototype.drawRemanenteRadicular = function (context, settings)
 
 };
 
-Damage.prototype.drawGiroversion = function drawGiroversion(context, settings)
-{
-
+Damage.prototype.drawGiroversion = function drawGiroversion(context, settings) {
+    "use strict";
     context.beginPath();
 
     var cx = this.rect.x + this.rect.width / 2;
@@ -440,8 +433,8 @@ Damage.prototype.drawGiroversion = function drawGiroversion(context, settings)
 
 };
 
-Damage.prototype.drawPernoMunon = function (context, settings)
-{
+Damage.prototype.drawPernoMunon = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     var size = this.rect.width - 20;
@@ -484,8 +477,8 @@ Damage.prototype.drawPernoMunon = function (context, settings)
 
 };
 
-Damage.prototype.drawDienteEnErupcion = function (context, settings)
-{
+Damage.prototype.drawDienteEnErupcion = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     var pad = 2;
@@ -546,9 +539,8 @@ Damage.prototype.drawDienteEnErupcion = function (context, settings)
     context.restore();
 };
 
-Damage.prototype.drawProtesisTotal = function (context, settings)
-{
-
+Damage.prototype.drawProtesisTotal = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     if (this.type === 0) {
@@ -579,9 +571,8 @@ Damage.prototype.drawProtesisTotal = function (context, settings)
 
 };
 
-Damage.prototype.drawEdentuloTotal = function (context, settings)
-{
-
+Damage.prototype.drawEdentuloTotal = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     if (this.type === 0) {
@@ -605,8 +596,8 @@ Damage.prototype.drawEdentuloTotal = function (context, settings)
 
 };
 
-Damage.prototype.drawDienteEnClavija = function (context, settings)
-{
+Damage.prototype.drawDienteEnClavija = function (context, settings) {
+    "use strict";
     context.beginPath();
     var space = 40;
 
@@ -637,8 +628,9 @@ Damage.prototype.drawDienteEnClavija = function (context, settings)
 
 };
 
-Damage.prototype.drawFusion = function (context, settings)
-{
+Damage.prototype.drawFusion = function (context, settings) {
+    "use strict";
+    
     var cx = this.rect.x + this.rect.width / 2;
 
     var radius = (this.rect.width + 5) / 2;
@@ -662,8 +654,9 @@ Damage.prototype.drawFusion = function (context, settings)
 
 };
 
-Damage.prototype.drawCoronaDefinitiva = function (context, settings)
-{
+Damage.prototype.drawCoronaDefinitiva = function (context, settings) {
+    "use strict";
+    
     var cx = this.rect.x + this.rect.width / 2;
     var cy = 0;
 
@@ -687,9 +680,9 @@ Damage.prototype.drawCoronaDefinitiva = function (context, settings)
 
 };
 
-Damage.prototype.drawCoronaTemporal = function (context, settings)
-{
-
+Damage.prototype.drawCoronaTemporal = function (context, settings) {
+    "use strict";
+    
     var cx = this.rect.x + this.rect.width / 2;
     var cy = 0;
 
@@ -713,9 +706,8 @@ Damage.prototype.drawCoronaTemporal = function (context, settings)
 
 };
 
-Damage.prototype.drawDiastema = function (context, settings)
-{
-
+Damage.prototype.drawDiastema = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     if (this.type === 0) {
@@ -779,9 +771,8 @@ Damage.prototype.drawDiastema = function (context, settings)
 
 };
 
-Damage.prototype.drawSuperNumerario = function (context, settings)
-{
-
+Damage.prototype.drawSuperNumerario = function (context, settings) {
+    "use strict";
     context.beginPath();
 
     if (this.type === 0) {
@@ -839,8 +830,8 @@ Damage.prototype.drawSuperNumerario = function (context, settings)
 
 };
 
-Damage.prototype.drawOrtodonticoFijoEnd = function (context, settings)
-{
+Damage.prototype.drawOrtodonticoFijoEnd = function (context, settings) {
+    "use strict";
     context.beginPath();
     context.lineWidth = 2;
     // set line color
@@ -903,13 +894,12 @@ Damage.prototype.drawOrtodonticoFijoEnd = function (context, settings)
 
     }
 
-
     context.restore();
 
 };
 
-Damage.prototype.drawOrtodonticoFijoCenter = function (context, settings)
-{
+Damage.prototype.drawOrtodonticoFijoCenter = function (context, settings) {
+    "use strict";
     context.beginPath();
     context.lineWidth = 2;
     // set line color
@@ -948,7 +938,7 @@ Damage.prototype.drawOrtodonticoFijoCenter = function (context, settings)
 };
 
 Damage.prototype.drawProtesisFijaRight = function (context, settings) {
-
+    "use strict";
     context.beginPath();
 
     context.lineWidth = 2;
@@ -984,7 +974,7 @@ Damage.prototype.drawProtesisFijaRight = function (context, settings) {
 };
 
 Damage.prototype.drawProtesisFijaCenter = function (context, settings) {
-
+    "use strict";
     context.beginPath();
 
     context.lineWidth = 2;
@@ -1014,7 +1004,7 @@ Damage.prototype.drawProtesisFijaCenter = function (context, settings) {
 };
 
 Damage.prototype.drawProtesisFijaLeft = function (context, settings) {
-
+    "use strict";
     context.beginPath();
 
     context.lineWidth = 2;
@@ -1049,7 +1039,7 @@ Damage.prototype.drawProtesisFijaLeft = function (context, settings) {
 };
 
 Damage.prototype.drawTransposicionLeft = function (context, settings) {
-
+    "use strict";
     context.beginPath();
 
     var cx = this.rect.x + this.rect.width * 0.75;
@@ -1057,8 +1047,7 @@ Damage.prototype.drawTransposicionLeft = function (context, settings) {
     var radiusX = (this.rect.width) / 2;
     var radiusY = 10;
 
-    if (this.type === 0)
-    {
+    if (this.type === 0) {
 
         // half circle
         context.ellipse(cx, cy, radiusX, radiusY, 0, Math.PI, 2 * Math.PI, false);
@@ -1075,8 +1064,8 @@ Damage.prototype.drawTransposicionLeft = function (context, settings) {
         context.lineTo(this.rect.x + (this.rect.width * 0.75) + (this.rect.width / 2) - 8,
                 this.rect.y);
 
-    } else
-    {
+    } else {
+        
         cy = this.rect.y + this.rect.height;
 
         // half circle
@@ -1105,7 +1094,7 @@ Damage.prototype.drawTransposicionLeft = function (context, settings) {
 };
 
 Damage.prototype.drawTransposicionRight = function (context, settings) {
-
+    "use strict";
     context.beginPath();
 
     var cx = this.rect.x + this.rect.width * 0.25;
@@ -1113,8 +1102,7 @@ Damage.prototype.drawTransposicionRight = function (context, settings) {
     var radiusX = (this.rect.width) / 2;
     var radiusY = 10;
 
-    if (this.type === 0)
-    {
+    if (this.type === 0) {
 
         // half circle
         context.ellipse(cx, cy, radiusX, radiusY, 0, Math.PI, 2 * Math.PI, false);
@@ -1131,8 +1119,8 @@ Damage.prototype.drawTransposicionRight = function (context, settings) {
         context.lineTo(this.rect.x + (this.rect.width * 0.25) - (this.rect.width / 2) + 8,
                 this.rect.y);
 
-    } else
-    {
+    } else {
+        
         cy = this.rect.y + this.rect.height;
 
         // half circle
@@ -1160,8 +1148,8 @@ Damage.prototype.drawTransposicionRight = function (context, settings) {
     context.restore();
 };
 
-Damage.prototype.drawDienteDiscomico = function (context, settings)
-{
+Damage.prototype.drawDienteDiscomico = function (context, settings) {
+    "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
     context.textAlign = "center";
@@ -1173,8 +1161,8 @@ Damage.prototype.drawDienteDiscomico = function (context, settings)
 
 };
 
-Damage.prototype.drawDienteEctopico = function (context, settings)
-{
+Damage.prototype.drawDienteEctopico = function (context, settings) {
+    "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
     context.textAlign = "center";
@@ -1186,8 +1174,8 @@ Damage.prototype.drawDienteEctopico = function (context, settings)
 
 };
 
-Damage.prototype.drawImpactacion = function (context, settings)
-{
+Damage.prototype.drawImpactacion = function (context, settings) {
+    "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
     context.textAlign = "center";
@@ -1199,8 +1187,8 @@ Damage.prototype.drawImpactacion = function (context, settings)
 
 };
 
-Damage.prototype.drawImplante = function (context, settings)
-{
+Damage.prototype.drawImplante = function (context, settings) {
+    "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
     context.textAlign = "center";
@@ -1212,8 +1200,8 @@ Damage.prototype.drawImplante = function (context, settings)
 
 };
 
-Damage.prototype.drawMacrodoncia = function (context, settings)
-{
+Damage.prototype.drawMacrodoncia = function (context, settings) {
+    "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
     context.textAlign = "center";
@@ -1225,8 +1213,8 @@ Damage.prototype.drawMacrodoncia = function (context, settings)
 
 };
 
-Damage.prototype.drawMicrodonica = function (context, settings)
-{
+Damage.prototype.drawMicrodonica = function (context, settings) {
+    "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
     context.textAlign = "center";
@@ -1239,8 +1227,8 @@ Damage.prototype.drawMicrodonica = function (context, settings)
 
 };
 
-Damage.prototype.drawSemiImpactaion = function (context, settings)
-{
+Damage.prototype.drawSemiImpactaion = function (context, settings) {
+    "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
     context.textAlign = "center";
@@ -1253,8 +1241,8 @@ Damage.prototype.drawSemiImpactaion = function (context, settings)
 
 };
 
-Damage.prototype.drawSuperficieDesgastada = function (context, settings)
-{
+Damage.prototype.drawSuperficieDesgastada = function (context, settings) {
+    "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
     context.textAlign = "center";
@@ -1268,20 +1256,18 @@ Damage.prototype.drawSuperficieDesgastada = function (context, settings)
 
 };
 
-Damage.prototype.render = function (context, settings, constants)
-{
-    if (this.id === constants.FRACTURA)
-    {
+Damage.prototype.render = function (context, settings, constants) {
+    "use strict";
+
+    if (this.id === constants.FRACTURA) {
         this.renderFractura(context, settings);
     }
 
-    if (this.id === constants.DIENTE_AUSENTE)
-    {
+    if (this.id === constants.DIENTE_AUSENTE) {
         this.renderDienteAusente(context, settings);
     }
 
-    if (this.id === constants.PULPAR)
-    {
+    if (this.id === constants.PULPAR) {
         this.drawPulpar(context, settings);
     }
 

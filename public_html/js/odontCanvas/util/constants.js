@@ -10,8 +10,8 @@
  */
 
 
-function Constants()
-{
+function Constants() {
+    "use strict";
     // Damages for drawing
     this.CARIES = 1;
     this.CORONA_DEFINITIVA = 2;
@@ -58,25 +58,25 @@ function Constants()
      * @param {type} arg id of the damage
      * @returns {Boolean} true if this damage is only text, else false
      */
-    this.isWritable = function(arg){
-        
+    this.isWritable = function(arg) {
+     
         var match = false;
         
-        if(arg === this.DIENTE_DISCR0MICO){
+        if (arg === this.DIENTE_DISCR0MICO) {
             match = true;
-        } else if(arg === this.DIENTE_ECTOPICO){
+        } else if (arg === this.DIENTE_ECTOPICO) {
             match = true;
-        } else if(arg === this.IMPACTACION){
+        } else if (arg === this.IMPACTACION) {
             match = true;
-        } else if(arg === this.IMPLANTE){
+        } else if (arg === this.IMPLANTE) {
             match = true;
-        } else if(arg === this.MACRODONCIA){
+        } else if (arg === this.MACRODONCIA) {
             match = true;
-        } else if(arg === this.MICRODONCIA){
+        } else if (arg === this.MICRODONCIA) {
             match = true;
-        } else if(arg === this.SEMI_IMPACTACI0N){
+        } else if (arg === this.SEMI_IMPACTACI0N) {
             match = true;
-        } else if(arg === this.SUPERFICIE_DESGASTADA){
+        } else if (arg === this.SUPERFICIE_DESGASTADA) {
             match = true;
         }
         

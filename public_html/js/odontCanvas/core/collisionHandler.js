@@ -13,8 +13,8 @@
  * Helper class for handling collisions
  * @returns {CollisionHandler}
  */
-function CollisionHandler()
-{
+function CollisionHandler() {
+    "use strict";
     this.constants = null;
 }
 
@@ -23,8 +23,8 @@ function CollisionHandler()
  * @param {type} constants
  * @returns {undefined}
  */
-CollisionHandler.prototype.setConstants = function (constants)
-{
+CollisionHandler.prototype.setConstants = function (constants) {
+    "use strict";
     this.constants = constants;
 };
 
@@ -34,9 +34,8 @@ CollisionHandler.prototype.setConstants = function (constants)
  * @param {type} argument
  * @returns {undefined}
  */
-CollisionHandler.prototype.handleCollision = function (tooth, argument)
-{
-
+CollisionHandler.prototype.handleCollision = function (tooth, argument) {
+    "use strict";
     var newArg;
 
     try {
@@ -65,9 +64,8 @@ CollisionHandler.prototype.handleCollision = function (tooth, argument)
  * @param {type} argument
  * @returns {undefined}
  */
-CollisionHandler.prototype.handleCollisionCheckBox = function (checkBox, argument)
-{
-
+CollisionHandler.prototype.handleCollisionCheckBox = function (checkBox, argument) {
+    "use strict";
     var newArg;
 
     try {

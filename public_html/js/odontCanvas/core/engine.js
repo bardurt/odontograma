@@ -19,30 +19,30 @@ document.writeln("<script type='text/javascript' src='js/odontCanvas/core/render
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/odontogramaGenerator.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/collisionHandler.js'></script>");
 
-function Engine()
-{
+function Engine() {
+    "use strict";
     // canvas which is used by the engine
     this.canvas = null;
 
     this.adultShowing = true;
 
     // array which contains all the teeth for an odontograma
-    this.mouth = new Array();
+    this.mouth = [];
 
     // array which holds all the spaces between teeth
-    this.spaces = new Array();
+    this.spaces = [];
 
     // array for an adult odontograma
-    this.odontAdult = new Array();
+    this.odontAdult = [];
 
     // spaces for a adult odontograma
-    this.odontSpacesAdult = new Array();
+    this.odontSpacesAdult = [];
 
     // array for a child odontograma
-    this.odontChild = new Array();
+    this.odontChild = [];
 
     // spaces for a child odontograma
-    this.odontSpacesChild = new Array();
+    this.odontSpacesChild = [];
 
     // renderer which will render everything on a canvas
     this.renderer = new Renderer();
@@ -67,7 +67,7 @@ function Engine()
     this.corsorY = 0;
 
     this.multiSelect = false;
-    this.multiSelection = Array();
+    this.multiSelection =  new Array();
 }
 
 /**
@@ -75,8 +75,8 @@ function Engine()
  * @param {type} canvas the canvas which will be used for drawing
  * @returns {undefined}
  */
-Engine.prototype.setCanvas = function (canvas)
-{
+Engine.prototype.setCanvas = function (canvas) {
+    "use strict";
     console.log("Engine, setting canvas: " + canvas);
     this.canvas = canvas;
     this.renderer.init(this.canvas);
@@ -87,9 +87,8 @@ Engine.prototype.setCanvas = function (canvas)
  * @param {type} event mouse event containing mouse position
  * @returns {Number} the x position of the mouse
  */
-Engine.prototype.getXpos = function (event)
-{
-
+Engine.prototype.getXpos = function (event) {
+    "use strict";
     var boundingRect = this.canvas.getBoundingClientRect();
 
     return Math.round(event.clientX - (boundingRect.left));
@@ -100,9 +99,8 @@ Engine.prototype.getXpos = function (event)
  * @param {type} event mouse event containing mouse position
  * @returns {Number} the y position of the mouse
  */
-Engine.prototype.getYpos = function (event)
-{
-
+Engine.prototype.getYpos = function (event) {
+    "use strict";
     var boundingRect = this.canvas.getBoundingClientRect();
 
     return Math.round(event.clientY - (boundingRect.top));
@@ -112,9 +110,8 @@ Engine.prototype.getYpos = function (event)
  * Method to prepare the engine
  * @returns {undefined}
  */
-Engine.prototype.init = function ()
-{
-
+Engine.prototype.init = function () {
+    "use strict";
     this.collisionHandler.setConstants(this.constants);
 
     // set up the odontograma
@@ -140,8 +137,8 @@ Engine.prototype.init = function ()
  * Method for updating the engine
  * @returns {undefined}
  */
-Engine.prototype.update = function ()
-{
+Engine.prototype.update = function () {
+    "use strict";
     // reset the canvas
     this.renderer.clear(this.settings);
 
@@ -164,8 +161,8 @@ Engine.prototype.update = function ()
  * Method to remove all the highlight from all the teeth
  * @returns {undefined}
  */
-Engine.prototype.removeHighlight = function ()
-{
+Engine.prototype.removeHighlight = function () {
+    "use strict";
     for (var i = 0; i < this.mouth.length; i++) {
         this.mouth[i].highlight = false;
     }
@@ -177,8 +174,8 @@ Engine.prototype.removeHighlight = function ()
  * @param {type} tooth the tooth which should be highlighted
  * @returns {undefined}
  */
-Engine.prototype.highlightMultiSelection = function (tooth)
-{
+Engine.prototype.highlightMultiSelection = function (tooth) {
+    "use strict";
     console.log("Highlighting multiselection");
     try {
 
@@ -242,7 +239,7 @@ Engine.prototype.highlightMultiSelection = function (tooth)
  * @returns {undefined}
  */
 Engine.prototype.printMultiSelection = function () {
-
+    "use strict";
     console.log("Multi Select count: " + this.multiSelection.length);
     for (var i = 0; i < this.multiSelection.length; i++) {
 
@@ -257,8 +254,7 @@ Engine.prototype.printMultiSelection = function () {
  * @returns {undefined}
  */
 Engine.prototype.resetMultiSelect = function () {
-
-    console.log("Reseting multiselect");
+    "use strict";
     this.selectedHallazgo = "0";
     this.multiSelect = false;
     this.multiSelection.length = 0;
@@ -273,7 +269,7 @@ Engine.prototype.resetMultiSelect = function () {
  * @returns {Number} index of the tooth
  */
 Engine.prototype.getIndexForTooth = function (tooth) {
-
+    "use strict";
     var index = -1;
 
     for (var i = 0; i < this.mouth.length; i++) {
@@ -294,8 +290,8 @@ Engine.prototype.getIndexForTooth = function (tooth) {
  * which have been selected.
  * @returns {void}
  */
-Engine.prototype.handleMultiSelection = function ()
-{
+Engine.prototype.handleMultiSelection = function () {
+    "use strict";
     // only handle multiselect when 2 teeth have been selected
     // start and end
     if (this.multiSelection.length === 2) {
@@ -368,8 +364,8 @@ Engine.prototype.handleMultiSelection = function ()
  * @param {type} tooth the tooth to add to the list
  * @returns {undefined}
  */
-Engine.prototype.addToMultiSelection = function (tooth)
-{
+Engine.prototype.addToMultiSelection = function (tooth) {
+    "use strict";
     this.multiSelection.push(tooth);
 
     this.printMultiSelection();
@@ -385,11 +381,12 @@ Engine.prototype.addToMultiSelection = function (tooth)
  * @param {type} input the text to check
  * @returns {Boolean} true if letters only, else false
  */
-Engine.prototype.isAlphabetic = function (input)
-{
+Engine.prototype.isAlphabetic = function (input) {
+    "use strict";
     var valid = false;
 
     var letters = /^[a-zA-Z]+$/;
+    
     if (input.match(letters))
     {
         valid = true;
@@ -399,8 +396,8 @@ Engine.prototype.isAlphabetic = function (input)
     return valid;
 };
 
-Engine.prototype.setTextToTextBox = function (textBox, text)
-{
+Engine.prototype.setTextToTextBox = function (textBox, text) {
+    "use strict";
     if (text !== null) {
         if (text.length < 4) {
 
@@ -417,8 +414,8 @@ Engine.prototype.setTextToTextBox = function (textBox, text)
  * @param {type} textBox the textbox which has been clicked
  * @returns {void}
  */
-Engine.prototype.onTextBoxClicked = function (textBox)
-{
+Engine.prototype.onTextBoxClicked = function (textBox) {
+    "use strict";
     var message = "Escribe C\u00F3digo Dental. Max. 3 letras.";
 
     var text = prompt(message, "");
@@ -434,7 +431,7 @@ Engine.prototype.onTextBoxClicked = function (textBox)
  * @returns {void}
  */
 Engine.prototype.mouseClickSpaces = function (event) {
-
+    "use strict";
     var shouldUpdate = false;
 
     for (var i = 0; i < this.spaces.length; i++)
@@ -464,8 +461,8 @@ Engine.prototype.mouseClickSpaces = function (event) {
  * @param {type} event mouse click event
  * @returns {void}
  */
-Engine.prototype.mouseClickTeeth = function (event)
-{
+Engine.prototype.mouseClickTeeth = function (event) {
+    "use strict";
     var shouldUpdate = false;
 
     // loop through all teeth
@@ -531,8 +528,8 @@ Engine.prototype.mouseClickTeeth = function (event)
  * @param {type} event mouse click event
  * @returns {void}
  */
-Engine.prototype.onMouseClick = function (event)
-{
+Engine.prototype.onMouseClick = function (event) {
+    "use strict";
     // check what is in foreground
     if (this.settings.HIHGLIGHT_SPACES) {
 
@@ -551,9 +548,8 @@ Engine.prototype.onMouseClick = function (event)
  * @param {type} event mouse move event
  * @returns {undefined}
  */
-Engine.prototype.followMouse = function (event)
-{
-
+Engine.prototype.followMouse = function (event) {
+    "use strict";
     this.cursorX = this.getXpos(event);
     this.cursorY = this.getYpos(event);
 
@@ -566,6 +562,7 @@ Engine.prototype.followMouse = function (event)
  * @returns {void}
  */
 Engine.prototype.mouseMoveSpaces = function (event) {
+    "use strict";
     for (var i = 0; i < this.spaces.length; i++) {
 
         var update = false;
@@ -595,7 +592,7 @@ Engine.prototype.mouseMoveSpaces = function (event) {
  * @returns {void}
  */
 Engine.prototype.mouseMoveTeeth = function (event) {
-
+    "use strict";
     for (var i = 0; i < this.mouth.length; i++) {
 
         if (this.mouth[i].textBox.rect.checkCollision(this.getXpos(event),
@@ -644,8 +641,8 @@ Engine.prototype.mouseMoveTeeth = function (event) {
  * @param {type} event mouse click event
  * @returns {undefined}
  */
-Engine.prototype.onMouseMove = function (event)
-{
+Engine.prototype.onMouseMove = function (event) {
+    "use strict";
     // are the spaces in forground
     if (this.settings.HIHGLIGHT_SPACES) {
 
@@ -666,9 +663,8 @@ Engine.prototype.onMouseMove = function (event)
  * Method to reset the odontograma
  * @returns {undefined}
  */
-Engine.prototype.reset = function ()
-{
-
+Engine.prototype.reset = function () {
+    "use strict";
     // reset all teeth
     for (var i = 0; i < this.mouth.length; i++)
     {
@@ -704,8 +700,8 @@ Engine.prototype.reset = function ()
  * }
  * @returns {array} list of all the damages which exists in the odontograma
  */
-Engine.prototype.getData = function ()
-{
+Engine.prototype.getData = function () {
+    "use strict";
     var list = Array();
 
     // Get data for all the spaces in the odontograma
@@ -785,9 +781,8 @@ Engine.prototype.getData = function ()
  * Method to save the odontograma as an image file
  * @returns {void}
  */
-Engine.prototype.save = function ()
-{
-
+Engine.prototype.save = function () {
+    "use strict";
     // save image as png
     var link = document.createElement('a');
 
@@ -808,8 +803,8 @@ Engine.prototype.save = function ()
  * @param {type} event mouse click event
  * @returns {void}
  */
-Engine.prototype.onButtonClick = function (event)
-{
+Engine.prototype.onButtonClick = function (event) {
+    "use strict";
     console.log("key " + event.key);
 
     if (event.key !== "d") {
@@ -1079,7 +1074,7 @@ Engine.prototype.onButtonClick = function (event)
  * @returns {void}
  */
 Engine.prototype.setDamage = function (damage) {
-
+    "use strict";
     this.multiSelect = false;
     this.multiSelection.length = 0;
 
@@ -1130,9 +1125,8 @@ Engine.prototype.setDamage = function (damage) {
  * @param {type} which type of odontograma "0" = adult
  * @returns {void}
  */
-Engine.prototype.changeView = function (which)
-{
-
+Engine.prototype.changeView = function (which) {
+    "use strict";
     if (which === "1") {
 
         this.adultShowing = false;
@@ -1159,7 +1153,7 @@ Engine.prototype.changeView = function (which)
  * @returns {void}
  */
 Engine.prototype.start = function () {
-
+    "use strict";
     var self = this;
 
     // show splash screen for 3 seconds 
@@ -1176,8 +1170,8 @@ Engine.prototype.start = function () {
  * @returns {Tooth} tooth with the speciefied id. Undefined if the tooth does
  * not exist
  */
-Engine.prototype.getToothById = function (id)
-{
+Engine.prototype.getToothById = function (id) {
+    "use strict";
     var tooth;
 
     for (var i = 0; i < this.mouth.length; i++) {
@@ -1199,8 +1193,8 @@ Engine.prototype.getToothById = function (id)
  * @param {type} id of the space
  * @returns {Tooth} the space for the id
  */
-Engine.prototype.getSpaceById = function (id)
-{
+Engine.prototype.getSpaceById = function (id) {
+    "use strict";
     var space;
 
     for (var i = 0; i < this.spaces.length; i++) {
@@ -1225,8 +1219,8 @@ Engine.prototype.getSpaceById = function (id)
  * @param {type} note text to add to textbox for tooth, empty if no note
  * @returns {undefined}
  */
-Engine.prototype.load = function (tooth, damage, surface, note)
-{
+Engine.prototype.load = function (tooth, damage, surface, note) {
+    "use strict";
     // check if we should add damage to a tooth
     if (surface === "0") {
 
@@ -1272,7 +1266,7 @@ Engine.prototype.load = function (tooth, damage, surface, note)
  * @returns {void}
  */
 Engine.prototype.setDataSource = function (dataArray) {
-
+    "use strict";
     var res = dataArray.split(",");
 
     var i = 0;
