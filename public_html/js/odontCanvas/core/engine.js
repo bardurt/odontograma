@@ -923,14 +923,6 @@ Engine.prototype.onButtonClick = function (event)
 
     }
 
-    if (event.key === "s") {
-
-        this.selectedHallazgo = this.constants.DIASTEMA;
-        this.settings.HIHGLIGHT_SPACES = true;
-        this.update();
-
-    }
-
     if (event.key !== "d") {
         if (event.key !== "a" && event.key !== "s")
         {
@@ -945,18 +937,19 @@ Engine.prototype.onButtonClick = function (event)
         this.reset();
     }
 
-    if (event.key === "m")
-    {
-        this.selectedHallazgo = 0;
-        this.save();
-    }
-
 
     // key combination Ctrl + Q to activate debug mode
     if ((event.which === 81 || event.keyCode === 81) && event.ctrlKey) {
         this.settings.DEBUG = !this.settings.DEBUG;
 
         this.update();
+    }
+    
+      // key combination Ctrl + W to save the canvas as an image file
+    if ((event.which === 81 || event.keyCode === 81) && event.shiftKey) {
+        this.settings.DEBUG = !this.settings.DEBUG;
+
+        this.save();
     }
 
     if (event.key === "j") {
