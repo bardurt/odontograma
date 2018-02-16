@@ -403,15 +403,15 @@ Engine.prototype.addToMultiSelection = function (tooth) {
 };
 
 /**
- * Method to check if a string is alphabetic, only contains letters A-Z or a-z
+ * Method to check if a string is alphanumeric
  * @param {type} input the text to check
- * @returns {Boolean} true if letters only, else false
+ * @returns {Boolean} true if aphanumeric, else false
  */
-Engine.prototype.isAlphabetic = function (input) {
+Engine.prototype.isAlphanumeric = function (input) {
     "use strict";
     var valid = false;
 
-    var letters = /^[a-zA-Z]+$/;
+    var letters = /^[0-9a-zA-Z]+$/;
 
     if (input.match(letters))
     {
@@ -435,7 +435,7 @@ Engine.prototype.setTextToTextBox = function (textBox, text) {
     if (text !== null) {
         if (text.length < 4) {
 
-            if (this.isAlphabetic(text)) {
+            if (this.isAlphanumeric(text)) {
                 textBox.setNote(text);
             } else if (text === "") {
                 textBox.setNote(text);
