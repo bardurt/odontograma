@@ -218,7 +218,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
             var space = new Tooth();
             space.setConstants(this.constants);
             space.setSurfaces(5);
-            var tmpid = (i) + "" + (i - 1);
+            var tmpid = (i) + "" + (i + 1);
             space.id = Number(tmpid);
 
             space.setDimens(tooth.rect.x + tooth.rect.width / 2,
@@ -350,7 +350,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
             var space = new Tooth();
             space.setConstants(this.constants);
             space.setSurfaces(5);
-            var tmpid = (i) + "" + (i - 1);
+            var tmpid = (i) + "" + (i + 1);
             space.id = Number(tmpid);
 
             space.setDimens(tooth.rect.x + tooth.rect.width / 2,
@@ -503,7 +503,7 @@ spaces, canvas) {
             space.setConstants(this.constants);
             
             space.setSurfaces(5);
-            var tmpid = (i) + "" + (i - 1);
+            var tmpid = (i) + "" + (i + 1);
             space.id = Number(tmpid);
 
             space.setDimens(tooth.rect.x + tooth.rect.width / 2,
@@ -630,7 +630,7 @@ spaces, canvas) {
             space.setConstants(this.constants);
              
             space.setSurfaces(5);
-            var tmpid = (i) + "" + (i - 1);
+            var tmpid = (i) + "" + (i + 1);
             space.id = Number(tmpid);
 
             space.setDimens(tooth.rect.x + tooth.rect.width / 2,

@@ -86,10 +86,10 @@ CollisionHandler.prototype.handleCollisionCheckBox = function (checkBox, argumen
 
     } else if (newArg === this.constants.CURACION) {
 
-        if (checkBox.state === 2) {
+        if (checkBox.state === 11) {
             checkBox.state = 0;
         } else {
-            checkBox.state = 2;
+            checkBox.state = 11;
         }
     }
 

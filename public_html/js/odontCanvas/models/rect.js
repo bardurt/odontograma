@@ -32,7 +32,7 @@ Rect.prototype.cavity = function () {
 
 Rect.prototype.restoration = function () {
     "use strict";
-    this.state = 2;
+    this.state = 11;
 };
 
 Rect.prototype.uncheck = function () {

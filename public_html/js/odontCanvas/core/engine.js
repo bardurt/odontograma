@@ -424,8 +424,8 @@ Engine.prototype.isAlphanumeric = function (input) {
 
 
 /**
- * Method to add text to a textbox. This method only allows chars
- * from the English alphabet (A to Z) to be added to a texbox
+ * Method to add text to a textbox. This method only allows alphanumeric values
+ * to be added to a texbox
  * @param {type} textBox for the text
  * @param {type} text to add to the textbox
  * @returns {void} 
@@ -790,7 +790,6 @@ Engine.prototype.getData = function () {
             list.push(d);
         }
 
-
         // get data for the checkboxes (surfaces) for current tooth
         for (var j = 0; j < t1.checkBoxes.length; j++) {
 
@@ -900,8 +899,8 @@ Engine.prototype.keyMapper = function (event) {
 };
 
 /**
- * Event handler for when the mouse is clicked
- * @param {type} event mouse click event
+ * Event handler for when a keyboard button is clicked.
+ * @param {type} event button event
  * @returns {void}
  */
 Engine.prototype.onButtonClick = function (event) {
