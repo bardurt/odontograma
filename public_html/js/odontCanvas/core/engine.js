@@ -674,7 +674,7 @@ Engine.prototype.mouseMoveTeeth = function (event) {
 /**
  * Event handler for when the mouse is moved
  * @param {type} event mouse click event
- * @returns {undefined}
+ * @returns {void}
  */
 Engine.prototype.onMouseMove = function (event) {
     "use strict";
