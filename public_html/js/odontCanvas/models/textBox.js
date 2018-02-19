@@ -62,6 +62,7 @@ TextBox.prototype.drawLabel = function (context) {
 
     context.textAlign = "center";
     context.fillStyle = "#9a9a9a";
+    context.font = "11px Arial";
 
     context.fillText(this.label,
             this.rect.x + this.rect.width / 2,
@@ -93,6 +94,7 @@ TextBox.prototype.drawText = function (context, color) {
     
     context.textAlign = "center";
     context.fillStyle = color;
+    context.font = "13px Arial";
 
     context.fillText(this.text,
             this.rect.x + this.rect.width / 2,

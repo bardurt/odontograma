@@ -29,7 +29,7 @@ function Damage(id, x, y, width, height, type) {
 
 }
 
-Damage.prototype.renderFractura = function (context, settings) {
+Damage.prototype.drawFractura = function (context, settings) {
     "use strict";
     context.beginPath();
 
@@ -58,7 +58,7 @@ Damage.prototype.renderFractura = function (context, settings) {
 };
 
 
-Damage.prototype.renderDienteAusente = function (context, settings) {
+Damage.prototype.drawDienteAusente = function (context, settings) {
     "use strict";
     context.beginPath();
 
@@ -381,6 +381,8 @@ Damage.prototype.drawRemanenteRadicular = function (context, settings) {
         context.fillText("RR", this.rect.x + this.rect.width / 2,
                          this.rect.y + this.rect.height / 2);
     }
+
+    context.font = "10px sans-serif";
 
     context.restore();
 
@@ -1264,11 +1266,11 @@ Damage.prototype.render = function (context, settings, constants) {
     "use strict";
 
     if (this.id === constants.FRACTURA) {
-        this.renderFractura(context, settings);
+        this.drawFractura(context, settings);
     }
 
     if (this.id === constants.DIENTE_AUSENTE) {
-        this.renderDienteAusente(context, settings);
+        this.drawDienteAusente(context, settings);
     }
 
     if (this.id === constants.PULPAR) {

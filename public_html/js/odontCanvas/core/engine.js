@@ -70,7 +70,7 @@ function Engine() {
 
     // flag to toggle multiselection on or off
     this.multiSelect = false;
-    
+
     // array to hold values for multiselection. When selecting 
     // a range of teeth
     this.multiSelection = [];
@@ -305,23 +305,23 @@ Engine.prototype.handleMultiSelection = function () {
         let tooth1 = this.multiSelection[0];
         let tooth2 = this.multiSelection[1];
 
-        
+
         // get the indices for the teeth which have been selected
         var index1 = this.getIndexForTooth(tooth1);
         var index2 = this.getIndexForTooth(tooth2);
-        
+
         var valid = true;
-        
+
         // make sure that we dont select the same tooth 2 times
-        if(index1 === index2) {
+        if (index1 === index2) {
             valid = false;
         }
-        
+
         // make sure that both teeth are same type, upper or lower mouth
-        if(tooth1.type !== tooth2.type) {
+        if (tooth1.type !== tooth2.type) {
             valid = false;
         }
-        
+
         // only toggle damages if everyhting is okey
         if (valid) {
 
@@ -770,7 +770,7 @@ Engine.prototype.getData = function () {
 
             d.tooth = t1.id;
             d.damage = "";
-            d.surface = "";
+            d.surface = "0";
             d.note = t1.textBox.text;
 
             list.push(d);
@@ -800,7 +800,7 @@ Engine.prototype.getData = function () {
                 d.tooth = t1.id;
                 d.damage = t1.checkBoxes[j].state;
                 d.surface = t1.checkBoxes[j].id;
-                d.note = "";
+                d.note = t1.textBox.text;
 
                 list.push(d);
             }
@@ -817,7 +817,7 @@ Engine.prototype.getData = function () {
  */
 Engine.prototype.save = function () {
     "use strict";
-    
+
     // save image as png
     var link = document.createElement('a');
 
@@ -907,57 +907,6 @@ Engine.prototype.onButtonClick = function (event) {
     "use strict";
     console.log("key " + event.key);
 
-    var damage;
-
-    let key = Number(event.key);
-
-    if (isNaN(key)) {
-        damage = this.keyMapper(event);
-    } else {
-        damage = key;
-    }
-
-    this.setDamage(damage);
-
-    if (event.key === "z")
-    {
-        this.selectedHallazgo = 0;
-        this.reset();
-    }
-
-    // key combination Ctrl + Q to activate debug mode
-    if ((event.which === 81 || event.keyCode === 81) && event.ctrlKey) {
-        this.settings.DEBUG = !this.settings.DEBUG;
-
-        this.update();
-    }
-
-    // key combination Ctrl + W to save the canvas as an image file
-    if ((event.which === 81 || event.keyCode === 81) && event.shiftKey) {
-        this.settings.DEBUG = !this.settings.DEBUG;
-
-        this.save();
-    }
-
-    if (event.key === "ArrowLeft") {
-
-        this.adultShowing = true;
-        console.log("Setting odontograma to adult");
-        this.mouth = this.odontAdult;
-        this.spaces = this.odontSpacesAdult;
-        this.update();
-
-    }
-
-    if (event.key === "ArrowRight") {
-
-        this.adultShowing = false;
-        console.log("Setting odontograma to child");
-        this.mouth = this.odontChild;
-        this.spaces = this.odontSpacesChild;
-        this.update();
-
-    }
 
     if (event.key === "v") {
 
@@ -972,7 +921,61 @@ Engine.prototype.onButtonClick = function (event) {
                     + data[i].note);
 
         }
+
+    } else {
+        var damage;
+
+        let key = Number(event.key);
+
+        if (isNaN(key)) {
+            damage = this.keyMapper(event);
+        } else {
+            damage = key;
+        }
+
+        this.setDamage(damage);
+
+        if (event.key === "z")
+        {
+            this.selectedHallazgo = 0;
+            this.reset();
+        }
+
+        // key combination Ctrl + Q to activate debug mode
+        if ((event.which === 81 || event.keyCode === 81) && event.ctrlKey) {
+            this.settings.DEBUG = !this.settings.DEBUG;
+
+            this.update();
+        }
+
+        // key combination Ctrl + W to save the canvas as an image file
+        if ((event.which === 81 || event.keyCode === 81) && event.shiftKey) {
+            this.settings.DEBUG = !this.settings.DEBUG;
+
+            this.save();
+        }
+
+        if (event.key === "ArrowLeft") {
+
+            this.adultShowing = true;
+            console.log("Setting odontograma to adult");
+            this.mouth = this.odontAdult;
+            this.spaces = this.odontSpacesAdult;
+            this.update();
+
+        }
+
+        if (event.key === "ArrowRight") {
+
+            this.adultShowing = false;
+            console.log("Setting odontograma to child");
+            this.mouth = this.odontChild;
+            this.spaces = this.odontSpacesChild;
+            this.update();
+
+        }
     }
+
 };
 
 /**
@@ -1132,7 +1135,7 @@ Engine.prototype.load = function (tooth, damage, surface, note) {
 
         // if id is less than 1000 then we have to find a tooth
         if (tooth < 1000) {
-            
+
             var t = this.getToothById(tooth);
 
             this.collisionHandler.handleCollision(t, damage);
@@ -1140,7 +1143,7 @@ Engine.prototype.load = function (tooth, damage, surface, note) {
             this.setTextToTextBox(t.textBox, note);
 
         } else {
-            
+
             // if the id is greater than 1000
             // then we have to find a space
             this.collisionHandler.handleCollision(this.getSpaceById(tooth), damage);
