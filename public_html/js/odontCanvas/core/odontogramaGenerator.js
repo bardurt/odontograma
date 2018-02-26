@@ -133,7 +133,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
                         
         tooth.setType(0);
 
-        x += tooth.width + this.settings.TOOTH_PADDING;
+        x += tooth.rect.width + this.settings.TOOTH_PADDING;
 
         odontograma[this.arrayCount] = tooth;
 
@@ -203,7 +203,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
                         
         tooth.setType(0);
 
-        x += tooth.width + this.settings.TOOTH_PADDING;
+        x += tooth.rect.width + this.settings.TOOTH_PADDING;
 
         odontograma[this.arrayCount] = tooth;
 
@@ -269,7 +269,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
 
         tooth.setType(1);
 
-        x += tooth.width + this.settings.TOOTH_PADDING;
+        x += tooth.rect.width+ this.settings.TOOTH_PADDING;
 
         odontograma[this.arrayCount] = tooth;
 
@@ -338,7 +338,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
         tooth.setType(1);
 
         odontograma[this.arrayCount] = tooth;
-        x += tooth.width + this.settings.TOOTH_PADDING;
+        x += tooth.rect.width + this.settings.TOOTH_PADDING;
 
         tooth.address = this.arrayCount;
         this.arrayCount++;
@@ -422,7 +422,7 @@ spaces, canvas) {
 
         tooth.setType(0);
 
-        x += tooth.width + this.settings.TOOTH_PADDING;
+        x += tooth.rect.width + this.settings.TOOTH_PADDING;
 
         odontograma[this.arrayCount] = tooth;
 
@@ -486,7 +486,7 @@ spaces, canvas) {
 
         tooth.setType(0);
 
-        x += tooth.width + this.settings.TOOTH_PADDING;
+        x += tooth.rect.width + this.settings.TOOTH_PADDING;
 
         tooth.address = this.arrayCount;
 
@@ -551,7 +551,7 @@ spaces, canvas) {
 
         tooth.setType(1);
 
-        x += tooth.width + this.settings.TOOTH_PADDING;
+        x += tooth.rect.width + this.settings.TOOTH_PADDING;
 
         odontograma[this.arrayCount] = tooth;
 
@@ -615,7 +615,7 @@ spaces, canvas) {
         tooth.setType(1);
 
         odontograma[this.arrayCount] = tooth;
-        x += tooth.width + this.settings.TOOTH_PADDING;
+        x += tooth.rect.width + this.settings.TOOTH_PADDING;
 
 
         tooth.address = this.arrayCount;

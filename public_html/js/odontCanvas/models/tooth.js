@@ -50,11 +50,7 @@ function Tooth() {
  */
 Tooth.prototype.setDimens = function (x, y, width, height) {
     "use strict";
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-
+   
     this.rect.x = x;
     this.rect.y = y;
     this.rect.width = width;
@@ -79,12 +75,12 @@ Tooth.prototype.setType = function (type) {
     this.type = type;
 
     if (type === 0) {
-        this.highY = this.y - 10;
+        this.highY = this.rect.y - 10;
 
-        this.textBox.rect.y = this.y - 42;
+        this.textBox.rect.y = this.rect.y - 42;
 
     } else {
-        this.highY = this.y + 10;
+        this.highY = this.rect.y + 10;
 
         this.textBox.rect.y = this.rect.y + this.rect.height + 22;
     }
@@ -136,7 +132,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
     "use strict";
     var width = settings.RECT_DIMEN;
 
-    var startX = this.x + 10;
+    var startX = this.rect.x + 10;
 
     /*
      * ids are in the following order
@@ -158,7 +154,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = this.y + this.height + width;
+        rect1.y = this.rect.y + this.rect.height + width;
         rect1.id = this.id + "_M";
 
         this.checkBoxes.push(rect1);
@@ -168,7 +164,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = this.y + this.height + width;
+        rect2.y = this.rect.y  + this.rect.height + width;
         rect2.id = this.id + "_D";
 
         this.checkBoxes.push(rect2);
@@ -178,7 +174,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
         rect3.width = width;
         rect3.height = width;
         rect3.x = startX + 5;
-        rect3.y = this.y + this.height;
+        rect3.y = this.rect.y  + this.rect.height;
         rect3.id = this.id + "_V";
 
         this.checkBoxes.push(rect3);
@@ -188,7 +184,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + 5;
-        rect4.y = this.y + this.height + width * 2;
+        rect4.y = this.rect.y  + this.rect.height + width * 2;
         rect4.id = this.id + "_L";
 
         this.checkBoxes.push(rect4);
@@ -200,7 +196,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = this.y - width * 2;
+        rect1.y = this.rect.y  - width * 2;
         rect1.id = this.id + "_M";
 
         this.checkBoxes.push(rect1);
@@ -210,7 +206,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = this.y - width * 2;
+        rect2.y = this.rect.y  - width * 2;
         rect2.id = this.id + "_D";
 
         this.checkBoxes.push(rect2);
@@ -220,7 +216,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
         rect3.width = width;
         rect3.height = width;
         rect3.x = startX + 5;
-        rect3.y = this.y - width;
+        rect3.y = this.rect.y  - width;
         rect3.id = this.id + "_L";
 
         this.checkBoxes.push(rect3);
@@ -230,7 +226,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + 5;
-        rect4.y = this.y - width * 3;
+        rect4.y = this.rect.y  - width * 3;
         rect4.id = this.id + "_V";
 
         this.checkBoxes.push(rect4);
@@ -248,7 +244,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
     "use strict";
     var width = settings.RECT_DIMEN;
 
-    var startX = this.x + 5;
+    var startX = this.rect.x + 5;
 
     /*
      * ids are in the following order
@@ -271,7 +267,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = this.y + this.height + width;
+        rect1.y = this.rect.y  + this.rect.height + width;
         rect1.id = this.id + "_M";
 
         this.checkBoxes.push(rect1);
@@ -281,7 +277,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = this.y + this.height + width;
+        rect2.y = this.rect.y  + this.rect.height + width;
         rect2.id = this.id + "_0";
 
         this.checkBoxes.push(rect2);
@@ -291,7 +287,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
         rect3.width = width;
         rect3.height = width;
         rect3.x = startX + width * 2;
-        rect3.y = this.y + this.height + width;
+        rect3.y = this.rect.y  + this.rect.height + width;
         rect3.id = this.id + "_D";
 
         this.checkBoxes.push(rect3);
@@ -301,7 +297,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + width;
-        rect4.y = this.y + this.height;
+        rect4.y = this.rect.y  + this.rect.height;
         rect4.id = this.id + "_V";
 
         this.checkBoxes.push(rect4);
@@ -311,7 +307,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
         rect5.width = width;
         rect5.height = width;
         rect5.x = startX + width;
-        rect5.y = this.y + this.height + width * 2;
+        rect5.y = this.rect.y  + this.rect.height + width * 2;
         rect5.id = this.id + "_L";
 
         this.checkBoxes.push(rect5);
@@ -323,7 +319,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
         rect1.width = width;
         rect1.height = width;
         rect1.x = startX;
-        rect1.y = this.y - width * 2;
+        rect1.y = this.rect.y  - width * 2;
         rect1.id = this.id + "_M";
 
         this.checkBoxes.push(rect1);
@@ -333,7 +329,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
         rect2.width = width;
         rect2.height = width;
         rect2.x = startX + width;
-        rect2.y = this.y - width * 2;
+        rect2.y = this.rect.y  - width * 2;
         rect2.id = this.id + "_0";
 
         this.checkBoxes.push(rect2);
@@ -343,7 +339,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
         rect3.width = width;
         rect3.height = width;
         rect3.x = startX + width * 2;
-        rect3.y = this.y - width * 2;
+        rect3.y = this.rect.y  - width * 2;
         rect3.id = this.id + "_D";
 
         this.checkBoxes.push(rect3);
@@ -353,7 +349,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
         rect4.width = width;
         rect4.height = width;
         rect4.x = startX + width;
-        rect4.y = this.y - width;
+        rect4.y = this.rect.y  - width;
         rect4.id = this.id + "_L";
 
         this.checkBoxes.push(rect4);
@@ -363,7 +359,7 @@ Tooth.prototype.create5Surfaces = function (settings) {
         rect5.width = width;
         rect5.height = width;
         rect5.x = startX + width;
-        rect5.y = this.y - width * 3;
+        rect5.y = this.rect.y  - width * 3;
         rect5.id = this.id + "_V";
 
         this.checkBoxes.push(rect5);
@@ -500,10 +496,10 @@ Tooth.prototype.onTouch = function (touch) {
     "use strict";
     if (touch)
     {
-        this.y = this.highY;
+        this.rect.y  = this.highY;
 
     } else {
-        this.y = this.normalY;
+        this.rect.y  = this.normalY;
     }
 
     this.rect.touching = touch;
@@ -533,14 +529,14 @@ Tooth.prototype.createDamage = function (damageId) {
                 damage = new Damage(damageId,
                         this.rect.x,
                         this.rect.y + this.rect.height,
-                        this.width,
+                        this.rect.width,
                         60,
                         this.type);
             } else {
                 damage = new Damage(damageId,
                         this.rect.x,
                         this.rect.y - 60,
-                        this.width,
+                        this.rect.width,
                         60,
                         this.type);
             }
@@ -573,14 +569,14 @@ Tooth.prototype.createDamage = function (damageId) {
             damage = new Damage(damageId,
                     this.rect.x,
                     this.rect.y + this.rect.height,
-                    this.width,
+                    this.rect.width,
                     60,
                     this.type);
         } else {
             damage = new Damage(damageId,
                     this.rect.x,
                     this.rect.y - 60,
-                    this.width,
+                    this.rect.width,
                     60,
                     this.type);
         }
@@ -665,13 +661,13 @@ Tooth.prototype.render = function (context, settings, constants) {
         if (this.image !== undefined) {
 
             // center of tooth
-            var cx = (this.x + this.width / 2);
+            var cx = (this.rect.x + this.rect.width / 2);
 
             // centerinng of the tooth in x axis
             var dx = cx - this.image.naturalWidth / 2;
 
             // draw tooth
-            context.drawImage(this.image, dx, this.y);
+            context.drawImage(this.image, dx, this.rect.y );
         }
 
         // id
@@ -757,8 +753,6 @@ Tooth.prototype.getSurfaceById = function (id) {
  * @returns {void}
  */
 Tooth.prototype.moveUpDown = function(movement){
-    
-    this.y += movement;
     
     this.rect.y += movement;
     
