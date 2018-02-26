@@ -50,7 +50,9 @@ function Tooth() {
  */
 Tooth.prototype.setDimens = function (x, y, width, height) {
     "use strict";
-   
+    
+    this.y = y; // y variable to help with animations, on mouse hover
+    
     this.rect.x = x;
     this.rect.y = y;
     this.rect.width = width;
@@ -398,36 +400,36 @@ Tooth.prototype.drawId = function (context) {
 
     if (this.type === 0) {
   
-        console.log("Drawing id border at: " + (this.rect.y + this.rect.height + space + 10));
+        console.log("Drawing id border at: " + (this.y + this.rect.height + space + 10));
         // draw id
         context.fillText("" + this.id, this.rect.x + this.rect.width / 2,
-                this.rect.y + this.rect.height + space + 10);
+                this.y + this.rect.height + space + 10);
 
         // draw id border
-        context.moveTo(this.rect.x, this.rect.y + this.rect.height + space + 20);
+        context.moveTo(this.rect.x, this.y + this.rect.height + space + 20);
 
         context.lineTo(this.rect.x + this.rect.width,
-                this.rect.y + this.rect.height + space + 20);
+                this.y + this.rect.height + space + 20);
 
         context.moveTo(this.rect.x + this.rect.width,
-                this.rect.y + this.rect.height + space + 20);
+                this.y + this.rect.height + space + 20);
 
         context.lineTo(this.rect.x + this.rect.width,
-                this.rect.y + this.rect.height + space);
+                this.y + this.rect.height + space);
     } else {
         
          console.log("Drawing id border at: " + (this.rect.y + this.rect.height + space + 10));
         
         // draw id
         context.fillText("" + this.id, this.rect.x + this.rect.width / 2,
-                this.rect.y - space - 5);
+                this.y - space - 5);
 
         // draw id border
-        context.moveTo(this.rect.x, this.rect.y - space - 20);
-        context.lineTo(this.rect.x + this.rect.width, this.rect.y - space - 20);
+        context.moveTo(this.rect.x, this.y - space - 20);
+        context.lineTo(this.rect.x + this.rect.width, this.y - space - 20);
 
-        context.moveTo(this.rect.x + this.rect.width, this.rect.y - space - 20);
-        context.lineTo(this.rect.x + this.rect.width, this.rect.y - space);
+        context.moveTo(this.rect.x + this.rect.width, this.y - space - 20);
+        context.lineTo(this.rect.x + this.rect.width, this.y - space);
     }
 
     context.lineWidth = 1;
@@ -528,14 +530,14 @@ Tooth.prototype.createDamage = function (damageId) {
             if (this.type === 0) {
                 damage = new Damage(damageId,
                         this.rect.x,
-                        this.rect.y + this.rect.height,
+                        this.y + this.rect.height,
                         this.rect.width,
                         60,
                         this.type);
             } else {
                 damage = new Damage(damageId,
                         this.rect.x,
-                        this.rect.y - 60,
+                        this.y - 60,
                         this.rect.width,
                         60,
                         this.type);
@@ -556,7 +558,7 @@ Tooth.prototype.createDamage = function (damageId) {
             // damage should be attached on the tooth
             damage = new Damage(damageId,
                     this.rect.x,
-                    this.rect.y,
+                    this.y,
                     this.rect.width,
                     this.rect.height,
                     this.type);
@@ -568,14 +570,14 @@ Tooth.prototype.createDamage = function (damageId) {
         if (this.type === 0) {
             damage = new Damage(damageId,
                     this.rect.x,
-                    this.rect.y + this.rect.height,
+                    this.y + this.rect.height,
                     this.rect.width,
                     60,
                     this.type);
         } else {
             damage = new Damage(damageId,
                     this.rect.x,
-                    this.rect.y - 60,
+                    this.y - 60,
                     this.rect.width,
                     60,
                     this.type);
@@ -754,6 +756,7 @@ Tooth.prototype.getSurfaceById = function (id) {
  */
 Tooth.prototype.moveUpDown = function(movement){
     
+    this.y += movement;
     this.rect.y += movement;
     
     this.textBox.rect.y += movement;

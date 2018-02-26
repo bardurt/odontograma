@@ -617,12 +617,10 @@ spaces, canvas) {
         odontograma[this.arrayCount] = tooth;
         x += tooth.rect.width + this.settings.TOOTH_PADDING;
 
-
         tooth.address = this.arrayCount;
         this.arrayCount++;
 
         tooth.createSurfaces(this.settings);
-
 
         if (i < 75) {
 
