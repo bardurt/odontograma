@@ -78,6 +78,8 @@ function Engine() {
     this.currentType = 0;
 
     this.preview = false;
+    
+    this.printPreviewPositionChange = 210;
 
 }
 
@@ -1366,14 +1368,17 @@ Engine.prototype.togglePrintPreview = function () {
  */
 Engine.prototype.showPrintPreview = function () {
 
+    // reset the size of the canvas
     this.renderer.setCanvasSize(this.renderer.width, 1000);
 
     console.log("Print preview");
 
+    // reset positions
+    
     for (var i = 0; i < this.odontAdult.length; i++) {
 
         if (this.odontAdult[i].type === 1) {
-            this.odontAdult[i].moveUpDown(430);
+            this.odontAdult[i].moveUpDown(this.printPreviewPositionChange*2);
         }
 
     }
@@ -1381,20 +1386,20 @@ Engine.prototype.showPrintPreview = function () {
     for (var i = 0; i < this.odontSpacesAdult.length; i++) {
 
         if (this.odontSpacesAdult[i].type === 1) {
-            this.odontSpacesAdult[i].moveUpDown(430);
+            this.odontSpacesAdult[i].moveUpDown(this.printPreviewPositionChange*2);
         }
 
     }
 
     for (var i = 0; i < this.odontChild.length; i++) {
 
-        this.odontChild[i].moveUpDown(215);
+        this.odontChild[i].moveUpDown(this.printPreviewPositionChange);
 
     }
 
     for (var i = 0; i < this.odontSpacesChild.length; i++) {
 
-        this.odontSpacesChild[i].moveUpDown(215);
+        this.odontSpacesChild[i].moveUpDown(this.printPreviewPositionChange);
 
     }
 
@@ -1409,14 +1414,18 @@ Engine.prototype.showPrintPreview = function () {
  */
 Engine.prototype.hidePrintPreview = function () {
 
+    // update size of the canvas
     this.renderer.setCanvasSize(this.renderer.width, 1000);
 
     console.log("Print preview");
 
+
+    // update the positions of all the data in the odontoram
+
     for (var i = 0; i < this.odontAdult.length; i++) {
 
         if (this.odontAdult[i].type === 1) {
-            this.odontAdult[i].moveUpDown(-430);
+            this.odontAdult[i].moveUpDown(-this.printPreviewPositionChange * 2);
         }
 
     }
@@ -1424,20 +1433,20 @@ Engine.prototype.hidePrintPreview = function () {
     for (var i = 0; i < this.odontSpacesAdult.length; i++) {
 
         if (this.odontSpacesAdult[i].type === 1) {
-            this.odontSpacesAdult[i].moveUpDown(-430);
+            this.odontSpacesAdult[i].moveUpDown(-this.printPreviewPositionChange * 2);
         }
 
     }
 
     for (var i = 0; i < this.odontChild.length; i++) {
 
-        this.odontChild[i].moveUpDown(-215);
+        this.odontChild[i].moveUpDown(-this.printPreviewPositionChange);
 
     }
 
     for (var i = 0; i < this.odontSpacesChild.length; i++) {
 
-        this.odontSpacesChild[i].moveUpDown(-215);
+        this.odontSpacesChild[i].moveUpDown(-this.printPreviewPositionChange);
 
     }
 
@@ -1446,12 +1455,15 @@ Engine.prototype.hidePrintPreview = function () {
 };
 
 /**
- * Method to draw a print preview image of the odontogram
- * @returns {undefined}
+ * Method to draw a print preview image of the odontogram.
+ * This method draws all the teeth in the odotogram.
+ * @returns {void}
  */
 Engine.prototype.printPreview = function () {
 
     this.renderer.clear(this.settings);
+    
+    
     this.renderer.render(this.odontAdult, this.settings, this.constants);
     this.renderer.render(this.odontSpacesAdult, this.settings, this.constants);
     this.renderer.render(this.odontChild, this.settings, this.constants);
