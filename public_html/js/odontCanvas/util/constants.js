@@ -56,16 +56,56 @@ function Constants() {
     this.DIENTE_DISCR0MICO = 22;
     this.SUPERFICIE_DESGASTADA = 37;
     this.SEMI_IMPACTACI0N = 38;
-    
+
+
+    this.all = [
+        this.CARIES,
+        this.CORONA_DEFINITIVA,
+        this.CORONA_TEMPORAL,
+        this.DIENTE_AUSENTE,
+        this.FRACTURA,
+        this.DIASTEMA,
+        this.DIENTE_EXTRUIDO,
+        this.DIENTE_EN_CLAVIJA,
+        this.CURACION,
+        this.PROTESIS_REMOVIBLE,
+        this.MIGRACION,
+        this.GIROVERSION,
+        this.FUSION,
+        this.REMANENTE_RADICULAR,
+        this.DIENTE_INTRUIDO,
+        this.ORTONDICO_REMOVIBLE,
+        this.DIENTE_EN_ERUPCION,
+        this.TRANSPOSICION_LEFT,
+        this.TRANSPOSICION_RIGHT,
+        this.SUPER_NUMERARIO,
+        this.PULPAR,
+        this.PROTESIS_TOTAL,
+        this.PERNO_MUNON,
+        this.EDENTULOA_TOTAL,
+        this.ORTODONTICO_FIJO_END,
+        this.ORTODONTICO_FIJO_CENTER,
+        this.PROTESIS_FIJA_LEFT,
+        this.PROTESIS_FIJA_CENTER,
+        this.PROTESIS_FIJA_RIGHT,
+        this.IMPLANTE,
+        this.MACRODONCIA,
+        this.MICRODONCIA,
+        this.IMPACTACION,
+        this.DIENTE_ECTOPICO,
+        this.DIENTE_DISCR0MICO,
+        this.SUPERFICIE_DESGASTADA,
+        this.SEMI_IMPACTACI0N
+    ];
     /**
      * Method to check if a damage is writable, is text only
      * @param {type} arg id of the damage
      * @returns {Boolean} true if this damage is only text, else false
      */
     this.isWritable = function (arg) {
-     
+
         var match = false;
-        
+
         if (arg === this.DIENTE_DISCR0MICO) {
             match = true;
         } else if (arg === this.DIENTE_ECTOPICO) {
@@ -83,8 +123,25 @@ function Constants() {
         } else if (arg === this.SUPERFICIE_DESGASTADA) {
             match = true;
         }
-        
+
         return match;
     };
-};
+
+    this.isDiagnostic = function (arg) {
+
+        var match = false;
+
+        for(var i = 0; i < this.all.length; i++)
+        {
+            if(this.all[i] === arg){
+                match = true;
+                break;
+            }
+            
+        }
+
+        return match;
+    };
+}
+;
 

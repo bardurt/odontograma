@@ -126,3 +126,17 @@ Renderer.prototype.setSettings = function (settings){
     "use strict"; 
     this.settings = settings;
 };
+
+
+/**
+ * Method to change the size of the canvas
+ * @param {type} width new width of the canvas
+ * @param {type} height new height of the canvas
+ * @returns {void} 
+ */
+Renderer.prototype.setCanvasSize = function(width, height){
+    
+  this.context.canvas.width = width;
+  this.context.canvas.height = height;
+    
+};

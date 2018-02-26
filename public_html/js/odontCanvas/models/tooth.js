@@ -63,7 +63,7 @@ Tooth.prototype.setDimens = function (x, y, width, height) {
     this.normalY = y;
 
     this.textBox.setDimens(x, y, width, 20);
-    
+
     this.textBox.setLabel(this.id);
 
 };
@@ -75,7 +75,7 @@ Tooth.prototype.setDimens = function (x, y, width, height) {
  */
 Tooth.prototype.setType = function (type) {
     "use strict";
-    
+
     this.type = type;
 
     if (type === 0) {
@@ -194,7 +194,7 @@ Tooth.prototype.create4Surfaces = function (settings) {
         this.checkBoxes.push(rect4);
 
     } else {
-        
+
         var rect1 = new Rect();
 
         rect1.width = width;
@@ -315,9 +315,9 @@ Tooth.prototype.create5Surfaces = function (settings) {
         rect5.id = this.id + "_L";
 
         this.checkBoxes.push(rect5);
-    
+
     } else {
-        
+
         var rect1 = new Rect();
 
         rect1.width = width;
@@ -401,25 +401,30 @@ Tooth.prototype.drawId = function (context) {
     var space = 40;
 
     if (this.type === 0) {
+  
+        console.log("Drawing id border at: " + (this.rect.y + this.rect.height + space + 10));
         // draw id
-        context.fillText("" + this.id, this.rect.x + this.rect.width / 2, 
-                         this.rect.y + this.rect.height + space + 10);
+        context.fillText("" + this.id, this.rect.x + this.rect.width / 2,
+                this.rect.y + this.rect.height + space + 10);
 
         // draw id border
         context.moveTo(this.rect.x, this.rect.y + this.rect.height + space + 20);
-        
-        context.lineTo(this.rect.x + this.rect.width, 
-                       this.rect.y + this.rect.height + space + 20);
 
-        context.moveTo(this.rect.x + this.rect.width, 
-                       this.rect.y + this.rect.height + space + 20);
-                       
-        context.lineTo(this.rect.x + this.rect.width, 
-                       this.rect.y + this.rect.height + space);
+        context.lineTo(this.rect.x + this.rect.width,
+                this.rect.y + this.rect.height + space + 20);
+
+        context.moveTo(this.rect.x + this.rect.width,
+                this.rect.y + this.rect.height + space + 20);
+
+        context.lineTo(this.rect.x + this.rect.width,
+                this.rect.y + this.rect.height + space);
     } else {
+        
+         console.log("Drawing id border at: " + (this.rect.y + this.rect.height + space + 10));
+        
         // draw id
         context.fillText("" + this.id, this.rect.x + this.rect.width / 2,
-                         this.rect.y - space - 5);
+                this.rect.y - space - 5);
 
         // draw id border
         context.moveTo(this.rect.x, this.rect.y - space - 20);
@@ -445,25 +450,25 @@ Tooth.prototype.drawId = function (context) {
  */
 Tooth.prototype.drawCheckBoxes = function (context, settings) {
     "use strict";
-    
+
     for (var i = 0; i < this.checkBoxes.length; i++)
     {
-        
+
         if (this.checkBoxes[i].state === 1) {
-            
+
             this.checkBoxes[i].fillColor(context, settings.COLOR_RED);
             this.checkBoxes[i].outline(context, "#000000");
-            
+
 
         } else if (this.checkBoxes[i].state === 11) {
-            
+
             this.checkBoxes[i].fillColor(context, settings.COLOR_BLUE);
             this.checkBoxes[i].outline(context, "#000000");
 
         } else {
-            
+
             this.checkBoxes[i].outline(context, "#000000");
-            
+
         }
 
     }
@@ -477,9 +482,9 @@ Tooth.prototype.drawCheckBoxes = function (context, settings) {
  */
 Tooth.prototype.drawTextBox = function (context, settings) {
     "use strict";
-    
+
     this.textBox.render(context, settings.COLOR_BLUE);
-    
+
     if (this.textBox.touching) {
         this.textBox.rect.highlightWithColor(context, "#36BE1B", 0.6);
     }
@@ -513,15 +518,56 @@ Tooth.prototype.createDamage = function (damageId) {
     "use strict";
     // empty damage
     var damage;
-    
-    // attach damage in the proper position
-    // first check if the damage should be positioned in the checkboxes area
-    if (damageId === this.constants.DIENTE_EN_CLAVIJA || 
-        damageId === this.constants.FUSION ||
-        damageId === this.constants.CORONA_DEFINITIVA ||
-        damageId === this.constants.CORONA_TEMPORAL) {
 
-        
+    if (this.constants.isDiagnostic(damageId)) {
+
+        // attach damage in the proper position
+        // first check if the damage should be positioned in the checkboxes area
+        if (damageId === this.constants.DIENTE_EN_CLAVIJA ||
+                damageId === this.constants.FUSION ||
+                damageId === this.constants.CORONA_DEFINITIVA ||
+                damageId === this.constants.CORONA_TEMPORAL) {
+
+            // set the damage to proper position
+            if (this.type === 0) {
+                damage = new Damage(damageId,
+                        this.rect.x,
+                        this.rect.y + this.rect.height,
+                        this.width,
+                        60,
+                        this.type);
+            } else {
+                damage = new Damage(damageId,
+                        this.rect.x,
+                        this.rect.y - 60,
+                        this.width,
+                        60,
+                        this.type);
+            }
+
+        } else if (this.constants.isWritable(damageId)) {
+            
+            // damage should be attached to the textBox area
+            damage = new Damage(damageId,
+                    this.textBox.rect.x,
+                    this.textBox.rect.y,
+                    this.textBox.rect.width,
+                    this.textBox.rect.height,
+                    this.type);
+
+        } else {
+
+            // damage should be attached on the tooth
+            damage = new Damage(damageId,
+                    this.rect.x,
+                    this.rect.y,
+                    this.rect.width,
+                    this.rect.height,
+                    this.type);
+        }
+
+    } else {
+
         // set the damage to proper position
         if (this.type === 0) {
             damage = new Damage(damageId,
@@ -539,24 +585,8 @@ Tooth.prototype.createDamage = function (damageId) {
                     this.type);
         }
 
-    } else if (this.constants.isWritable(damageId)) {
-        // damage should be attached to the textBox area
-        damage = new Damage(damageId,
-                this.textBox.rect.x,
-                this.textBox.rect.y,
-                this.textBox.rect.width,
-                this.textBox.rect.height,
-                this.type);
+        damage.setDiagnostic();
 
-    } else {
-            
-        // damage should be attached on the tooth
-        damage = new Damage(damageId,
-                this.rect.x,
-                this.rect.y,
-                this.rect.width,
-                this.rect.height,
-                this.type);
     }
 
     return damage;
@@ -630,7 +660,7 @@ Tooth.prototype.render = function (context, settings, constants) {
     if (this.tooth) {
 
         this.textBox.drawLabel(context);
-        
+
         // draw the image of the tooth
         if (this.image !== undefined) {
 
@@ -649,7 +679,7 @@ Tooth.prototype.render = function (context, settings, constants) {
 
         // checkboxes
         this.drawCheckBoxes(context, settings);
-        
+
         if (this.highlight) {
             this.rect.highlightWithColor(context, this.highlightColor, 0.3, );
         }
@@ -685,10 +715,10 @@ Tooth.prototype.render = function (context, settings, constants) {
     // Draw textboxes
     if (this.tooth) {
         this.drawTextBox(context, settings);
-        
+
     }
-    
-     // show area of tooth or space, only in DEBUG MODE
+
+    // show area of tooth or space, only in DEBUG MODE
     if (settings.DEBUG) {
 
         if (this.tooth) {
@@ -719,4 +749,27 @@ Tooth.prototype.getSurfaceById = function (id) {
     }
 
     return surface;
+};
+
+/**
+ * Metod to move a tooth up and down the Y axis
+ * @param {type} movement amount of pixels to move the tooth
+ * @returns {void}
+ */
+Tooth.prototype.moveUpDown = function(movement){
+    
+    this.y += movement;
+    
+    this.rect.y += movement;
+    
+    this.textBox.rect.y += movement;
+    
+    for(var i = 0; i < this.checkBoxes.length; i++){
+        this.checkBoxes[i].y += movement;
+    }
+    
+    for(var i = 0; i < this.damages.length; i++){
+        this.damages[i].rect.y += movement;
+    }
+    
 };

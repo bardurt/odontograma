@@ -74,6 +74,11 @@ function Engine() {
     // array to hold values for multiselection. When selecting 
     // a range of teeth
     this.multiSelection = [];
+
+    this.currentType = 0;
+
+    this.preview = false;
+
 }
 
 /**
@@ -148,18 +153,23 @@ Engine.prototype.update = function () {
     // reset the canvas
     this.renderer.clear(this.settings);
 
-    // render the teeth
-    this.renderer.render(this.mouth, this.settings, this.constants);
+    if (!this.preview) {
+        // render the teeth
+        this.renderer.render(this.mouth, this.settings, this.constants);
 
-    // render spaces
-    this.renderer.render(this.spaces, this.settings, this.constants);
+        // render spaces
+        this.renderer.render(this.spaces, this.settings, this.constants);
 
-    if (this.settings.DEBUG) {
+        if (this.settings.DEBUG) {
 
-        this.renderer.renderText("DEBUG MODE", 2, 15, "#000000");
+            this.renderer.renderText("DEBUG MODE", 2, 15, "#000000");
 
-        this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY,
-                128, 15, "#000000");
+            this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY,
+                    128, 15, "#000000");
+        }
+
+    } else {
+        this.printPreview();
     }
 };
 
@@ -509,7 +519,9 @@ Engine.prototype.mouseClickTeeth = function (event) {
         if (this.mouth[i].textBox.rect.checkCollision(this.getXpos(event),
                 this.getYpos(event))) {
 
-            this.onTextBoxClicked(this.mouth[i].textBox);
+            if (this.currentType === 0) {
+                this.onTextBoxClicked(this.mouth[i].textBox);
+            }
         }
 
         // check collision for current tooth
@@ -525,13 +537,29 @@ Engine.prototype.mouseClickTeeth = function (event) {
 
             } else {
 
-                // handle collision with tooth
-                this.collisionHandler.handleCollision(
-                        this.mouth[i],
-                        this.selectedHallazgo);
-            }
+                if (this.currentType === 0) {
 
-            shouldUpdate = true;
+                    // handle collision with tooth
+                    this.collisionHandler.handleCollision(
+                            this.mouth[i],
+                            this.selectedHallazgo);
+
+                    shouldUpdate = true;
+
+                } else {
+
+                    var d = new Object();
+
+                    d.tooth = this.mouth[i].id;
+                    d.damage = "";
+                    d.diagnostic = this.selectedHallazgo;
+                    d.surface = "X";
+                    d.note = "";
+
+                    this.createDiagnostico(d);
+
+                }
+            }
         }
 
         // check if there is a collision with one of the tooth surfaces
@@ -541,12 +569,28 @@ Engine.prototype.mouseClickTeeth = function (event) {
                     this.getXpos(event),
                     this.getYpos(event))) {
 
-                // handle collision with surface    
-                this.collisionHandler.handleCollisionCheckBox(
-                        this.mouth[i].checkBoxes[j],
-                        this.selectedHallazgo);
+                if (this.currentType === 0) {
 
-                shouldUpdate = true;
+                    // handle collision with surface    
+                    this.collisionHandler.handleCollisionCheckBox(
+                            this.mouth[i].checkBoxes[j],
+                            this.selectedHallazgo);
+
+                    shouldUpdate = true;
+
+                } else {
+
+                    var d = new Object();
+
+                    d.tooth = "0";
+                    d.damage = "";
+                    d.diagnostic = this.selectedHallazgo;
+                    d.surface = this.mouth[i].checkBoxes[j].id;
+                    d.note = "";
+
+                    this.createDiagnostico(d);
+
+                }
             }
         }
     }
@@ -565,15 +609,19 @@ Engine.prototype.mouseClickTeeth = function (event) {
  */
 Engine.prototype.onMouseClick = function (event) {
     "use strict";
-    // check what is in foreground
-    if (this.settings.HIHGLIGHT_SPACES) {
 
-        this.mouseClickSpaces(event);
 
-    } else {
+    if (!this.preview) {
+        // check what is in foreground
+        if (this.settings.HIHGLIGHT_SPACES) {
 
-        this.mouseClickTeeth(event);
+            this.mouseClickSpaces(event);
 
+        } else {
+
+            this.mouseClickTeeth(event);
+
+        }
     }
 
 };
@@ -678,19 +726,23 @@ Engine.prototype.mouseMoveTeeth = function (event) {
  */
 Engine.prototype.onMouseMove = function (event) {
     "use strict";
-    // are the spaces in forground
-    if (this.settings.HIHGLIGHT_SPACES) {
 
-        this.mouseMoveSpaces(event);
+    if (!this.preview) {
 
-    } else {
+        // are the spaces in forground
+        if (this.settings.HIHGLIGHT_SPACES) {
 
-        this.mouseMoveTeeth(event);
+            this.mouseMoveSpaces(event);
 
+        } else {
+
+            this.mouseMoveTeeth(event);
+
+        }
+
+        // update mouse cooridnates
+        this.followMouse(event);
     }
-
-    // update mouse cooridnates
-    this.followMouse(event);
 
 };
 
@@ -739,10 +791,13 @@ Engine.prototype.getData = function () {
     "use strict";
     var list = Array();
 
-    // Get data for all the spaces in the odontograma
-    for (var i = 0; i < this.spaces.length; i++) {
 
-        var t1 = this.spaces[i];
+    // First: get data for adult odontograp
+
+    // Get data for all the spaces in the odontograma
+    for (var i = 0; i < this.odontSpacesAdult.length; i++) {
+
+        var t1 = this.odontSpacesAdult[i];
 
         for (var j = 0; j < t1.damages.length; j++) {
 
@@ -750,6 +805,7 @@ Engine.prototype.getData = function () {
 
             d.tooth = t1.id;
             d.damage = t1.damages[j].id;
+            d.diagnostic = "";
             d.surface = "0";
             d.note = "";
 
@@ -759,9 +815,9 @@ Engine.prototype.getData = function () {
     }
 
     // get all data from the teeth in the odontograma
-    for (var i = 0; i < this.mouth.length; i++) {
+    for (var i = 0; i < this.odontAdult.length; i++) {
 
-        var t1 = this.mouth[i];
+        var t1 = this.odontAdult[i];
 
         // get the notes from the text boxes
         if (t1.textBox.text !== "") {
@@ -770,6 +826,7 @@ Engine.prototype.getData = function () {
 
             d.tooth = t1.id;
             d.damage = "";
+            d.diagnostic = "";
             d.surface = "0";
             d.note = t1.textBox.text;
 
@@ -784,6 +841,7 @@ Engine.prototype.getData = function () {
 
             d.tooth = t1.id;
             d.damage = "" + t1.damages[j].id;
+            d.diagnostic = "";
             d.surface = "0";
             d.note = "";
 
@@ -799,6 +857,82 @@ Engine.prototype.getData = function () {
 
                 d.tooth = t1.id;
                 d.damage = t1.checkBoxes[j].state;
+                d.diagnostic = "";
+                d.surface = t1.checkBoxes[j].id;
+                d.note = t1.textBox.text;
+
+                list.push(d);
+            }
+        }
+
+    }
+
+    // Second: get data for child odontograp
+
+    // Get data for all the spaces in the odontograma
+    for (var i = 0; i < this.odontSpacesChild.length; i++) {
+
+        var t1 = this.odontSpacesChild[i];
+
+        for (var j = 0; j < t1.damages.length; j++) {
+
+            var d = new Object();
+
+            d.tooth = t1.id;
+            d.damage = t1.damages[j].id;
+            d.diagnostic = "";
+            d.surface = "0";
+            d.note = "";
+
+            list.push(d);
+        }
+
+    }
+
+    // get all data from the teeth in the odontograma
+    for (var i = 0; i < this.odontChild.length; i++) {
+
+        var t1 = this.odontChild[i];
+
+        // get the notes from the text boxes
+        if (t1.textBox.text !== "") {
+
+            var d = new Object();
+
+            d.tooth = t1.id;
+            d.damage = "";
+            d.diagnostic = "";
+            d.surface = "0";
+            d.note = t1.textBox.text;
+
+            list.push(d);
+
+        }
+
+        // get the damages registered for the tooth
+        for (var j = 0; j < t1.damages.length; j++) {
+
+            var d = new Object();
+
+            d.tooth = t1.id;
+            d.damage = "" + t1.damages[j].id;
+            d.diagnostic = "";
+            d.surface = "0";
+            d.note = "";
+
+            list.push(d);
+        }
+
+        // get data for the checkboxes (surfaces) for current tooth
+        for (var j = 0; j < t1.checkBoxes.length; j++) {
+
+            if (t1.checkBoxes[j].state !== 0) {
+                var d = new Object();
+
+
+                d.tooth = t1.id;
+                d.damage = t1.checkBoxes[j].state;
+                d.diagnostic = "";
                 d.surface = t1.checkBoxes[j].id;
                 d.note = t1.textBox.text;
 
@@ -892,7 +1026,7 @@ Engine.prototype.keyMapper = function (event) {
     } else if (event.key === "n") {
         value = 34;
     } else if (event.key === "m") {
-        value = 38;
+        value = "DG990";
     }
 
     return value;
@@ -906,7 +1040,6 @@ Engine.prototype.keyMapper = function (event) {
 Engine.prototype.onButtonClick = function (event) {
     "use strict";
     console.log("key " + event.key);
-
 
     if (event.key === "v") {
 
@@ -922,60 +1055,74 @@ Engine.prototype.onButtonClick = function (event) {
 
         }
 
+    } else if (event.key === "-") {
+
+        this.togglePrintPreview();
+
     } else {
-        var damage;
 
-        let key = Number(event.key);
+        if (event.key === ".") {
 
-        if (isNaN(key)) {
-            damage = this.keyMapper(event);
+            this.currentType = 1;
+
+            this.selectedHallazgo = "kb90";
+
         } else {
-            damage = key;
-        }
 
-        this.setDamage(damage);
+            this.currentType = 0;
 
-        if (event.key === "z")
-        {
-            this.selectedHallazgo = 0;
-            this.reset();
-        }
+            var damage;
 
-        // key combination Ctrl + Q to activate debug mode
-        if ((event.which === 81 || event.keyCode === 81) && event.ctrlKey) {
-            this.settings.DEBUG = !this.settings.DEBUG;
+            let key = Number(event.key);
 
-            this.update();
-        }
+            if (isNaN(key)) {
+                damage = this.keyMapper(event);
+            } else {
+                damage = key;
+            }
 
-        // key combination Ctrl + W to save the canvas as an image file
-        if ((event.which === 81 || event.keyCode === 81) && event.shiftKey) {
-            this.settings.DEBUG = !this.settings.DEBUG;
+            this.setDamage(damage);
 
-            this.save();
-        }
+            if (event.key === "z")
+            {
+                this.selectedHallazgo = 0;
+                this.reset();
+            }
 
-        if (event.key === "ArrowLeft") {
+            // key combination Ctrl + Q to activate debug mode
+            if ((event.which === 81 || event.keyCode === 81) && event.ctrlKey) {
+                this.settings.DEBUG = !this.settings.DEBUG;
 
-            this.adultShowing = true;
-            console.log("Setting odontograma to adult");
-            this.mouth = this.odontAdult;
-            this.spaces = this.odontSpacesAdult;
-            this.update();
+                this.update();
+            }
 
-        }
+            // key combination Ctrl + W to save the canvas as an image file
+            if ((event.which === 81 || event.keyCode === 81) && event.shiftKey) {
+                this.settings.DEBUG = !this.settings.DEBUG;
 
-        if (event.key === "ArrowRight") {
+                this.save();
+            }
 
-            this.adultShowing = false;
-            console.log("Setting odontograma to child");
-            this.mouth = this.odontChild;
-            this.spaces = this.odontSpacesChild;
-            this.update();
+            if (event.key === "ArrowLeft") {
 
+                this.adultShowing = true;
+                console.log("Setting odontograma to adult");
+                this.mouth = this.odontAdult;
+                this.spaces = this.odontSpacesAdult;
+                this.update();
+
+            }
+
+            if (event.key === "ArrowRight") {
+
+                this.adultShowing = false;
+                console.log("Setting odontograma to child");
+                this.mouth = this.odontChild;
+                this.spaces = this.odontSpacesChild;
+                this.update();
+            }
         }
     }
-
 };
 
 /**
@@ -1028,6 +1175,8 @@ Engine.prototype.setDamage = function (damage) {
         this.settings.HIHGLIGHT_SPACES = false;
         this.update();
     }
+
+    this.selectedHallazgo = damage;
 };
 
 /**
@@ -1184,5 +1333,128 @@ Engine.prototype.setDataSource = function (dataArray) {
 
         i = i + 4;
     }
+
+};
+
+
+Engine.prototype.createDiagnostico = function (diagnostico) {
+
+
+    console.log("Diagnostico: " + JSON.stringify(diagnostico));
+
+};
+
+/**
+ * Method to toggle print preview on / off
+ * @returns {undefined}
+ */
+Engine.prototype.togglePrintPreview = function () {
+
+    this.preview = !this.preview;
+
+    if (this.preview) {
+        this.showPrintPreview();
+    } else {
+        this.hidePrintPreview();
+    }
+};
+
+
+/**
+ * Method to to display a print preview of the odontogram
+ * @returns {void}
+ */
+Engine.prototype.showPrintPreview = function () {
+
+    this.renderer.setCanvasSize(this.renderer.width, 1000);
+
+    console.log("Print preview");
+
+    for (var i = 0; i < this.odontAdult.length; i++) {
+
+        if (this.odontAdult[i].type === 1) {
+            this.odontAdult[i].moveUpDown(430);
+        }
+
+    }
+
+    for (var i = 0; i < this.odontSpacesAdult.length; i++) {
+
+        if (this.odontSpacesAdult[i].type === 1) {
+            this.odontSpacesAdult[i].moveUpDown(430);
+        }
+
+    }
+
+    for (var i = 0; i < this.odontChild.length; i++) {
+
+        this.odontChild[i].moveUpDown(215);
+
+    }
+
+    for (var i = 0; i < this.odontSpacesChild.length; i++) {
+
+        this.odontSpacesChild[i].moveUpDown(215);
+
+    }
+
+    this.update();
+
+};
+
+
+/**
+ * Method to hide print preview
+ * @returns {void}
+ */
+Engine.prototype.hidePrintPreview = function () {
+
+    this.renderer.setCanvasSize(this.renderer.width, 1000);
+
+    console.log("Print preview");
+
+    for (var i = 0; i < this.odontAdult.length; i++) {
+
+        if (this.odontAdult[i].type === 1) {
+            this.odontAdult[i].moveUpDown(-430);
+        }
+
+    }
+
+    for (var i = 0; i < this.odontSpacesAdult.length; i++) {
+
+        if (this.odontSpacesAdult[i].type === 1) {
+            this.odontSpacesAdult[i].moveUpDown(-430);
+        }
+
+    }
+
+    for (var i = 0; i < this.odontChild.length; i++) {
+
+        this.odontChild[i].moveUpDown(-215);
+
+    }
+
+    for (var i = 0; i < this.odontSpacesChild.length; i++) {
+
+        this.odontSpacesChild[i].moveUpDown(-215);
+
+    }
+
+    this.update();
+
+};
+
+/**
+ * Method to draw a print preview image of the odontogram
+ * @returns {undefined}
+ */
+Engine.prototype.printPreview = function () {
+
+    this.renderer.clear(this.settings);
+    this.renderer.render(this.odontAdult, this.settings, this.constants);
+    this.renderer.render(this.odontSpacesAdult, this.settings, this.constants);
+    this.renderer.render(this.odontChild, this.settings, this.constants);
+    this.renderer.render(this.odontSpacesChild, this.settings, this.constants);
 
 };
