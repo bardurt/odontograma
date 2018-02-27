@@ -53,7 +53,11 @@ TextBox.prototype.setLabel = function (label) {
     this.label = label;
 };
 
-
+/**
+ * Draw a text lable on the textbox
+ * @param {type} context
+ * @returns {undefined}
+ */
 TextBox.prototype.drawLabel = function (context) {
     "use strict";
     this.rect.outline(context, "#000000");
@@ -74,6 +78,12 @@ TextBox.prototype.drawLabel = function (context) {
 
 };
 
+/**
+ * Draw a text on textbox
+ * @param {type} context cavnas to draw on
+ * @param {type} color color of the text to draw
+ * @returns {void}
+ */
 TextBox.prototype.drawText = function (context, color) {
     "use strict";
     context.beginPath();

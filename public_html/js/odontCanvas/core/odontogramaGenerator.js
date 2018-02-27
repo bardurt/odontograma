@@ -171,7 +171,7 @@ OdontogramaGenerator.prototype.prepareOdontogramaAdult = function (odontograma,
 
     }
 
-    // create the first 2nd of upper teeth
+    // create the 2nd group of upper teeth
     for (var i = 21; i < 29; i++) {
 
         var tooth = new Tooth();
