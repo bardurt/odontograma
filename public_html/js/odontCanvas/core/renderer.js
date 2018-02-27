@@ -74,7 +74,10 @@ Renderer.prototype.clear = function (settings) {
         this.context.fillStyle ="#ffffff";
     }
     
-    this.context.fillRect(0, 0, this.width, this.height);
+    this.context.fillRect(0, 
+                          0, 
+                          this.context.canvas.width, 
+                          this.context.canvas.height);
     
     this.context.restore();
     

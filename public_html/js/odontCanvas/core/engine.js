@@ -844,10 +844,10 @@ Engine.prototype.onMouseMove = function (event) {
             this.mouseMoveTeeth(event);
 
         }
-
-        // update mouse cooridnates
-        this.followMouse(event);
     }
+
+    // update mouse cooridnates
+    this.followMouse(event);
 
 };
 
@@ -969,7 +969,6 @@ Engine.prototype.getData = function () {
                 list.push(d);
             }
         }
-
     }
 
     // Second: get data for child odontograp
@@ -1571,5 +1570,13 @@ Engine.prototype.printPreview = function () {
     this.renderer.render(this.odontSpacesAdult, this.settings, this.constants);
     this.renderer.render(this.odontChild, this.settings, this.constants);
     this.renderer.render(this.odontSpacesChild, this.settings, this.constants);
+
+    if (this.settings.DEBUG) {
+
+        this.renderer.renderText("DEBUG MODE", 2, 15, "#000000");
+
+        this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY,
+                128, 15, "#000000");
+    }
 
 };
