@@ -17,27 +17,26 @@
         <canvas id="canvas" width="648" height="420"></canvas>
         <script>
             var canvas = document.getElementById('canvas');
-         
+
             var engine = new Engine();
-           
+
             engine.setCanvas(canvas);
-            
+
             engine.init();
-            
-            canvas.addEventListener('mousedown', function(event) {
-               engine.onMouseClick(event);
+
+            canvas.addEventListener('mousedown', function (event) {
+                engine.onMouseClick(event);
             }, false);
-            
-            canvas.addEventListener('mousemove', function(event) {
-               engine.onMouseMove(event);
+
+            canvas.addEventListener('mousemove', function (event) {
+                engine.onMouseMove(event);
             }, false);
-            
-            window.addEventListener('keydown', function(event){
+
+            window.addEventListener('keydown', function (event) {
                 engine.onButtonClick(event);
             }, false);
-            
-            //engine.setDataSource("28,11,L,AML,27,11,M,BES,15,9,0,SS,35,11,D,sla");
-            
+
+
         </script>
     </body>
 </html>      

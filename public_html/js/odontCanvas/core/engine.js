@@ -80,7 +80,7 @@ function Engine() {
 
     this.preview = false;
 
-    this.printPreviewPositionChange = 210;
+    this.printPreviewPositionChange = 190;
 
 }
 
@@ -738,6 +738,7 @@ Engine.prototype.onMouseClick = function (event) {
  */
 Engine.prototype.followMouse = function (event) {
     "use strict";
+
     this.cursorX = this.getXpos(event);
     this.cursorY = this.getYpos(event);
 
@@ -751,6 +752,7 @@ Engine.prototype.followMouse = function (event) {
  */
 Engine.prototype.mouseMoveSpaces = function (event) {
     "use strict";
+
     for (var i = 0; i < this.spaces.length; i++) {
 
         var update = false;
@@ -781,6 +783,7 @@ Engine.prototype.mouseMoveSpaces = function (event) {
  */
 Engine.prototype.mouseMoveTeeth = function (event) {
     "use strict";
+
     for (var i = 0; i < this.mouth.length; i++) {
 
         if (this.mouth[i].textBox.rect.checkCollision(this.getXpos(event),
@@ -1043,7 +1046,6 @@ Engine.prototype.getData = function () {
                 list.push(d);
             }
         }
-
     }
 
     return list;
@@ -1263,14 +1265,12 @@ Engine.prototype.setDamage = function (damage) {
 
         this.settings.HIHGLIGHT_SPACES = true;
         this.update();
-
     }
 
     if (this.selectedHallazgo === this.constants.DIASTEMA) {
 
         this.settings.HIHGLIGHT_SPACES = true;
         this.update();
-
     }
 
     if (this.selectedHallazgo !== this.constants.DIASTEMA &&
@@ -1329,7 +1329,7 @@ Engine.prototype.start = function () {
 /**
  * Method to get a tooth by its id
  * @param {type} id of the tooth
- * @returns {Tooth} tooth with the speciefied id. Undefined if the tooth does
+ * @returns {Tooth} tooth with the specified id. Undefined if the tooth does
  * not exist
  */
 Engine.prototype.getToothById = function (id) {
@@ -1467,7 +1467,7 @@ Engine.prototype.togglePrintPreview = function () {
 Engine.prototype.showPrintPreview = function () {
 
     // reset the size of the canvas
-    this.renderer.setCanvasSize(this.renderer.width, 1000);
+    this.renderer.setCanvasSize(this.renderer.width, 820);
 
     console.log("Print preview");
 
@@ -1477,6 +1477,11 @@ Engine.prototype.showPrintPreview = function () {
 
         if (this.odontAdult[i].type === 1) {
             this.odontAdult[i].moveUpDown(this.printPreviewPositionChange * 2);
+            this.odontAdult[i].textBox.rect.y += 20;
+
+        } else {
+            this.odontAdult[i].moveUpDown(20);
+            this.odontAdult[i].textBox.rect.y -= 20;
         }
 
     }
@@ -1485,6 +1490,8 @@ Engine.prototype.showPrintPreview = function () {
 
         if (this.odontSpacesAdult[i].type === 1) {
             this.odontSpacesAdult[i].moveUpDown(this.printPreviewPositionChange * 2);
+        } else {
+            this.odontSpacesAdult[i].moveUpDown(20);
         }
 
     }
@@ -1493,6 +1500,12 @@ Engine.prototype.showPrintPreview = function () {
 
         this.odontChild[i].moveUpDown(this.printPreviewPositionChange);
 
+        if (this.odontChild[i].type === 0) {
+            this.odontChild[i].textBox.rect.y -= this.printPreviewPositionChange - 20;
+        } else {
+            this.odontChild[i].textBox.rect.y += this.printPreviewPositionChange;
+        }
+
     }
 
     for (var i = 0; i < this.odontSpacesChild.length; i++) {
@@ -1500,6 +1513,16 @@ Engine.prototype.showPrintPreview = function () {
         this.odontSpacesChild[i].moveUpDown(this.printPreviewPositionChange);
 
     }
+
+
+    for (var i = 0; i < this.odontAdult.length; i++) {
+        this.odontAdult[i].refresh();
+    }
+
+    for (var i = 0; i < this.odontChild.length; i++) {
+        this.odontChild[i].refresh();
+    }
+
 
     this.update();
 
@@ -1513,7 +1536,7 @@ Engine.prototype.showPrintPreview = function () {
 Engine.prototype.hidePrintPreview = function () {
 
     // update size of the canvas
-    this.renderer.setCanvasSize(this.renderer.width, 1000);
+    this.renderer.setCanvasSize(this.renderer.width, this.renderer.height);
 
     console.log("Print preview");
 
@@ -1523,6 +1546,10 @@ Engine.prototype.hidePrintPreview = function () {
 
         if (this.odontAdult[i].type === 1) {
             this.odontAdult[i].moveUpDown(-this.printPreviewPositionChange * 2);
+            this.odontAdult[i].textBox.rect.y -= 20;
+        } else {
+            this.odontAdult[i].moveUpDown(-20);
+            this.odontAdult[i].textBox.rect.y += 20;
         }
 
     }
@@ -1531,20 +1558,34 @@ Engine.prototype.hidePrintPreview = function () {
 
         if (this.odontSpacesAdult[i].type === 1) {
             this.odontSpacesAdult[i].moveUpDown(-this.printPreviewPositionChange * 2);
+        } else {
+            this.odontSpacesAdult[i].moveUpDown(-20);
         }
-
     }
 
     for (var i = 0; i < this.odontChild.length; i++) {
 
         this.odontChild[i].moveUpDown(-this.printPreviewPositionChange);
 
+        if (this.odontChild[i].type === 0) {
+            this.odontChild[i].textBox.rect.y += this.printPreviewPositionChange - 20;
+        } else {
+            this.odontChild[i].textBox.rect.y -= this.printPreviewPositionChange;
+        }
     }
 
     for (var i = 0; i < this.odontSpacesChild.length; i++) {
 
         this.odontSpacesChild[i].moveUpDown(-this.printPreviewPositionChange);
 
+    }
+
+    for (var i = 0; i < this.odontAdult.length; i++) {
+        this.odontAdult[i].refresh();
+    }
+
+    for (var i = 0; i < this.odontChild.length; i++) {
+        this.odontChild[i].refresh();
     }
 
     this.update();
