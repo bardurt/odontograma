@@ -770,3 +770,17 @@ Tooth.prototype.moveUpDown = function(movement){
     }
     
 };
+
+/**
+ * Method to pop the last item of the damages array
+ * @returns {void}
+ */
+Tooth.prototype.popDamage = function(){
+    
+    let tail = this.damages.length -1; // last item
+    
+    if(tail >= 0){
+        this.damages.splice(tail, 1);
+    }
+    
+};

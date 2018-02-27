@@ -78,7 +78,7 @@ function Engine() {
     this.currentType = 0;
 
     this.preview = false;
-    
+
     this.printPreviewPositionChange = 210;
 
 }
@@ -473,12 +473,80 @@ Engine.prototype.onTextBoxClicked = function (textBox) {
 };
 
 /**
+ * Method to handle mouse right click on a space
+ * @param {type} event mouse click event
+ * @returns {void}
+ */
+Engine.prototype.mouseRightClickSpace = function (event) {
+    "use strict";
+
+    var shouldUpdate = false;
+
+    for (var i = 0; i < this.spaces.length; i++)
+    {
+        // check collision for current space
+        if (this.spaces[i].checkCollision(
+                this.getXpos(event),
+                this.getYpos(event))) {
+
+            this.spaces[i].popDamage();
+
+            shouldUpdate = true;
+        }
+    }
+
+    // only update if something new has occurred
+    if (shouldUpdate) {
+        this.update();
+    }
+
+};
+
+/**
+ * Method to handle a right mouse click on a tooth
+ * @param {type} event mouse click event
+ * @returns {void}
+ */
+Engine.prototype.mouseRightClickTooth = function (event) {
+    "use strict";
+
+    var shouldUpdate = false;
+
+    // loop through all teeth
+    for (var i = 0; i < this.mouth.length; i++)
+    {
+
+        // check if there is a collision with the textBox
+        if (this.mouth[i].textBox.rect.checkCollision(this.getXpos(event),
+                this.getYpos(event))) {
+
+            this.mouth[i].textBox.text = "";
+
+        }
+
+        // check collision for current tooth
+        if (this.mouth[i].rect.checkCollision(
+                this.getXpos(event),
+                this.getYpos(event))) {
+
+            this.mouth[i].popDamage();
+            shouldUpdate = true;
+        }
+    }
+
+    // only update if something new has occurred
+    if (shouldUpdate) {
+        this.update();
+    }
+};
+
+/**
  * Method to handle mouse click event, when the spaces between the teeth 
  * are in the forground.
  * @param {type} event mouse click event
  * @returns {void}
  */
-Engine.prototype.mouseClickSpaces = function (event) {
+Engine.prototype.mouseClickSpace = function (event) {
     "use strict";
     var shouldUpdate = false;
 
@@ -509,7 +577,7 @@ Engine.prototype.mouseClickSpaces = function (event) {
  * @param {type} event mouse click event
  * @returns {void}
  */
-Engine.prototype.mouseClickTeeth = function (event) {
+Engine.prototype.mouseClickTooth = function (event) {
     "use strict";
     var shouldUpdate = false;
 
@@ -612,17 +680,35 @@ Engine.prototype.mouseClickTeeth = function (event) {
 Engine.prototype.onMouseClick = function (event) {
     "use strict";
 
+    console.log("Mouse click. which: " + event.which);
 
     if (!this.preview) {
-        // check what is in foreground
-        if (this.settings.HIHGLIGHT_SPACES) {
 
-            this.mouseClickSpaces(event);
 
-        } else {
+        if (event.which === 3) {
 
-            this.mouseClickTeeth(event);
+              // check what is in foreground
+            if (this.settings.HIHGLIGHT_SPACES) {
 
+                this.mouseRightClickSpace(event);
+
+            } else {
+
+                this.mouseRightClickTooth(event);
+
+            }
+
+        } else if (event.which === 1){
+            // check what is in foreground
+            if (this.settings.HIHGLIGHT_SPACES) {
+
+                this.mouseClickSpace(event);
+
+            } else {
+
+                this.mouseClickTooth(event);
+
+            }
         }
     }
 
@@ -1374,11 +1460,11 @@ Engine.prototype.showPrintPreview = function () {
     console.log("Print preview");
 
     // reset positions
-    
+
     for (var i = 0; i < this.odontAdult.length; i++) {
 
         if (this.odontAdult[i].type === 1) {
-            this.odontAdult[i].moveUpDown(this.printPreviewPositionChange*2);
+            this.odontAdult[i].moveUpDown(this.printPreviewPositionChange * 2);
         }
 
     }
@@ -1386,7 +1472,7 @@ Engine.prototype.showPrintPreview = function () {
     for (var i = 0; i < this.odontSpacesAdult.length; i++) {
 
         if (this.odontSpacesAdult[i].type === 1) {
-            this.odontSpacesAdult[i].moveUpDown(this.printPreviewPositionChange*2);
+            this.odontSpacesAdult[i].moveUpDown(this.printPreviewPositionChange * 2);
         }
 
     }
@@ -1462,8 +1548,8 @@ Engine.prototype.hidePrintPreview = function () {
 Engine.prototype.printPreview = function () {
 
     this.renderer.clear(this.settings);
-    
-    
+
+
     this.renderer.render(this.odontAdult, this.settings, this.constants);
     this.renderer.render(this.odontSpacesAdult, this.settings, this.constants);
     this.renderer.render(this.odontChild, this.settings, this.constants);
