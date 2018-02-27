@@ -1440,12 +1440,9 @@ Engine.prototype.setDataSource = function (dataArray) {
 
 };
 
-
 Engine.prototype.createDiagnostico = function (diagnostico) {
 
-
     console.log("Diagnostico: " + JSON.stringify(diagnostico));
-
 };
 
 /**
@@ -1462,7 +1459,6 @@ Engine.prototype.togglePrintPreview = function () {
         this.hidePrintPreview();
     }
 };
-
 
 /**
  * Method to to display a print preview of the odontogram
@@ -1521,7 +1517,6 @@ Engine.prototype.hidePrintPreview = function () {
 
     console.log("Print preview");
 
-
     // update the positions of all the data in the odontoram
 
     for (var i = 0; i < this.odontAdult.length; i++) {
@@ -1564,7 +1559,6 @@ Engine.prototype.hidePrintPreview = function () {
 Engine.prototype.printPreview = function () {
 
     this.renderer.clear(this.settings);
-
 
     this.renderer.render(this.odontAdult, this.settings, this.constants);
     this.renderer.render(this.odontSpacesAdult, this.settings, this.constants);
