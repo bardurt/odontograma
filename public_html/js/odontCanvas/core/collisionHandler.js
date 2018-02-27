@@ -57,7 +57,6 @@ CollisionHandler.prototype.handleCollision = function (tooth, argument) {
 
 };
 
-
 /**
  * Method to handle a collision with a checkbox
  * @param {type} checkBox
