@@ -82,6 +82,14 @@ function Engine() {
 
     this.printPreviewPositionChange = 190;
 
+    this.observations = "";
+
+    this.specifications = "";
+
+    this.patient = "";
+
+    this.treatmentNumber = "";
+
 }
 
 /**
@@ -253,20 +261,6 @@ Engine.prototype.highlightMultiSelection = function (tooth) {
 
 };
 
-/** 
- * Helper method to print the ids of the mutliselection to the console
- * @returns {undefined}
- */
-Engine.prototype.printMultiSelection = function () {
-    "use strict";
-    console.log("Multi Select count: " + this.multiSelection.length);
-    for (var i = 0; i < this.multiSelection.length; i++) {
-
-        console.log("multiSelection[" + i + "]: " + this.multiSelection[i].id);
-
-    }
-
-};
 
 /**
  * Method to reset the multiselection - deactivate multiselection
@@ -406,8 +400,6 @@ Engine.prototype.handleMultiSelection = function () {
 Engine.prototype.addToMultiSelection = function (tooth) {
     "use strict";
     this.multiSelection.push(tooth);
-
-    this.printMultiSelection();
 
     if (this.multiSelection.length === 2) {
         this.handleMultiSelection();
@@ -1147,6 +1139,11 @@ Engine.prototype.onButtonClick = function (event) {
     "use strict";
     console.log("key " + event.key);
 
+    if(event.key === "p"){
+        this.print();
+    }
+
+
     if (event.key === "v") {
 
         var data = this.getData();
@@ -1467,7 +1464,7 @@ Engine.prototype.togglePrintPreview = function () {
 Engine.prototype.showPrintPreview = function () {
 
     // reset the size of the canvas
-    this.renderer.setCanvasSize(this.renderer.width, 820);
+    this.renderer.setCanvasSize(this.renderer.width, 1420);
 
     console.log("Print preview");
 
@@ -1591,6 +1588,17 @@ Engine.prototype.hidePrintPreview = function () {
 
 };
 
+
+Engine.prototype.loadPatientData = function (patientData, treatmentNumber,
+        specifications, observations) {
+
+    this.patient = patientData;
+    this.treatmentNumber = treatmentNumber;
+    this.specifications = specifications;
+    this.observations = observations;
+
+};
+
 /**
  * Method to draw a print preview image of the odontogram.
  * This method draws all the teeth in the odotogram.
@@ -1612,5 +1620,43 @@ Engine.prototype.printPreview = function () {
         this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY,
                 128, 15, "#000000");
     }
+
+    var text = "This is just a test for text wrapping. this text will contain a of garbage, in order to fill page width ads sadj9dsan kajdsaidad mvjaos euwko saksddo askdagoe adnoijf knsadioeiu madnjvm sjuijwii jfhgutii snvjffu mdjuooajwnnv n ioas eirkg pwik";
+    text += text;
+
+    this.renderer.renderText("Patient: " + this.patient + ", Treatment Number: " + this.treatmentNumber,
+            4, 12, "#000000");
+
+    this.renderer.renderText("Especificaciones: ", 4, 840, "#000000");
+
+    this.renderer.wrapText(this.specifications, 8, 862, this.renderer.width - 8, 14, 5);
+
+    this.renderer.renderText("Observaciones: ", 4, 980, "#000000");
+
+    this.renderer.wrapText(this.observations, 8, 1002, this.renderer.width - 8, 14, 5);
+};
+
+Engine.prototype.print = function () {
+
+    const dataUrl = document.getElementById('canvas').toDataURL();
+
+    let windowContent = '<!DOCTYPE html>';
+    windowContent += '<html>';
+    windowContent += '<head><title>Print canvas</title></head>';
+    windowContent += '<body>';
+    windowContent += '<img src="' + dataUrl + '">';
+    windowContent += '</body>';
+    windowContent += '</html>';
+
+    const printWin = window.open('', '', 'width=' + screen.availWidth + ',height=' + screen.availHeight);
+    printWin.document.open();
+    printWin.document.write(windowContent);
+
+    printWin.document.addEventListener('load', function () {
+        printWin.focus();
+        printWin.print();
+        printWin.document.close();
+        printWin.close();
+    }, true);
 
 };

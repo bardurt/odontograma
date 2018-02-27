@@ -27,21 +27,21 @@ function Renderer() {
  */
 Renderer.prototype.drawSplash = function () {
     "use strict";
-    
-    this.context.fillStyle ="#ffffff";
+
+    this.context.fillStyle = "#ffffff";
     this.context.fillRect(0, 0, this.width, this.height);
 
     this.context.beginPath();
     this.context.textAlign = 'center';
     this.context.fillStyle = "#000000";
     this.context.font = "32px Arial Bold";
-    this.context.fillText("OdontoGraph 1.0.0", this.width / 2, 
-                           this.height / 2 - 16);
-    
+    this.context.fillText("OdontoGraph 1.0.0", this.width / 2,
+            this.height / 2 - 16);
+
     this.context.font = "18px Arial Bold";
     this.context.fillStyle = "#000000";
-    
-    this.context.fillText("Bardur Thomsen - 2018", this.width/2, this.height/2 + 40);
+
+    this.context.fillText("Bardur Thomsen - 2018", this.width / 2, this.height / 2 + 40);
 };
 
 /**
@@ -51,12 +51,12 @@ Renderer.prototype.drawSplash = function () {
  */
 Renderer.prototype.init = function (canvas) {
     "use strict";
-    
+
     this.context = canvas.getContext('2d');
     this.width = canvas.width;
     this.height = canvas.height;
-    
-    
+
+
     this.drawSplash();
 };
 
@@ -69,18 +69,18 @@ Renderer.prototype.clear = function (settings) {
     "use strict";
     // clear the canvas
     if (settings.DEBUG) {
-        this.context.fillStyle ="#e6fff3";
+        this.context.fillStyle = "#e6fff3";
     } else {
-        this.context.fillStyle ="#ffffff";
+        this.context.fillStyle = "#ffffff";
     }
-    
-    this.context.fillRect(0, 
-                          0, 
-                          this.context.canvas.width, 
-                          this.context.canvas.height);
-    
+
+    this.context.fillRect(0,
+            0,
+            this.context.canvas.width,
+            this.context.canvas.height);
+
     this.context.restore();
-    
+
 };
 
 /**
@@ -95,7 +95,7 @@ Renderer.prototype.render = function (data, settings, constants) {
     // draw the teeth
     for (var i = 0; i < data.length; i++) {
 
-        data[i].render( this.context, settings, constants);
+        data[i].render(this.context, settings, constants);
     }
 
 };
@@ -110,10 +110,10 @@ Renderer.prototype.render = function (data, settings, constants) {
  */
 Renderer.prototype.renderText = function (text, x, y, color) {
     "use strict";
-    if(color === undefined){
+    if (color === undefined) {
         color = "#000000"; // default color = black
     }
-    
+
     this.context.textAlign = 'left';
     this.context.fillStyle = color;
     this.context.fillText(text, x, y);
@@ -125,8 +125,8 @@ Renderer.prototype.renderText = function (text, x, y, color) {
  * @param {type} settings the settings for the application
  * @returns {undefined}
  */
-Renderer.prototype.setSettings = function (settings){
-    "use strict"; 
+Renderer.prototype.setSettings = function (settings) {
+    "use strict";
     this.settings = settings;
 };
 
@@ -137,9 +137,56 @@ Renderer.prototype.setSettings = function (settings){
  * @param {type} height new height of the canvas
  * @returns {void} 
  */
-Renderer.prototype.setCanvasSize = function(width, height){
-    
-  this.context.canvas.width = width;
-  this.context.canvas.height = height;
-    
+Renderer.prototype.setCanvasSize = function (width, height) {
+
+    this.context.canvas.width = width;
+    this.context.canvas.height = height;
+
 };
+
+
+Renderer.prototype.wrapText = function (text, x, y, maxWidth, lineHeight, maxLines) {
+
+    var input = text.toString();
+
+    var words = input.split(" ");
+
+    var line = "";
+    
+    var lineNumber = 1;
+
+    for (var n = 0; n < words.length; n++) {
+
+        var testLine = line + words[n] + " ";
+
+        var metrics = this.context.measureText(testLine);
+
+        var testWidth = metrics.width;
+
+        if (testWidth > maxWidth && n > 0) {
+
+            this.renderText(line, x, y, "#000000");
+            //this.context.fillText(line, x, y);
+
+            line = words[n] + " ";
+
+            y += lineHeight;
+            
+            lineNumber++;
+
+        } else {
+
+            line = testLine;
+
+        }
+        
+        if(lineNumber > maxLines){
+            break;
+        }
+    }
+
+    this.renderText(line, x, y, "#000000");
+//    this.context.fillText(line, x, y);
+
+};
+      
