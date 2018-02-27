@@ -1514,20 +1514,19 @@ Engine.prototype.showPrintPreview = function () {
 
     }
 
-
+    // realligne all teeth and damages
     for (var i = 0; i < this.odontAdult.length; i++) {
-        this.odontAdult[i].refresh();
+        this.odontAdult[i].refresh(this.constants);
     }
 
     for (var i = 0; i < this.odontChild.length; i++) {
-        this.odontChild[i].refresh();
+        this.odontChild[i].refresh(this.constants);
     }
 
 
     this.update();
 
 };
-
 
 /**
  * Method to hide print preview
