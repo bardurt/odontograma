@@ -532,6 +532,22 @@ Engine.prototype.mouseRightClickTooth = function (event) {
             this.mouth[i].popDamage();
             shouldUpdate = true;
         }
+
+
+        // check if there is a collision with one of the tooth surfaces
+        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++) {
+
+            if (this.mouth[i].checkBoxes[j].checkCollision(
+                    this.getXpos(event),
+                    this.getYpos(event))) {
+
+
+                // handle collision with surface    
+                this.mouth[i].checkBoxes[j].state = 0;
+
+                shouldUpdate = true;
+            }
+        }
     }
 
     // only update if something new has occurred
@@ -687,7 +703,7 @@ Engine.prototype.onMouseClick = function (event) {
 
         if (event.which === 3) {
 
-              // check what is in foreground
+            // check what is in foreground
             if (this.settings.HIHGLIGHT_SPACES) {
 
                 this.mouseRightClickSpace(event);
@@ -698,7 +714,7 @@ Engine.prototype.onMouseClick = function (event) {
 
             }
 
-        } else if (event.which === 1){
+        } else if (event.which === 1) {
             // check what is in foreground
             if (this.settings.HIHGLIGHT_SPACES) {
 
