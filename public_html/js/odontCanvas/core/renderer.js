@@ -120,6 +120,72 @@ Renderer.prototype.renderText = function (text, x, y, color) {
     this.context.restore();
 };
 
+Renderer.prototype.renderText14 = function (text, x, y, color) {
+    "use strict";
+    if (color === undefined) {
+        color = "#000000"; // default color = black
+    }
+
+    this.context.font = "14px Arial";
+
+    this.context.textAlign = 'left';
+    this.context.fillStyle = color;
+    this.context.fillText(text, x, y);
+    this.context.restore();
+};
+
+
+Renderer.prototype.renderNameValueTabbed = function (name, value, tab, x, y, color) {
+    "use strict";
+
+    this.context.font = "14px Arial";
+
+    if (color === undefined) {
+        color = "#000000"; // default color = black
+    }
+
+    var text = name;
+
+    for (var i = 0; i < tab; i++) {
+        text += "\t";
+    }
+
+    text += value;
+
+    this.context.textAlign = 'left';
+    this.context.fillStyle = color;
+    this.context.fillText(text, x, y);
+    this.context.restore();
+};
+
+Renderer.prototype.renderTextCenter = function (text, x, y, color) {
+    "use strict";
+    if (color === undefined) {
+        color = "#000000"; // default color = black
+    }
+
+
+
+    this.context.textAlign = 'center';
+    this.context.fillStyle = color;
+    this.context.fillText(text, x, y);
+    this.context.restore();
+};
+
+Renderer.prototype.renderTextCenter16 = function (text, x, y, color) {
+    "use strict";
+    if (color === undefined) {
+        color = "#000000"; // default color = black
+    }
+
+    this.context.font = "16px Arial Bold";
+    this.context.textAlign = 'center';
+    this.context.fillStyle = color;
+    this.context.fillText(text, x, y);
+    this.context.restore();
+};
+
+
 /**
  * Method to set app settings to the renderer
  * @param {type} settings the settings for the application
@@ -152,7 +218,7 @@ Renderer.prototype.wrapText = function (text, x, y, maxWidth, lineHeight, maxLin
     var words = input.split(" ");
 
     var line = "";
-    
+
     var lineNumber = 1;
 
     for (var n = 0; n < words.length; n++) {
@@ -171,7 +237,7 @@ Renderer.prototype.wrapText = function (text, x, y, maxWidth, lineHeight, maxLin
             line = words[n] + " ";
 
             y += lineHeight;
-            
+
             lineNumber++;
 
         } else {
@@ -179,8 +245,8 @@ Renderer.prototype.wrapText = function (text, x, y, maxWidth, lineHeight, maxLin
             line = testLine;
 
         }
-        
-        if(lineNumber > maxLines){
+
+        if (lineNumber > maxLines) {
             break;
         }
     }
@@ -189,4 +255,9 @@ Renderer.prototype.wrapText = function (text, x, y, maxWidth, lineHeight, maxLin
 //    this.context.fillText(line, x, y);
 
 };
-      
+
+Renderer.prototype.drawImage = function (src, x, y, width, height) {
+
+    this.context.drawImage(src, x, y, width, height);
+
+};

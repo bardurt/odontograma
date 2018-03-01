@@ -684,7 +684,7 @@ Tooth.prototype.render = function (context, settings, constants) {
         this.drawCheckBoxes(context, settings);
 
         if (this.highlight) {
-            this.rect.highlightWithColor(context, this.highlightColor, 0.3, );
+            this.rect.highlightWithColor(context, this.highlightColor, 0.3);
         }
 
     } else {

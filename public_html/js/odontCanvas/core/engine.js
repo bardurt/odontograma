@@ -89,6 +89,8 @@ function Engine() {
     this.patient = "";
 
     this.treatmentNumber = "";
+    
+    this.treatmentData = {};
 
 }
 
@@ -1139,7 +1141,7 @@ Engine.prototype.onButtonClick = function (event) {
     "use strict";
     console.log("key " + event.key);
 
-    if(event.key === "p"){
+    if (event.key === "p") {
         this.print();
     }
 
@@ -1448,13 +1450,15 @@ Engine.prototype.createDiagnostico = function (diagnostico) {
  */
 Engine.prototype.togglePrintPreview = function () {
 
-    this.preview = !this.preview;
+      this.preview = !this.preview;
 
-    if (this.preview) {
-        this.showPrintPreview();
-    } else {
+    if(!this.preview){
         this.hidePrintPreview();
+    } else {
+        this.showPrintPreview();
+        this.print();
     }
+
 };
 
 /**
@@ -1473,11 +1477,11 @@ Engine.prototype.showPrintPreview = function () {
     for (var i = 0; i < this.odontAdult.length; i++) {
 
         if (this.odontAdult[i].type === 1) {
-            this.odontAdult[i].moveUpDown(this.printPreviewPositionChange * 2);
+            this.odontAdult[i].moveUpDown(this.printPreviewPositionChange * 2 + 120);
             this.odontAdult[i].textBox.rect.y += 20;
 
         } else {
-            this.odontAdult[i].moveUpDown(20);
+            this.odontAdult[i].moveUpDown(120);
             this.odontAdult[i].textBox.rect.y -= 20;
         }
 
@@ -1486,19 +1490,19 @@ Engine.prototype.showPrintPreview = function () {
     for (var i = 0; i < this.odontSpacesAdult.length; i++) {
 
         if (this.odontSpacesAdult[i].type === 1) {
-            this.odontSpacesAdult[i].moveUpDown(this.printPreviewPositionChange * 2);
+            this.odontSpacesAdult[i].moveUpDown(this.printPreviewPositionChange * 2 + 120);
         } else {
-            this.odontSpacesAdult[i].moveUpDown(20);
+            this.odontSpacesAdult[i].moveUpDown(120);
         }
 
     }
 
     for (var i = 0; i < this.odontChild.length; i++) {
 
-        this.odontChild[i].moveUpDown(this.printPreviewPositionChange);
+        this.odontChild[i].moveUpDown(this.printPreviewPositionChange + 120);
 
         if (this.odontChild[i].type === 0) {
-            this.odontChild[i].textBox.rect.y -= this.printPreviewPositionChange - 20;
+            this.odontChild[i].textBox.rect.y -= this.printPreviewPositionChange;
         } else {
             this.odontChild[i].textBox.rect.y += this.printPreviewPositionChange;
         }
@@ -1507,7 +1511,7 @@ Engine.prototype.showPrintPreview = function () {
 
     for (var i = 0; i < this.odontSpacesChild.length; i++) {
 
-        this.odontSpacesChild[i].moveUpDown(this.printPreviewPositionChange);
+        this.odontSpacesChild[i].moveUpDown(this.printPreviewPositionChange + 120);
 
     }
 
@@ -1541,10 +1545,10 @@ Engine.prototype.hidePrintPreview = function () {
     for (var i = 0; i < this.odontAdult.length; i++) {
 
         if (this.odontAdult[i].type === 1) {
-            this.odontAdult[i].moveUpDown(-this.printPreviewPositionChange * 2);
+            this.odontAdult[i].moveUpDown(-this.printPreviewPositionChange * 2 - 120);
             this.odontAdult[i].textBox.rect.y -= 20;
         } else {
-            this.odontAdult[i].moveUpDown(-20);
+            this.odontAdult[i].moveUpDown(-120);
             this.odontAdult[i].textBox.rect.y += 20;
         }
 
@@ -1553,18 +1557,18 @@ Engine.prototype.hidePrintPreview = function () {
     for (var i = 0; i < this.odontSpacesAdult.length; i++) {
 
         if (this.odontSpacesAdult[i].type === 1) {
-            this.odontSpacesAdult[i].moveUpDown(-this.printPreviewPositionChange * 2);
+            this.odontSpacesAdult[i].moveUpDown(-this.printPreviewPositionChange * 2 - 120);
         } else {
-            this.odontSpacesAdult[i].moveUpDown(-20);
+            this.odontSpacesAdult[i].moveUpDown(-120);
         }
     }
 
     for (var i = 0; i < this.odontChild.length; i++) {
 
-        this.odontChild[i].moveUpDown(-this.printPreviewPositionChange);
+        this.odontChild[i].moveUpDown(-this.printPreviewPositionChange - 120);
 
         if (this.odontChild[i].type === 0) {
-            this.odontChild[i].textBox.rect.y += this.printPreviewPositionChange - 20;
+            this.odontChild[i].textBox.rect.y += this.printPreviewPositionChange;
         } else {
             this.odontChild[i].textBox.rect.y -= this.printPreviewPositionChange;
         }
@@ -1572,7 +1576,7 @@ Engine.prototype.hidePrintPreview = function () {
 
     for (var i = 0; i < this.odontSpacesChild.length; i++) {
 
-        this.odontSpacesChild[i].moveUpDown(-this.printPreviewPositionChange);
+        this.odontSpacesChild[i].moveUpDown(-this.printPreviewPositionChange - 120);
 
     }
 
@@ -1589,13 +1593,99 @@ Engine.prototype.hidePrintPreview = function () {
 };
 
 
-Engine.prototype.loadPatientData = function (patientData, treatmentNumber,
-        specifications, observations) {
+Engine.prototype.loadPatientData = function (office, patient, number,
+                                            treatmentNumber, treatmentDate,
+                                            dentist, observations, specs) {
 
-    this.patient = patientData;
-    this.treatmentNumber = treatmentNumber;
-    this.specifications = specifications;
-    this.observations = observations;
+    this.treatmentData.office = office;
+    this.treatmentData.patient = patient;
+    this.treatmentData.number = number;
+    this.treatmentData.treatmentNumber = treatmentNumber;
+    this.treatmentData.treatmentDate = treatmentDate;
+    this.treatmentData.dentist = dentist;
+    this.treatmentData.observations = observations;
+    this.treatmentData.specs = specs;
+
+};
+
+Engine.prototype.createHeader = function () {
+
+    var seperation = 18;
+
+    this.renderer.renderTextCenter16("Odontograma",
+            this.renderer.width / 2,
+            seperation,
+            "#000000");
+
+    this.renderer.renderText14("Fecha: 28/02/2018",
+            this.renderer.width / 2 + 150,
+            seperation,
+            "#000000");
+
+    seperation = 20;
+
+
+    this.renderer.renderText14("Sede",
+            4,
+            seperation * 2,
+            "#000000");
+
+    this.renderer.renderText14(": " + this.treatmentData.office,
+            100,
+            seperation * 2,
+            "#000000");
+
+    this.renderer.renderText14("Nro. HC",
+            this.renderer.width / 2,
+            seperation * 2,
+            "#000000");
+
+    this.renderer.renderText14(": " + this.treatmentData.number,
+            this.renderer.width / 2 + 120,
+            seperation * 2,
+            "#000000");
+
+
+    this.renderer.renderText14("Paciente",
+            4,
+            seperation * 3,
+            "#000000");
+
+    this.renderer.renderText14(": " + this.treatmentData.patient,
+            100,
+            seperation * 3,
+            "#000000");
+
+
+    this.renderer.renderText14("Nro. Consulta",
+            4,
+            seperation * 4,
+            "#000000");
+
+    this.renderer.renderText14(": " + this.treatmentData.treatmentNumber,
+            100,
+            seperation * 4,
+            "#000000");
+
+    this.renderer.renderText14("Fecha de consulta",
+            this.renderer.width / 2,
+            seperation * 4,
+            "#000000");
+
+    this.renderer.renderText14(": " + this.treatmentData.treatmentDate,
+            this.renderer.width / 2 + 120,
+            seperation * 4,
+            "#000000");
+
+    this.renderer.renderText14("Odontólogo",
+            4,
+            seperation * 5,
+            "#000000");
+
+    this.renderer.renderText14(": " + this.treatmentData.dentist,
+            100,
+            seperation * 5,
+            "#000000");
 
 };
 
@@ -1607,6 +1697,8 @@ Engine.prototype.loadPatientData = function (patientData, treatmentNumber,
 Engine.prototype.printPreview = function () {
 
     this.renderer.clear(this.settings);
+
+    this.createHeader();
 
     this.renderer.render(this.odontAdult, this.settings, this.constants);
     this.renderer.render(this.odontSpacesAdult, this.settings, this.constants);
@@ -1620,35 +1712,32 @@ Engine.prototype.printPreview = function () {
         this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY,
                 128, 15, "#000000");
     }
+   
+    this.renderer.renderText("Especificaciones: ", 4, 1100, "#000000");
 
-    var text = "This is just a test for text wrapping. this text will contain a of garbage, in order to fill page width ads sadj9dsan kajdsaidad mvjaos euwko saksddo askdagoe adnoijf knsadioeiu madnjvm sjuijwii jfhgutii snvjffu mdjuooajwnnv n ioas eirkg pwik";
-    text += text;
+    this.renderer.wrapText(this.treatmentData.specs, 8, 1122, this.renderer.width - 8, 14, 5);
 
-    this.renderer.renderText("Patient: " + this.patient + ", Treatment Number: " + this.treatmentNumber,
-            4, 12, "#000000");
+    this.renderer.renderText("Observaciones: ", 4, 1300, "#000000");
 
-    this.renderer.renderText("Especificaciones: ", 4, 840, "#000000");
-
-    this.renderer.wrapText(this.specifications, 8, 862, this.renderer.width - 8, 14, 5);
-
-    this.renderer.renderText("Observaciones: ", 4, 980, "#000000");
-
-    this.renderer.wrapText(this.observations, 8, 1002, this.renderer.width - 8, 14, 5);
+    this.renderer.wrapText(this.treatmentData.observations, 8, 1322, this.renderer.width - 8, 14, 5);
 };
 
 Engine.prototype.print = function () {
 
-    const dataUrl = document.getElementById('canvas').toDataURL();
+    var dataUrl = document.getElementById('canvas').toDataURL();
 
-    let windowContent = '<!DOCTYPE html>';
-    windowContent += '<html>';
-    windowContent += '<head><title>Print canvas</title></head>';
-    windowContent += '<body>';
-    windowContent += '<img src="' + dataUrl + '">';
+    var windowContent = '<!DOCTYPE html>';
+    windowContent += '<html lang="en">';
+    windowContent += '<head>';
+    windowContent += '<meta charset="utf-8"/>';
+    windowContent += '<title>OIM Odontograma</title>';
+    windowContent += '</head>';
+    windowContent += '<body >';
+    windowContent += '<p style="text-align: center;"><img src="' + dataUrl + '"></p>';
     windowContent += '</body>';
     windowContent += '</html>';
 
-    const printWin = window.open('', '', 'width=' + screen.availWidth + ',height=' + screen.availHeight);
+    var printWin = window.open('', '', 'width=' + screen.availWidth + ',height=' + screen.availHeight);
     printWin.document.open();
     printWin.document.write(windowContent);
 
@@ -1659,4 +1748,6 @@ Engine.prototype.print = function () {
         printWin.close();
     }, true);
 
+    this.preview = false;
+    this.hidePrintPreview();
 };
