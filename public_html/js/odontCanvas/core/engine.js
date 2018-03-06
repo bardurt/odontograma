@@ -89,8 +89,12 @@ function Engine() {
     this.patient = "";
 
     this.treatmentNumber = "";
-    
+
     this.treatmentData = {};
+
+    this.observerActivated = false;
+
+    this.observer;
 
 }
 
@@ -620,12 +624,20 @@ Engine.prototype.mouseClickTooth = function (event) {
 
                 if (this.currentType === 0) {
 
-                    // handle collision with tooth
-                    this.collisionHandler.handleCollision(
-                            this.mouth[i],
-                            this.selectedHallazgo);
+                    if (!this.observerActivated) {
+                        // handle collision with tooth
+                        this.collisionHandler.handleCollision(
+                                this.mouth[i],
+                                this.selectedHallazgo);
 
-                    shouldUpdate = true;
+                        shouldUpdate = true;
+
+                    } else {
+
+                        if (this.observer !== undefined) {
+                            this.observer(this.mouth[i].id);
+                        }
+                    }
 
                 } else {
 
@@ -652,12 +664,20 @@ Engine.prototype.mouseClickTooth = function (event) {
 
                 if (this.currentType === 0) {
 
-                    // handle collision with surface    
-                    this.collisionHandler.handleCollisionCheckBox(
-                            this.mouth[i].checkBoxes[j],
-                            this.selectedHallazgo);
+                    if (!this.observerActivated) {
+                        // handle collision with surface    
+                        this.collisionHandler.handleCollisionCheckBox(
+                                this.mouth[i].checkBoxes[j],
+                                this.selectedHallazgo);
 
-                    shouldUpdate = true;
+                        shouldUpdate = true;
+                        
+                    } else {
+                        
+                        if (this.observer !== undefined) {
+                            this.observer(this.mouth[i].checkBoxes[j].id);
+                        }
+                    }
 
                 } else {
 
@@ -1450,9 +1470,9 @@ Engine.prototype.createDiagnostico = function (diagnostico) {
  */
 Engine.prototype.togglePrintPreview = function () {
 
-      this.preview = !this.preview;
+    this.preview = !this.preview;
 
-    if(!this.preview){
+    if (!this.preview) {
         this.hidePrintPreview();
     } else {
         this.showPrintPreview();
@@ -1594,8 +1614,8 @@ Engine.prototype.hidePrintPreview = function () {
 
 
 Engine.prototype.loadPatientData = function (office, patient, number,
-                                            treatmentNumber, treatmentDate,
-                                            dentist, observations, specs) {
+        treatmentNumber, treatmentDate,
+        dentist, observations, specs) {
 
     this.treatmentData.office = office;
     this.treatmentData.patient = patient;
@@ -1712,7 +1732,7 @@ Engine.prototype.printPreview = function () {
         this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY,
                 128, 15, "#000000");
     }
-   
+
     this.renderer.renderText("Especificaciones: ", 4, 1100, "#000000");
 
     this.renderer.wrapText(this.treatmentData.specs, 8, 1122, this.renderer.width - 8, 14, 5);
@@ -1750,4 +1770,13 @@ Engine.prototype.print = function () {
 
     this.preview = false;
     this.hidePrintPreview();
+};
+
+
+Engine.prototype.toggleObserverState = function (b) {
+    this.observerActivated = b;
+};
+
+Engine.prototype.setObserver = function (obs) {
+    this.observer = obs;
 };

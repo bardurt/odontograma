@@ -45,6 +45,16 @@
                                    "Test specifications",
                                    "Test observations");
                                    
+            
+            engine.toggleObserverState(true);
+            
+            observer = function(id){
+              
+                window.alert("Clicked " + id);
+            };
+            
+            engine.setObserver(observer);
+                                   
         </script>
     </body>
 </html>      
