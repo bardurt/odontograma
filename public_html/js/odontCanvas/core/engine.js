@@ -16,6 +16,7 @@ document.writeln("<script type='text/javascript' src='js/odontCanvas/models/rect
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/damage.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/textBox.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/tooth.js'></script>");
+document.writeln("<script type='text/javascript' src='js/odontCanvas/models/menuitem.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/renderer.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/odontogramaGenerator.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/collisionHandler.js'></script>");
@@ -61,7 +62,7 @@ function Engine() {
     this.constants = new Constants();
 
     // value of the selected damage which should be added or removed
-    this.selectedHallazgo = 0;
+    this.selectedDamage = 0;
 
     // x position of the mouse pointer
     this.cursorX = 0;
@@ -92,9 +93,7 @@ function Engine() {
 
     this.treatmentData = {};
 
-    this.observerActivated = false;
-
-    this.observer;
+    this.menuItems = [];
 
 }
 
@@ -151,14 +150,35 @@ Engine.prototype.init = function () {
     this.odontogramaGenerator.setConstants(this.constants);
 
     this.odontogramaGenerator.prepareOdontogramaAdult(this.odontAdult,
-            this.odontSpacesAdult, this.canvas);
+        this.odontSpacesAdult, this.canvas);
 
     this.odontogramaGenerator.prepareOdontogramaChild(this.odontChild,
-            this.odontSpacesChild, this.canvas);
+        this.odontSpacesChild, this.canvas);
 
     this.mouth = this.odontAdult;
 
     this.spaces = this.odontSpacesAdult;
+
+    var item1 = new MenuItem();
+    item1.setUp("Cavities", 5, 40, 100, 20);
+    item1.id = this.constants.CARIES;
+
+    var item2 = new MenuItem();
+    item2.setUp("Rotation", 140, 40, 100, 20);
+    item2.id = this.constants.GIROVERSION;
+
+    var item3 = new MenuItem();
+    item3.setUp("Crown Fixed", 275, 40, 100, 20);
+    item3.id = this.constants.CORONA_DEFINITIVA;
+
+    var item4 = new MenuItem();
+    item4.setUp("Crown Temp", 410, 40, 100, 20);
+    item4.id = this.constants.CORONA_TEMPORAL;
+
+    this.menuItems[0] = item1;
+    this.menuItems[1] = item2;
+    this.menuItems[2] = item3;
+    this.menuItems[3] = item4;
 };
 
 /**
@@ -177,12 +197,18 @@ Engine.prototype.update = function () {
         // render spaces
         this.renderer.render(this.spaces, this.settings, this.constants);
 
+        this.renderer.render(this.menuItems, this.settings, this.constants);
+
         if (this.settings.DEBUG) {
 
-            this.renderer.renderText("DEBUG MODE", 2, 15, "#000000");
+            this.renderer.renderText("DEBUG MODE", 2, this.canvas.height, "#000000");
 
             this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY,
-                    128, 15, "#000000");
+                128, this.canvas.height, "#000000");
+
+
+            this.renderer.renderText("Selected Damage : " + this.selectedDamage,
+                220, this.canvas.height, "#000000");
         }
 
     } else {
@@ -240,7 +266,7 @@ Engine.prototype.highlightMultiSelection = function (tooth) {
                 }
 
                 // some damages can only have 2 items in multiselection
-                if (this.selectedHallazgo === this.constants.TRANSPOSICION_LEFT) {
+                if (this.selectedDamage === this.constants.TRANSPOSICION_LEFT) {
 
                     // if count of selection for this damage (max 2) then
                     // change the highlight color, to show that this selection
@@ -274,7 +300,7 @@ Engine.prototype.highlightMultiSelection = function (tooth) {
  */
 Engine.prototype.resetMultiSelect = function () {
     "use strict";
-    this.selectedHallazgo = "0";
+    this.selectedDamage = "0";
     this.multiSelect = false;
     this.multiSelection.length = 0;
     this.removeHighlight();
@@ -343,45 +369,45 @@ Engine.prototype.handleMultiSelection = function () {
 
             // check which damage should be added or removed from the selected
             // teeth
-            if (this.selectedHallazgo === this.constants.ORTODONTICO_FIJO_END) {
+            if (this.selectedDamage === this.constants.ORTODONTICO_FIJO_END) {
 
                 this.mouth[start].toggleDamage(this.constants.ORTODONTICO_FIJO_END,
-                        this.constants);
+                    this.constants);
 
                 this.mouth[end].toggleDamage(this.constants.ORTODONTICO_FIJO_END,
-                        this.constants);
+                    this.constants);
 
                 for (var i = start + 1; i <= end - 1; i++) {
 
                     this.mouth[i].toggleDamage(this.constants.ORTODONTICO_FIJO_CENTER,
-                            this.constants);
+                        this.constants);
 
                 }
 
-            } else if (this.selectedHallazgo === this.constants.PROTESIS_FIJA_LEFT) {
+            } else if (this.selectedDamage === this.constants.PROTESIS_FIJA_LEFT) {
 
                 this.mouth[start].toggleDamage(this.constants.PROTESIS_FIJA_RIGHT,
-                        this.constants);
+                    this.constants);
 
                 this.mouth[end].toggleDamage(this.constants.PROTESIS_FIJA_LEFT,
-                        this.constants);
+                    this.constants);
 
                 for (var i = start + 1; i <= end - 1; i++) {
 
                     this.mouth[i].toggleDamage(this.constants.PROTESIS_FIJA_CENTER,
-                            this.constants);
+                        this.constants);
 
                 }
 
-            } else if (this.selectedHallazgo === this.constants.TRANSPOSICION_LEFT) {
+            } else if (this.selectedDamage === this.constants.TRANSPOSICION_LEFT) {
 
                 if (end - start === 1) {
 
                     this.mouth[start].toggleDamage(this.constants.TRANSPOSICION_LEFT,
-                            this.constants);
+                        this.constants);
 
                     this.mouth[end].toggleDamage(this.constants.TRANSPOSICION_RIGHT,
-                            this.constants);
+                        this.constants);
                 }
 
             }
@@ -424,8 +450,7 @@ Engine.prototype.isAlphanumeric = function (input) {
 
     var letters = /^[0-9a-zA-Z]+$/;
 
-    if (input.match(letters))
-    {
+    if (input.match(letters)) {
         valid = true;
 
     }
@@ -463,7 +488,7 @@ Engine.prototype.setTextToTextBox = function (textBox, text) {
  */
 Engine.prototype.onTextBoxClicked = function (textBox) {
     "use strict";
-    var message = "Escribe C\u00F3digo Dental. Max. 3 letras.";
+    var message = "Add 3 letter dental code.";
 
     var text = prompt(message, "");
 
@@ -481,12 +506,11 @@ Engine.prototype.mouseRightClickSpace = function (event) {
 
     var shouldUpdate = false;
 
-    for (var i = 0; i < this.spaces.length; i++)
-    {
+    for (var i = 0; i < this.spaces.length; i++) {
         // check collision for current space
         if (this.spaces[i].checkCollision(
-                this.getXpos(event),
-                this.getYpos(event))) {
+            this.getXpos(event),
+            this.getYpos(event))) {
 
             this.spaces[i].popDamage();
 
@@ -512,12 +536,11 @@ Engine.prototype.mouseRightClickTooth = function (event) {
     var shouldUpdate = false;
 
     // loop through all teeth
-    for (var i = 0; i < this.mouth.length; i++)
-    {
+    for (var i = 0; i < this.mouth.length; i++) {
 
         // check if there is a collision with the textBox
         if (this.mouth[i].textBox.rect.checkCollision(this.getXpos(event),
-                this.getYpos(event))) {
+            this.getYpos(event))) {
 
             this.mouth[i].textBox.text = "";
 
@@ -525,8 +548,8 @@ Engine.prototype.mouseRightClickTooth = function (event) {
 
         // check collision for current tooth
         if (this.mouth[i].rect.checkCollision(
-                this.getXpos(event),
-                this.getYpos(event))) {
+            this.getXpos(event),
+            this.getYpos(event))) {
 
             this.mouth[i].popDamage();
             shouldUpdate = true;
@@ -537,8 +560,8 @@ Engine.prototype.mouseRightClickTooth = function (event) {
         for (var j = 0; j < this.mouth[i].checkBoxes.length; j++) {
 
             if (this.mouth[i].checkBoxes[j].checkCollision(
-                    this.getXpos(event),
-                    this.getYpos(event))) {
+                this.getXpos(event),
+                this.getYpos(event))) {
 
 
                 // handle collision with surface    
@@ -565,16 +588,15 @@ Engine.prototype.mouseClickSpace = function (event) {
     "use strict";
     var shouldUpdate = false;
 
-    for (var i = 0; i < this.spaces.length; i++)
-    {
+    for (var i = 0; i < this.spaces.length; i++) {
         // check collision for current space
         if (this.spaces[i].checkCollision(
-                this.getXpos(event),
-                this.getYpos(event))) {
+            this.getXpos(event),
+            this.getYpos(event))) {
 
             this.collisionHandler.handleCollision(
-                    this.spaces[i],
-                    this.selectedHallazgo);
+                this.spaces[i],
+                this.selectedDamage);
 
             shouldUpdate = true;
         }
@@ -597,12 +619,11 @@ Engine.prototype.mouseClickTooth = function (event) {
     var shouldUpdate = false;
 
     // loop through all teeth
-    for (var i = 0; i < this.mouth.length; i++)
-    {
+    for (var i = 0; i < this.mouth.length; i++) {
 
         // check if there is a collision with the textBox
         if (this.mouth[i].textBox.rect.checkCollision(this.getXpos(event),
-                this.getYpos(event))) {
+            this.getYpos(event))) {
 
             if (this.currentType === 0) {
                 this.onTextBoxClicked(this.mouth[i].textBox);
@@ -611,8 +632,8 @@ Engine.prototype.mouseClickTooth = function (event) {
 
         // check collision for current tooth
         if (this.mouth[i].rect.checkCollision(
-                this.getXpos(event),
-                this.getYpos(event))) {
+            this.getXpos(event),
+            this.getYpos(event))) {
 
             // if we are in multi select mode
             // add this tooth to multi select list
@@ -624,20 +645,12 @@ Engine.prototype.mouseClickTooth = function (event) {
 
                 if (this.currentType === 0) {
 
-                    if (!this.observerActivated) {
-                        // handle collision with tooth
-                        this.collisionHandler.handleCollision(
-                                this.mouth[i],
-                                this.selectedHallazgo);
+                    // handle collision with tooth
+                    this.collisionHandler.handleCollision(
+                        this.mouth[i],
+                        this.selectedDamage);
 
-                        shouldUpdate = true;
-
-                    } else {
-
-                        if (this.observer !== undefined) {
-                            this.observer(this.mouth[i].id);
-                        }
-                    }
+                    shouldUpdate = true;
 
                 } else {
 
@@ -645,7 +658,7 @@ Engine.prototype.mouseClickTooth = function (event) {
 
                     d.tooth = this.mouth[i].id;
                     d.damage = "";
-                    d.diagnostic = this.selectedHallazgo;
+                    d.diagnostic = this.selectedDamage;
                     d.surface = "X";
                     d.note = "";
 
@@ -659,25 +672,18 @@ Engine.prototype.mouseClickTooth = function (event) {
         for (var j = 0; j < this.mouth[i].checkBoxes.length; j++) {
 
             if (this.mouth[i].checkBoxes[j].checkCollision(
-                    this.getXpos(event),
-                    this.getYpos(event))) {
+                this.getXpos(event),
+                this.getYpos(event))) {
 
                 if (this.currentType === 0) {
 
-                    if (!this.observerActivated) {
-                        // handle collision with surface    
-                        this.collisionHandler.handleCollisionCheckBox(
-                                this.mouth[i].checkBoxes[j],
-                                this.selectedHallazgo);
+                    console.log("Collision Checkbox : " + this.selectedDamage)
+                    // handle collision with surface    
+                    this.collisionHandler.handleCollisionCheckBox(
+                        this.mouth[i].checkBoxes[j],
+                        this.selectedDamage);
 
-                        shouldUpdate = true;
-                        
-                    } else {
-                        
-                        if (this.observer !== undefined) {
-                            this.observer(this.mouth[i].checkBoxes[j].id);
-                        }
-                    }
+                    shouldUpdate = true;
 
                 } else {
 
@@ -685,7 +691,7 @@ Engine.prototype.mouseClickTooth = function (event) {
 
                     d.tooth = "0";
                     d.damage = "";
-                    d.diagnostic = this.selectedHallazgo;
+                    d.diagnostic = this.selectedDamage;
                     d.surface = this.mouth[i].checkBoxes[j].id;
                     d.note = "";
 
@@ -693,6 +699,42 @@ Engine.prototype.mouseClickTooth = function (event) {
 
                 }
             }
+        }
+    }
+
+    // only update if something new has occurred
+    if (shouldUpdate) {
+        this.update();
+    }
+
+};
+
+
+/**
+ * Method to handle mouse click event when the teeth are in the foreground
+ * @param {type} event mouse click event
+ * @returns {void}
+ */
+Engine.prototype.mouseClickMenu = function (event) {
+    "use strict";
+    var shouldUpdate = false;
+
+    // loop through all teeth
+    for (var i = 0; i < this.menuItems.length; i++) {
+
+        // check collision for current tooth
+        if (this.menuItems[i].checkCollision(
+            this.getXpos(event),
+            this.getYpos(event))) {
+
+            for (var j = 0; j < this.menuItems.length; j++) {
+                this.menuItems[j].active = false;
+            }
+
+            this.menuItems[i].active = true;
+
+            this.selectedDamage = this.menuItems[i].id;
+            shouldUpdate = true;
         }
     }
 
@@ -740,6 +782,9 @@ Engine.prototype.onMouseClick = function (event) {
                 this.mouseClickTooth(event);
 
             }
+
+            this.mouseClickMenu(event);
+
         }
     }
 
@@ -772,8 +817,7 @@ Engine.prototype.mouseMoveSpaces = function (event) {
         var update = false;
 
         if (this.spaces[i].checkCollision(this.getXpos(event),
-                this.getYpos(event)))
-        {
+            this.getYpos(event))) {
 
             this.spaces[i].onTouch(true);
 
@@ -801,7 +845,7 @@ Engine.prototype.mouseMoveTeeth = function (event) {
     for (var i = 0; i < this.mouth.length; i++) {
 
         if (this.mouth[i].textBox.rect.checkCollision(this.getXpos(event),
-                this.getYpos(event))) {
+            this.getYpos(event))) {
 
             this.mouth[i].textBox.touching = true;
 
@@ -812,8 +856,7 @@ Engine.prototype.mouseMoveTeeth = function (event) {
         }
 
         if (this.mouth[i].checkCollision(this.getXpos(event),
-                this.getYpos(event)))
-        {
+            this.getYpos(event))) {
             this.mouth[i].onTouch(true);
 
             if (this.multiSelect) {
@@ -830,8 +873,7 @@ Engine.prototype.mouseMoveTeeth = function (event) {
         for (var j = 0; j < this.mouth[i].checkBoxes.length; j++) {
 
             if (this.mouth[i].checkBoxes[j].checkCollision(
-                    this.getXpos(event), this.getYpos(event)))
-            {
+                this.getXpos(event), this.getYpos(event))) {
                 this.mouth[i].checkBoxes[j].touching = true;
 
             } else {
@@ -875,21 +917,18 @@ Engine.prototype.onMouseMove = function (event) {
 Engine.prototype.reset = function () {
     "use strict";
     // reset all teeth
-    for (var i = 0; i < this.mouth.length; i++)
-    {
+    for (var i = 0; i < this.mouth.length; i++) {
         this.mouth[i].damages.length = 0;
 
         this.mouth[i].textBox.text = "";
 
-        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++)
-        {
+        for (var j = 0; j < this.mouth[i].checkBoxes.length; j++) {
             this.mouth[i].checkBoxes[j].state = 0;
         }
     }
 
     // reset all spaces
-    for (var i = 0; i < this.spaces.length; i++)
-    {
+    for (var i = 0; i < this.spaces.length; i++) {
         this.spaces[i].damages.length = 0;
     }
 
@@ -1082,7 +1121,7 @@ Engine.prototype.save = function () {
 
     // Create an image stream of the canvas
     link.href = this.canvas.toDataURL("image/png")
-            .replace("image/png", "image/octet-stream");
+        .replace("image/png", "image/octet-stream");
 
 
     // download the image
@@ -1175,8 +1214,8 @@ Engine.prototype.onButtonClick = function (event) {
         for (var i = 0; i < data.length; i++) {
 
             console.log("Data[" + i + "]: " + data[i].tooth + ", "
-                    + data[i].damage + ", " + data[i].surface + ", "
-                    + data[i].note);
+                + data[i].damage + ", " + data[i].surface + ", "
+                + data[i].note);
 
         }
 
@@ -1190,7 +1229,7 @@ Engine.prototype.onButtonClick = function (event) {
 
             this.currentType = 1;
 
-            this.selectedHallazgo = "kb90";
+            this.selectedDamage = "kb90";
 
         } else {
 
@@ -1208,9 +1247,8 @@ Engine.prototype.onButtonClick = function (event) {
 
             this.setDamage(damage);
 
-            if (event.key === "z")
-            {
-                this.selectedHallazgo = 0;
+            if (event.key === "z") {
+                this.selectedDamage = 0;
                 this.reset();
             }
 
@@ -1262,44 +1300,44 @@ Engine.prototype.setDamage = function (damage) {
 
     console.log("Engine setting damage: " + damage);
 
-    this.selectedHallazgo = parseInt(damage, 10) || 0;
+    this.selectedDamage = parseInt(damage, 10) || 0;
 
-    if (this.selectedHallazgo === this.constants.TRANSPOSICION_LEFT) {
+    if (this.selectedDamage === this.constants.TRANSPOSICION_LEFT) {
         this.multiSelect = true;
         this.multiSelection.length = 0;
 
     }
 
-    if (this.selectedHallazgo === this.constants.ORTODONTICO_FIJO_END) {
+    if (this.selectedDamage === this.constants.ORTODONTICO_FIJO_END) {
         this.multiSelect = true;
         this.multiSelection.length = 0;
     }
 
-    if (this.selectedHallazgo === this.constants.PROTESIS_FIJA_LEFT) {
+    if (this.selectedDamage === this.constants.PROTESIS_FIJA_LEFT) {
         this.multiSelect = true;
         this.multiSelection.length = 0;
     }
 
-    if (this.selectedHallazgo === this.constants.SUPER_NUMERARIO) {
+    if (this.selectedDamage === this.constants.SUPER_NUMERARIO) {
 
         this.settings.HIHGLIGHT_SPACES = true;
         this.update();
     }
 
-    if (this.selectedHallazgo === this.constants.DIASTEMA) {
+    if (this.selectedDamage === this.constants.DIASTEMA) {
 
         this.settings.HIHGLIGHT_SPACES = true;
         this.update();
     }
 
-    if (this.selectedHallazgo !== this.constants.DIASTEMA &&
-            this.selectedHallazgo !== this.constants.SUPER_NUMERARIO) {
+    if (this.selectedDamage !== this.constants.DIASTEMA &&
+        this.selectedDamage !== this.constants.SUPER_NUMERARIO) {
 
         this.settings.HIHGLIGHT_SPACES = false;
         this.update();
     }
 
-    this.selectedHallazgo = damage;
+    this.selectedDamage = damage;
 };
 
 /**
@@ -1614,8 +1652,8 @@ Engine.prototype.hidePrintPreview = function () {
 
 
 Engine.prototype.loadPatientData = function (office, patient, number,
-        treatmentNumber, treatmentDate,
-        dentist, observations, specs) {
+    treatmentNumber, treatmentDate,
+    dentist, observations, specs) {
 
     this.treatmentData.office = office;
     this.treatmentData.patient = patient;
@@ -1633,79 +1671,79 @@ Engine.prototype.createHeader = function () {
     var seperation = 18;
 
     this.renderer.renderTextCenter16("Odontograma",
-            this.renderer.width / 2,
-            seperation,
-            "#000000");
+        this.renderer.width / 2,
+        seperation,
+        "#000000");
 
     this.renderer.renderText14("Fecha: 28/02/2018",
-            this.renderer.width / 2 + 150,
-            seperation,
-            "#000000");
+        this.renderer.width / 2 + 150,
+        seperation,
+        "#000000");
 
     seperation = 20;
 
 
     this.renderer.renderText14("Sede",
-            4,
-            seperation * 2,
-            "#000000");
+        4,
+        seperation * 2,
+        "#000000");
 
     this.renderer.renderText14(": " + this.treatmentData.office,
-            100,
-            seperation * 2,
-            "#000000");
+        100,
+        seperation * 2,
+        "#000000");
 
     this.renderer.renderText14("Nro. HC",
-            this.renderer.width / 2,
-            seperation * 2,
-            "#000000");
+        this.renderer.width / 2,
+        seperation * 2,
+        "#000000");
 
     this.renderer.renderText14(": " + this.treatmentData.number,
-            this.renderer.width / 2 + 120,
-            seperation * 2,
-            "#000000");
+        this.renderer.width / 2 + 120,
+        seperation * 2,
+        "#000000");
 
 
     this.renderer.renderText14("Paciente",
-            4,
-            seperation * 3,
-            "#000000");
+        4,
+        seperation * 3,
+        "#000000");
 
     this.renderer.renderText14(": " + this.treatmentData.patient,
-            100,
-            seperation * 3,
-            "#000000");
+        100,
+        seperation * 3,
+        "#000000");
 
 
     this.renderer.renderText14("Nro. Consulta",
-            4,
-            seperation * 4,
-            "#000000");
+        4,
+        seperation * 4,
+        "#000000");
 
     this.renderer.renderText14(": " + this.treatmentData.treatmentNumber,
-            100,
-            seperation * 4,
-            "#000000");
+        100,
+        seperation * 4,
+        "#000000");
 
     this.renderer.renderText14("Fecha de consulta",
-            this.renderer.width / 2,
-            seperation * 4,
-            "#000000");
+        this.renderer.width / 2,
+        seperation * 4,
+        "#000000");
 
     this.renderer.renderText14(": " + this.treatmentData.treatmentDate,
-            this.renderer.width / 2 + 120,
-            seperation * 4,
-            "#000000");
+        this.renderer.width / 2 + 120,
+        seperation * 4,
+        "#000000");
 
     this.renderer.renderText14("Odontólogo",
-            4,
-            seperation * 5,
-            "#000000");
+        4,
+        seperation * 5,
+        "#000000");
 
     this.renderer.renderText14(": " + this.treatmentData.dentist,
-            100,
-            seperation * 5,
-            "#000000");
+        100,
+        seperation * 5,
+        "#000000");
 
 };
 
@@ -1730,7 +1768,7 @@ Engine.prototype.printPreview = function () {
         this.renderer.renderText("DEBUG MODE", 2, 15, "#000000");
 
         this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY,
-                128, 15, "#000000");
+            128, 15, "#000000");
     }
 
     this.renderer.renderText("Especificaciones: ", 4, 1100, "#000000");
@@ -1770,13 +1808,4 @@ Engine.prototype.print = function () {
 
     this.preview = false;
     this.hidePrintPreview();
-};
-
-
-Engine.prototype.toggleObserverState = function (b) {
-    this.observerActivated = b;
-};
-
-Engine.prototype.setObserver = function (obs) {
-    this.observer = obs;
 };

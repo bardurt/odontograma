@@ -66,7 +66,7 @@ CollisionHandler.prototype.handleCollision = function (tooth, argument) {
 CollisionHandler.prototype.handleCollisionCheckBox = function (checkBox, argument) {
     "use strict";
     var newArg;
-
+    console.log("Handle Collision CB arg :" + argument);
     try {
 
         newArg = Number(argument);
