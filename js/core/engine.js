@@ -10,16 +10,16 @@
  */
 
 // include the necessary scripts
-document.writeln("<script type='text/javascript' src='js/odontCanvas/util/constants.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/util/settings.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/models/rect.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/models/damage.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/models/textBox.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/models/tooth.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/models/menuItem.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/core/renderer.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/core/odontogramaGenerator.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/core/collisionHandler.js'></script>");
+document.writeln("<script type='text/javascript' src='js/util/constants.js'></script>");
+document.writeln("<script type='text/javascript' src='js/util/settings.js'></script>");
+document.writeln("<script type='text/javascript' src='js/models/rect.js'></script>");
+document.writeln("<script type='text/javascript' src='js/models/damage.js'></script>");
+document.writeln("<script type='text/javascript' src='js/models/textBox.js'></script>");
+document.writeln("<script type='text/javascript' src='js/models/tooth.js'></script>");
+document.writeln("<script type='text/javascript' src='js/models/menuItem.js'></script>");
+document.writeln("<script type='text/javascript' src='js/core/renderer.js'></script>");
+document.writeln("<script type='text/javascript' src='js/core/odontogramaGenerator.js'></script>");
+document.writeln("<script type='text/javascript' src='js/core/collisionHandler.js'></script>");
 
 function Engine() {
     "use strict";

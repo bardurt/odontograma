@@ -1,5 +1,5 @@
-# Odontograma
-A virtual odontograma in JavaScript.
+# Odontogram
+A virtual Odontogram in JavaScript.
 
 
 This is a work in progress, If you, dear reader, think you can make some improvements please feel free.
