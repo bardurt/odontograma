@@ -66,7 +66,7 @@ CollisionHandler.prototype.handleCollision = function (tooth, argument) {
 CollisionHandler.prototype.handleCollisionCheckBox = function (checkBox, argument) {
     "use strict";
     var newArg;
-
+    console.log("Handle Collision CB arg :" + argument);
     try {
 
         newArg = Number(argument);
@@ -91,5 +91,26 @@ CollisionHandler.prototype.handleCollisionCheckBox = function (checkBox, argumen
             checkBox.state = 11;
         }
     }
+
+};
+
+/**
+ * Method to handle a collision with a menuItem
+ * @param {type} menuItem
+ * @param {type} argument
+ * @returns {undefined}
+ */
+CollisionHandler.prototype.handleCollisionCheckBox = function (menuItem, argument) {
+    "use strict";
+    var newArg;
+    console.log("Handle Collision MenuIttem arg :" + argument);
+    try {
+
+        newArg = Number(argument);
+
+    } catch (e) {
+        console.log("Handle Collision Exception: " + e.message);
+    }
+
 
 };

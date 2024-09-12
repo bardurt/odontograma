@@ -1,10 +1,19 @@
 # Odontograma
 A virtual odontograma in JavaScript.
 
-![odontograma](https://user-images.githubusercontent.com/10849157/35785546-14d47e7e-09ef-11e8-8f1c-91375ac04b2e.JPG)
-
 
 This is a work in progress, If you, dear reader, think you can make some improvements please feel free.
 
 
-![odont2](https://user-images.githubusercontent.com/10849157/36699837-ec812cae-1b1b-11e8-852c-2444e590b18b.JPG)
+### Note
+Not many changes have happend to this repo for the last couple of months, I have been very busy in my professional life. However, I will slowly start to update the code base. 
+
+First thing I will do is to create a control menu for the system.
+
+### Adult
+![odontograma](docs/preview_adult.png)
+
+
+
+### Child
+![odontograma](docs/preview_child.png)

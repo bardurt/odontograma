@@ -400,7 +400,6 @@ Tooth.prototype.drawId = function (context) {
 
     if (this.type === 0) {
 
-        console.log("Drawing id border at: " + (this.y + this.rect.height + space + 10));
         // draw id
         context.fillText("" + this.id, this.rect.x + this.rect.width / 2,
                 this.y + this.rect.height + space + 10);
@@ -417,8 +416,6 @@ Tooth.prototype.drawId = function (context) {
         context.lineTo(this.rect.x + this.rect.width,
                 this.y + this.rect.height + space);
     } else {
-
-        console.log("Drawing id border at: " + (this.rect.y + this.rect.height + space + 10));
 
         // draw id
         context.fillText("" + this.id, this.rect.x + this.rect.width / 2,
