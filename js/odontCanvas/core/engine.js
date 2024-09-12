@@ -195,6 +195,48 @@ Engine.prototype.init = function () {
     menuitem6.textBox.text = "Diastema"
     menuitem6.id = 8;
     this.menuItems.push(menuitem6);
+
+    var menuitem7 = new MenuItem();
+    menuitem7.setUp(490,10,75,20)
+    menuitem7.textBox.text = "Extrusion"
+    menuitem7.id = 9;
+    this.menuItems.push(menuitem7);
+
+    var menuitem7 = new MenuItem();
+    menuitem7.setUp(570,10,75,20)
+    menuitem7.textBox.text = "Post"
+    menuitem7.id = 10;
+    this.menuItems.push(menuitem7);
+
+    var menuitem8 = new MenuItem();
+    menuitem8.setUp(10,35,75,20)
+    menuitem8.textBox.text = "Filling"
+    menuitem8.id = 11;
+    this.menuItems.push(menuitem8);
+
+    var menuitem9 = new MenuItem();
+    menuitem9.setUp(90,35,75,20)
+    menuitem9.textBox.text = "Rem Prost"
+    menuitem9.id = 12;
+    this.menuItems.push(menuitem9);
+
+    var menuitem10 = new MenuItem();
+    menuitem10.setUp(170,35,75,20)
+    menuitem10.textBox.text = "Drifting"
+    menuitem10.id = 13;
+    this.menuItems.push(menuitem10);
+
+    var menuitem11 = new MenuItem();
+    menuitem11.setUp(250,35,75,20)
+    menuitem11.textBox.text = "Rotation"
+    menuitem11.id = 14;
+    this.menuItems.push(menuitem11);
+
+    var menuitem12 = new MenuItem();
+    menuitem12.setUp(330,35,75,20)
+    menuitem12.textBox.text = "Fusion"
+    menuitem12.id = 15;
+    this.menuItems.push(menuitem12);
 };
 
 /**
