@@ -16,7 +16,7 @@ document.writeln("<script type='text/javascript' src='js/odontCanvas/models/rect
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/damage.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/textBox.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/models/tooth.js'></script>");
-document.writeln("<script type='text/javascript' src='js/odontCanvas/models/menuitem.js'></script>");
+document.writeln("<script type='text/javascript' src='js/odontCanvas/models/menuItem.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/renderer.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/odontogramaGenerator.js'></script>");
 document.writeln("<script type='text/javascript' src='js/odontCanvas/core/collisionHandler.js'></script>");
@@ -159,26 +159,42 @@ Engine.prototype.init = function () {
 
     this.spaces = this.odontSpacesAdult;
 
-    var item1 = new MenuItem();
-    item1.setUp("Cavities", 5, 40, 100, 20);
-    item1.id = this.constants.CARIES;
 
-    var item2 = new MenuItem();
-    item2.setUp("Rotation", 140, 40, 100, 20);
-    item2.id = this.constants.GIROVERSION;
+    var menuitem1 = new MenuItem();
+    menuitem1.setUp(10,10,75,20)
+    menuitem1.textBox.text = "Caries"
+    menuitem1.id = 1;
+    this.menuItems.push(menuitem1);
 
-    var item3 = new MenuItem();
-    item3.setUp("Crown Fixed", 275, 40, 100, 20);
-    item3.id = this.constants.CORONA_DEFINITIVA;
+    var menuitem2 = new MenuItem();
+    menuitem2.setUp(90,10,75,20)
+    menuitem2.textBox.text = "Crown"
+    menuitem2.id = 2;
+    this.menuItems.push(menuitem2);
 
-    var item4 = new MenuItem();
-    item4.setUp("Crown Temp", 410, 40, 100, 20);
-    item4.id = this.constants.CORONA_TEMPORAL;
+    var menuitem3 = new MenuItem();
+    menuitem3.setUp(170,10,75,20)
+    menuitem3.textBox.text = "Crown (Tmp)"
+    menuitem3.id = 3;
+    this.menuItems.push(menuitem3);
 
-    this.menuItems[0] = item1;
-    this.menuItems[1] = item2;
-    this.menuItems[2] = item3;
-    this.menuItems[3] = item4;
+    var menuitem4 = new MenuItem();
+    menuitem4.setUp(250,10,75,20)
+    menuitem4.textBox.text = "Missing"
+    menuitem4.id = 4;
+    this.menuItems.push(menuitem4);
+
+    var menuitem5 = new MenuItem();
+    menuitem5.setUp(330,10,75,20)
+    menuitem5.textBox.text = "Fracture"
+    menuitem5.id = 5;
+    this.menuItems.push(menuitem5);
+
+    var menuitem6 = new MenuItem();
+    menuitem6.setUp(410,10,75,20)
+    menuitem6.textBox.text = "Diastema"
+    menuitem6.id = 8;
+    this.menuItems.push(menuitem6);
 };
 
 /**
@@ -702,6 +718,7 @@ Engine.prototype.mouseClickTooth = function (event) {
         }
     }
 
+
     // only update if something new has occurred
     if (shouldUpdate) {
         this.update();
@@ -723,17 +740,27 @@ Engine.prototype.mouseClickMenu = function (event) {
     for (var i = 0; i < this.menuItems.length; i++) {
 
         // check collision for current tooth
-        if (this.menuItems[i].checkCollision(
+        if (this.menuItems[i].rect.checkCollision(
             this.getXpos(event),
             this.getYpos(event))) {
 
-            for (var j = 0; j < this.menuItems.length; j++) {
-                this.menuItems[j].active = false;
+            if(this.menuItems[i].active){
+                for (var j = 0; j < this.menuItems.length; j++) {
+                    this.menuItems[j].active = false;
+                }
+                this.menuItems[i].active = false;
+                this.selectedDamage = 0;
+            } else {
+                for (var j = 0; j < this.menuItems.length; j++) {
+                    this.menuItems[j].active = false;
+                }
+                this.menuItems[i].active = true;
+                this.selectedDamage = this.menuItems[i].id;
             }
 
-            this.menuItems[i].active = true;
+            console.log("Mouse click. MenuItem: ");
 
-            this.selectedDamage = this.menuItems[i].id;
+            
             shouldUpdate = true;
         }
     }
