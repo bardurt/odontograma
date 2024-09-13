@@ -11,9 +11,9 @@ Not many changes have happend to this repo for the last couple of months, I have
 First thing I will do is to create a control menu for the system.
 
 ### Adult
-![odontograma](docs/preview_adult.png)
+![odontograma](docs/preview_adult_teeth.png)
 
 
 
 ### Child
-![odontograma](docs/preview_child.png)
+![odontograma](docs/preview_child_teeth.png)
