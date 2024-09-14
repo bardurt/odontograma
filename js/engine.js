@@ -10,16 +10,16 @@
  */
 
 // include the necessary scripts
-document.writeln("<script type='text/javascript' src='js/util/constants.js'></script>");
-document.writeln("<script type='text/javascript' src='js/util/settings.js'></script>");
-document.writeln("<script type='text/javascript' src='js/models/rect.js'></script>");
-document.writeln("<script type='text/javascript' src='js/models/damage.js'></script>");
-document.writeln("<script type='text/javascript' src='js/models/textBox.js'></script>");
-document.writeln("<script type='text/javascript' src='js/models/tooth.js'></script>");
-document.writeln("<script type='text/javascript' src='js/models/menuItem.js'></script>");
-document.writeln("<script type='text/javascript' src='js/core/renderer.js'></script>");
-document.writeln("<script type='text/javascript' src='js/core/odontogramaGenerator.js'></script>");
-document.writeln("<script type='text/javascript' src='js/core/collisionHandler.js'></script>");
+document.writeln("<script type='text/javascript' src='js/constants.js'></script>");
+document.writeln("<script type='text/javascript' src='js/settings.js'></script>");
+document.writeln("<script type='text/javascript' src='js/rect.js'></script>");
+document.writeln("<script type='text/javascript' src='js/damage.js'></script>");
+document.writeln("<script type='text/javascript' src='js/textBox.js'></script>");
+document.writeln("<script type='text/javascript' src='js/tooth.js'></script>");
+document.writeln("<script type='text/javascript' src='js/menuItem.js'></script>");
+document.writeln("<script type='text/javascript' src='js/renderer.js'></script>");
+document.writeln("<script type='text/javascript' src='js/odontogramaGenerator.js'></script>");
+document.writeln("<script type='text/javascript' src='js/collisionHandler.js'></script>");
 
 function Engine() {
     "use strict";
@@ -674,6 +674,8 @@ Engine.prototype.mouseClickTooth = function (event) {
             if (this.mouth[i].checkBoxes[j].checkCollision(
                 this.getXpos(event),
                 this.getYpos(event))) {
+
+                console.log("Collision Checkbox : " + this.selectedDamage)
 
                 if (this.currentType === 0) {
 
@@ -1974,15 +1976,9 @@ Engine.prototype.createMenu = function () {
 
     var menuitem17 = new MenuItem();
     menuitem17.setUp(90, 60, 75, 20)
-    menuitem17.textBox.text = "Transp. L"
+    menuitem17.textBox.text = "Transpositon"
     menuitem17.id = 25;
     this.menuItems.push(menuitem17);
-
-    var menuitem18 = new MenuItem();
-    menuitem18.setUp(170, 60, 75, 20)
-    menuitem18.textBox.text = "Transp. R"
-    menuitem18.id = 26;
-    this.menuItems.push(menuitem18);
 
     var menuitem19 = new MenuItem();
     menuitem19.setUp(250, 60, 75, 20)
