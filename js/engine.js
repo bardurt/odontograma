@@ -1872,202 +1872,70 @@ Engine.prototype.print = function () {
 
 Engine.prototype.createMenu = function () {
 
-    var menuitem1 = new MenuItem();
-    menuitem1.setUp(10, 10, 75, 20)
-    menuitem1.textBox.text = "Caries"
-    menuitem1.id = 1;
-    this.menuItems.push(menuitem1);
+    let buttonWidth = 100;
+    let buttonHeight = 20;
 
-    var menuitem2 = new MenuItem();
-    menuitem2.setUp(90, 10, 75, 20)
-    menuitem2.textBox.text = "Crown"
-    menuitem2.id = 2;
-    this.menuItems.push(menuitem2);
+    let posY = 10;
+    let ySeparator = 0;
 
-    var menuitem3 = new MenuItem();
-    menuitem3.setUp(170, 10, 75, 20)
-    menuitem3.textBox.text = "Crown (Tmp)"
-    menuitem3.id = 3;
-    this.menuItems.push(menuitem3);
+    this.createMenuButton(10, posY, buttonWidth, buttonHeight, "Caries", 1);
+    this.createMenuButton(110, posY, buttonWidth, buttonHeight, "Crown", 2);
+    this.createMenuButton(210, posY, buttonWidth, buttonHeight, "Crown (Tmp)", 3);
+    this.createMenuButton(310, posY, buttonWidth, buttonHeight, "Missing", 4);
+    this.createMenuButton(410, posY, buttonWidth, buttonHeight, "Fracture", 5);
+    this.createMenuButton(510, posY, buttonWidth, buttonHeight, "Diastema", 8);
 
-    var menuitem4 = new MenuItem();
-    menuitem4.setUp(250, 10, 75, 20)
-    menuitem4.textBox.text = "Missing"
-    menuitem4.id = 4;
-    this.menuItems.push(menuitem4);
+    posY = posY + buttonHeight + ySeparator;
 
-    var menuitem5 = new MenuItem();
-    menuitem5.setUp(330, 10, 75, 20)
-    menuitem5.textBox.text = "Fracture"
-    menuitem5.id = 5;
-    this.menuItems.push(menuitem5);
+    this.createMenuButton(10, posY, buttonWidth, buttonHeight, "Filling", 11);
+    this.createMenuButton(110, posY, buttonWidth, buttonHeight, "Rem Prost", 12);
+    this.createMenuButton(210, posY, buttonWidth, buttonHeight, "Drifting", 13);
+    this.createMenuButton(310, posY, buttonWidth, buttonHeight, "Rotation", 14);
+    this.createMenuButton(410, posY, buttonWidth, buttonHeight, "Fusion", 15);
+    this.createMenuButton(510, posY, buttonWidth, buttonHeight, "Root Remnant", 16);
 
-    var menuitem6 = new MenuItem();
-    menuitem6.setUp(410, 10, 75, 20)
-    menuitem6.textBox.text = "Diastema"
-    menuitem6.id = 8;
-    this.menuItems.push(menuitem6);
+    posY = posY + buttonHeight + ySeparator;
 
-    var menuitem7 = new MenuItem();
-    menuitem7.setUp(490, 10, 75, 20)
-    menuitem7.textBox.text = "Extrusion"
-    menuitem7.id = 9;
-    this.menuItems.push(menuitem7);
+    this.createMenuButton(10, posY, buttonWidth, buttonHeight, "Eruption", 24);
+    this.createMenuButton(110, posY, buttonWidth, buttonHeight, "Transpositon", 25);
+    this.createMenuButton(210, posY, buttonWidth, buttonHeight, "Supernumerary", 27);
+    this.createMenuButton(310, posY, buttonWidth, buttonHeight, "Pulp", 20);
+    this.createMenuButton(410, posY, buttonWidth, buttonHeight, "Prosthesis", 29);
+    this.createMenuButton(510, posY, buttonWidth, buttonHeight, "Bolt", 30);
 
-    var menuitem7 = new MenuItem();
-    menuitem7.setUp(570, 10, 75, 20)
-    menuitem7.textBox.text = "Post"
-    menuitem7.id = 10;
-    this.menuItems.push(menuitem7);
+    posY = posY + buttonHeight + ySeparator;
 
-    var menuitem8 = new MenuItem();
-    menuitem8.setUp(10, 35, 75, 20)
-    menuitem8.textBox.text = "Filling"
-    menuitem8.id = 11;
-    this.menuItems.push(menuitem8);
+    this.createMenuButton(10, posY, buttonWidth, buttonHeight, "Fixed Ortho", 32);
+    this.createMenuButton(110, posY, buttonWidth, buttonHeight, "Fixed Prosth", 34);
+    this.createMenuButton(210, posY, buttonWidth, buttonHeight, "Implant", 6);
+    this.createMenuButton(310, posY, buttonWidth, buttonHeight, "Macrodontia", 17);
+    this.createMenuButton(410, posY, buttonWidth, buttonHeight, "Microdontia", 10);
+    this.createMenuButton(510, posY, buttonWidth, buttonHeight, "Dyschromic", 22);
 
-    var menuitem9 = new MenuItem();
-    menuitem9.setUp(90, 35, 75, 20)
-    menuitem9.textBox.text = "Rem Prost"
-    menuitem9.id = 12;
-    this.menuItems.push(menuitem9);
+    posY = posY + buttonHeight + ySeparator;
+ 
+    this.createMenuButton(10, posY, buttonWidth, buttonHeight, "Worn", 37);
+    this.createMenuButton(110, posY, buttonWidth, buttonHeight, "Impacted Semi", 30);
+    this.createMenuButton(210, posY, buttonWidth, buttonHeight, "Intrusion", 20);
+    this.createMenuButton(310, posY, buttonWidth, buttonHeight, "Edentulism", 31);
+    this.createMenuButton(410, posY, buttonWidth, buttonHeight, "Ectopic", 21);
+    this.createMenuButton(510, posY, buttonWidth, buttonHeight, "Impacted", 19);
 
-    var menuitem10 = new MenuItem();
-    menuitem10.setUp(170, 35, 75, 20)
-    menuitem10.textBox.text = "Drifting"
-    menuitem10.id = 13;
-    this.menuItems.push(menuitem10);
+    posY = posY + buttonHeight + ySeparator;
+    
+    this.createMenuButton(510, posY, buttonWidth, buttonHeight, "Rem Orthodo", 23);
+    this.createMenuButton(410, posY, buttonWidth, buttonHeight, "Extrusion", 9);
+    this.createMenuButton(310, posY, buttonWidth, buttonHeight, "Post", 10);
+    
+}
 
-    var menuitem11 = new MenuItem();
-    menuitem11.setUp(250, 35, 75, 20)
-    menuitem11.textBox.text = "Rotation"
-    menuitem11.id = 14;
-    this.menuItems.push(menuitem11);
 
-    var menuitem12 = new MenuItem();
-    menuitem12.setUp(330, 35, 75, 20)
-    menuitem12.textBox.text = "Fusion"
-    menuitem12.id = 15;
-    this.menuItems.push(menuitem12);
 
-    var menuitem13 = new MenuItem();
-    menuitem13.setUp(410, 35, 75, 20)
-    menuitem13.textBox.text = "Root Remnant"
-    menuitem13.id = 16;
-    this.menuItems.push(menuitem13);
-
-    var menuitem14 = new MenuItem();
-    menuitem14.setUp(490, 35, 75, 20)
-    menuitem14.textBox.text = "Intrusion"
-    menuitem14.id = 20;
-    this.menuItems.push(menuitem14);
-
-    var menuitem15 = new MenuItem();
-    menuitem15.setUp(570, 35, 75, 20)
-    menuitem15.textBox.text = "Rem Orthodo"
-    menuitem15.id = 23;
-    this.menuItems.push(menuitem15);
-
-    var menuitem16 = new MenuItem();
-    menuitem16.setUp(10, 60, 75, 20)
-    menuitem16.textBox.text = "Eruption"
-    menuitem16.id = 24;
-    this.menuItems.push(menuitem16);
-
-    var menuitem17 = new MenuItem();
-    menuitem17.setUp(90, 60, 75, 20)
-    menuitem17.textBox.text = "Transpositon"
-    menuitem17.id = 25;
-    this.menuItems.push(menuitem17);
-
-    var menuitem19 = new MenuItem();
-    menuitem19.setUp(250, 60, 75, 20)
-    menuitem19.textBox.text = "Supernumerary"
-    menuitem19.id = 27;
-    this.menuItems.push(menuitem19);
-
-    var menuitem20 = new MenuItem();
-    menuitem20.setUp(330, 60, 75, 20)
-    menuitem20.textBox.text = "Pulp"
-    menuitem20.id = 28;
-    this.menuItems.push(menuitem20);
-
-    var menuitem21 = new MenuItem();
-    menuitem21.setUp(410, 60, 75, 20)
-    menuitem21.textBox.text = "Prosthesis"
-    menuitem21.id = 29;
-    this.menuItems.push(menuitem21);
-
-    var menuitem22 = new MenuItem();
-    menuitem22.setUp(490, 60, 75, 20)
-    menuitem22.textBox.text = "Bolt"
-    menuitem22.id = 30;
-    this.menuItems.push(menuitem22);
-
-    var menuitem23 = new MenuItem();
-    menuitem23.setUp(570, 60, 75, 20)
-    menuitem23.textBox.text = "Edentulism"
-    menuitem23.id = 31;
-    this.menuItems.push(menuitem23);
-
-    var menuitem24 = new MenuItem();
-    menuitem24.setUp(10, 85, 75, 20)
-    menuitem24.textBox.text = "Fixed Ortho"
-    menuitem24.id = 32;
-    this.menuItems.push(menuitem24);
-
-    var menuitem25 = new MenuItem();
-    menuitem25.setUp(90, 85, 75, 20);
-    menuitem25.textBox.text = "Fixed Prosth"
-    menuitem25.id = 34;
-    this.menuItems.push(menuitem25);
-
-    var menuitem26 = new MenuItem();
-    menuitem26.setUp(170, 85, 75, 20);
-    menuitem26.textBox.text = "Implant"
-    menuitem26.id = 6;
-    this.menuItems.push(menuitem26);
-
-    var menuitem27 = new MenuItem();
-    menuitem27.setUp(250, 85, 75, 20);
-    menuitem27.textBox.text = "Macrodontia"
-    menuitem27.id = 17;
-    this.menuItems.push(menuitem27);
-
-    var menuitem28 = new MenuItem();
-    menuitem28.setUp(330, 85, 75, 20);
-    menuitem28.textBox.text = "Microdontia"
-    menuitem28.id = 18;
-    this.menuItems.push(menuitem28);
-
-    var menuitem29 = new MenuItem();
-    menuitem29.setUp(410, 85, 75, 20);
-    menuitem29.textBox.text = "Impacted"
-    menuitem29.id = 19;
-    this.menuItems.push(menuitem29);
-
-    var menuitem30 = new MenuItem();
-    menuitem30.setUp(490, 85, 75, 20);
-    menuitem30.textBox.text = "Ectopic"
-    menuitem30.id = 21;
-    this.menuItems.push(menuitem30);
-
-    var menuitem31 = new MenuItem();
-    menuitem31.setUp(570, 85, 75, 20);
-    menuitem31.textBox.text = "Dyschromic"
-    menuitem31.id = 22;
-    this.menuItems.push(menuitem31);
-
-    var menuitem32 = new MenuItem();
-    menuitem32.setUp(10, 110, 75, 20);
-    menuitem32.textBox.text = "Worn"
-    menuitem31.id = 37;
-    this.menuItems.push(menuitem32);
-
-    var menuitem33 = new MenuItem();
-    menuitem33.setUp(90, 110, 75, 20);
-    menuitem33.textBox.text = "Impacted Semi"
-    menuitem33.id = 38;
-    this.menuItems.push(menuitem33);
+Engine.prototype.createMenuButton = function (x, y, width, height, text, id) {
+    var menuitem = new MenuItem();
+    menuitem.setUp(x, y, width, height);
+    menuitem.textBox.text = text
+    menuitem.id = id;
+    this.menuItems.push(menuitem);
 
 }
