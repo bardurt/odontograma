@@ -11,8 +11,6 @@ function MenuItem() {
     this.tooth = true;
     this.surfaces = 0;
     this.highlight = false;
-    this.highlightColor = "";
-    this.checkBoxes = Array();
     this.rect = new Rect();
     this.textBox = new TextBox();
     this.spacer = 20; // spacer to seperate tooth from surfaces
@@ -52,13 +50,109 @@ MenuItem.prototype.setUp = function (x, y, width, height) {
 MenuItem.prototype.render = function (context, settings, constants) {
     "use strict";
 
-
-    this.textBox.render(context, settings.COLOR_BLUE);
-
     if (this.active) {
-        this.rect.highlight(context, settings)
+        this.renderStateActive(context);
     } else {
-        this.rect.outline(context, "#000000");
+        this.renderStateNormal(context);
     }
 
+    if(this.highlight) {
+        this.renderStateFocus(context);
+    } 
+
+    this.renderLabel(context);
+};
+
+
+MenuItem.prototype.renderStateNormal = function (context) {
+    "use strict";
+
+
+    var portion = this.rect.height / 5;
+
+    context.beginPath();
+    context.globalAlpha = 1;
+    context.fillStyle = "#bdbee8";
+    context.fillRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
+
+    context.fillStyle = "#d1d2f5";
+    context.fillRect(this.rect.x, this.rect.y, this.rect.width, portion);
+
+    context.fillStyle = "#ecedf5";
+    context.fillRect(this.rect.x, this.rect.y, this.rect.width, 1);
+
+    context.fillStyle = "#9c9dc4";
+    context.fillRect(this.rect.x, this.rect.y + (portion * 4), this.rect.width, portion);
+
+    context.fillStyle = "#515175";
+    context.fillRect(this.rect.x, this.rect.y + (this.rect.height -1), this.rect.width, 1);
+
+    context.globalAlpha = 1;
+
+    this.rect.outline(context ,"#35353f")
+
+    context.restore();
+
+};
+
+MenuItem.prototype.renderStateActive = function (context) {
+    "use strict";
+
+
+    var portion = this.rect.height / 5;
+
+    context.beginPath();
+    context.globalAlpha = 1;
+    context.fillStyle = "#ace8d1";
+    context.fillRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
+
+    context.fillStyle = "#bef7e1";
+    context.fillRect(this.rect.x, this.rect.y, this.rect.width, portion);
+
+    context.fillStyle = "#dafff1";
+    context.fillRect(this.rect.x, this.rect.y, this.rect.width, 1);
+
+    context.fillStyle = "#8fd6bb";
+    context.fillRect(this.rect.x, this.rect.y + (portion * 4), this.rect.width, portion);
+
+    context.fillStyle = "#6db096";
+    context.fillRect(this.rect.x, this.rect.y + (this.rect.height -1), this.rect.width, 1);
+
+    context.globalAlpha = 1;
+
+    this.rect.outline(context ,"#35353f")
+
+    context.restore();
+
+};
+
+
+MenuItem.prototype.renderStateFocus = function (context) {
+    "use strict";
+
+    context.beginPath();
+    context.globalAlpha = 0.5;
+    context.fillStyle = "#b2dee7";
+    context.fillRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
+    context.globalAlpha = 1.0;
+    context.restore();
+
+};
+
+MenuItem.prototype.renderLabel = function (context) {
+    "use strict";
+
+    context.globalAlpha = 1;
+
+    context.textAlign = "center";
+    context.fillStyle = "#35353f";
+    context.font = "13px Arial";
+
+    context.fillText(this.textBox.text,
+            this.rect.x + this.rect.width / 2,
+            this.rect.y + this.rect.height - 4);
+
+    context.stroke();
+
+    context.restore();
 };

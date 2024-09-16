@@ -961,6 +961,32 @@ Engine.prototype.mouseMoveTeeth = function (event) {
     }
 };
 
+
+Engine.prototype.mouseMoveMenuItems = function (event) {
+    "use strict";
+
+    for (var i = 0; i < this.menuItems.length; i++) {
+
+        var update = false;
+
+        if (this.menuItems[i].rect.checkCollision(this.getXpos(event),
+            this.getYpos(event))) {
+
+            this.menuItems[i].highlight = true;
+
+            update = true;
+
+        } else {
+
+            this.menuItems[i].highlight = false;
+        }
+    }
+
+    if (update) {
+        this.update();
+    }
+};
+
 /**
  * Event handler for when the mouse is moved
  * @param {type} event mouse click event
@@ -979,8 +1005,10 @@ Engine.prototype.onMouseMove = function (event) {
         } else {
 
             this.mouseMoveTeeth(event);
-
+            
         }
+
+        this.mouseMoveMenuItems(event);
     }
 
     // update mouse cooridnates
