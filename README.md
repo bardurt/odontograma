@@ -1,3 +1,5 @@
+![GitHub Repo stars](https://img.shields.io/github/stars/bardurt/odontograma)
+
 # Odontogram
 A virtual Odontogram in JavaScript.
 
