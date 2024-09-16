@@ -35,13 +35,15 @@ Renderer.prototype.drawSplash = function () {
     this.context.textAlign = 'center';
     this.context.fillStyle = "#000000";
     this.context.font = "32px Arial Bold";
-    this.context.fillText("OdontoGraph 1.0.0", this.width / 2,
+    this.context.fillText("OdontoGraph", this.width / 2,
             this.height / 2 - 16);
 
-    this.context.font = "18px Arial Bold";
+    this.context.font = "24px Arial Bold";
     this.context.fillStyle = "#000000";
 
-    this.context.fillText("Bardur Thomsen - 2018", this.width / 2, this.height / 2 + 40);
+    var year = new Date().getFullYear();
+
+    this.context.fillText("Bardur Thomsen - " + year, this.width / 2, this.height / 2 + 40);
 };
 
 /**
