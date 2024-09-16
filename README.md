@@ -1,4 +1,5 @@
-![GitHub License](https://img.shields.io/github/license/bardurt/odontograma) ![GitHub Repo stars](https://img.shields.io/github/stars/bardurt/odontograma) 
+![GitHub license](https://img.shields.io/github/license/bardurt/odontograma?style=plastic)
+![GutHub Stars](https://img.shields.io/github/stars/bardurt/odontograma?style=plastic)
 
 
 # Odontogram
