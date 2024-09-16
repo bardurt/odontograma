@@ -1592,7 +1592,6 @@ Engine.prototype.togglePrintPreview = function () {
         this.hidePrintPreview();
     } else {
         this.showPrintPreview();
-        this.print();
     }
 
 };
@@ -1748,20 +1747,15 @@ Engine.prototype.createHeader = function () {
 
     var seperation = 18;
 
-    this.renderer.renderTextCenter16("Odontograma",
+    this.renderer.renderTextCenter16("Odontogram",
         this.renderer.width / 2,
-        seperation,
-        "#000000");
-
-    this.renderer.renderText14("Fecha: 28/02/2018",
-        this.renderer.width / 2 + 150,
         seperation,
         "#000000");
 
     seperation = 20;
 
 
-    this.renderer.renderText14("Sede",
+    this.renderer.renderText14("Office",
         4,
         seperation * 2,
         "#000000");
@@ -1771,18 +1765,8 @@ Engine.prototype.createHeader = function () {
         seperation * 2,
         "#000000");
 
-    this.renderer.renderText14("Nro. HC",
-        this.renderer.width / 2,
-        seperation * 2,
-        "#000000");
 
-    this.renderer.renderText14(": " + this.treatmentData.number,
-        this.renderer.width / 2 + 120,
-        seperation * 2,
-        "#000000");
-
-
-    this.renderer.renderText14("Paciente",
+    this.renderer.renderText14("Patient",
         4,
         seperation * 3,
         "#000000");
@@ -1793,7 +1777,7 @@ Engine.prototype.createHeader = function () {
         "#000000");
 
 
-    this.renderer.renderText14("Nro. Consulta",
+    this.renderer.renderText14("Appoint No.",
         4,
         seperation * 4,
         "#000000");
@@ -1803,7 +1787,7 @@ Engine.prototype.createHeader = function () {
         seperation * 4,
         "#000000");
 
-    this.renderer.renderText14("Fecha de consulta",
+    this.renderer.renderText14("Date",
         this.renderer.width / 2,
         seperation * 4,
         "#000000");
@@ -1813,7 +1797,7 @@ Engine.prototype.createHeader = function () {
         seperation * 4,
         "#000000");
 
-    this.renderer.renderText14("Odontólogo",
+    this.renderer.renderText14("Dentist",
         4,
         seperation * 5,
         "#000000");
@@ -1849,11 +1833,11 @@ Engine.prototype.printPreview = function () {
             128, 15, "#000000");
     }
 
-    this.renderer.renderText("Especificaciones: ", 4, 1100, "#000000");
+    this.renderer.renderText("Specifications: ", 4, 1200, "#000000");
 
-    this.renderer.wrapText(this.treatmentData.specs, 8, 1122, this.renderer.width - 8, 14, 5);
+    this.renderer.wrapText(this.treatmentData.specs, 8, 1222, this.renderer.width - 8, 14, 5);
 
-    this.renderer.renderText("Observaciones: ", 4, 1300, "#000000");
+    this.renderer.renderText("Observations: ", 4, 1300, "#000000");
 
     this.renderer.wrapText(this.treatmentData.observations, 8, 1322, this.renderer.width - 8, 14, 5);
 };
