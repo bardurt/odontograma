@@ -1,6 +1,7 @@
 # Odontogram
 A virtual Odontogram in JavaScript.
 
+![demo](docs/demo.gif)
 
 This is a work in progress, If you, dear reader, think you can make some improvements please feel free.
 
