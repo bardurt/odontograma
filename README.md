@@ -7,7 +7,7 @@
       <img src="https://img.shields.io/github/forks/bardurt/odontograma?style=plastic"/>
     </td>
     <td>
-      <img src ="https://img.shields.io/github/license/bardurt/odontograma?style=plastic"/> 
+      <a href="https://raw.githubusercontent.com/bardurt/odontograma/master/LICENSE"><img src ="https://img.shields.io/github/license/bardurt/odontograma?style=plastic"/> </a>
     </td>
   </tr>
 </table>
