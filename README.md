@@ -7,12 +7,3 @@
 A virtual Odontogram in JavaScript.
 
 ![demo](docs/demo.gif)
-
-
-### Adult
-![odontograma](docs/preview_adult_teeth.png)
-
-
-
-### Child
-![odontograma](docs/preview_child_teeth.png)
