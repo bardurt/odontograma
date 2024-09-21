@@ -72,19 +72,19 @@ MenuItem.prototype.renderStateNormal = function (context) {
 
     context.beginPath();
     context.globalAlpha = 1;
-    context.fillStyle = "#bdbee8";
+    context.fillStyle = "#ebf3f5";
     context.fillRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
 
-    context.fillStyle = "#d1d2f5";
+    context.fillStyle = "#f9fbfc";
     context.fillRect(this.rect.x, this.rect.y, this.rect.width, portion);
 
-    context.fillStyle = "#ecedf5";
+    context.fillStyle = "#f9f9f9";
     context.fillRect(this.rect.x, this.rect.y, this.rect.width, 1);
 
-    context.fillStyle = "#9c9dc4";
+    context.fillStyle = "#e5eef1";
     context.fillRect(this.rect.x, this.rect.y + (portion * 4), this.rect.width, portion);
 
-    context.fillStyle = "#515175";
+    context.fillStyle = "#e9eef0";
     context.fillRect(this.rect.x, this.rect.y + (this.rect.height -1), this.rect.width, 1);
 
     context.globalAlpha = 1;
@@ -135,6 +135,7 @@ MenuItem.prototype.renderStateFocus = function (context) {
     context.fillStyle = "#b2dee7";
     context.fillRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
     context.globalAlpha = 1.0;
+    this.rect.outline(context ,"#35353f")
     context.restore();
 
 };

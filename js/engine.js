@@ -184,7 +184,7 @@ Engine.prototype.init = function () {
 
     this.clear = new MenuItem()
     this.clear = new MenuItem();
-    this.clear.setUp(this.canvas.width - 76, 150, 75, 20);
+    this.clear.setUp((this.canvas.width-10) - 76, 150, 75, 20);
     this.clear.textBox.text = "Reset";
     this.clear.active = false;
     this.buttons.push(this.clear);
@@ -982,6 +982,32 @@ Engine.prototype.mouseMoveMenuItems = function (event) {
         }
     }
 
+    if (this.child.rect.checkCollision(this.getXpos(event),
+        this.getYpos(event))) {
+        this.child.highlight = true;
+        update = true;
+    } else {
+        this.child.highlight = false;
+    }
+
+
+    if (this.adult.rect.checkCollision(this.getXpos(event),
+        this.getYpos(event))) {
+        this.adult.highlight = true;
+        update = true;
+    } else {
+        this.adult.highlight = false;
+    }
+
+    if (this.clear.rect.checkCollision(this.getXpos(event),
+        this.getYpos(event))) {
+        this.clear.highlight = true;
+        update = true;
+    } else {
+        this.clear.highlight = false;
+    }
+
+
     if (update) {
         this.update();
     }
@@ -1005,7 +1031,7 @@ Engine.prototype.onMouseMove = function (event) {
         } else {
 
             this.mouseMoveTeeth(event);
-            
+
         }
 
         this.mouseMoveMenuItems(event);
@@ -1905,7 +1931,7 @@ Engine.prototype.createMenu = function () {
 
     let buttonWidth = 100;
     let buttonHeight = 20;
-    let startX = (this.canvas.width /2) - ((buttonWidth*6)/2);
+    let startX = (this.canvas.width / 2) - ((buttonWidth * 6) / 2);
 
     let posY = 10;
     let ySeparator = 0;
@@ -1924,7 +1950,7 @@ Engine.prototype.createMenu = function () {
     this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Fracture", 5);
     posX = posX + xSeparator;
     this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Diastema", 8);
-    
+
     posY = posY + buttonHeight + ySeparator;
     posX = startX;
 
@@ -1972,7 +1998,7 @@ Engine.prototype.createMenu = function () {
 
     posY = posY + buttonHeight + ySeparator;
     posX = startX;
- 
+
     this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Worn", 37);
     posX = posX + xSeparator;
     this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Impacted Semi", 30);
@@ -1993,7 +2019,7 @@ Engine.prototype.createMenu = function () {
     this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Extrusion", 9);
     posX = posX + xSeparator;
     this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Post", 10);
-    
+
 }
 
 
