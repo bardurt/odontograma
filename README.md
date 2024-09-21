@@ -1,6 +1,7 @@
-![GutHub Stars](https://img.shields.io/github/stars/bardurt/odontograma?style=plastic)
+![GitHub Created At](https://img.shields.io/github/created-at/bardurt/odontograma?style=plastic)
+![GitHub Stars](https://img.shields.io/github/stars/bardurt/odontograma?style=plastic)
 ![GitHub Forks](https://img.shields.io/github/forks/bardurt/odontograma?style=plastic)
-![GitHub license](https://img.shields.io/github/license/bardurt/odontograma?style=plastic)
+![GitHub License](https://img.shields.io/github/license/bardurt/odontograma?style=plastic)
 
 # Odontogram
 A virtual Odontogram in JavaScript.
