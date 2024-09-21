@@ -3,7 +3,7 @@
 ![GitHub Forks](https://img.shields.io/github/forks/bardurt/odontograma?style=plastic)
 ![GitHub License](https://img.shields.io/github/license/bardurt/odontograma?style=plastic)
 
-# Odontogram
+# Odontograph
 A virtual Odontogram in JavaScript.
 
 ![demo](docs/demo.gif)
